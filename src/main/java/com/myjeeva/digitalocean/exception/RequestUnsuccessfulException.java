@@ -21,47 +21,24 @@
  * THE SOFTWARE. 
  * 
  */
-package com.myjeeva.digitalocean.pojo;
+package com.myjeeva.digitalocean.exception;
 
 /**
- * Represents Region (aka Data Center) attributes of DigitalOcean
+ * <code>RequestUnsuccessfulException</code> will be thrown if any RESTful
+ * request unsuccessfull from wrapper method
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class Region {
+public class RequestUnsuccessfulException extends Exception {
 
-	private Integer id;
+	private static final long serialVersionUID = 6949447731150358499L;
 
-	private String name;
-
-	/**
-	 * @return the id
-	 */
-	public Integer getId() {
-		return id;
+	public RequestUnsuccessfulException(String msg) {
+		super(msg);
 	}
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
+	public RequestUnsuccessfulException(String msg, Throwable t) {
+		super(msg, t);
 	}
 
 }

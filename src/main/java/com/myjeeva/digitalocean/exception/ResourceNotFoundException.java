@@ -21,47 +21,24 @@
  * THE SOFTWARE. 
  * 
  */
-package com.myjeeva.digitalocean.pojo;
+package com.myjeeva.digitalocean.exception;
 
 /**
- * Represents Region (aka Data Center) attributes of DigitalOcean
+ * <code>ResourceNotFoundException</code> will be thrown, while DigitalOcean
+ * status code is 404, then api-client will this exception
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class Region {
+public class ResourceNotFoundException extends Exception {
 
-	private Integer id;
+	private static final long serialVersionUID = 1312845736236469187L;
 
-	private String name;
-
-	/**
-	 * @return the id
-	 */
-	public Integer getId() {
-		return id;
+	public ResourceNotFoundException(String msg) {
+		super(msg);
 	}
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
+	public ResourceNotFoundException(String msg, Throwable t) {
+		super(msg, t);
 	}
 
 }
