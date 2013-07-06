@@ -1,0 +1,126 @@
+/* CSS stylesheet for Javadoc - myjeeva.com */
+
+body {
+	background-color: #FFFFFF;
+	color:#2A3C59;
+	font-family: Calibri, Verdana, sans-serif;
+	font-size: small;
+}
+
+a {
+	color: #526579;
+}
+
+/* Headings */
+h1 {
+	font-size: 145%;
+}
+
+/* Table styles */
+table {
+	border: 0px;
+	/*background-color: #fff;*/
+	border-style: none;
+}
+
+tr {
+	background-color: transparent;
+}
+
+td {
+	border: 0px;
+}
+
+tr.TableHeadingColor th {
+	color: #EAEEF2;
+	background-color: #2B3957;
+	border: 0px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+tr.TableHeadingColor a {
+	color: #D0E3F6;
+	text-decoration: none;
+}
+tr.TableHeadingColor a:hover {
+	color: #D0E3F6;
+	text-decoration: underline;
+}
+
+tr.TableSubHeadingColor th { /* Lighter grey */
+	background-color: #4A6595;
+	color: #E1E7ED;
+	border: 0px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.TableRowColor {
+	background: #e1e1e1;
+	color: #526579;
+}
+
+/* Font used in left-hand frame lists */
+.FrameTitleFont {
+	font-size: 16px;
+	color:#526579;
+}
+.FrameHeadingFont {
+	font-size: 90%;
+	color: #2A3C59;
+}
+.FrameItemFont {
+	font-size: 90%;
+	color: #526579;
+}
+
+/* Navigation bar fonts and colors */
+.NavBarCell1 { /* Light grey */
+	background-color: #C8D0DD;
+	color: #526579;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+.NavBarCell1Rev { /* Dark grey */
+	background-color: #2A3C59;
+	color: #FFFFFF;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+.NavBarFont1 {
+	color: #526579;
+}
+.NavBarFont1Rev {
+	color: #FFFFFF;
+}
+
+.NavBarCell2 {
+	background-color: #FFFFFF;
+	color: #526579;
+}
+.NavBarCell3 {
+	background-color: #FFFFFF;
+	color: #2A3C59;
+}
+
+.license-info {
+	font-size: 12px;
+}
+
+.license-info a {
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.license-info a:hover { 
+	text-decoration: underline;
+}
+
+.license-info span {	
+	font-size: 11px;
+	font-style: italic;
+}
+
+.license-info span a {	
+	font-size: 10px;
+}

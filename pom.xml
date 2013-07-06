@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	Title		: Java Bindings for DigitalOcean API's
+	Copyright	: (c) myjeeva.com
+	@filename	: pom.xml 
+	@author		: <a href="jeeva@myjeeva.com">Jeevanandam M.</a>
+	@date		: Jun 15, 2013 11:20:42 PM GMT+05:30
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+    	<groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+    	<version>7</version>
+    </parent>
+    
+	<groupId>com.myjeeva.digitalocean</groupId>
+	<artifactId>api-client</artifactId>
+	<packaging>jar</packaging>
+	<name>DigitalOcean API Client in Java</name>
+	<version>1.0-SNAPSHOT</version>
+	<description>Project of DigitalOcean API Client in Java</description>
+	<url>http://myjeeva.com/digitalocean-api.html</url>
+	<licenses>
+		<license>
+			<name>The MIT License (MIT)</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<scm>
+    	<connection>scm:git:git@github.com:jeevatkm/digitalocean-api-java.git</connection>
+    	<developerConnection>scm:git:git@github.com:jeevatkm/digitalocean-api-java.git</developerConnection>
+    	<url>git@github.com:jeevatkm/digitalocean-api-java.git</url>
+  	</scm>
+	<developers>
+        <developer>
+                <id>jeevatkm</id>
+                <name>Jeevanandam M.</name>
+                <email>jeeva@myjeeva.com</email>
+                <url>http://myjeeva.com</url>                
+        </developer>
+    </developers>
+    
+    <properties>
+		<javadoc.output.basepath>${basedir}/javadoc/docs</javadoc.output.basepath>
+	</properties>
+
+	<!-- Dependencies -->
+    <dependencies>
+    	<dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.2.5</version> 
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+		<dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.9</version>
+        </dependency>
+     </dependencies>
+     <build>
+          <defaultGoal>install</defaultGoal>
+
+          <pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+						<fork>false</fork>
+						<compilerArguments>
+							<Xmaxerrs>1000</Xmaxerrs>
+						</compilerArguments>
+					</configuration>
+				</plugin>
+          		<plugin>
+				   <groupId>org.apache.maven.plugins</groupId>
+				   <artifactId>maven-javadoc-plugin</artifactId>
+				   <version>2.9</version>
+				   <configuration>
+					   	<doctitle>${project.name}(${project.version})</doctitle>
+					   	<validateLinks>true</validateLinks>
+					   	<detectLinks>true</detectLinks>
+					   	<charset>UTF-8</charset>
+					   	<header>${project.name}</header>
+					   	<bottom><![CDATA[<div class="license-info">Copyright &#169; 2013 <a href="http://www.myjeeva.com" target="_blank">myjeeva.com</a>, All rights reserved. <br/><br/><span>The copyright of the pages and contents on this website is with myjeeva.com and the content is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-Share Alike 3.0 Unported License</a>. Libraries and code snippets on myjeeva.com has license information.</span></div>]]> </bottom>
+				    	<footer>${project.name}</footer>
+				    	<stylesheetfile>${basedir}/javadoc/stylesheets/stylesheet.css</stylesheetfile>
+				    	<docfilessubdirs>true</docfilessubdirs>
+				    	<verbose>true</verbose>
+				    	<reportOutputDirectory>${javadoc.output.basepath}</reportOutputDirectory>
+				    	<destDir>${project.version}</destDir>
+					</configuration>
+				</plugin>
+			</plugins>
+         </pluginManagement>
+      </build>	
+</project>
