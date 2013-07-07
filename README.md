@@ -76,6 +76,7 @@ Supported DigitalOcean API's
         * DropletImage getImageInfo(Integer imageId)
         * Response deleteImage(Integer imageId)
         * Response transerImage(Integer imageId, Integer regionId)
+    * `Sizes Methods` 
         * List<DropletSize> getAvailableSizes()	
 
 
