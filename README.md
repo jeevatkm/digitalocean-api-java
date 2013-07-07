@@ -9,7 +9,7 @@ How to make use of client?
 * Maven Dependency
 <pre><code>&lt;dependency>
     &lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
-    &lt;artifactId>api-client&lt;/artifactId>
+    &lt;artifactId>digitalocean-api-client&lt;/artifactId>
     &lt;version>1.0&lt;/version>
 &lt;/dependency></code></pre>
 

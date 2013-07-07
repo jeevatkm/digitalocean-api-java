@@ -27,6 +27,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +47,7 @@ import com.myjeeva.digitalocean.pojo.Response;
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
+@Ignore
 public class DigitalOceanTest extends TestCase {
 
 	private final Logger LOG = LoggerFactory.getLogger(DigitalOceanTest.class);

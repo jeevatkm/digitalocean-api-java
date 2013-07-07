@@ -15,10 +15,10 @@
     </parent>
     
 	<groupId>com.myjeeva.digitalocean</groupId>
-	<artifactId>api-client</artifactId>
+	<artifactId>digitalocean-api-client</artifactId>
 	<packaging>jar</packaging>
 	<name>DigitalOcean API Client in Java</name>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<description>Project of DigitalOcean API Client in Java</description>
 	<url>http://myjeeva.com/digitalocean-api.html</url>
 	<licenses>
@@ -102,12 +102,13 @@
 					   	<detectLinks>true</detectLinks>
 					   	<charset>UTF-8</charset>
 					   	<header>${project.name}</header>
-					   	<bottom><![CDATA[<div class="license-info">Copyright &#169; 2013 <a href="http://www.myjeeva.com" target="_blank">myjeeva.com</a>, All rights reserved. <br/><br/><span>The copyright of the pages and contents on this website is with myjeeva.com and the content is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-Share Alike 3.0 Unported License</a>. Libraries and code snippets on myjeeva.com has license information.</span></div>]]> </bottom>
+					   	<bottom><![CDATA[<div class="license-info">Copyright &#169; 2013 <a href="http://www.myjeeva.com" target="_blank">myjeeva.com</a>, All rights reserved. <br /><br /><span>The copyright of the pages and contents on this website is with myjeeva.com and the content is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-Share Alike 3.0 Unported License</a>. Libraries and code snippets on myjeeva.com has license information.</span></div>]]> </bottom>
 				    	<footer>${project.name}</footer>
 				    	<stylesheetfile>${basedir}/javadoc/stylesheets/stylesheet.css</stylesheetfile>
 				    	<docfilessubdirs>true</docfilessubdirs>
 				    	<verbose>true</verbose>
-				    	<reportOutputDirectory>${javadoc.output.basepath}</reportOutputDirectory>
+				    	<reportOutputDirectory>${basedir}/javadoc/docs</reportOutputDirectory>
+				    	<!-- <reportOutputDirectory>${javadoc.output.basepath}</reportOutputDirectory> -->
 				    	<destDir>${project.version}</destDir>
 					</configuration>
 				</plugin>
