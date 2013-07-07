@@ -4,7 +4,7 @@
 	Copyright	: (c) myjeeva.com
 	@filename	: pom.xml 
 	@author		: <a href="jeeva@myjeeva.com">Jeevanandam M.</a>
-	@date		: Jun 15, 2013 11:20:42 PM GMT+05:30
+	@date		: Jun 28, 2013 11:20:42 PM GMT+05:30
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -43,8 +43,8 @@
     </developers>
     
     <properties>
-		<javadoc.output.basepath>${basedir}/javadoc/docs</javadoc.output.basepath>
-	</properties>
+	<javadoc.output.basepath>${basedir}/javadoc/docs</javadoc.output.basepath>
+    </properties>
 
 	<!-- Dependencies -->
     <dependencies>
@@ -63,15 +63,16 @@
             <artifactId>slf4j-jdk14</artifactId>
             <version>1.7.5</version>
         </dependency>
-		<dependency>
+	<dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
         <dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.9</version>
+            <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.9</version>
+	    <scope>test</scope>
         </dependency>
      </dependencies>
      <build>
