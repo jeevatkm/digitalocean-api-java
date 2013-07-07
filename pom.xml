@@ -14,11 +14,11 @@
     	<version>7</version>
     </parent>
     
-	<groupId>com.myjeeva.digitalocean</groupId>
+	<groupId>com.myjeeva</groupId>
 	<artifactId>digitalocean-api-client</artifactId>
 	<packaging>jar</packaging>
 	<name>DigitalOcean API Client in Java</name>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<description>Project of DigitalOcean API Client in Java</description>
 	<url>http://myjeeva.com/digitalocean-api.html</url>
 	<licenses>
