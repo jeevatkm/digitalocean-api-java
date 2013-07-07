@@ -83,7 +83,7 @@ Supported DigitalOcean API's
 Issue Tracker
 -------------
 
-Please submit any bugs or annoyances on the [Issues][4]
+Please submit any bugs or annoyances on the [Issues][3]
 
 License
 -------
@@ -92,6 +92,5 @@ See *LICENSE.txt*
 
 
 [1]: https://api.digitalocean.com/
-[2]: 
-[3]: 
-[4]: https://github.com/jeevatkm/digitalocean-api-java/issues
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.0/
+[3]: https://github.com/jeevatkm/digitalocean-api-java/issues
