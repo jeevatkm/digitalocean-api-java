@@ -32,126 +32,145 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Droplet {
 
-    private Integer id;
+	private Integer id;
 
-    private String name;
+	private String name;
 
-    @SerializedName("image_id")
-    private Integer imageId;
+	@SerializedName("image_id")
+	private Integer imageId;
 
-    @SerializedName("region_id")
-    private Integer regionId;
+	@SerializedName("region_id")
+	private Integer regionId;
 
-    @SerializedName("size_id")
-    private Integer sizeId;
+	@SerializedName("size_id")
+	private Integer sizeId;
 
-    @SerializedName("backups_active")
-    private String backupsActive;
+	@SerializedName("backups_active")
+	private String backupsActive;
 
-    private String status;
+	private String status;
 
-    /**
-     * @return the id
-     */
-    public Integer getId() {
-	return id;
-    }
+	@SerializedName("event_id")
+	private Long eventId;
 
-    /**
-     * @param id
-     *            the id to set
-     */
-    public void setId(Integer id) {
-	this.id = id;
-    }
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-	return name;
-    }
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    /**
-     * @param name
-     *            the name to set
-     */
-    public void setName(String name) {
-	this.name = name;
-    }
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * @return the imageId
-     */
-    public Integer getImageId() {
-	return imageId;
-    }
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    /**
-     * @param imageId
-     *            the imageId to set
-     */
-    public void setImageId(Integer imageId) {
-	this.imageId = imageId;
-    }
+	/**
+	 * @return the imageId
+	 */
+	public Integer getImageId() {
+		return imageId;
+	}
 
-    /**
-     * @return the regionId
-     */
-    public Integer getRegionId() {
-	return regionId;
-    }
+	/**
+	 * @param imageId
+	 *            the imageId to set
+	 */
+	public void setImageId(Integer imageId) {
+		this.imageId = imageId;
+	}
 
-    /**
-     * @param regionId
-     *            the regionId to set
-     */
-    public void setRegionId(Integer regionId) {
-	this.regionId = regionId;
-    }
+	/**
+	 * @return the regionId
+	 */
+	public Integer getRegionId() {
+		return regionId;
+	}
 
-    /**
-     * @return the sizeId
-     */
-    public Integer getSizeId() {
-	return sizeId;
-    }
+	/**
+	 * @param regionId
+	 *            the regionId to set
+	 */
+	public void setRegionId(Integer regionId) {
+		this.regionId = regionId;
+	}
 
-    /**
-     * @param sizeId
-     *            the sizeId to set
-     */
-    public void setSizeId(Integer sizeId) {
-	this.sizeId = sizeId;
-    }
+	/**
+	 * @return the sizeId
+	 */
+	public Integer getSizeId() {
+		return sizeId;
+	}
 
-    /**
-     * @return the backupsActive
-     */
-    public String getBackupsActive() {
-	return backupsActive;
-    }
+	/**
+	 * @param sizeId
+	 *            the sizeId to set
+	 */
+	public void setSizeId(Integer sizeId) {
+		this.sizeId = sizeId;
+	}
 
-    /**
-     * @param backupsActive
-     *            the backupsActive to set
-     */
-    public void setBackupsActive(String backupsActive) {
-	this.backupsActive = backupsActive;
-    }
+	/**
+	 * @return the backupsActive
+	 */
+	public String getBackupsActive() {
+		return backupsActive;
+	}
 
-    /**
-     * @return the status
-     */
-    public String getStatus() {
-	return status;
-    }
+	/**
+	 * @param backupsActive
+	 *            the backupsActive to set
+	 */
+	public void setBackupsActive(String backupsActive) {
+		this.backupsActive = backupsActive;
+	}
 
-    /**
-     * @param status
-     *            the status to set
-     */
-    public void setStatus(String status) {
-	this.status = status;
-    }
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status
+	 *            the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	/**
+	 * @return the eventId
+	 */
+	public Long getEventId() {
+		return eventId;
+	}
+
+	/**
+	 * @param eventId
+	 *            the eventId to set
+	 */
+	public void setEventId(Long eventId) {
+		this.eventId = eventId;
+	}
+
 }

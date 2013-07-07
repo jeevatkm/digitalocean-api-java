@@ -34,6 +34,8 @@ public class Region {
 
 	private String name;
 
+	private String slug;
+
 	/**
 	 * @return the id
 	 */
@@ -62,6 +64,21 @@ public class Region {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the slug
+	 */
+	public String getSlug() {
+		return slug;
+	}
+
+	/**
+	 * @param slug
+	 *            the slug to set
+	 */
+	public void setSlug(String slug) {
+		this.slug = slug;
 	}
 
 }

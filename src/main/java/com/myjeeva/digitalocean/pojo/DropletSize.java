@@ -24,20 +24,22 @@
 package com.myjeeva.digitalocean.pojo;
 
 /**
- * Represents Droplet Plan (aka Droplet Size) attributes of DigitalOcean
+ * Represents Droplet Size (aka Droplet Plan) attributes of DigitalOcean
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class DropletPlan {
+public class DropletSize {
 
 	private Integer id;
 
 	private String name;
 
+	private String slug;
+
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -45,7 +47,7 @@ public class DropletPlan {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -63,4 +65,20 @@ public class DropletPlan {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	/**
+	 * @return the slug
+	 */
+	public String getSlug() {
+		return slug;
+	}
+
+	/**
+	 * @param slug
+	 *            the slug to set
+	 */
+	public void setSlug(String slug) {
+		this.slug = slug;
+	}
+
 }

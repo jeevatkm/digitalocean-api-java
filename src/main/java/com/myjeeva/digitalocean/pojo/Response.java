@@ -23,6 +23,8 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Represents generic response return object of DigitalOcean API request
  * 
@@ -32,15 +34,8 @@ public class Response {
 
 	private String status;
 
-	private String jsonData;
-
-	private Integer eventId;
-
-	public Response(String status, Integer eventId, String jsonData) {
-		this.status = status;
-		this.jsonData = jsonData;
-		this.eventId = eventId;
-	}
+	@SerializedName("event_id")
+	private Long eventId;
 
 	/**
 	 * @return the status
@@ -58,24 +53,9 @@ public class Response {
 	}
 
 	/**
-	 * @return the jsonData
-	 */
-	public String getJsonData() {
-		return jsonData;
-	}
-
-	/**
-	 * @param jsonData
-	 *            the jsonData to set
-	 */
-	public void setJsonData(String jsonData) {
-		this.jsonData = jsonData;
-	}
-
-	/**
 	 * @return the eventId
 	 */
-	public Integer getEventId() {
+	public Long getEventId() {
 		return eventId;
 	}
 
@@ -83,7 +63,7 @@ public class Response {
 	 * @param eventId
 	 *            the eventId to set
 	 */
-	public void setEventId(Integer eventId) {
+	public void setEventId(Long eventId) {
 		this.eventId = eventId;
 	}
 
