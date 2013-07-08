@@ -28,7 +28,7 @@ package com.myjeeva.digitalocean.common;
  * 
  * @author Jeevanandam (jeeva@myjeeva.com)
  */
-public enum DoAction {
+public enum Action {
 
     AVAILABLE_DROPLETS("/droplets/", "droplets"),
     CREATE_DROPLET("/droplets/new/", "droplet"),
@@ -72,11 +72,11 @@ public enum DoAction {
 	
 	private String elementName;
 	
-	DoAction(String mapPath) {
+	Action(String mapPath) {
 		this(mapPath, "");
 	}
 
-	DoAction(String mapPath, String elementName) {
+	Action(String mapPath, String elementName) {
 		this.mapPath = mapPath;
 		this.elementName = elementName;
 	}
