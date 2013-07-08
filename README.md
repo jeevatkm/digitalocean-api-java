@@ -22,6 +22,8 @@ How to make use of digitalocean-api-client?
 &lt;/dependency></code></pre>
 
 
+* Download Binary [digitalocean-api-client-1.1.jar][8]
+
 * Clone/Download the repo [http://github.com/jeevatkm/digitalocean-api-java] and build it!
 
 
@@ -120,9 +122,10 @@ See [LICENSE.txt][6]
 
 
 [1]: https://api.digitalocean.com/
-[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.0/
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.1/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/
 [5]: http://myjeeva.com
 [6]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/LICENSE.txt
 [7]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanTest.java
+[8]: https://www.box.com/s/q4s3r4galsgqug21tnfv
