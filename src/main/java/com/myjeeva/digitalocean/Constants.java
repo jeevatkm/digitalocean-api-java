@@ -44,6 +44,7 @@ public interface Constants {
 	String PARAM_REGION_ID = "region_id";
 	String PARAM_IMAGE_ID = "image_id";
 	String PARAM_SSH_KEY_IDS = "ssh_key_ids";
+	String PARAM_IP_ADDRESS = "ip_address";
 
 	// JSON Element Name
 	String STATUS = "status";

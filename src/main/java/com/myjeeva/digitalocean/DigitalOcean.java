@@ -25,6 +25,7 @@ package com.myjeeva.digitalocean;
 
 import java.util.List;
 
+import com.google.gson.JsonSyntaxException;
 import com.myjeeva.digitalocean.exception.AccessDeniedException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
@@ -574,33 +575,61 @@ public interface DigitalOcean {
 	 */
 	/**
 	 * To be release in v1.1
+	 * @throws RequestUnsuccessfulException 
+	 * @throws ResourceNotFoundException 
+	 * @throws AccessDeniedException 
 	 */
-	List<Domain> getAvailableDomains();
+	List<Domain> getAvailableDomains() throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException;
 
 	/**
 	 * To be release in v1.1
+	 * @throws RequestUnsuccessfulException 
+	 * @throws ResourceNotFoundException 
+	 * @throws AccessDeniedException 
 	 */
-	Domain getDomainInfo(Integer domainId);
+	Domain getDomainInfo(Integer domainId) throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException;
 
 	/**
 	 * To be release in v1.1
+	 * @throws RequestUnsuccessfulException 
+	 * @throws ResourceNotFoundException 
+	 * @throws AccessDeniedException 
 	 */
-	Domain createDomain(String domainName, String ipAddress);
+	Domain createDomain(String domainName, String ipAddress)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException;
 
 	/**
 	 * To be release in v1.1
+	 * @throws RequestUnsuccessfulException 
+	 * @throws ResourceNotFoundException 
+	 * @throws AccessDeniedException 
 	 */
-	Domain deleteDomain(Integer domainId);
+	Response deleteDomain(Integer domainId) throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException;
 
 	/**
 	 * To be release in v1.1
+	 * @throws RequestUnsuccessfulException 
+	 * @throws ResourceNotFoundException 
+	 * @throws AccessDeniedException 
+	 * @throws JsonSyntaxException 
 	 */
-	List<DomainRecord> getDomainRecords(Integer domainId);
+	List<DomainRecord> getDomainRecords(Integer domainId)
+			throws JsonSyntaxException, AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException;
 
 	/**
 	 * To be release in v1.1
+	 * @throws RequestUnsuccessfulException 
+	 * @throws ResourceNotFoundException 
+	 * @throws AccessDeniedException 
 	 */
-	DomainRecord getDomainRecord(Integer domainId, Integer recordId);
+	DomainRecord getDomainRecord(Integer domainId, Integer recordId)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException;
 
 	/**
 	 * To be release in v1.1
@@ -614,7 +643,12 @@ public interface DigitalOcean {
 
 	/**
 	 * To be release in v1.1
+	 * @throws RequestUnsuccessfulException 
+	 * @throws ResourceNotFoundException 
+	 * @throws AccessDeniedException 
 	 */
-	Response deleteDomainRecord(Integer domainId, Integer recordId);
+	Response deleteDomainRecord(Integer domainId, Integer recordId)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException;
 
 }

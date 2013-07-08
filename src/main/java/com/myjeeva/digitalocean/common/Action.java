@@ -60,7 +60,7 @@ public enum Action {
     AVAILABLE_SIZES("/sizes/", "sizes"),
     AVAILABLE_DOMAINS("/domains/", "domains"),
     CREATE_DOMAIN("/domains/new", "domain"),
-    GET_DOMAIN("/domains/%s/", "domain"),
+    GET_DOMAIN_INFO("/domains/%s/", "domain"),
     DELETE_DOMAIN("/domains/%s/destroy/"),
     GET_DOMAIN_RECORDS("/domains/%s/records/", "records"),
     CREATE_DOMAIN_RECORD("/domains/%s/records/new/", "domain_record"),

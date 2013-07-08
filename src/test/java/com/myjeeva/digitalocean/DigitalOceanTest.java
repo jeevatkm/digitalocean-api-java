@@ -36,6 +36,8 @@ import com.myjeeva.digitalocean.exception.AccessDeniedException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
 import com.myjeeva.digitalocean.impl.DigitalOceanClient;
+import com.myjeeva.digitalocean.pojo.Domain;
+import com.myjeeva.digitalocean.pojo.DomainRecord;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.DropletImage;
 import com.myjeeva.digitalocean.pojo.DropletSize;
@@ -60,44 +62,20 @@ public class DigitalOceanTest extends TestCase {
 	private final Logger LOG = LoggerFactory.getLogger(DigitalOceanTest.class);
 
 	/**
-	 * place your client id for test case
+	 * this is testing values of my own respective to DigitalOcean account, so place your's for test case before use
 	 */
 	private String clientId = "";
-
-	/**
-	 * place your apiKey for test case
-	 */
-	private String apiKey = "";
-
-	/**
-	 * y testing droplet id, replace it with your for test case
-	 */
+	private String apiKey = "";	
 	private Integer dropletId = 273221;
-
-	/**
-	 * 1GB plan
-	 */
-	private Integer sizeId = 63;
-
-	/**
-	 * my droplet data backup image id, replace it with your backup image id
-	 */
-	private Integer restoreImageId = 502930;
-
-	/**
-	 * Debian 7.0 x64 image id
-	 */
-	private Integer imageId = 308287;
-
-	/**
-	 * Region Id 1 is New York
-	 */
-	private Integer regionId = 1;
-
-	/**
-	 * This testing snapshot image id, so place your's for test case before use
-	 */
-	private Integer deleteImageId = 506262;
+	private Integer sizeId = 63; // 1GB plan
+	private Integer restoreImageId = 502930; // my droplet data backup image id
+	private Integer imageId = 308287; // Debian 7.0 x64 image id
+	private Integer regionId = 1; // Region Id 1 is New York
+	private Integer deleteImageId = 506262; // my droplet snapshot image id
+	private Integer domainId = 44653; // my domain id
+	private Integer deleteDomainId = 44653; // my specfic domain id for deletion test
+	private String domainName = ""; // my domain name
+	private String dropletIpAddress = ""; // my droplet Ip Address 
 
 	private DigitalOcean apiClient = new DigitalOceanClient(clientId, apiKey);
 
@@ -108,10 +86,10 @@ public class DigitalOceanTest extends TestCase {
 		assertTrue((droplets.size() > 0));
 		assertNotNull(droplets);
 
-		Droplet droplet = droplets.get(0);
-		LOG.info("Droplet Id: " + droplet.getId() + ", Name: "
-				+ droplet.getName() + ", Status: " + droplet.getStatus());
-		LOG.info("All Droplets: " + droplets);
+		for (Droplet droplet : droplets) {
+			LOG.info("Droplet Id: " + droplet.getId() + ", Name: "
+					+ droplet.getName() + ", Status: " + droplet.getStatus());
+		}
 	}
 
 	@Test
@@ -241,9 +219,10 @@ public class DigitalOceanTest extends TestCase {
 		assertTrue((regions.size() > 0));
 		assertNotNull(regions);
 
-		Region region = regions.get(1);
-		LOG.info("Region Id: " + region.getId() + ", Region Name: "
-				+ region.getName() + ", Slug: " + region.getSlug());
+		for (Region region : regions) {
+			LOG.info("Region Id: " + region.getId() + ", Region Name: "
+					+ region.getName() + ", Slug: " + region.getSlug());
+		}
 	}
 
 	@Test
@@ -253,9 +232,11 @@ public class DigitalOceanTest extends TestCase {
 		assertTrue((images.size() > 0));
 		assertNotNull(images);
 
-		DropletImage img = images.get(1);
-		LOG.info("Image Id: " + img.getId() + ", Image Name: " + img.getName()
-				+ ", Distribution: " + img.getDistribution());
+		for (DropletImage img : images) {
+			LOG.info("Image Id: " + img.getId() + ", Image Name: "
+					+ img.getName() + ", Distribution: "
+					+ img.getDistribution());
+		}
 	}
 
 	@Test
@@ -293,10 +274,74 @@ public class DigitalOceanTest extends TestCase {
 		assertTrue((sizes.size() > 0));
 		assertNotNull(sizes);
 
-		DropletSize size = sizes.get(2);
-		LOG.info("Size Id: " + size.getId() + ", Size Name: " + size.getName()
-				+ ", Slug: " + size.getSlug());
+		for (DropletSize size : sizes) {
+			LOG.info("Size Id: " + size.getId() + ", Size Name: "
+					+ size.getName() + ", Slug: " + size.getSlug());
+		}
 	}
+
+	@Test
+	public void testGetAvailableDomains() throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+		List<Domain> domains = apiClient.getAvailableDomains();
+		assertTrue((domains.size() > 0));
+		assertNotNull(domains);
+
+		for (Domain d : domains) {
+			LOG.info("Domain Id: " + d.getId() + ", Domain Name: "
+					+ d.getName() + ", Time To Live: " + d.getTimeToLive());
+		}
+	}
+	
+	@Test
+	public void testGetDomainInfo() throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+		Domain domain = apiClient.getDomainInfo(domainId);
+		assertNotNull(domain);
+		
+		LOG.info("Domain Id: " + domain.getId() + ", Domain Name: "
+				+ domain.getName() + ", Time To Live: " + domain.getTimeToLive());
+	}
+	
+	@Test
+	public void testCreateDomain() throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+		Domain domain = apiClient.createDomain(domainName, dropletIpAddress);
+		assertNotNull(domain);
+
+		LOG.info("Domain Id: " + domain.getId() + ", Domain Name: "
+				+ domain.getName());
+	}
+	
+	@Test
+	public void testDeleteDomain() throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+		Response response = apiClient.deleteDomain(deleteDomainId);
+		assertNotNull(response.getEventId());
+
+		LOG.info("Response Status: " + response.getStatus());
+	}
+	
+	
+	@Test
+	public void testGetDomainRecords() throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+		List<DomainRecord> domainRecords = apiClient.getDomainRecords(domainId);
+		assertTrue((domainRecords.size() > 0));
+		assertNotNull(domainRecords);
+
+		for (DomainRecord dr : domainRecords) {
+			LOG.info("Domain Record Id: " + dr.getId() + ", Domain Id: "
+					+ dr.getDomainId() + ", Record Name: " + dr.getName()
+					+ ", Record Type: " + dr.getRecordType()
+					+ ", Record Data: " + dr.getData()
+					+ ", Record Priority: " + dr.getPriority()
+					+ ", Record Port: " + dr.getPort()
+					+ ", Record Weight: " + dr.getWeight());
+		}
+	}
+	
+
 
 	private void assertAndLogResponseValue(Response response) {
 		assertNotNull(response.getEventId());

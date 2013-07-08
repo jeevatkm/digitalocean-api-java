@@ -27,7 +27,7 @@ How to make use of digitalocean-api-client?
 Documentation
 -------------
 
-See [JavaDocs][2]
+See [JavaDocs - DigitalOcean API Client written in Java][2]
 
 Supported DigitalOcean API's
 ----------------------------
@@ -95,13 +95,19 @@ Issue Tracker
 
 Please submit any bugs or annoyances on the [Issues][3]
 
+Author
+------
+Jeevanandam M. - jeeva@myjeeva.com ([myjeeva.com][5])
+
 License
 -------
 
-See *LICENSE.txt*
+See [LICENSE.txt][6]
 
 
 [1]: https://api.digitalocean.com/
 [2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.0/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/
+[5]: http://myjeeva.com
+[6]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/LICENSE.txt

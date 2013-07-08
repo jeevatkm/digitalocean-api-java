@@ -47,6 +47,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.myjeeva.digitalocean.Constants;
 import com.myjeeva.digitalocean.DigitalOcean;
@@ -68,7 +69,6 @@ import com.myjeeva.digitalocean.pojo.SshKey;
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-@SuppressWarnings("unchecked")
 public class DigitalOceanClient implements DigitalOcean, Constants {
 
 	private final Logger LOG = LoggerFactory
@@ -93,7 +93,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	 * DigitalOcean API Host is <code>api.digitalocean.com</code>
 	 */
 	private String apiHost = "api.digitalocean.com";
-	
+
 	/**
 	 * Gson Parser
 	 */
@@ -111,22 +111,24 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	public DigitalOceanClient(String clientId, String apiKey) {
 		this.clientId = clientId;
 		this.apiKey = apiKey;
-		
-		// Initializing required variable
+
+		// Initializing required variable(s)
 		this.gson = new Gson();
-		this.httpClient = new DefaultHttpClient(new PoolingClientConnectionManager()); //DoUtils.getHttpClient();
+		this.httpClient = new DefaultHttpClient(
+				new PoolingClientConnectionManager());
 	}
 
 	@Override
 	public List<Droplet> getAvailableDroplets() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
-		JsonObject data = performAction(Action.AVAILABLE_DROPLETS);
-		Type collectionType = new TypeToken<List<Droplet>>() {}.getType();
-		return (List<Droplet>) gson.fromJson(
-				data.get(Action.AVAILABLE_DROPLETS.getElementName())
-						.toString(), collectionType);
+		Type type = new TypeToken<List<Droplet>>() {
+		}.getType();
+		return gson.fromJson(
+				performAction(Action.AVAILABLE_DROPLETS).get(
+						Action.AVAILABLE_DROPLETS.getElementName()).toString(),
+				type);
 	}
-	
+
 	@Override
 	public Droplet createDroplet(Droplet droplet) throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
@@ -141,16 +143,16 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 		Map<String, String> qp = new HashMap<String, String>();
 		qp.put(PARAM_NAME, droplet.getName());
 		qp.put(PARAM_SIDE_ID, String.valueOf(droplet.getSizeId()));
-		qp.put(PARAM_IMAGE_ID, String.valueOf(droplet.getImageId()));		
+		qp.put(PARAM_IMAGE_ID, String.valueOf(droplet.getImageId()));
 		qp.put(PARAM_REGION_ID, String.valueOf(droplet.getRegionId()));
-		
-		if(null != sshKeyIds) {
+
+		if (null != sshKeyIds) {
 			qp.put(PARAM_SSH_KEY_IDS, sshKeyIds);
 		}
-		
-		JsonObject data = performAction(Action.CREATE_DROPLET, qp);
+
 		return gson.fromJson(
-				data.get(Action.CREATE_DROPLET.getElementName()).toString(),
+				performAction(Action.CREATE_DROPLET, qp).get(
+						Action.CREATE_DROPLET.getElementName()).toString(),
 				Droplet.class);
 	}
 
@@ -158,83 +160,62 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	public Droplet getDropletInfo(Integer dropletId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {dropletId};
-		JsonObject data = performAction(Action.GET_DROPLET_INFO,
-				params);
-		return gson
-				.fromJson(
-						data.get(Action.GET_DROPLET_INFO.getElementName())
-								.toString(), Droplet.class);
+		return (Droplet) processByScope(Action.GET_DROPLET_INFO, Droplet.class,
+				dropletId);
 	}
 
 	@Override
 	public Response rebootDroplet(Integer dropletId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {dropletId};
-		JsonObject data = performAction(Action.REBOOT_DROPLET, params);
-		return gson.fromJson(data.toString(), Response.class);
+		return process(Action.REBOOT_DROPLET, dropletId);
 	}
 
 	@Override
 	public Response powerCyleDroplet(Integer dropletId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {dropletId};
-		JsonObject data = performAction(Action.POWER_CYCLE_DROPLET, params);
-		return gson.fromJson(data.toString(), Response.class);
+		return process(Action.POWER_CYCLE_DROPLET, dropletId);
 	}
 
 	@Override
 	public Response shutdownDroplet(Integer dropletId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {dropletId};
-		JsonObject data = performAction(Action.SHUTDOWN_DROPLET, params);
-		return gson.fromJson(data.toString(), Response.class);
+		return process(Action.SHUTDOWN_DROPLET, dropletId);
 	}
 
 	@Override
 	public Response powerOffDroplet(Integer dropletId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {dropletId};
-		JsonObject data = performAction(Action.POWER_OFF_DROPLET, params);
-		return gson.fromJson(data.toString(), Response.class);
+		return process(Action.POWER_OFF_DROPLET, dropletId);
 	}
 
 	@Override
 	public Response powerOnDroplet(Integer dropletId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {dropletId};
-		JsonObject data = performAction(Action.POWER_ON_DROPLET, params);
-		return gson.fromJson(data.toString(), Response.class);
+		return process(Action.POWER_ON_DROPLET, dropletId);
 	}
 
 	@Override
 	public Response resetDropletPassword(Integer dropletId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {dropletId};
-		JsonObject data = performAction(Action.RESET_PASSWORD_DROPLET, params);
-		return gson.fromJson(data.toString(), Response.class);
+		return process(Action.RESET_PASSWORD_DROPLET, dropletId);
 	}
 
 	@Override
 	public Response resizeDroplet(Integer dropletId, Integer sizeId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {dropletId};
-		
 		Map<String, String> qp = new HashMap<String, String>();
 		qp.put(PARAM_SIDE_ID, String.valueOf(sizeId));
 
-		JsonObject data = performAction(Action.RESET_PASSWORD_DROPLET, qp,
-				params);
-		return gson.fromJson(data.toString(), Response.class);
+		return process(Action.RESIZE_DROPLET, dropletId, qp);
 	}
-	
+
 	@Override
 	public Response takeDropletSnapshot(Integer dropletId)
 			throws AccessDeniedException, ResourceNotFoundException,
@@ -246,141 +227,114 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	public Response takeDropletSnapshot(Integer dropletId, String snapshotName)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {dropletId};
-		Map<String, String> qp = null;
-
-		if (null != snapshotName) {
-			qp = new HashMap<String, String>();
-			qp.put(PARAM_NAME, String.valueOf(snapshotName));
+		Response response = null;
+		if (null == snapshotName) {
+			response = process(Action.TAKE_DROPLET_SNAPSHOT, dropletId);
+		} else {
+			Map<String, String> qp = new HashMap<String, String>();
+			qp.put(PARAM_NAME, snapshotName);
+			response = process(Action.TAKE_DROPLET_SNAPSHOT, dropletId, qp);
 		}
 
-		JsonObject data = performAction(Action.TAKE_DROPLET_SNAPSHOT, qp,
-				params);
-		return gson.fromJson(data.toString(), Response.class);
+		return response;
 	}
 
 	@Override
 	public Response restoreDroplet(Integer dropletId, Integer imageId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {dropletId};
-		
 		Map<String, String> qp = new HashMap<String, String>();
 		qp.put(PARAM_IMAGE_ID, String.valueOf(imageId));
 
-		JsonObject data = performAction(Action.RESTORE_DROPLET, qp,
-				params);
-		return gson.fromJson(data.toString(), Response.class);
+		return process(Action.RESTORE_DROPLET, dropletId, qp);
 	}
 
 	@Override
 	public Response rebuildDroplet(Integer dropletId, Integer imageId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {dropletId};
-		
 		Map<String, String> qp = new HashMap<String, String>();
 		qp.put(PARAM_IMAGE_ID, String.valueOf(imageId));
 
-		JsonObject data = performAction(Action.REBUILD_DROPLET, qp,
-				params);
-		return gson.fromJson(data.toString(), Response.class);
+		return process(Action.REBUILD_DROPLET, dropletId, qp);
 	}
 
 	@Override
 	public Response enableDropletBackups(Integer dropletId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {dropletId};
-		JsonObject data = performAction(Action.ENABLE_AUTOMATIC_BACKUPS,
-				params);
-		return gson.fromJson(data.toString(), Response.class);
+		return process(Action.ENABLE_AUTOMATIC_BACKUPS, dropletId);
 	}
 
 	@Override
 	public Response disableDropletBackups(Integer dropletId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {dropletId};
-		JsonObject data = performAction(Action.DISABLE_AUTOMATIC_BACKUPS,
-				params);
-		return gson.fromJson(data.toString(), Response.class);
+		return process(Action.DISABLE_AUTOMATIC_BACKUPS, dropletId);
 	}
 
 	@Override
 	public Response renameDroplet(Integer dropletId, String name)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {dropletId};
-
 		Map<String, String> qp = new HashMap<String, String>();
 		qp.put(PARAM_NAME, String.valueOf(name));
 
-		JsonObject data = performAction(Action.RENAME_DROPLET, qp, params);
-		return gson.fromJson(data.toString(), Response.class);
+		return process(Action.RENAME_DROPLET, dropletId, qp);
 	}
 
 	@Override
 	public Response deleteDroplet(Integer dropletId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {dropletId};
-		JsonObject data = performAction(Action.DELETE_DROPLET, params);
-		return gson.fromJson(data.toString(), Response.class);
+		return process(Action.DELETE_DROPLET, dropletId);
 	}
 
 	@Override
 	public List<Region> getAvailableRegions() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
-		JsonObject data = performAction(Action.AVAILABLE_REGIONS);
-		Type collectionType = new TypeToken<List<Region>>() {}.getType();
-		return (List<Region>) gson.fromJson(
-				data.get(Action.AVAILABLE_REGIONS.getElementName())
-						.toString(), collectionType);
+		Type type = new TypeToken<List<Region>>() {
+		}.getType();
+		return gson.fromJson(
+				performAction(Action.AVAILABLE_REGIONS).get(
+						Action.AVAILABLE_REGIONS.getElementName()).toString(),
+				type);
 	}
 
 	@Override
 	public List<DropletImage> getAvailableImages()
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		JsonObject data = performAction(Action.AVAILABLE_IMAGES);
-		Type collectionType = new TypeToken<List<DropletImage>>() {}.getType();
-		return (List<DropletImage>) gson
-				.fromJson(
-						data.get(Action.AVAILABLE_IMAGES.getElementName())
-								.toString(), collectionType);
+		Type type = new TypeToken<List<DropletImage>>() {
+		}.getType();
+		return gson.fromJson(
+				performAction(Action.AVAILABLE_IMAGES).get(
+						Action.AVAILABLE_IMAGES.getElementName()).toString(),
+				type);
 	}
 
 	@Override
 	public DropletImage getImageInfo(Integer imageId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {imageId};
-		JsonObject data = performAction(Action.GET_IMAGE_INFO, params);
-		return gson.fromJson(
-				data.get(Action.GET_IMAGE_INFO.getElementName()).toString(),
-				DropletImage.class);
+		return (DropletImage) processByScope(Action.GET_IMAGE_INFO,
+				DropletImage.class, imageId);
 	}
 
 	@Override
 	public Response deleteImage(Integer imageId) throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
-		Object[] params = {imageId};
-		JsonObject data = performAction(Action.DELETE_IMAGE, params);
-		return gson.fromJson(data.toString(), Response.class);
+		return process(Action.DELETE_IMAGE, imageId);
 	}
 
 	@Override
 	public Response transerImage(Integer imageId, Integer regionId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Object[] params = {imageId};
-
 		Map<String, String> qp = new HashMap<String, String>();
 		qp.put(PARAM_REGION_ID, String.valueOf(regionId));
 
-		JsonObject data = performAction(Action.TRANSFER_IMAGE, qp, params);
-		return gson.fromJson(data.toString(), Response.class);
+		return process(Action.TRANSFER_IMAGE, imageId, qp);
 	}
 
 	@Override
@@ -411,41 +365,68 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	@Override
 	public List<DropletSize> getAvailableSizes() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
-		JsonObject data = performAction(Action.AVAILABLE_SIZES);
-		Type collectionType = new TypeToken<List<DropletSize>>() {}.getType();
-		return (List<DropletSize>) gson.fromJson(
-				data.get(Action.AVAILABLE_SIZES.getElementName()).toString(),
-				collectionType);
+		Type type = new TypeToken<List<DropletSize>>() {
+		}.getType();
+		return gson.fromJson(
+				performAction(Action.AVAILABLE_SIZES).get(
+						Action.AVAILABLE_SIZES.getElementName()).toString(),
+				type);
 	}
 
 	@Override
-	public List<Domain> getAvailableDomains() {
-		throw new UnsupportedOperationException("To be released in v1.1");
+	public List<Domain> getAvailableDomains() throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+		Type type = new TypeToken<List<Domain>>() {
+		}.getType();
+		return gson.fromJson(
+				performAction(Action.AVAILABLE_DOMAINS).get(
+						Action.AVAILABLE_DOMAINS.getElementName()).toString(),
+				type);
 	}
 
 	@Override
-	public Domain getDomainInfo(Integer domainId) {
-		throw new UnsupportedOperationException("To be released in v1.1");
+	public Domain getDomainInfo(Integer domainId) throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+		return (Domain) processByScope(Action.GET_DOMAIN_INFO, Domain.class,
+				domainId);
 	}
 
 	@Override
-	public Domain createDomain(String domainName, String ipAddress) {
-		throw new UnsupportedOperationException("To be released in v1.1");
+	public Domain createDomain(String domainName, String ipAddress)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
+		Map<String, String> qp = new HashMap<String, String>();
+		qp.put(PARAM_NAME, domainName);
+		qp.put(PARAM_IP_ADDRESS, ipAddress);
+
+		return (Domain) processByScope(Action.CREATE_DOMAIN, Domain.class, qp);
 	}
 
 	@Override
-	public Domain deleteDomain(Integer domainId) {
-		throw new UnsupportedOperationException("To be released in v1.1");
+	public Response deleteDomain(Integer domainId)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
+		return process(Action.DELETE_DOMAIN, domainId);
 	}
 
 	@Override
-	public List<DomainRecord> getDomainRecords(Integer domainId) {
-		throw new UnsupportedOperationException("To be released in v1.1");
+	public List<DomainRecord> getDomainRecords(Integer domainId)
+			throws JsonSyntaxException, AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+		Type type = new TypeToken<List<DomainRecord>>() {
+		}.getType();
+		return gson.fromJson(performAction(Action.GET_DOMAIN_RECORDS, domainId)
+				.get(Action.GET_DOMAIN_RECORDS.getElementName()).toString(),
+				type);
 	}
 
 	@Override
-	public DomainRecord getDomainRecord(Integer domainId, Integer recordId) {
-		throw new UnsupportedOperationException("To be released in v1.1");
+	public DomainRecord getDomainRecord(Integer domainId, Integer recordId)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
+		Object[] params = {domainId, recordId};
+		return (DomainRecord) processByScope(Action.GET_DOMAIN_INFO,
+				Domain.class, params);
 	}
 
 	@Override
@@ -459,27 +440,28 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	}
 
 	@Override
-	public Response deleteDomainRecord(Integer domainId, Integer recordId) {
-		throw new UnsupportedOperationException("To be released in v1.1");
+	public Response deleteDomainRecord(Integer domainId, Integer recordId)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
+		Object[] params = {domainId, recordId};
+		return process(Action.DELETE_DOMAIN_RECORD, params);
 	}
 
-	private JsonObject performAction(Action action,
-			Object... pathParams) throws AccessDeniedException,
-			ResourceNotFoundException, RequestUnsuccessfulException {
+	private JsonObject performAction(Action action, Object... pathParams)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
 		return performAction(action, null, pathParams);
 	}
-	
+
 	private JsonObject performAction(Action action,
 			Map<String, String> queryParams, Object... pathParams)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		URI uri = generateUri(action, queryParams, pathParams);
-		LOG.debug("Request URI: " + uri);
+		URI uri = generateUri(action.getMapPath(), queryParams, pathParams);
 
 		String response = "";
 		try {
 			response = execute(uri);
-			LOG.debug("HTTP Response: " + response);
 		} catch (ClientProtocolException cpe) {
 			throw new RequestUnsuccessfulException(cpe.getMessage(), cpe);
 		} catch (IOException ioe) {
@@ -500,13 +482,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 		}
 	}
 
-	private URI generateUri(Action action, Map<String, String> queryParams,
+	private URI generateUri(String path, Map<String, String> queryParams,
 			Object... pathParams) {
 
 		URIBuilder ub = new URIBuilder();
 		ub.setScheme(HTTPS_SCHEME);
 		ub.setHost(apiHost);
-		ub.setPath(String.format(action.getMapPath(), pathParams));
+		ub.setPath(String.format(path, pathParams));
 		ub.setParameter(PARAM_CLIENT_ID, this.clientId);
 		ub.setParameter(PARAM_API_KEY, this.apiKey);
 
@@ -560,6 +542,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 					LOG.error("Error occured while reading HTTP input stream ["
 							+ ioe.getMessage() + "]");
 				}
+
+				LOG.debug("HTTP Response: " + response);
 			}
 
 		} finally {
@@ -568,7 +552,38 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
 		return response;
 	}
-	
+
+	private Response process(Action action, Object... id)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
+		return process(action, id, null);
+	}
+
+	private Response process(Action action, Object[] id,
+			Map<String, String> queryParams) throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+		return (Response) transformByClass(
+				performAction(action, queryParams, id), Response.class);
+	}
+
+	private Object processByScope(Action action, Class<?> clazz,
+			Object... pathParams) throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+		return processByScope(action, clazz, null, pathParams);
+	}
+
+	private Object processByScope(Action action, Class<?> clazz,
+			Map<String, String> queryParams, Object... pathParams)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
+		return transformByClass(performAction(action, queryParams, pathParams)
+				.get(action.getElementName()), clazz);
+	}
+
+	private Object transformByClass(JsonElement jsonElement, Class<?> clazz) {
+		return gson.fromJson(jsonElement.toString(), clazz);
+	}
+
 	private String readInputStream(InputStream input) throws IOException {
 
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
