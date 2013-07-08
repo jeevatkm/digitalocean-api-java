@@ -33,8 +33,20 @@ Examples
 --------
 Have a look on [DigitalOceanTest.java][7], simple and easy to understand.
 
-Supported DigitalOcean API's
-----------------------------
+Supported DigitalOcean API's and Functionalities
+------------------------------------------------
+* **To be released in v2.0**
+	* Data Validation API against DigitalOcean
+	* Meaningful messages and reduce request failure
+	
+* * *
+
+* **To be released in v1.3**
+	* Batch API's for Bulk operation
+	* Input Validation at API client level
+	
+* * *
+
 * **To be released in v1.2**
     * `SSH Key Methods`
         * List<SshKey> getAvailableSshKeys()
@@ -45,7 +57,7 @@ Supported DigitalOcean API's
 
 * * *
 
-* **To be released in v1.1**
+* **Released in v1.1**
 	* Optimized and smaller memory footprint
 	* Maven Group Id to be changed to <code>com.myjeeva.digitalocean</code>, for better understanding and grouping
     * `Domain Methods` 
