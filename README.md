@@ -1,10 +1,10 @@
 DigitalOcean API Client written in Java
 ---------------------------------------
 
-Welcome to DigitalOcean's API Client written in Java. I have created a simple and meaningful wrapper methods for DigitalOcean's API. All of the RESTful that you find in [DigitalOcean API's][1] will be made available via simple java methods.
+Welcome to DigitalOcean's API Client written in Java. I have created a simple and meaningful wrapper methods for DigitalOcean's API. All of the RESTful that you find in [DigitalOcean API's][1] will be made available via simple java method(s).
 
 
-How to make use of client?
+How to make use of digitalocean-api-client?
 ------------------------------------
 * Maven Dependency
 <pre><code>&lt;dependency>
@@ -13,7 +13,15 @@ How to make use of client?
     &lt;version>1.0&lt;/version>
 &lt;/dependency></code></pre>
 
-* Clone the repo [http://github.com/jeevatkm/digitalocean-api-java] and build it!
+* Snapshot Maven Dependency ([OSS Sonatype Snapshot Repo][4])
+<pre><code>&lt;dependency>
+    &lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
+    &lt;artifactId>digitalocean-api-client&lt;/artifactId>
+    &lt;version>1.1-SNAPSHOT&lt;/version>
+&lt;/dependency></code></pre>
+
+
+* Clone/Download the repo [http://github.com/jeevatkm/digitalocean-api-java] and build it!
 
 
 Documentation
@@ -35,6 +43,7 @@ Supported DigitalOcean API's
 * * *
 
 * **To be released in v1.1**
+	* Maven Group Id to be changed to <code>com.myjeeva.digitalocean</code>, for better understanding and grouping
     * `Domain Methods` 
         * List<Domain> getAvailableDomains()
         * Domain getDomainInfo(Integer domainId)
@@ -49,6 +58,7 @@ Supported DigitalOcean API's
 * * *
 
 * **Released in v1.0**
+	* <code>Slug</code> Attribute supported in Image, Size and Region
     * `Droplets Methods`
         * List<Droplet> getAvailableDroplets()
         * Droplet createDroplet(Droplet droplet)
@@ -94,3 +104,4 @@ See *LICENSE.txt*
 [1]: https://api.digitalocean.com/
 [2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.0/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
+[4]: https://oss.sonatype.org/content/repositories/snapshots/

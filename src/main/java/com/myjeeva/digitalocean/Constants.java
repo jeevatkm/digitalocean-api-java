@@ -29,6 +29,10 @@ package com.myjeeva.digitalocean;
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
 public interface Constants {
+
+	// General
+	String UTF_8 = "utf-8";
+
 	// HTTPS Scheme
 	String HTTPS_SCHEME = "https";
 

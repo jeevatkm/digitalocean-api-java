@@ -14,7 +14,7 @@
     	<version>7</version>
     </parent>
     
-	<groupId>com.myjeeva</groupId>
+	<groupId>com.myjeeva.digitalocean</groupId>
 	<artifactId>digitalocean-api-client</artifactId>
 	<packaging>jar</packaging>
 	<name>DigitalOcean API Client in Java</name>
@@ -43,10 +43,12 @@
     </developers>
     
     <properties>
-	<javadoc.output.basepath>${basedir}/javadoc/docs</javadoc.output.basepath>
+        <javadoc.basepath>${project.basedir}/javadoc</javadoc.basepath>
+        <javadoc.output.path>${javadoc.basepath}/docs</javadoc.output.path>
+        <javadoc.stylesheet.path>${javadoc.basepath}/stylesheets/stylesheet.css</javadoc.stylesheet.path>
     </properties>
 
-	<!-- Dependencies -->
+    <!-- Dependencies -->
     <dependencies>
     	<dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -63,16 +65,11 @@
             <artifactId>slf4j-jdk14</artifactId>
             <version>1.7.5</version>
         </dependency>
-	<dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.4</version>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
-	    <artifactId>junit</artifactId>
-	    <version>4.9</version>
-	    <scope>test</scope>
+            <artifactId>junit</artifactId>
+            <version>4.9</version>
+            <scope>test</scope>
         </dependency>
      </dependencies>
      <build>
@@ -102,13 +99,12 @@
 					   	<detectLinks>true</detectLinks>
 					   	<charset>UTF-8</charset>
 					   	<header>${project.name}</header>
-					   	<bottom><![CDATA[<div class="license-info">Copyright &#169; 2013 <a href="http://www.myjeeva.com" target="_blank">myjeeva.com</a>, All rights reserved. <br /><br /><span>The copyright of the pages and contents on this website is with myjeeva.com and the content is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-Share Alike 3.0 Unported License</a>. Libraries and code snippets on myjeeva.com has license information.</span></div>]]> </bottom>
+					   	<bottom><![CDATA[<div class="license-info">Copyright &#169; 2013 <a href="http://myjeeva.com" target="_blank" title="myjeeva blog">myjeeva blog</a>, All rights reserved. <br /><br /><span>The copyright of the pages and contents on this website is with myjeeva.com and the content is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-Share Alike 3.0 Unported License</a>. Libraries and code snippets on myjeeva blog has license information.</span></div>]]> </bottom>
 				    	<footer>${project.name}</footer>
-				    	<stylesheetfile>${basedir}/javadoc/stylesheets/stylesheet.css</stylesheetfile>
+				    	<stylesheetfile>${javadoc.stylesheet.path}</stylesheetfile>
 				    	<docfilessubdirs>true</docfilessubdirs>
 				    	<verbose>true</verbose>
-				    	<reportOutputDirectory>${basedir}/javadoc/docs</reportOutputDirectory>
-				    	<!-- <reportOutputDirectory>${javadoc.output.basepath}</reportOutputDirectory> -->
+				    	<reportOutputDirectory>${javadoc.output.path}</reportOutputDirectory>
 				    	<destDir>${project.version}</destDir>
 					</configuration>
 				</plugin>

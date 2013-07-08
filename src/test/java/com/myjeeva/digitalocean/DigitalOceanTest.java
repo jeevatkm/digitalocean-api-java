@@ -43,7 +43,14 @@ import com.myjeeva.digitalocean.pojo.Region;
 import com.myjeeva.digitalocean.pojo.Response;
 
 /**
+ * <p>
  * Junit Test case for DigitalOcean API client wrapper methods
+ * </p>
+ * 
+ * <p>
+ * <strong>Please Note:</strong> <i>Kindly through and update private variable
+ * value before using executing this test case(s).</i>
+ * </p>
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
@@ -86,6 +93,11 @@ public class DigitalOceanTest extends TestCase {
 	 * Region Id 1 is New York
 	 */
 	private Integer regionId = 1;
+
+	/**
+	 * This testing snapshot image id, so place your's for test case before use
+	 */
+	private Integer deleteImageId = 506262;
 
 	private DigitalOcean apiClient = new DigitalOceanClient(clientId, apiKey);
 
@@ -261,7 +273,10 @@ public class DigitalOceanTest extends TestCase {
 	@Test
 	public void testDeleteImage() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
-		assertAndLogResponseValue(apiClient.deleteImage(restoreImageId));
+		Response response = apiClient.deleteImage(deleteImageId);
+		assertNotNull(response.getEventId());
+
+		LOG.info("Response Status: " + response.getStatus());
 	}
 
 	@Test

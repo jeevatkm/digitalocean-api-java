@@ -23,6 +23,7 @@
  */
 package com.myjeeva.digitalocean.impl;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
@@ -32,8 +33,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.codec.binary.StringUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -501,8 +500,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 		}
 	}
 
-	private URI generateUri(Action action,
-			Map<String, String> queryParams, Object... pathParams) {
+	private URI generateUri(Action action, Map<String, String> queryParams,
+			Object... pathParams) {
 
 		URIBuilder ub = new URIBuilder();
 		ub.setScheme(HTTPS_SCHEME);
@@ -527,29 +526,40 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 		return uri;
 	}
 
-	private String execute(URI uri) throws ClientProtocolException, IOException, AccessDeniedException, ResourceNotFoundException {
+	private String execute(URI uri) throws ClientProtocolException,
+			IOException, AccessDeniedException, ResourceNotFoundException {
 		HttpGet httpGet = new HttpGet(uri);
-		LOG.debug("API Endpoint URI: " + uri);
+		LOG.debug("DigitalOcean API Endpoint URI: " + uri);
 
 		String response = "";
 		try {
 			HttpResponse httpResponse = httpClient.execute(httpGet);
 
 			if (401 == httpResponse.getStatusLine().getStatusCode()) {
-				throw new AccessDeniedException("Request failed to authenticate into the DigitalOcean API successfully");
+				throw new AccessDeniedException(
+						"Request failed to authenticate into the DigitalOcean API successfully");
 			}
 
 			if (404 == httpResponse.getStatusLine().getStatusCode()) {
-				throw new ResourceNotFoundException("Request failed to authenticate into the DigitalOcean API successfully");
+				throw new ResourceNotFoundException(
+						"Requested resource is not available DigitalOcean");
 			}
 
 			HttpEntity entity = httpResponse.getEntity();
 
 			if (null != entity) {
 				InputStream input = entity.getContent();
-				byte[] data = IOUtils.toByteArray(input);
-				response = StringUtils.newStringUtf8(data);
-				IOUtils.closeQuietly(input);
+				response = readInputStream(input);
+
+				// Let's close the stream
+				try {
+					if (null != input) {
+						input.close();
+					}
+				} catch (IOException ioe) {
+					LOG.error("Error occured while reading HTTP input stream ["
+							+ ioe.getMessage() + "]");
+				}
 			}
 
 		} finally {
@@ -557,6 +567,18 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 		}
 
 		return response;
+	}
+	
+	private String readInputStream(InputStream input) throws IOException {
+
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		int n = 0;
+		byte[] buffer = new byte[4096];
+		while (-1 != (n = input.read(buffer))) {
+			output.write(buffer, 0, n);
+		}
+
+		return output.toString(UTF_8);
 	}
 
 }
