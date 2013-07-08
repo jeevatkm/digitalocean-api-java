@@ -45,6 +45,11 @@ public interface Constants {
 	String PARAM_IMAGE_ID = "image_id";
 	String PARAM_SSH_KEY_IDS = "ssh_key_ids";
 	String PARAM_IP_ADDRESS = "ip_address";
+	String PARAM_RECORD_TYPE = "record_type";
+	String PARAM_DATA = "data";
+	String PARAM_PRIORITY = "priority";
+	String PARAM_PORT = "port";
+	String PARAM_WEIGHT = "weight";
 
 	// JSON Element Name
 	String STATUS = "status";

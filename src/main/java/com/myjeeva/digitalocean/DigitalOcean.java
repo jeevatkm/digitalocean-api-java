@@ -25,7 +25,6 @@ package com.myjeeva.digitalocean;
 
 import java.util.List;
 
-import com.google.gson.JsonSyntaxException;
 import com.myjeeva.digitalocean.exception.AccessDeniedException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
@@ -125,7 +124,7 @@ public interface DigitalOcean {
 	 * </ul>
 	 * 
 	 * @param droplet
-	 *            a {@link Droplet} object
+	 *            - the id of the droplet
 	 * @return {@link Droplet}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -158,10 +157,10 @@ public interface DigitalOcean {
 	 * </ul>
 	 * 
 	 * @param droplet
-	 *            a {@link Droplet} object
+	 *            - the id of the droplet
 	 * @param sshKeyIds
-	 *            a {@link String} object - Numeric CSV, comma separated list of
-	 *            ssh_key_ids that you would like to be added to the server
+	 *            - Numeric CSV, comma separated list of ssh_key_ids that you
+	 *            would like to be added to the server
 	 * @return {@link Droplet}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -178,7 +177,7 @@ public interface DigitalOcean {
 	 * in the URL.
 	 * 
 	 * @param dropletId
-	 *            a {@link Integer} object
+	 *            - the id of the droplet
 	 * @return {@link Droplet}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -194,7 +193,7 @@ public interface DigitalOcean {
 	 * use if a server is not responding.
 	 * 
 	 * @param dropletId
-	 *            a {@link Integer} object
+	 *            - the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -210,7 +209,7 @@ public interface DigitalOcean {
 	 * droplet and then turn it back on.
 	 * 
 	 * @param dropletId
-	 *            a {@link Integer} object
+	 *            - the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -226,7 +225,7 @@ public interface DigitalOcean {
 	 * in your account.
 	 * 
 	 * @param dropletId
-	 *            a {@link Integer} object
+	 *            - the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -242,7 +241,7 @@ public interface DigitalOcean {
 	 * in your account.
 	 * 
 	 * @param dropletId
-	 *            a {@link Integer} object
+	 *            - the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -257,7 +256,7 @@ public interface DigitalOcean {
 	 * Method allows you to poweron a powered off droplet.
 	 * 
 	 * @param dropletId
-	 *            a {@link Integer} object
+	 *            - the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -273,7 +272,7 @@ public interface DigitalOcean {
 	 * this will reboot the droplet to allow resetting the password.
 	 * 
 	 * @param dropletId
-	 *            a {@link Integer} object
+	 *            - the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -290,7 +289,7 @@ public interface DigitalOcean {
 	 * will affect the number of processors and memory allocated to the droplet.
 	 * 
 	 * @param dropletId
-	 *            a {@link Integer} object
+	 *            - the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -308,7 +307,7 @@ public interface DigitalOcean {
 	 * Please be aware this may cause a reboot.
 	 * 
 	 * @param dropletId
-	 *            a {@link Integer} object
+	 *            - the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -326,9 +325,9 @@ public interface DigitalOcean {
 	 * Please be aware this may cause a reboot.
 	 * 
 	 * @param dropletId
-	 *            a {@link Integer} object
+	 *            - the id of the droplet
 	 * @param snapshotName
-	 *            a {@link String} object
+	 *            - the name the snapshot to be created
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -346,7 +345,7 @@ public interface DigitalOcean {
 	 * sure you have backed up any necessary information prior to restore.
 	 * 
 	 * @param dropletId
-	 *            a {@link Integer} object
+	 *            - the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -364,7 +363,7 @@ public interface DigitalOcean {
 	 * droplet.
 	 * 
 	 * @param dropletId
-	 *            a {@link Integer} object
+	 *            - the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -381,7 +380,7 @@ public interface DigitalOcean {
 	 * backup your droplet's data.
 	 * 
 	 * @param dropletId
-	 *            a {@link Integer} object
+	 *            - the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -398,7 +397,7 @@ public interface DigitalOcean {
 	 * data.
 	 * 
 	 * @param dropletId
-	 *            a {@link Integer} object
+	 *            - the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -414,7 +413,7 @@ public interface DigitalOcean {
 	 * Method renames the droplet to the specified name.
 	 * 
 	 * @param dropletId
-	 *            a {@link Integer} object
+	 *            - the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -430,7 +429,7 @@ public interface DigitalOcean {
 	 * Method destroys one of your droplets - this is irreversible.
 	 * 
 	 * @param dropletId
-	 *            a {@link Integer} object
+	 *            - the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -480,7 +479,7 @@ public interface DigitalOcean {
 	 * Method retrieves the attributes of an image.
 	 * 
 	 * @param imageId
-	 *            a {@link Integer} object
+	 *            - the image Id of the droplet/snapshot/backup images
 	 * @return {@link DropletImage}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -496,7 +495,7 @@ public interface DigitalOcean {
 	 * deleted image so be careful and ensure your data is properly backed up.
 	 * 
 	 * @param imageId
-	 *            a {@link Integer} object
+	 *            - the image Id of the droplet/snapshot/backup images
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -511,9 +510,9 @@ public interface DigitalOcean {
 	 * Method allows you to transfer an image to a specified region.
 	 * 
 	 * @param imageId
-	 *            a {@link Integer} object
+	 *            - the image Id of the droplet/snapshot/backup images
 	 * @param regionId
-	 *            a {@link Integer} object
+	 *            - the region Id of the digitalocean data centers
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -574,78 +573,145 @@ public interface DigitalOcean {
 	 * Domain manipulation methods
 	 */
 	/**
-	 * To be release in v1.1
-	 * @throws RequestUnsuccessfulException 
-	 * @throws ResourceNotFoundException 
-	 * @throws AccessDeniedException 
+	 * Method returns all of your available domains from DNS control panel
+	 * 
+	 * @return <code>List&lt;Domain></code>
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 * 
+	 * @since v1.1
 	 */
 	List<Domain> getAvailableDomains() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException;
 
 	/**
-	 * To be release in v1.1
-	 * @throws RequestUnsuccessfulException 
-	 * @throws ResourceNotFoundException 
-	 * @throws AccessDeniedException 
-	 */
-	Domain getDomainInfo(Integer domainId) throws AccessDeniedException,
-			ResourceNotFoundException, RequestUnsuccessfulException;
-
-	/**
-	 * To be release in v1.1
-	 * @throws RequestUnsuccessfulException 
-	 * @throws ResourceNotFoundException 
-	 * @throws AccessDeniedException 
+	 * Method creates a new domain name with an A record for the specified
+	 * [ip_address].
+	 * 
+	 * @param domainName
+	 *            - the name of the domain
+	 * @param ipAddress
+	 *            - the IP Address for the domain
+	 * @return {@link Domain}
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 * 
+	 * @since v1.1
 	 */
 	Domain createDomain(String domainName, String ipAddress)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException;
 
 	/**
-	 * To be release in v1.1
-	 * @throws RequestUnsuccessfulException 
-	 * @throws ResourceNotFoundException 
-	 * @throws AccessDeniedException 
+	 * Method returns the specified domain attributes and zone file info.
+	 * 
+	 * @param domainId
+	 *            - the Id of the domain
+	 * @return {@link Domain}
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 * 
+	 * @since v1.1
+	 */
+	Domain getDomainInfo(Integer domainId) throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException;
+
+	/**
+	 * Method deletes the specified domain from DNS control panel
+	 * 
+	 * @param domainId
+	 *            - the Id of the domain
+	 * @return {@link Response}
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 * 
+	 * @since v1.1
 	 */
 	Response deleteDomain(Integer domainId) throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException;
 
 	/**
-	 * To be release in v1.1
-	 * @throws RequestUnsuccessfulException 
-	 * @throws ResourceNotFoundException 
-	 * @throws AccessDeniedException 
-	 * @throws JsonSyntaxException 
+	 * Method returns all of your current domain records from DNS control panel
+	 * for given domain.
+	 * 
+	 * @param domainId
+	 *            - the Id of the domain
+	 * @return <code>List&lt;DomainRecord></code>
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 * 
+	 * @since v1.1
 	 */
 	List<DomainRecord> getDomainRecords(Integer domainId)
-			throws JsonSyntaxException, AccessDeniedException,
-			ResourceNotFoundException, RequestUnsuccessfulException;
-
-	/**
-	 * To be release in v1.1
-	 * @throws RequestUnsuccessfulException 
-	 * @throws ResourceNotFoundException 
-	 * @throws AccessDeniedException 
-	 */
-	DomainRecord getDomainRecord(Integer domainId, Integer recordId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException;
 
 	/**
-	 * To be release in v1.1
+	 * Method creates a new domain record name with an given domain record
+	 * values
+	 * 
+	 * @param domainRecord
+	 *            - the domain record values domain Id, record type, data, name,
+	 *            priority, port, weight
+	 * @return {@link DomainRecord}
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 * 
+	 * @since v1.1
 	 */
-	DomainRecord createDomainRecord(DomainRecord domainRecord);
+	DomainRecord createDomainRecord(DomainRecord domainRecord)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException;
 
 	/**
-	 * To be release in v1.1
+	 * Method returns the specified domain record.
+	 * 
+	 * @param domainId
+	 *            - the Id of the domain
+	 * @param recordId
+	 *            - the record Id of the domain
+	 * @return {@link DomainRecord}
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 * 
+	 * @since v1.1
 	 */
-	DomainRecord editDomainRecord(DomainRecord domainRecord);
+	DomainRecord getDomainRecordInfo(Integer domainId, Integer recordId)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException;
 
 	/**
-	 * To be release in v1.1
-	 * @throws RequestUnsuccessfulException 
-	 * @throws ResourceNotFoundException 
-	 * @throws AccessDeniedException 
+	 * method edits an existing domain record of the given domain.
+	 * 
+	 * @param domainRecord
+	 *            - the domain record values domain Id, record type, data, name,
+	 *            priority, port, weight
+	 * @return {@link DomainRecord}
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 * 
+	 * @since v1.1
+	 */
+	DomainRecord editDomainRecord(DomainRecord domainRecord)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException;
+
+	/**
+	 * Method deletes the specified domain record from domain.
+	 * 
+	 * @throws RequestUnsuccessfulException
+	 * @throws ResourceNotFoundException
+	 * @throws AccessDeniedException
+	 * 
+	 * @since v1.1
 	 */
 	Response deleteDomainRecord(Integer domainId, Integer recordId)
 			throws AccessDeniedException, ResourceNotFoundException,

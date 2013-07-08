@@ -23,7 +23,6 @@
  */
 package com.myjeeva.digitalocean.impl;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
@@ -43,14 +42,12 @@ import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import com.myjeeva.digitalocean.Constants;
 import com.myjeeva.digitalocean.DigitalOcean;
+import com.myjeeva.digitalocean.Utils;
 import com.myjeeva.digitalocean.common.Action;
 import com.myjeeva.digitalocean.exception.AccessDeniedException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
@@ -69,6 +66,7 @@ import com.myjeeva.digitalocean.pojo.SshKey;
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
+@SuppressWarnings("unchecked")
 public class DigitalOceanClient implements DigitalOcean, Constants {
 
 	private final Logger LOG = LoggerFactory
@@ -95,11 +93,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	private String apiHost = "api.digitalocean.com";
 
 	/**
-	 * Gson Parser
-	 */
-	private Gson gson;
-
-	/**
 	 * Constructor for initializing DigitalOcean Client
 	 * 
 	 * @param clientId
@@ -113,7 +106,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 		this.apiKey = apiKey;
 
 		// Initializing required variable(s)
-		this.gson = new Gson();
 		this.httpClient = new DefaultHttpClient(
 				new PoolingClientConnectionManager());
 	}
@@ -121,12 +113,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	@Override
 	public List<Droplet> getAvailableDroplets() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
-		Type type = new TypeToken<List<Droplet>>() {
-		}.getType();
-		return gson.fromJson(
-				performAction(Action.AVAILABLE_DROPLETS).get(
-						Action.AVAILABLE_DROPLETS.getElementName()).toString(),
-				type);
+		return (List<Droplet>) processByScope(Action.AVAILABLE_DROPLETS,
+				Utils.getDropletListType());
 	}
 
 	@Override
@@ -150,10 +138,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 			qp.put(PARAM_SSH_KEY_IDS, sshKeyIds);
 		}
 
-		return gson.fromJson(
-				performAction(Action.CREATE_DROPLET, qp).get(
-						Action.CREATE_DROPLET.getElementName()).toString(),
-				Droplet.class);
+		return (Droplet) processByScope(Action.CREATE_DROPLET, Droplet.class,
+				qp);
 	}
 
 	@Override
@@ -293,24 +279,16 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	@Override
 	public List<Region> getAvailableRegions() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
-		Type type = new TypeToken<List<Region>>() {
-		}.getType();
-		return gson.fromJson(
-				performAction(Action.AVAILABLE_REGIONS).get(
-						Action.AVAILABLE_REGIONS.getElementName()).toString(),
-				type);
+		return (List<Region>) processByScope(Action.AVAILABLE_REGIONS,
+				Utils.getRegionListType());
 	}
 
 	@Override
 	public List<DropletImage> getAvailableImages()
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		Type type = new TypeToken<List<DropletImage>>() {
-		}.getType();
-		return gson.fromJson(
-				performAction(Action.AVAILABLE_IMAGES).get(
-						Action.AVAILABLE_IMAGES.getElementName()).toString(),
-				type);
+		return (List<DropletImage>) processByScope(Action.AVAILABLE_IMAGES,
+				Utils.getImageListType());
 	}
 
 	@Override
@@ -365,23 +343,15 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	@Override
 	public List<DropletSize> getAvailableSizes() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
-		Type type = new TypeToken<List<DropletSize>>() {
-		}.getType();
-		return gson.fromJson(
-				performAction(Action.AVAILABLE_SIZES).get(
-						Action.AVAILABLE_SIZES.getElementName()).toString(),
-				type);
+		return (List<DropletSize>) processByScope(Action.AVAILABLE_SIZES,
+				Utils.getSizeListType());
 	}
 
 	@Override
 	public List<Domain> getAvailableDomains() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
-		Type type = new TypeToken<List<Domain>>() {
-		}.getType();
-		return gson.fromJson(
-				performAction(Action.AVAILABLE_DOMAINS).get(
-						Action.AVAILABLE_DOMAINS.getElementName()).toString(),
-				type);
+		return (List<Domain>) processByScope(Action.AVAILABLE_DOMAINS,
+				Utils.getDomainListType());
 	}
 
 	@Override
@@ -411,32 +381,39 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
 	@Override
 	public List<DomainRecord> getDomainRecords(Integer domainId)
-			throws JsonSyntaxException, AccessDeniedException,
-			ResourceNotFoundException, RequestUnsuccessfulException {
-		Type type = new TypeToken<List<DomainRecord>>() {
-		}.getType();
-		return gson.fromJson(performAction(Action.GET_DOMAIN_RECORDS, domainId)
-				.get(Action.GET_DOMAIN_RECORDS.getElementName()).toString(),
-				type);
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
+		return (List<DomainRecord>) processByScope(Action.GET_DOMAIN_RECORDS,
+				Utils.getDomainRecordListType(), domainId);
 	}
 
 	@Override
-	public DomainRecord getDomainRecord(Integer domainId, Integer recordId)
+	public DomainRecord getDomainRecordInfo(Integer domainId, Integer recordId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
 		Object[] params = {domainId, recordId};
-		return (DomainRecord) processByScope(Action.GET_DOMAIN_INFO,
-				Domain.class, params);
+		return (DomainRecord) processByScope(Action.GET_DOMAIN_RECORD_INFO,
+				DomainRecord.class, params);
 	}
 
 	@Override
-	public DomainRecord createDomainRecord(DomainRecord domainRecord) {
-		throw new UnsupportedOperationException("To be released in v1.1");
+	public DomainRecord createDomainRecord(DomainRecord domainRecord)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
+		return (DomainRecord) processByScope(Action.CREATE_DOMAIN_RECORD,
+				DomainRecord.class,
+				Utils.prepareDomainRecordParams(domainRecord),
+				domainRecord.getDomainId());
 	}
 
 	@Override
-	public DomainRecord editDomainRecord(DomainRecord domainRecord) {
-		throw new UnsupportedOperationException("To be released in v1.1");
+	public DomainRecord editDomainRecord(DomainRecord domainRecord)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
+		Object[] params = {domainRecord.getDomainId(), domainRecord.getId()};
+		return (DomainRecord) processByScope(Action.EDIT_DOMAIN_RECORD,
+				DomainRecord.class,
+				Utils.prepareDomainRecordParams(domainRecord), params);
 	}
 
 	@Override
@@ -445,12 +422,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 			RequestUnsuccessfulException {
 		Object[] params = {domainId, recordId};
 		return process(Action.DELETE_DOMAIN_RECORD, params);
-	}
-
-	private JsonObject performAction(Action action, Object... pathParams)
-			throws AccessDeniedException, ResourceNotFoundException,
-			RequestUnsuccessfulException {
-		return performAction(action, null, pathParams);
 	}
 
 	private JsonObject performAction(Action action,
@@ -478,7 +449,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 			return obj;
 		} else {
 			throw new RequestUnsuccessfulException(
-					"DigitalOcean request unsuccessful [" + uri + "]");
+					"DigitalOcean API request unsuccessful, possible reason colud be incorrect values ["
+							+ uri + "].");
 		}
 	}
 
@@ -531,7 +503,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
 			if (null != entity) {
 				InputStream input = entity.getContent();
-				response = readInputStream(input);
+				response = Utils.readInputStream(input);
 
 				// Let's close the stream
 				try {
@@ -562,8 +534,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	private Response process(Action action, Object[] id,
 			Map<String, String> queryParams) throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
-		return (Response) transformByClass(
-				performAction(action, queryParams, id), Response.class);
+		return (Response) Utils.byClass(performAction(action, queryParams, id),
+				Response.class);
 	}
 
 	private Object processByScope(Action action, Class<?> clazz,
@@ -576,24 +548,16 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 			Map<String, String> queryParams, Object... pathParams)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
-		return transformByClass(performAction(action, queryParams, pathParams)
+		return Utils.byClass(performAction(action, queryParams, pathParams)
 				.get(action.getElementName()), clazz);
 	}
 
-	private Object transformByClass(JsonElement jsonElement, Class<?> clazz) {
-		return gson.fromJson(jsonElement.toString(), clazz);
-	}
-
-	private String readInputStream(InputStream input) throws IOException {
-
-		ByteArrayOutputStream output = new ByteArrayOutputStream();
-		int n = 0;
-		byte[] buffer = new byte[4096];
-		while (-1 != (n = input.read(buffer))) {
-			output.write(buffer, 0, n);
-		}
-
-		return output.toString(UTF_8);
+	private Object processByScope(Action action, Type type,
+			Object... pathParams) throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+		return Utils.byType(
+				performAction(action, null, pathParams).get(
+						action.getElementName()), type);
 	}
 
 }

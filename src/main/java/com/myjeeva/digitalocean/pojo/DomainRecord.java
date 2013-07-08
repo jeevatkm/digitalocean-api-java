@@ -35,14 +35,14 @@ public class DomainRecord {
 	private Integer id;
 
 	@SerializedName("domain_id")
-	private String domainId;
+	private Integer domainId;
 
 	@SerializedName("record_type")
 	private String recordType;
 
-	private String name;
-
 	private String data;
+
+	private String name;
 
 	private String priority;
 
@@ -51,7 +51,54 @@ public class DomainRecord {
 	private Integer weight;
 
 	/**
-	 * @return the id
+	 * Default Constructor
+	 */
+	public DomainRecord() {
+		// Default Constructor
+	}
+
+	/**
+	 * Parameterized {@link DomainRecord} Constructor
+	 * 
+	 * @param id
+	 *            - a {@link Integer} object: Domain record Id
+	 * @param domainId
+	 *            - a {@link Integer} object: specifies the domain Id for which
+	 *            to create a record
+	 * @param recordType
+	 *            - a {@link String} object: the type of record you would like
+	 *            to create. 'A', 'CNAME', 'NS', 'TXT', 'MX' or 'SRV'
+	 * @param data
+	 *            - a {@link String} object: this is the value of the record,
+	 *            for example: IP address, '@'
+	 * @param name
+	 *            - a {@link String} object: Optional, required for 'A',
+	 *            'CNAME', 'TXT' and 'SRV' records
+	 * @param priority
+	 *            - a {@link String} object: Optional, required for 'SRV' and
+	 *            'MX' records
+	 * @param port
+	 *            - a {@link String} object: Optional, required for 'SRV'
+	 *            records
+	 * @param weight
+	 *            - a {@link String} object: Optional, required for 'SRV'
+	 *            records
+	 */
+	public DomainRecord(Integer id, Integer domainId, String recordType,
+			String data, String name, String priority, Integer port,
+			Integer weight) {
+		this.id = id;
+		this.domainId = domainId;
+		this.recordType = recordType;
+		this.name = name;
+		this.data = data;
+		this.priority = priority;
+		this.port = port;
+		this.weight = weight;
+	}
+
+	/**
+	 * @return the id - Domain record Id
 	 */
 	public Integer getId() {
 		return id;
@@ -59,29 +106,31 @@ public class DomainRecord {
 
 	/**
 	 * @param id
-	 *            the id to set
+	 *            the id to set - Domain Record Id
 	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	/**
-	 * @return the domainId
+	 * @return the domainId - specifies the domain Id for which to create a
+	 *         record
 	 */
-	public String getDomainId() {
+	public Integer getDomainId() {
 		return domainId;
 	}
 
 	/**
 	 * @param domainId
-	 *            the domainId to set
+	 *            the domainId to set the domain Id for which to create a record
 	 */
-	public void setDomainId(String domainId) {
+	public void setDomainId(Integer domainId) {
 		this.domainId = domainId;
 	}
 
 	/**
-	 * @return the recordType
+	 * @return the recordType - the type of record you would like to create.
+	 *         'A', 'CNAME', 'NS', 'TXT', 'MX' or 'SRV'
 	 */
 	public String getRecordType() {
 		return recordType;
@@ -89,29 +138,14 @@ public class DomainRecord {
 
 	/**
 	 * @param recordType
-	 *            the recordType to set
+	 *            the recordType to set 'A', 'CNAME', 'NS', 'TXT', 'MX' or 'SRV'
 	 */
 	public void setRecordType(String recordType) {
 		this.recordType = recordType;
 	}
 
 	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the data
+	 * @return the data value of - IP address, '@'
 	 */
 	public String getData() {
 		return data;
@@ -119,14 +153,31 @@ public class DomainRecord {
 
 	/**
 	 * @param data
-	 *            the data to set
+	 *            the data to set - this is the value of the record, for
+	 *            example: IP address, '@'
 	 */
 	public void setData(String data) {
 		this.data = data;
 	}
 
 	/**
-	 * @return the priority
+	 * @return the name - value of 'A', 'CNAME', 'TXT' and 'SRV' records
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set - Optional, required for 'A', 'CNAME', 'TXT'
+	 *            and 'SRV' records
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the priority SRV' and 'MX' values
 	 */
 	public String getPriority() {
 		return priority;
@@ -134,14 +185,15 @@ public class DomainRecord {
 
 	/**
 	 * @param priority
-	 *            the priority to set
+	 *            the priority to set Optional, required for 'SRV' and 'MX'
+	 *            records
 	 */
 	public void setPriority(String priority) {
 		this.priority = priority;
 	}
 
 	/**
-	 * @return the port
+	 * @return the port 'SRV' records
 	 */
 	public Integer getPort() {
 		return port;
@@ -149,14 +201,14 @@ public class DomainRecord {
 
 	/**
 	 * @param port
-	 *            the port to set
+	 *            the port to set - Optional, required for 'SRV' records
 	 */
 	public void setPort(Integer port) {
 		this.port = port;
 	}
 
 	/**
-	 * @return the weight
+	 * @return the weight value of 'SRV' records
 	 */
 	public Integer getWeight() {
 		return weight;
@@ -164,7 +216,7 @@ public class DomainRecord {
 
 	/**
 	 * @param weight
-	 *            the weight to set
+	 *            the weight to set - Optional, required for 'SRV' records
 	 */
 	public void setWeight(Integer weight) {
 		this.weight = weight;

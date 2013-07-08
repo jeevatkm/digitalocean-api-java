@@ -63,7 +63,7 @@ public enum Action {
     GET_DOMAIN_INFO("/domains/%s/", "domain"),
     DELETE_DOMAIN("/domains/%s/destroy/"),
     GET_DOMAIN_RECORDS("/domains/%s/records/", "records"),
-    CREATE_DOMAIN_RECORD("/domains/%s/records/new/", "domain_record"),
+    CREATE_DOMAIN_RECORD("/domains/%s/records/new/", "record"),
     GET_DOMAIN_RECORD_INFO("/domains/%s/records/%s/", "record"),
     EDIT_DOMAIN_RECORD("/domains/%s/records/%s/edit/", "record"),
     DELETE_DOMAIN_RECORD("/domains/%s/records/%s/destroy/");    

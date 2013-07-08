@@ -3,6 +3,7 @@ DigitalOcean API Client written in Java
 
 Welcome to DigitalOcean's API Client written in Java. I have created a simple and meaningful wrapper methods for DigitalOcean's API. All of the RESTful that you find in [DigitalOcean API's][1] will be made available via simple java method(s).
 
+> Simple and Lightweight Library for Enterprise Application/Utilities Integration
 
 How to make use of digitalocean-api-client?
 ------------------------------------
@@ -26,12 +27,14 @@ How to make use of digitalocean-api-client?
 
 Documentation
 -------------
-
 See [JavaDocs - DigitalOcean API Client written in Java][2]
+
+Examples
+--------
+Have a look on [DigitalOceanTest.java][7], simple and easy to understand.
 
 Supported DigitalOcean API's
 ----------------------------
-
 * **To be released in v1.2**
     * `SSH Key Methods`
         * List<SshKey> getAvailableSshKeys()
@@ -43,17 +46,18 @@ Supported DigitalOcean API's
 * * *
 
 * **To be released in v1.1**
+	* Optimized and smaller memory footprint
 	* Maven Group Id to be changed to <code>com.myjeeva.digitalocean</code>, for better understanding and grouping
     * `Domain Methods` 
         * List<Domain> getAvailableDomains()
-        * Domain getDomainInfo(Integer domainId)
         * Domain createDomain(String domainName, String ipAddress)
-        * Domain deleteDomain(Integer domainId)
+        * Domain getDomainInfo(Integer domainId)
+        * Response deleteDomain(Integer domainId)
         * List<DomainRecord> getDomainRecords(Integer domainId)
-        * DomainRecord getDomainRecord(Integer domainId, Integer recordId)
         * DomainRecord createDomainRecord(DomainRecord domainRecord)
+        * DomainRecord getDomainRecordInfo(Integer domainId, Integer recordId)
         * DomainRecord editDomainRecord(DomainRecord domainRecord)
-        * Response deleteDomainRecord(Integer domainId, Integer recordId) 
+        * Response deleteDomainRecord(Integer domainId, Integer recordId)
 
 * * *
 
@@ -92,7 +96,6 @@ Supported DigitalOcean API's
 
 Issue Tracker
 -------------
-
 Please submit any bugs or annoyances on the [Issues][3]
 
 Author
@@ -101,7 +104,6 @@ Jeevanandam M. - jeeva@myjeeva.com ([myjeeva.com][5])
 
 License
 -------
-
 See [LICENSE.txt][6]
 
 
@@ -111,3 +113,4 @@ See [LICENSE.txt][6]
 [4]: https://oss.sonatype.org/content/repositories/snapshots/
 [5]: http://myjeeva.com
 [6]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/LICENSE.txt
+[7]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanTest.java
