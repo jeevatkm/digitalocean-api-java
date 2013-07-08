@@ -9,16 +9,16 @@ How to make use of digitalocean-api-client?
 ------------------------------------
 * Maven Dependency
 <pre><code>&lt;dependency>
-    &lt;groupId>com.myjeeva&lt;/groupId>
+    &lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
     &lt;artifactId>digitalocean-api-client&lt;/artifactId>
-    &lt;version>1.0&lt;/version>
+    &lt;version>1.1&lt;/version>
 &lt;/dependency></code></pre>
 
 * Snapshot Maven Dependency ([OSS Sonatype Snapshot Repo][4])
 <pre><code>&lt;dependency>
     &lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
     &lt;artifactId>digitalocean-api-client&lt;/artifactId>
-    &lt;version>1.1-SNAPSHOT&lt;/version>
+    &lt;version>1.2-SNAPSHOT&lt;/version>
 &lt;/dependency></code></pre>
 
 
@@ -49,7 +49,7 @@ Supported DigitalOcean API's and Functionalities
 
 * **To be released in v1.2**
     * `SSH Key Methods`
-        * List<SshKey> getAvailableSshKeys()
+        * List&lt;SshKey> getAvailableSshKeys()
         * SshKey getSshKeyInfo(Integer sshKeyId)
         * SshKey addSshKey(String sshKeyName, String sshPublicKey)
         * SshKey editSshKey(Integer sshKeyId, String sshPublicKey)
@@ -61,11 +61,11 @@ Supported DigitalOcean API's and Functionalities
 	* Optimized and smaller memory footprint
 	* Maven Group Id to be changed to <code>com.myjeeva.digitalocean</code>, for better understanding and grouping
     * `Domain Methods` 
-        * List<Domain> getAvailableDomains()
+        * List&lt;Domain> getAvailableDomains()
         * Domain createDomain(String domainName, String ipAddress)
         * Domain getDomainInfo(Integer domainId)
         * Response deleteDomain(Integer domainId)
-        * List<DomainRecord> getDomainRecords(Integer domainId)
+        * List&lt;DomainRecord> getDomainRecords(Integer domainId)
         * DomainRecord createDomainRecord(DomainRecord domainRecord)
         * DomainRecord getDomainRecordInfo(Integer domainId, Integer recordId)
         * DomainRecord editDomainRecord(DomainRecord domainRecord)
@@ -76,7 +76,7 @@ Supported DigitalOcean API's and Functionalities
 * **Released in v1.0**
 	* <code>Slug</code> Attribute supported in Image, Size and Region
     * `Droplets Methods`
-        * List<Droplet> getAvailableDroplets()
+        * List&lt;Droplet> getAvailableDroplets()
         * Droplet createDroplet(Droplet droplet)
         * Droplet createDroplet(Droplet droplet, String sshKeyIds)
         * Droplet getDropletInfo(Integer dropletId)
@@ -96,14 +96,14 @@ Supported DigitalOcean API's and Functionalities
         * Response renameDroplet(Integer dropletId, String name)
         * Response deleteDroplet(Integer dropletId)
     * `Region Methods`
-        * List<Region> getAvailableRegions()
+        * List&lt;Region> getAvailableRegions()
     * `Images Methods`
-        * List<DropletImage> getAvailableImages()
+        * List&lt;DropletImage> getAvailableImages()
         * DropletImage getImageInfo(Integer imageId)
         * Response deleteImage(Integer imageId)
         * Response transerImage(Integer imageId, Integer regionId)
     * `Sizes Methods` 
-        * List<DropletSize> getAvailableSizes()	
+        * List&lt;DropletSize> getAvailableSizes()	
 
 
 Issue Tracker
