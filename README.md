@@ -11,18 +11,18 @@ How to make use of digitalocean-api-client?
 <pre><code>&lt;dependency>
     &lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
     &lt;artifactId>digitalocean-api-client&lt;/artifactId>
-    &lt;version>1.1&lt;/version>
+    &lt;version>1.2&lt;/version>
 &lt;/dependency></code></pre>
 
 * Snapshot Maven Dependency ([OSS Sonatype Snapshot Repo][4])
 <pre><code>&lt;dependency>
     &lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
     &lt;artifactId>digitalocean-api-client&lt;/artifactId>
-    &lt;version>1.2-SNAPSHOT&lt;/version>
+    &lt;version>1.3-SNAPSHOT&lt;/version>
 &lt;/dependency></code></pre>
 
 
-* Download Binary [digitalocean-api-client-1.1.jar][8]
+* Download Binary [digitalocean-api-client-1.2.jar][8]
 
 * Clone/Download the repo [http://github.com/jeevatkm/digitalocean-api-java] and build it!
 
@@ -49,12 +49,14 @@ Supported DigitalOcean API's and Functionalities
 	
 * * *
 
-* **To be released in v1.2**
+* **Released in v1.2**
+	* Gson Type Tokens optimized
+	* Corrected Typo error of <code>transerImage</code> method refactored to <code>transferImage</code>
     * `SSH Key Methods`
         * List&lt;SshKey> getAvailableSshKeys()
         * SshKey getSshKeyInfo(Integer sshKeyId)
         * SshKey addSshKey(String sshKeyName, String sshPublicKey)
-        * SshKey editSshKey(Integer sshKeyId, String sshPublicKey)
+        * SshKey editSshKey(Integer sshKeyId, String newSshPublicKey)
         * Response deleteSshKey(Integer sshKeyId);
 
 * * *

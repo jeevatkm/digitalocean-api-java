@@ -316,28 +316,46 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	}
 
 	@Override
-	public List<SshKey> getAvailableSshKeys() {
-		throw new UnsupportedOperationException("To be released in v1.2");
+	public List<SshKey> getAvailableSshKeys() throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+		return (List<SshKey>) processByScope(Action.AVAILABLE_SSH_KEYS,
+				TYPE_SSH_KEY_LIST);
 	}
 
 	@Override
-	public SshKey getSshKeyInfo(Integer sshKeyId) {
-		throw new UnsupportedOperationException("To be released in v1.2");
+	public SshKey getSshKeyInfo(Integer sshKeyId) throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+		return (SshKey) processByScope(Action.GET_SSH_KEY, SshKey.class,
+				sshKeyId);
 	}
 
 	@Override
-	public SshKey addSshKey(String sshKeyName, String sshPublicKey) {
-		throw new UnsupportedOperationException("To be released in v1.2");
+	public SshKey addSshKey(String sshKeyName, String sshPublicKey)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
+		Map<String, String> qp = new HashMap<String, String>();
+		qp.put(PARAM_NAME, sshKeyName);
+		qp.put(PARAM_SSH_PUB_KEY, sshPublicKey);
+
+		return (SshKey) processByScope(Action.CREATE_SSH_KEY, SshKey.class, qp);
 	}
 
 	@Override
-	public SshKey editSshKey(Integer sshKeyId, String sshPublicKey) {
-		throw new UnsupportedOperationException("To be released in v1.2");
+	public SshKey editSshKey(Integer sshKeyId, String newSshPublicKey)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
+		Map<String, String> qp = new HashMap<String, String>();
+		qp.put(PARAM_SSH_PUB_KEY, newSshPublicKey);
+
+		return (SshKey) processByScope(Action.EDIT_SSH_KEY, SshKey.class, qp,
+				sshKeyId);
 	}
 
 	@Override
-	public Response deleteSshKey(Integer sshKeyId) {
-		throw new UnsupportedOperationException("To be released in v1.2");
+	public Response deleteSshKey(Integer sshKeyId)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
+		return process(Action.DELETE_SSH_KEY, sshKeyId);
 	}
 
 	@Override

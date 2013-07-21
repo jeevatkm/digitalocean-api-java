@@ -33,6 +33,7 @@ import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.DropletImage;
 import com.myjeeva.digitalocean.pojo.DropletSize;
 import com.myjeeva.digitalocean.pojo.Region;
+import com.myjeeva.digitalocean.pojo.SshKey;
 
 /**
  * DigitalOcean API client Constants
@@ -61,6 +62,7 @@ public interface Constants {
 	String PARAM_PRIORITY = "priority";
 	String PARAM_PORT = "port";
 	String PARAM_WEIGHT = "weight";
+	String PARAM_SSH_PUB_KEY = "ssh_pub_key";
 
 	// JSON Element Name
 	String STATUS = "status";
@@ -82,5 +84,8 @@ public interface Constants {
 	}.getType();
 
 	Type TYPE_DOMAIN_RECORD_LIST = new TypeToken<List<DomainRecord>>() {
+	}.getType();
+
+	Type TYPE_SSH_KEY_LIST = new TypeToken<List<SshKey>>() {
 	}.getType();
 }

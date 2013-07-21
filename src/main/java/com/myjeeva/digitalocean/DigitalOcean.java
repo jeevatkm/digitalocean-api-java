@@ -115,8 +115,8 @@ public interface DigitalOcean {
 	 * <ul>
 	 * <li>Name Required, String, this is the name of the droplet must be
 	 * formatted by hostname rules</li>
-	 * <li>Side Id Required, Numeric, this is the id of the size you would
-	 * like the droplet created at</li>
+	 * <li>Side Id Required, Numeric, this is the id of the size you would like
+	 * the droplet created at</li>
 	 * <li>Image Id Required, Numeric, this is the id of the image you would
 	 * like the droplet created with</li>
 	 * <li>Region Id Required, Numeric, this is the id of the region you would
@@ -148,8 +148,8 @@ public interface DigitalOcean {
 	 * <ul>
 	 * <li>Name Required, String, this is the name of the droplet must be
 	 * formatted by hostname rules</li>
-	 * <li>Side Id Required, Numeric, this is the id of the size you would
-	 * like the droplet created at</li>
+	 * <li>Side Id Required, Numeric, this is the id of the size you would like
+	 * the droplet created at</li>
 	 * <li>Image Id Required, Numeric, this is the id of the image you would
 	 * like the droplet created with</li>
 	 * <li>Region Id Required, Numeric, this is the id of the region you would
@@ -528,29 +528,85 @@ public interface DigitalOcean {
 	 * SSH Key manipulation methods
 	 */
 	/**
-	 * To be release in v1.2
+	 * Method lists all the available public SSH keys in your account that can
+	 * be added to a droplet.
+	 * 
+	 * @return <code>List&lt;SshKey></code>
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 * 
+	 * @since v1.2
 	 */
-	List<SshKey> getAvailableSshKeys();
+	List<SshKey> getAvailableSshKeys() throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException;
 
 	/**
-	 * To be release in v1.2
+	 * Method shows a specific public SSH key in your account that can be added
+	 * to a droplet.
+	 * 
+	 * @param sshKeyId
+	 *            the SSH key Id
+	 * @return {@link SshKey}
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 * 
+	 * @since v1.2
 	 */
-	SshKey getSshKeyInfo(Integer sshKeyId);
+	SshKey getSshKeyInfo(Integer sshKeyId) throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException;
 
 	/**
-	 * To be release in v1.2
+	 * Method allows you to add a new public SSH key to your account
+	 * 
+	 * @param sshKeyName
+	 *            the name you want to give this SSH key
+	 * @param sshPublicKey
+	 *            the actual public SSH key
+	 * @return {@link SshKey}
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 * 
+	 * @since v1.2
 	 */
-	SshKey addSshKey(String sshKeyName, String sshPublicKey);
+	SshKey addSshKey(String sshKeyName, String sshPublicKey)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException;
 
 	/**
-	 * To be release in v1.2
+	 * Method allows you to modify an existing public SSH key in your account.
+	 * 
+	 * @param sshKeyId
+	 *            the SSH key Id, you would like to edit
+	 * @param newSshPublicKey
+	 *            the new public SSH key
+	 * @return {@link SshKey}
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 * 
+	 * @since v1.2
 	 */
-	SshKey editSshKey(Integer sshKeyId, String sshPublicKey);
+	SshKey editSshKey(Integer sshKeyId, String newSshPublicKey)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException;
 
 	/**
-	 * To be release in v1.2
+	 * Method will delete the SSH key from your account.
+	 * 
+	 * @param sshKeyId
+	 *            the SSH key Id, you would like to delete
+	 * @return {@link Response}
+	 * @throws RequestUnsuccessfulException
+	 * @throws ResourceNotFoundException
+	 * @throws AccessDeniedException
+	 * 
+	 * @since v1.2
 	 */
-	Response deleteSshKey(Integer sshKeyId);
+	Response deleteSshKey(Integer sshKeyId) throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException;
 
 	/*
 	 * Sizes (aka Available Droplet Plans) methods
