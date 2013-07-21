@@ -23,6 +23,17 @@
  */
 package com.myjeeva.digitalocean;
 
+import java.lang.reflect.Type;
+import java.util.List;
+
+import com.google.gson.reflect.TypeToken;
+import com.myjeeva.digitalocean.pojo.Domain;
+import com.myjeeva.digitalocean.pojo.DomainRecord;
+import com.myjeeva.digitalocean.pojo.Droplet;
+import com.myjeeva.digitalocean.pojo.DropletImage;
+import com.myjeeva.digitalocean.pojo.DropletSize;
+import com.myjeeva.digitalocean.pojo.Region;
+
 /**
  * DigitalOcean API client Constants
  * 
@@ -53,4 +64,23 @@ public interface Constants {
 
 	// JSON Element Name
 	String STATUS = "status";
+
+	// Gson Type Tokens
+	Type TYPE_DROPLET_LIST = new TypeToken<List<Droplet>>() {
+	}.getType();
+
+	Type TYPE_IMAGE_LIST = new TypeToken<List<DropletImage>>() {
+	}.getType();
+
+	Type TYPE_REGION_LIST = new TypeToken<List<Region>>() {
+	}.getType();
+
+	Type TYPE_SIZE_LIST = new TypeToken<List<DropletSize>>() {
+	}.getType();
+
+	Type TYPE_DOMAIN_LIST = new TypeToken<List<Domain>>() {
+	}.getType();
+
+	Type TYPE_DOMAIN_RECORD_LIST = new TypeToken<List<DomainRecord>>() {
+	}.getType();
 }

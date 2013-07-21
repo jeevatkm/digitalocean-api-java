@@ -28,18 +28,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.reflect.TypeToken;
-import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
-import com.myjeeva.digitalocean.pojo.Droplet;
-import com.myjeeva.digitalocean.pojo.DropletImage;
-import com.myjeeva.digitalocean.pojo.DropletSize;
-import com.myjeeva.digitalocean.pojo.Region;
 
 /**
  * Utility methods for DigitalOcean API Client
@@ -49,18 +42,6 @@ import com.myjeeva.digitalocean.pojo.Region;
 public final class Utils implements Constants {
 
 	private static Gson gson;
-
-	private static Type dropletListType;
-
-	private static Type imageListType;
-
-	private static Type regionListType;
-
-	private static Type sizeListType;
-
-	private static Type domainListType;
-
-	private static Type domainRecordListType;
 
 	public static Gson getGson() {
 		if (null == gson) {
@@ -119,53 +100,4 @@ public final class Utils implements Constants {
 
 		return qp;
 	}
-
-	public static Type getDropletListType() {
-		if (null == dropletListType) {
-			dropletListType = new TypeToken<List<Droplet>>() {
-			}.getType();
-		}
-		return dropletListType;
-	}
-
-	public static Type getImageListType() {
-		if (null == imageListType) {
-			imageListType = new TypeToken<List<DropletImage>>() {
-			}.getType();
-		}
-		return imageListType;
-	}
-
-	public static Type getRegionListType() {
-		if (null == regionListType) {
-			regionListType = new TypeToken<List<Region>>() {
-			}.getType();
-		}
-		return regionListType;
-	}
-
-	public static Type getSizeListType() {
-		if (null == sizeListType) {
-			sizeListType = new TypeToken<List<DropletSize>>() {
-			}.getType();
-		}
-		return sizeListType;
-	}
-
-	public static Type getDomainListType() {
-		if (null == domainListType) {
-			domainListType = new TypeToken<List<Domain>>() {
-			}.getType();
-		}
-		return domainListType;
-	}
-
-	public static Type getDomainRecordListType() {
-		if (null == domainRecordListType) {
-			domainRecordListType = new TypeToken<List<DomainRecord>>() {
-			}.getType();
-		}
-		return domainRecordListType;
-	}
-
 }

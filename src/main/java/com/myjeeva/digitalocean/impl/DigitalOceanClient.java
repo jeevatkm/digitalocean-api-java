@@ -114,7 +114,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	public List<Droplet> getAvailableDroplets() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
 		return (List<Droplet>) processByScope(Action.AVAILABLE_DROPLETS,
-				Utils.getDropletListType());
+				TYPE_DROPLET_LIST);
 	}
 
 	@Override
@@ -280,7 +280,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	public List<Region> getAvailableRegions() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
 		return (List<Region>) processByScope(Action.AVAILABLE_REGIONS,
-				Utils.getRegionListType());
+				TYPE_REGION_LIST);
 	}
 
 	@Override
@@ -288,7 +288,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
 		return (List<DropletImage>) processByScope(Action.AVAILABLE_IMAGES,
-				Utils.getImageListType());
+				TYPE_IMAGE_LIST);
 	}
 
 	@Override
@@ -306,7 +306,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	}
 
 	@Override
-	public Response transerImage(Integer imageId, Integer regionId)
+	public Response transferImage(Integer imageId, Integer regionId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
 		Map<String, String> qp = new HashMap<String, String>();
@@ -344,14 +344,14 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	public List<DropletSize> getAvailableSizes() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
 		return (List<DropletSize>) processByScope(Action.AVAILABLE_SIZES,
-				Utils.getSizeListType());
+				TYPE_SIZE_LIST);
 	}
 
 	@Override
 	public List<Domain> getAvailableDomains() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
 		return (List<Domain>) processByScope(Action.AVAILABLE_DOMAINS,
-				Utils.getDomainListType());
+				TYPE_DOMAIN_LIST);
 	}
 
 	@Override
@@ -384,7 +384,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
 		return (List<DomainRecord>) processByScope(Action.GET_DOMAIN_RECORDS,
-				Utils.getDomainRecordListType(), domainId);
+				TYPE_DOMAIN_RECORD_LIST, domainId);
 	}
 
 	@Override
