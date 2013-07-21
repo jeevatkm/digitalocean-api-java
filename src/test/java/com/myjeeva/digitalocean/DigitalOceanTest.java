@@ -43,6 +43,7 @@ import com.myjeeva.digitalocean.pojo.DropletImage;
 import com.myjeeva.digitalocean.pojo.DropletSize;
 import com.myjeeva.digitalocean.pojo.Region;
 import com.myjeeva.digitalocean.pojo.Response;
+import com.myjeeva.digitalocean.pojo.SshKey;
 
 /**
  * <p>
@@ -79,7 +80,10 @@ public class DigitalOceanTest extends TestCase {
 											// test
 	private String domainName = ""; // my domain name
 	private String dropletIpAddress = ""; // my droplet IP
-											// Address
+	// Address
+
+	private String testSshPubKey = "ssh-rsa JAAAAB3NzaC1yc2EAAAADAQABAAABAQDV6iXIpICH9cf8nY1iaI5R+qAsUB993Be7sA+gKmQcKmw+Y5OODdtm8V+XxotqPuJcs1P6muCG4z2rdsrZ12jhRfZ7i3+4LYUcCgxnnf1KXMIy0b+B5+Fmp1XBne3woHqCekaN3lteVUUxfKsLqXeI0xwcrL+v9DyFx4KZ+hNTTTBQ1Xs7ai1RP6EA4i3bn8OIqX7CJTSDdRkbY/lzOow7NWpBh1huq9jivmdmsYlaHcVyL8ZOEsI2H9w4rqxrq4CTiw24WXkeP+L9Ni/kp/UQWSIoD32Q4Tx7DUiRO/JkBm23VtkHVYGtIVt6pZUYVvzX0/BKiYh+3mw7F2rh3ADf test@testdomain.com";
+	private Integer testSshKeyId = 25015;
 
 	private DigitalOcean apiClient = new DigitalOceanClient(clientId, apiKey);
 
@@ -324,8 +328,69 @@ public class DigitalOceanTest extends TestCase {
 	@Test
 	public void testTransferImage() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
-		assertAndLogResponseValue(apiClient.transerImage(restoreImageId,
+		assertAndLogResponseValue(apiClient.transferImage(restoreImageId,
 				regionId));
+	}
+
+	@Test
+	public void testGetAvailableSshKeys() throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+
+		List<SshKey> sshKeys = apiClient.getAvailableSshKeys();
+
+		assertNotNull(sshKeys);
+
+		for (SshKey sk : sshKeys) {
+			logSshKeyValues(sk);
+		}
+	}
+
+	@Test
+	public void testAddSshKey() throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+
+		SshKey sshKey = apiClient.addSshKey("api-client-test", testSshPubKey);
+
+		assertNotNull(sshKey);
+		assertNotNull(sshKey.getId());
+
+		logSshKeyValues(sshKey);
+	}
+
+	@Test
+	public void testGetSshKeyInfo() throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+
+		SshKey sshKey = apiClient.getSshKeyInfo(testSshKeyId);
+
+		assertNotNull(sshKey);
+		assertNotNull(sshKey.getId());
+
+		logSshKeyValues(sshKey);
+	}
+
+	@Test
+	public void testEditSshKey() throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+
+		SshKey sshKey = apiClient.editSshKey(testSshKeyId, testSshPubKey);
+
+		assertNotNull(sshKey);
+		assertNotNull(sshKey.getId());
+
+		logSshKeyValues(sshKey);
+	}
+
+	@Test
+	public void testDeleteSshKey() throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+
+		Response response = apiClient.deleteSshKey(testSshKeyId);
+
+		assertNotNull(response);
+
+		LOG.info("Response Status: " + response.getStatus() + ", Event Id: "
+				+ response.getEventId());
 	}
 
 	@Test
@@ -502,6 +567,11 @@ public class DigitalOceanTest extends TestCase {
 				+ dr.getData() + ", Record Priority: " + dr.getPriority()
 				+ ", Record Port: " + dr.getPort() + ", Record Weight: "
 				+ dr.getWeight());
+	}
+
+	private void logSshKeyValues(SshKey sk) {
+		LOG.info("SSH Key Id: " + sk.getId() + ", SSH Key Name: "
+				+ sk.getName() + ", SSH Pub Key: " + sk.getSshPublicKey());
 	}
 
 }

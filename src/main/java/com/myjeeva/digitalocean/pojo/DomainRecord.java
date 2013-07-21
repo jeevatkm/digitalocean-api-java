@@ -61,28 +61,22 @@ public class DomainRecord {
 	 * Parameterized {@link DomainRecord} Constructor
 	 * 
 	 * @param id
-	 *            - a {@link Integer} object: Domain record Id
+	 *            Domain record Id
 	 * @param domainId
-	 *            - a {@link Integer} object: specifies the domain Id for which
-	 *            to create a record
+	 *            specifies the domain Id for which to create a record
 	 * @param recordType
-	 *            - a {@link String} object: the type of record you would like
-	 *            to create. 'A', 'CNAME', 'NS', 'TXT', 'MX' or 'SRV'
+	 *            the type of record you would like to create. 'A', 'CNAME',
+	 *            'NS', 'TXT', 'MX' or 'SRV'
 	 * @param data
-	 *            - a {@link String} object: this is the value of the record,
-	 *            for example: IP address, '@'
+	 *            this is the value of the record, for example: IP address, '@'
 	 * @param name
-	 *            - a {@link String} object: Optional, required for 'A',
-	 *            'CNAME', 'TXT' and 'SRV' records
+	 *            Optional, required for 'A', 'CNAME', 'TXT' and 'SRV' records
 	 * @param priority
-	 *            - a {@link String} object: Optional, required for 'SRV' and
-	 *            'MX' records
+	 *            Optional, required for 'SRV' and 'MX' records
 	 * @param port
-	 *            - a {@link String} object: Optional, required for 'SRV'
-	 *            records
+	 *            Optional, required for 'SRV' records
 	 * @param weight
-	 *            - a {@link String} object: Optional, required for 'SRV'
-	 *            records
+	 *            Optional, required for 'SRV' records
 	 */
 	public DomainRecord(Integer id, Integer domainId, String recordType,
 			String data, String name, String priority, Integer port,
@@ -98,7 +92,7 @@ public class DomainRecord {
 	}
 
 	/**
-	 * @return the id - Domain record Id
+	 * @return the idDomain record Id
 	 */
 	public Integer getId() {
 		return id;
@@ -106,15 +100,14 @@ public class DomainRecord {
 
 	/**
 	 * @param id
-	 *            the id to set - Domain Record Id
+	 *            the id to setDomain Record Id
 	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	/**
-	 * @return the domainId - specifies the domain Id for which to create a
-	 *         record
+	 * @return the domainIdspecifies the domain Id for which to create a record
 	 */
 	public Integer getDomainId() {
 		return domainId;
@@ -129,8 +122,8 @@ public class DomainRecord {
 	}
 
 	/**
-	 * @return the recordType - the type of record you would like to create.
-	 *         'A', 'CNAME', 'NS', 'TXT', 'MX' or 'SRV'
+	 * @return the recordTypethe type of record you would like to create. 'A',
+	 *         'CNAME', 'NS', 'TXT', 'MX' or 'SRV'
 	 */
 	public String getRecordType() {
 		return recordType;
@@ -145,7 +138,7 @@ public class DomainRecord {
 	}
 
 	/**
-	 * @return the data value of - IP address, '@'
+	 * @return the data value ofIP address, '@'
 	 */
 	public String getData() {
 		return data;
@@ -153,15 +146,15 @@ public class DomainRecord {
 
 	/**
 	 * @param data
-	 *            the data to set - this is the value of the record, for
-	 *            example: IP address, '@'
+	 *            the data to setthis is the value of the record, for example:
+	 *            IP address, '@'
 	 */
 	public void setData(String data) {
 		this.data = data;
 	}
 
 	/**
-	 * @return the name - value of 'A', 'CNAME', 'TXT' and 'SRV' records
+	 * @return the namevalue of 'A', 'CNAME', 'TXT' and 'SRV' records
 	 */
 	public String getName() {
 		return name;
@@ -169,8 +162,8 @@ public class DomainRecord {
 
 	/**
 	 * @param name
-	 *            the name to set - Optional, required for 'A', 'CNAME', 'TXT'
-	 *            and 'SRV' records
+	 *            the name to setOptional, required for 'A', 'CNAME', 'TXT' and
+	 *            'SRV' records
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -201,7 +194,7 @@ public class DomainRecord {
 
 	/**
 	 * @param port
-	 *            the port to set - Optional, required for 'SRV' records
+	 *            the port to setOptional, required for 'SRV' records
 	 */
 	public void setPort(Integer port) {
 		this.port = port;
@@ -216,7 +209,7 @@ public class DomainRecord {
 
 	/**
 	 * @param weight
-	 *            the weight to set - Optional, required for 'SRV' records
+	 *            the weight to setOptional, required for 'SRV' records
 	 */
 	public void setWeight(Integer weight) {
 		this.weight = weight;

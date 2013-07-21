@@ -114,7 +114,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	public List<Droplet> getAvailableDroplets() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
 		return (List<Droplet>) processByScope(Action.AVAILABLE_DROPLETS,
-				Utils.getDropletListType());
+				TYPE_DROPLET_LIST);
 	}
 
 	@Override
@@ -280,7 +280,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	public List<Region> getAvailableRegions() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
 		return (List<Region>) processByScope(Action.AVAILABLE_REGIONS,
-				Utils.getRegionListType());
+				TYPE_REGION_LIST);
 	}
 
 	@Override
@@ -288,7 +288,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
 		return (List<DropletImage>) processByScope(Action.AVAILABLE_IMAGES,
-				Utils.getImageListType());
+				TYPE_IMAGE_LIST);
 	}
 
 	@Override
@@ -306,7 +306,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	}
 
 	@Override
-	public Response transerImage(Integer imageId, Integer regionId)
+	public Response transferImage(Integer imageId, Integer regionId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
 		Map<String, String> qp = new HashMap<String, String>();
@@ -316,42 +316,60 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	}
 
 	@Override
-	public List<SshKey> getAvailableSshKeys() {
-		throw new UnsupportedOperationException("To be released in v1.2");
+	public List<SshKey> getAvailableSshKeys() throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+		return (List<SshKey>) processByScope(Action.AVAILABLE_SSH_KEYS,
+				TYPE_SSH_KEY_LIST);
 	}
 
 	@Override
-	public SshKey getSshKeyInfo(Integer sshKeyId) {
-		throw new UnsupportedOperationException("To be released in v1.2");
+	public SshKey getSshKeyInfo(Integer sshKeyId) throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException {
+		return (SshKey) processByScope(Action.GET_SSH_KEY, SshKey.class,
+				sshKeyId);
 	}
 
 	@Override
-	public SshKey addSshKey(String sshKeyName, String sshPublicKey) {
-		throw new UnsupportedOperationException("To be released in v1.2");
+	public SshKey addSshKey(String sshKeyName, String sshPublicKey)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
+		Map<String, String> qp = new HashMap<String, String>();
+		qp.put(PARAM_NAME, sshKeyName);
+		qp.put(PARAM_SSH_PUB_KEY, sshPublicKey);
+
+		return (SshKey) processByScope(Action.CREATE_SSH_KEY, SshKey.class, qp);
 	}
 
 	@Override
-	public SshKey editSshKey(Integer sshKeyId, String sshPublicKey) {
-		throw new UnsupportedOperationException("To be released in v1.2");
+	public SshKey editSshKey(Integer sshKeyId, String newSshPublicKey)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
+		Map<String, String> qp = new HashMap<String, String>();
+		qp.put(PARAM_SSH_PUB_KEY, newSshPublicKey);
+
+		return (SshKey) processByScope(Action.EDIT_SSH_KEY, SshKey.class, qp,
+				sshKeyId);
 	}
 
 	@Override
-	public Response deleteSshKey(Integer sshKeyId) {
-		throw new UnsupportedOperationException("To be released in v1.2");
+	public Response deleteSshKey(Integer sshKeyId)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
+		return process(Action.DELETE_SSH_KEY, sshKeyId);
 	}
 
 	@Override
 	public List<DropletSize> getAvailableSizes() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
 		return (List<DropletSize>) processByScope(Action.AVAILABLE_SIZES,
-				Utils.getSizeListType());
+				TYPE_SIZE_LIST);
 	}
 
 	@Override
 	public List<Domain> getAvailableDomains() throws AccessDeniedException,
 			ResourceNotFoundException, RequestUnsuccessfulException {
 		return (List<Domain>) processByScope(Action.AVAILABLE_DOMAINS,
-				Utils.getDomainListType());
+				TYPE_DOMAIN_LIST);
 	}
 
 	@Override
@@ -384,7 +402,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException {
 		return (List<DomainRecord>) processByScope(Action.GET_DOMAIN_RECORDS,
-				Utils.getDomainRecordListType(), domainId);
+				TYPE_DOMAIN_RECORD_LIST, domainId);
 	}
 
 	@Override

@@ -113,18 +113,18 @@ public interface DigitalOcean {
 	 * Create a instance of {@link Droplet} object and populate following values
 	 * </p>
 	 * <ul>
-	 * <li>Name - Required, String, this is the name of the droplet - must be
+	 * <li>Name Required, String, this is the name of the droplet must be
 	 * formatted by hostname rules</li>
-	 * <li>Side Id - Required, Numeric, this is the id of the size you would
-	 * like the droplet created at</li>
-	 * <li>Image Id - Required, Numeric, this is the id of the image you would
+	 * <li>Side Id Required, Numeric, this is the id of the size you would like
+	 * the droplet created at</li>
+	 * <li>Image Id Required, Numeric, this is the id of the image you would
 	 * like the droplet created with</li>
-	 * <li>Region Id - Required, Numeric, this is the id of the region you would
+	 * <li>Region Id Required, Numeric, this is the id of the region you would
 	 * like your server in</li>
 	 * </ul>
 	 * 
 	 * @param droplet
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @return {@link Droplet}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -146,20 +146,20 @@ public interface DigitalOcean {
 	 * Create a instance of {@link Droplet} object and populate following values
 	 * </p>
 	 * <ul>
-	 * <li>Name - Required, String, this is the name of the droplet - must be
+	 * <li>Name Required, String, this is the name of the droplet must be
 	 * formatted by hostname rules</li>
-	 * <li>Side Id - Required, Numeric, this is the id of the size you would
-	 * like the droplet created at</li>
-	 * <li>Image Id - Required, Numeric, this is the id of the image you would
+	 * <li>Side Id Required, Numeric, this is the id of the size you would like
+	 * the droplet created at</li>
+	 * <li>Image Id Required, Numeric, this is the id of the image you would
 	 * like the droplet created with</li>
-	 * <li>Region Id - Required, Numeric, this is the id of the region you would
+	 * <li>Region Id Required, Numeric, this is the id of the region you would
 	 * like your server in</li>
 	 * </ul>
 	 * 
 	 * @param droplet
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @param sshKeyIds
-	 *            - Numeric CSV, comma separated list of ssh_key_ids that you
+	 *            Numeric CSV, comma separated list of ssh_key_ids that you
 	 *            would like to be added to the server
 	 * @return {@link Droplet}
 	 * @throws AccessDeniedException
@@ -177,7 +177,7 @@ public interface DigitalOcean {
 	 * in the URL.
 	 * 
 	 * @param dropletId
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @return {@link Droplet}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -193,7 +193,7 @@ public interface DigitalOcean {
 	 * use if a server is not responding.
 	 * 
 	 * @param dropletId
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -209,7 +209,7 @@ public interface DigitalOcean {
 	 * droplet and then turn it back on.
 	 * 
 	 * @param dropletId
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -225,7 +225,7 @@ public interface DigitalOcean {
 	 * in your account.
 	 * 
 	 * @param dropletId
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -241,7 +241,7 @@ public interface DigitalOcean {
 	 * in your account.
 	 * 
 	 * @param dropletId
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -256,7 +256,7 @@ public interface DigitalOcean {
 	 * Method allows you to poweron a powered off droplet.
 	 * 
 	 * @param dropletId
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -272,7 +272,7 @@ public interface DigitalOcean {
 	 * this will reboot the droplet to allow resetting the password.
 	 * 
 	 * @param dropletId
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -289,7 +289,7 @@ public interface DigitalOcean {
 	 * will affect the number of processors and memory allocated to the droplet.
 	 * 
 	 * @param dropletId
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -307,7 +307,7 @@ public interface DigitalOcean {
 	 * Please be aware this may cause a reboot.
 	 * 
 	 * @param dropletId
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -325,9 +325,9 @@ public interface DigitalOcean {
 	 * Please be aware this may cause a reboot.
 	 * 
 	 * @param dropletId
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @param snapshotName
-	 *            - the name the snapshot to be created
+	 *            the name the snapshot to be created
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -345,7 +345,7 @@ public interface DigitalOcean {
 	 * sure you have backed up any necessary information prior to restore.
 	 * 
 	 * @param dropletId
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -363,7 +363,7 @@ public interface DigitalOcean {
 	 * droplet.
 	 * 
 	 * @param dropletId
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -380,7 +380,7 @@ public interface DigitalOcean {
 	 * backup your droplet's data.
 	 * 
 	 * @param dropletId
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -397,7 +397,7 @@ public interface DigitalOcean {
 	 * data.
 	 * 
 	 * @param dropletId
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -413,7 +413,7 @@ public interface DigitalOcean {
 	 * Method renames the droplet to the specified name.
 	 * 
 	 * @param dropletId
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -426,10 +426,10 @@ public interface DigitalOcean {
 			RequestUnsuccessfulException;
 
 	/**
-	 * Method destroys one of your droplets - this is irreversible.
+	 * Method destroys one of your droplets this is irreversible.
 	 * 
 	 * @param dropletId
-	 *            - the id of the droplet
+	 *            the id of the droplet
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -479,7 +479,7 @@ public interface DigitalOcean {
 	 * Method retrieves the attributes of an image.
 	 * 
 	 * @param imageId
-	 *            - the image Id of the droplet/snapshot/backup images
+	 *            the image Id of the droplet/snapshot/backup images
 	 * @return {@link DropletImage}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -495,7 +495,7 @@ public interface DigitalOcean {
 	 * deleted image so be careful and ensure your data is properly backed up.
 	 * 
 	 * @param imageId
-	 *            - the image Id of the droplet/snapshot/backup images
+	 *            the image Id of the droplet/snapshot/backup images
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -510,9 +510,9 @@ public interface DigitalOcean {
 	 * Method allows you to transfer an image to a specified region.
 	 * 
 	 * @param imageId
-	 *            - the image Id of the droplet/snapshot/backup images
+	 *            the image Id of the droplet/snapshot/backup images
 	 * @param regionId
-	 *            - the region Id of the digitalocean data centers
+	 *            the region Id of the digitalocean data centers
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -520,7 +520,7 @@ public interface DigitalOcean {
 	 * 
 	 * @since v1.0
 	 */
-	Response transerImage(Integer imageId, Integer regionId)
+	Response transferImage(Integer imageId, Integer regionId)
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException;
 
@@ -528,29 +528,85 @@ public interface DigitalOcean {
 	 * SSH Key manipulation methods
 	 */
 	/**
-	 * To be release in v1.2
+	 * Method lists all the available public SSH keys in your account that can
+	 * be added to a droplet.
+	 * 
+	 * @return <code>List&lt;SshKey></code>
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 * 
+	 * @since v1.2
 	 */
-	List<SshKey> getAvailableSshKeys();
+	List<SshKey> getAvailableSshKeys() throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException;
 
 	/**
-	 * To be release in v1.2
+	 * Method shows a specific public SSH key in your account that can be added
+	 * to a droplet.
+	 * 
+	 * @param sshKeyId
+	 *            the SSH key Id
+	 * @return {@link SshKey}
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 * 
+	 * @since v1.2
 	 */
-	SshKey getSshKeyInfo(Integer sshKeyId);
+	SshKey getSshKeyInfo(Integer sshKeyId) throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException;
 
 	/**
-	 * To be release in v1.2
+	 * Method allows you to add a new public SSH key to your account
+	 * 
+	 * @param sshKeyName
+	 *            the name you want to give this SSH key
+	 * @param sshPublicKey
+	 *            the actual public SSH key
+	 * @return {@link SshKey}
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 * 
+	 * @since v1.2
 	 */
-	SshKey addSshKey(String sshKeyName, String sshPublicKey);
+	SshKey addSshKey(String sshKeyName, String sshPublicKey)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException;
 
 	/**
-	 * To be release in v1.2
+	 * Method allows you to modify an existing public SSH key in your account.
+	 * 
+	 * @param sshKeyId
+	 *            the SSH key Id, you would like to edit
+	 * @param newSshPublicKey
+	 *            the new public SSH key
+	 * @return {@link SshKey}
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 * 
+	 * @since v1.2
 	 */
-	SshKey editSshKey(Integer sshKeyId, String sshPublicKey);
+	SshKey editSshKey(Integer sshKeyId, String newSshPublicKey)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException;
 
 	/**
-	 * To be release in v1.2
+	 * Method will delete the SSH key from your account.
+	 * 
+	 * @param sshKeyId
+	 *            the SSH key Id, you would like to delete
+	 * @return {@link Response}
+	 * @throws RequestUnsuccessfulException
+	 * @throws ResourceNotFoundException
+	 * @throws AccessDeniedException
+	 * 
+	 * @since v1.2
 	 */
-	Response deleteSshKey(Integer sshKeyId);
+	Response deleteSshKey(Integer sshKeyId) throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException;
 
 	/*
 	 * Sizes (aka Available Droplet Plans) methods
@@ -590,9 +646,9 @@ public interface DigitalOcean {
 	 * [ip_address].
 	 * 
 	 * @param domainName
-	 *            - the name of the domain
+	 *            the name of the domain
 	 * @param ipAddress
-	 *            - the IP Address for the domain
+	 *            the IP Address for the domain
 	 * @return {@link Domain}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -608,7 +664,7 @@ public interface DigitalOcean {
 	 * Method returns the specified domain attributes and zone file info.
 	 * 
 	 * @param domainId
-	 *            - the Id of the domain
+	 *            the Id of the domain
 	 * @return {@link Domain}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -623,7 +679,7 @@ public interface DigitalOcean {
 	 * Method deletes the specified domain from DNS control panel
 	 * 
 	 * @param domainId
-	 *            - the Id of the domain
+	 *            the Id of the domain
 	 * @return {@link Response}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -639,7 +695,7 @@ public interface DigitalOcean {
 	 * for given domain.
 	 * 
 	 * @param domainId
-	 *            - the Id of the domain
+	 *            the Id of the domain
 	 * @return <code>List&lt;DomainRecord></code>
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -656,7 +712,7 @@ public interface DigitalOcean {
 	 * values
 	 * 
 	 * @param domainRecord
-	 *            - the domain record values domain Id, record type, data, name,
+	 *            the domain record values domain Id, record type, data, name,
 	 *            priority, port, weight
 	 * @return {@link DomainRecord}
 	 * @throws AccessDeniedException
@@ -673,9 +729,9 @@ public interface DigitalOcean {
 	 * Method returns the specified domain record.
 	 * 
 	 * @param domainId
-	 *            - the Id of the domain
+	 *            the Id of the domain
 	 * @param recordId
-	 *            - the record Id of the domain
+	 *            the record Id of the domain
 	 * @return {@link DomainRecord}
 	 * @throws AccessDeniedException
 	 * @throws ResourceNotFoundException
@@ -691,7 +747,7 @@ public interface DigitalOcean {
 	 * method edits an existing domain record of the given domain.
 	 * 
 	 * @param domainRecord
-	 *            - the domain record values domain Id, record type, data, name,
+	 *            the domain record values domain Id, record type, data, name,
 	 *            priority, port, weight
 	 * @return {@link DomainRecord}
 	 * @throws AccessDeniedException
