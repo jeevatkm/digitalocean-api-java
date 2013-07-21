@@ -105,7 +105,7 @@ Supported DigitalOcean API's and Functionalities
         * List&lt;DropletImage> getAvailableImages()
         * DropletImage getImageInfo(Integer imageId)
         * Response deleteImage(Integer imageId)
-        * Response transerImage(Integer imageId, Integer regionId)
+        * Response transferImage(Integer imageId, Integer regionId)
     * `Sizes Methods` 
         * List&lt;DropletSize> getAvailableSizes()	
 
@@ -124,7 +124,7 @@ See [LICENSE.txt][6]
 
 
 [1]: https://api.digitalocean.com/
-[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.1/
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.2/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/
 [5]: http://myjeeva.com
