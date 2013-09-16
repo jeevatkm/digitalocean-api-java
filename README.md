@@ -22,7 +22,7 @@ How to make use of digitalocean-api-client?
 &lt;/dependency></code></pre>
 
 
-* Download Binary [digitalocean-api-client-1.2.jar][8]
+* Download Binary [digitalocean-api-client-x.x.jar][8]
 
 * Clone/Download the repo [http://github.com/jeevatkm/digitalocean-api-java] and build it!
 
@@ -50,7 +50,7 @@ Supported DigitalOcean API's and Functionalities
 * * *
 	
 * **To be released in v1.3**
-	* Added new Class `[Event][9]`
+	* Added new POJO [Event][9]
 	* Added two new attributes in Response Class
 		* `error_message`
 		* `event`
@@ -141,4 +141,4 @@ See [LICENSE.txt][6]
 [6]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/LICENSE.txt
 [7]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanTest.java
 [8]: https://www.box.com/s/q4s3r4galsgqug21tnfv
-[9]: 
+[9]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.3/com/myjeeva/digitalocean/pojo/Event.html
