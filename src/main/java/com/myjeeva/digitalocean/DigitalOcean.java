@@ -773,4 +773,22 @@ public interface DigitalOcean {
 			throws AccessDeniedException, ResourceNotFoundException,
 			RequestUnsuccessfulException;
 
+	/*
+	 * Events status methods
+	 */
+	/**
+	 * Method is primarily used to collect progress of an event and determined
+	 * by percentage of completion.
+	 * 
+	 * @param eventId
+	 *            this is event id of the event you would like to get more
+	 *            information
+	 * @return {@link Response}
+	 * @throws AccessDeniedException
+	 * @throws ResourceNotFoundException
+	 * @throws RequestUnsuccessfulException
+	 */
+	Response getEventProgress(Integer eventId) throws AccessDeniedException,
+			ResourceNotFoundException, RequestUnsuccessfulException;
+
 }

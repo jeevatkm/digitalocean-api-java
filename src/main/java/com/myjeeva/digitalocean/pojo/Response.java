@@ -38,6 +38,17 @@ public class Response {
 	private Long eventId;
 
 	/**
+	 * @since v1.3
+	 */
+	@SerializedName("error_message")
+	private String errorMessage;
+
+	/**
+	 * @since v1.3
+	 */
+	private Event event;
+
+	/**
 	 * @return the status
 	 */
 	public String getStatus() {
@@ -65,6 +76,36 @@ public class Response {
 	 */
 	public void setEventId(Long eventId) {
 		this.eventId = eventId;
+	}
+
+	/**
+	 * @return the errorMessage
+	 */
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	/**
+	 * @param errorMessage
+	 *            the errorMessage to set
+	 */
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+
+	/**
+	 * @return the event
+	 */
+	public Event getEvent() {
+		return event;
+	}
+
+	/**
+	 * @param event
+	 *            the event to set
+	 */
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 
 }
