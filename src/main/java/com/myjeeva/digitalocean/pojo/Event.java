@@ -26,86 +26,100 @@ package com.myjeeva.digitalocean.pojo;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents generic response return object of DigitalOcean API request
+ * Represents Event return object of DigitalOcean API request
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
+ * 
+ * @since v1.3
  */
-public class Response {
+public class Event {
 
-	private String status;
+	private Long id;
 
-	@SerializedName("event_id")
-	private Long eventId;
+	@SerializedName("action_status")
+	private String actionStatus;
 
-	/**
-	 * @since v1.3
-	 */
-	@SerializedName("error_message")
-	private String errorMessage;
+	@SerializedName("droplet_id")
+	private Integer dropletId;
 
-	/**
-	 * @since v1.3
-	 */
-	private Event event;
+	@SerializedName("event_type_id")
+	private Integer eventTypeId;
+
+	private String percentage;
 
 	/**
-	 * @return the status
+	 * @return the id
 	 */
-	public String getStatus() {
-		return status;
+	public Long getId() {
+		return id;
 	}
 
 	/**
-	 * @param status
-	 *            the status to set
+	 * @param id
+	 *            the id to set
 	 */
-	public void setStatus(String status) {
-		this.status = status;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**
-	 * @return the eventId
+	 * @return the actionStatus
 	 */
-	public Long getEventId() {
-		return eventId;
+	public String getActionStatus() {
+		return actionStatus;
 	}
 
 	/**
-	 * @param eventId
-	 *            the eventId to set
+	 * @param actionStatus
+	 *            the actionStatus to set
 	 */
-	public void setEventId(Long eventId) {
-		this.eventId = eventId;
+	public void setActionStatus(String actionStatus) {
+		this.actionStatus = actionStatus;
 	}
 
 	/**
-	 * @return the errorMessage
+	 * @return the dropletId
 	 */
-	public String getErrorMessage() {
-		return errorMessage;
+	public Integer getDropletId() {
+		return dropletId;
 	}
 
 	/**
-	 * @param errorMessage
-	 *            the errorMessage to set
+	 * @param dropletId
+	 *            the dropletId to set
 	 */
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
+	public void setDropletId(Integer dropletId) {
+		this.dropletId = dropletId;
 	}
 
 	/**
-	 * @return the event
+	 * @return the eventTypeId
 	 */
-	public Event getEvent() {
-		return event;
+	public Integer getEventTypeId() {
+		return eventTypeId;
 	}
 
 	/**
-	 * @param event
-	 *            the event to set
+	 * @param eventTypeId
+	 *            the eventTypeId to set
 	 */
-	public void setEvent(Event event) {
-		this.event = event;
+	public void setEventTypeId(Integer eventTypeId) {
+		this.eventTypeId = eventTypeId;
+	}
+
+	/**
+	 * @return the percentage
+	 */
+	public String getPercentage() {
+		return percentage;
+	}
+
+	/**
+	 * @param percentage
+	 *            the percentage to set
+	 */
+	public void setPercentage(String percentage) {
+		this.percentage = percentage;
 	}
 
 }

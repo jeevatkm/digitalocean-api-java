@@ -66,7 +66,8 @@ public enum Action {
     CREATE_DOMAIN_RECORD("/domains/%s/records/new/", "record"),
     GET_DOMAIN_RECORD_INFO("/domains/%s/records/%s/", "record"),
     EDIT_DOMAIN_RECORD("/domains/%s/records/%s/edit/", "record"),
-    DELETE_DOMAIN_RECORD("/domains/%s/records/%s/destroy/");    
+    DELETE_DOMAIN_RECORD("/domains/%s/records/%s/destroy/"),
+    GET_EVENT_PROGRESS("/events/%s/", "event");    
    
 	private String mapPath;
 	

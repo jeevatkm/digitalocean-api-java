@@ -35,6 +35,7 @@ import java.util.Map;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -75,7 +76,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	/**
 	 * Http client
 	 */
-	private DefaultHttpClient httpClient;
+	private HttpClient httpClient;
 
 	/**
 	 * User's Client ID
@@ -108,6 +109,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 		// Initializing required variable(s)
 		this.httpClient = new DefaultHttpClient(
 				new PoolingClientConnectionManager());
+
 	}
 
 	@Override
@@ -198,8 +200,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 			RequestUnsuccessfulException {
 		Map<String, String> qp = new HashMap<String, String>();
 		qp.put(PARAM_SIDE_ID, String.valueOf(sizeId));
+		Object[] params = {dropletId};
 
-		return process(Action.RESIZE_DROPLET, dropletId, qp);
+		return process(Action.RESIZE_DROPLET, params, qp);
 	}
 
 	@Override
@@ -231,8 +234,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 			RequestUnsuccessfulException {
 		Map<String, String> qp = new HashMap<String, String>();
 		qp.put(PARAM_IMAGE_ID, String.valueOf(imageId));
+		Object[] params = {dropletId};
 
-		return process(Action.RESTORE_DROPLET, dropletId, qp);
+		return process(Action.RESTORE_DROPLET, params, qp);
 	}
 
 	@Override
@@ -241,8 +245,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 			RequestUnsuccessfulException {
 		Map<String, String> qp = new HashMap<String, String>();
 		qp.put(PARAM_IMAGE_ID, String.valueOf(imageId));
+		Object[] params = {dropletId};
 
-		return process(Action.REBUILD_DROPLET, dropletId, qp);
+		return process(Action.REBUILD_DROPLET, params, qp);
 	}
 
 	@Override
@@ -265,8 +270,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 			RequestUnsuccessfulException {
 		Map<String, String> qp = new HashMap<String, String>();
 		qp.put(PARAM_NAME, String.valueOf(name));
+		Object[] params = {dropletId};
 
-		return process(Action.RENAME_DROPLET, dropletId, qp);
+		return process(Action.RENAME_DROPLET, params, qp);
 	}
 
 	@Override
@@ -311,8 +317,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 			RequestUnsuccessfulException {
 		Map<String, String> qp = new HashMap<String, String>();
 		qp.put(PARAM_REGION_ID, String.valueOf(regionId));
+		Object[] params = {imageId};
 
-		return process(Action.TRANSFER_IMAGE, imageId, qp);
+		return process(Action.TRANSFER_IMAGE, params, qp);
 	}
 
 	@Override
@@ -440,6 +447,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 			RequestUnsuccessfulException {
 		Object[] params = {domainId, recordId};
 		return process(Action.DELETE_DOMAIN_RECORD, params);
+	}
+
+	@Override
+	public Response getEventProgress(Integer eventId)
+			throws AccessDeniedException, ResourceNotFoundException,
+			RequestUnsuccessfulException {
+		return process(Action.GET_EVENT_PROGRESS, eventId);
 	}
 
 	private JsonObject performAction(Action action,

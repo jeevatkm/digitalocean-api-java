@@ -11,18 +11,18 @@ How to make use of digitalocean-api-client?
 <pre><code>&lt;dependency>
     &lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
     &lt;artifactId>digitalocean-api-client&lt;/artifactId>
-    &lt;version>1.2&lt;/version>
+    &lt;version>1.3&lt;/version>
 &lt;/dependency></code></pre>
 
-* Snapshot Maven Dependency ([OSS Sonatype Snapshot Repo][4])
+* Snapshot Maven Dependency ([OSS - Sonatype Snapshot Repo][4])
 <pre><code>&lt;dependency>
     &lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
     &lt;artifactId>digitalocean-api-client&lt;/artifactId>
-    &lt;version>1.3-SNAPSHOT&lt;/version>
+    &lt;version>1.4-SNAPSHOT&lt;/version>
 &lt;/dependency></code></pre>
 
 
-* Download Binary [digitalocean-api-client-1.2.jar][8]
+* Download Binary [digitalocean-api-client-x.x.jar][8]
 
 * Clone/Download the repo [http://github.com/jeevatkm/digitalocean-api-java] and build it!
 
@@ -43,16 +43,26 @@ Supported DigitalOcean API's and Functionalities
 	
 * * *
 
-* **To be released in v1.3**
+* **To be released in v1.4**
 	* Batch API's for Bulk operation
 	* Input Validation at API client level
+
+* * *
+	
+* **To be released in v1.3**
+	* Added new POJO [Event][9]
+	* Added two new attributes in Response Class
+		* `error_message`
+		* `event`
+	* `Events Methods '/events/*'`
+		* Response getEventProgress(Integer eventId)
 	
 * * *
 
 * **Released in v1.2**
 	* Gson Type Tokens optimized
 	* Corrected Typo error of <code>transerImage</code> method refactored to <code>transferImage</code>
-    * `SSH Key Methods`
+    * `SSH Key Methods '/ssh_keys/*'`
         * List&lt;SshKey> getAvailableSshKeys()
         * SshKey getSshKeyInfo(Integer sshKeyId)
         * SshKey addSshKey(String sshKeyName, String sshPublicKey)
@@ -64,7 +74,7 @@ Supported DigitalOcean API's and Functionalities
 * **Released in v1.1**
 	* Optimized and smaller memory footprint
 	* Maven Group Id to be changed to <code>com.myjeeva.digitalocean</code>, for better understanding and grouping
-    * `Domain Methods` 
+    * `Domain Methods '/domains/*'` 
         * List&lt;Domain> getAvailableDomains()
         * Domain createDomain(String domainName, String ipAddress)
         * Domain getDomainInfo(Integer domainId)
@@ -79,7 +89,7 @@ Supported DigitalOcean API's and Functionalities
 
 * **Released in v1.0**
 	* <code>Slug</code> Attribute supported in Image, Size and Region
-    * `Droplets Methods`
+    * `Droplets Methods '/droplets/*'`
         * List&lt;Droplet> getAvailableDroplets()
         * Droplet createDroplet(Droplet droplet)
         * Droplet createDroplet(Droplet droplet, String sshKeyIds)
@@ -99,14 +109,14 @@ Supported DigitalOcean API's and Functionalities
         * Response disableDropletBackups(Integer dropletId)
         * Response renameDroplet(Integer dropletId, String name)
         * Response deleteDroplet(Integer dropletId)
-    * `Region Methods`
+    * `Region Methods '/regions/*'`
         * List&lt;Region> getAvailableRegions()
-    * `Images Methods`
+    * `Images Methods '/images/*'`
         * List&lt;DropletImage> getAvailableImages()
         * DropletImage getImageInfo(Integer imageId)
         * Response deleteImage(Integer imageId)
-        * Response transferImage(Integer imageId, Integer regionId)
-    * `Sizes Methods` 
+        * Response transerImage(Integer imageId, Integer regionId)
+    * `Sizes Methods '/sizes/*'` 
         * List&lt;DropletSize> getAvailableSizes()	
 
 
@@ -124,10 +134,11 @@ See [LICENSE.txt][6]
 
 
 [1]: https://api.digitalocean.com/
-[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.2/
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.3/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/
 [5]: http://myjeeva.com
 [6]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/LICENSE.txt
 [7]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanTest.java
 [8]: https://www.box.com/s/q4s3r4galsgqug21tnfv
+[9]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.3/com/myjeeva/digitalocean/pojo/Event.html
