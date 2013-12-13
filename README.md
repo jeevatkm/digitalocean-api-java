@@ -37,19 +37,13 @@ Have a look on [DigitalOceanTest.java][7], simple and easy to understand.
 
 Supported DigitalOcean API's and Functionalities
 ------------------------------------------------
-* **To be released in v2.0**
-	* Data Validation API against DigitalOcean
-	* Meaningful messages and reduce request failure
-	
-* * *
-
 * **To be released in v1.4**
 	* Batch API's for Bulk operation
 	* Input Validation at API client level
 
 * * *
 	
-* **To be released in v1.3**
+* **Released in v1.3**
 	* Added new POJO [Event][9]
 	* Added two new attributes in Response Class
 		* `error_message`
