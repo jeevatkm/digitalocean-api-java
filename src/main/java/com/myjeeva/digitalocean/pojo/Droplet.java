@@ -48,6 +48,9 @@ public class Droplet {
 	@SerializedName("backups_active")
 	private String backupsActive;
 
+	@SerializedName("ip_address")
+	private String ipAddress;
+
 	private String status;
 
 	@SerializedName("event_id")
@@ -141,6 +144,20 @@ public class Droplet {
 	 */
 	public void setBackupsActive(String backupsActive) {
 		this.backupsActive = backupsActive;
+	}
+
+	/**
+	 * @return Droplet IP Address
+	 */
+	public String getIpAddress() {
+		return ipAddress;
+	}
+
+	/**
+	 * @param String IP Address
+	 */
+	public void setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
 	}
 
 	/**
