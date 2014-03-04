@@ -24,17 +24,21 @@
 package com.myjeeva.digitalocean.pojo;
 
 /**
- * Represents Droplet Size (aka Droplet Plan) attributes of DigitalOcean
+ * Represents backup attributes of Snapshot
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
+ * 
+ * @since v1.4
  */
-public class DropletSize {
+public class Snapshot {
 
 	private Integer id;
 
 	private String name;
 
 	private String slug;
+
+	private String distribution;
 
 	/**
 	 * @return the id
@@ -79,6 +83,21 @@ public class DropletSize {
 	 */
 	public void setSlug(String slug) {
 		this.slug = slug;
+	}
+
+	/**
+	 * @return the distribution
+	 */
+	public String getDistribution() {
+		return distribution;
+	}
+
+	/**
+	 * @param distribution
+	 *            the distribution to set
+	 */
+	public void setDistribution(String distribution) {
+		this.distribution = distribution;
 	}
 
 }

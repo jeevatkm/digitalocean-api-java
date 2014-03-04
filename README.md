@@ -11,14 +11,14 @@ How to make use of digitalocean-api-client?
 <pre><code>&lt;dependency>
     &lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
     &lt;artifactId>digitalocean-api-client&lt;/artifactId>
-    &lt;version>1.3&lt;/version>
+    &lt;version>1.4&lt;/version>
 &lt;/dependency></code></pre>
 
 * Snapshot Maven Dependency ([OSS - Sonatype Snapshot Repo][4])
 <pre><code>&lt;dependency>
     &lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
     &lt;artifactId>digitalocean-api-client&lt;/artifactId>
-    &lt;version>1.4-SNAPSHOT&lt;/version>
+    &lt;version>1.5-SNAPSHOT&lt;/version>
 &lt;/dependency></code></pre>
 
 
@@ -37,15 +37,30 @@ Have a look on [DigitalOceanTest.java][7], simple and easy to understand.
 
 Supported DigitalOcean API's and Functionalities
 ------------------------------------------------
-* **To be released in v1.4**
+* **To be released in v1.5**
 	* Batch API's for Bulk operation
 	* Input Validation at API client level
 
 * * *
 	
+* **Released in v1.4**
+	* Added new POJOs [Backup][10], [Snapshot][11]
+	* Added/Updated attributes in [Droplet][12] Class
+		* `backupsActive` datatype changed to native type
+		* Added following attributes
+			* IP Address for #1
+			* Private IP Address
+			* Locked 
+			* Created At
+			* [Backup][10]
+			* and [Snapshot][11] attributes
+	* Accepted pull request for #3
+	
+* * *
+	
 * **Released in v1.3**
 	* Added new POJO [Event][9]
-	* Added two new attributes in Response Class
+	* Added two new attributes in [Response][13] Class
 		* `error_message`
 		* `event`
 	* `Events Methods '/events/*'`
@@ -135,4 +150,8 @@ See [LICENSE.txt][6]
 [6]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/LICENSE.txt
 [7]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanTest.java
 [8]: https://www.box.com/s/q4s3r4galsgqug21tnfv
-[9]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.3/com/myjeeva/digitalocean/pojo/Event.html
+[9]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.4/com/myjeeva/digitalocean/pojo/Event.html
+[10]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.4/com/myjeeva/digitalocean/pojo/Backup.html
+[11]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.4/com/myjeeva/digitalocean/pojo/Snapshot.html
+[12]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.4/com/myjeeva/digitalocean/pojo/Droplet.html
+[13]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.4/com/myjeeva/digitalocean/pojo/Response.html
