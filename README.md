@@ -43,7 +43,7 @@ Supported DigitalOcean API's and Functionalities
 
 * * *
 	
-* **Released in v1.4**
+* **Released in v1.4** [2 enhancement & 1 bug]
 	* Added new POJOs [Backup][10], [Snapshot][11]
 	* Added/Updated attributes in [Droplet][12] Class
 		* `backupsActive` datatype changed to native type
@@ -54,7 +54,7 @@ Supported DigitalOcean API's and Functionalities
 			* Created At for [#5][15]
 			* [Backup][10] for [#5][15]
 			* and [Snapshot][11] attributes for [#5][15]
-	* Accepted pull request for [#3][#16]
+	* Accepted pull request for [#3][16]
 	
 * * *
 	
