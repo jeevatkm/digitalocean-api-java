@@ -48,13 +48,13 @@ Supported DigitalOcean API's and Functionalities
 	* Added/Updated attributes in [Droplet][12] Class
 		* `backupsActive` datatype changed to native type
 		* Added following attributes
-			* IP Address for #1
-			* Private IP Address
-			* Locked 
-			* Created At
-			* [Backup][10]
-			* and [Snapshot][11] attributes
-	* Accepted pull request for #3
+			* IP Address for [#1][https://github.com/jeevatkm/digitalocean-api-java/issues/1]
+			* Private IP Address for [#5][https://github.com/jeevatkm/digitalocean-api-java/issues/5]
+			* Locked for [#5][https://github.com/jeevatkm/digitalocean-api-java/issues/5]
+			* Created At for [#5][https://github.com/jeevatkm/digitalocean-api-java/issues/5]
+			* [Backup][10] for [#5][https://github.com/jeevatkm/digitalocean-api-java/issues/5]
+			* and [Snapshot][11] attributes for [#5][https://github.com/jeevatkm/digitalocean-api-java/issues/5]
+	* Accepted pull request for [#3][https://github.com/jeevatkm/digitalocean-api-java/issues/3]
 	
 * * *
 	
@@ -143,7 +143,7 @@ See [LICENSE.txt][6]
 
 
 [1]: https://api.digitalocean.com/
-[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.3/
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.4/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/
 [5]: http://myjeeva.com
