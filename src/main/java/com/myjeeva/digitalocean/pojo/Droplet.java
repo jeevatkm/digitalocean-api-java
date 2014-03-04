@@ -23,6 +23,8 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -46,12 +48,24 @@ public class Droplet {
 	private Integer sizeId;
 
 	@SerializedName("backups_active")
-	private String backupsActive;
+	private boolean backupsActive;
+
+	private List<Backup> backups;
+
+	private List<Snapshot> snapshots;
 
 	@SerializedName("ip_address")
 	private String ipAddress;
 
+	@SerializedName("private_ip_address")
+	private String privateIpAddress;
+
+	private boolean locked;
+
 	private String status;
+
+	@SerializedName("created_at")
+	private String createdDate;
 
 	@SerializedName("event_id")
 	private Long eventId;
@@ -134,7 +148,7 @@ public class Droplet {
 	/**
 	 * @return the backupsActive
 	 */
-	public String getBackupsActive() {
+	public boolean isBackupsActive() {
 		return backupsActive;
 	}
 
@@ -142,22 +156,83 @@ public class Droplet {
 	 * @param backupsActive
 	 *            the backupsActive to set
 	 */
-	public void setBackupsActive(String backupsActive) {
+	public void setBackupsActive(boolean backupsActive) {
 		this.backupsActive = backupsActive;
 	}
 
 	/**
-	 * @return Droplet IP Address
+	 * @return the backups
+	 */
+	public List<Backup> getBackups() {
+		return backups;
+	}
+
+	/**
+	 * @param backups
+	 *            the backups to set
+	 */
+	public void setBackups(List<Backup> backups) {
+		this.backups = backups;
+	}
+
+	/**
+	 * @return the snapshots
+	 */
+	public List<Snapshot> getSnapshots() {
+		return snapshots;
+	}
+
+	/**
+	 * @param snapshots
+	 *            the snapshots to set
+	 */
+	public void setSnapshots(List<Snapshot> snapshots) {
+		this.snapshots = snapshots;
+	}
+
+	/**
+	 * @return the ipAddress
 	 */
 	public String getIpAddress() {
 		return ipAddress;
 	}
 
 	/**
-	 * @param String IP Address
+	 * @param ipAddress
+	 *            the ipAddress to set
 	 */
 	public void setIpAddress(String ipAddress) {
 		this.ipAddress = ipAddress;
+	}
+
+	/**
+	 * @return the privateIpAddress
+	 */
+	public String getPrivateIpAddress() {
+		return privateIpAddress;
+	}
+
+	/**
+	 * @param privateIpAddress
+	 *            the privateIpAddress to set
+	 */
+	public void setPrivateIpAddress(String privateIpAddress) {
+		this.privateIpAddress = privateIpAddress;
+	}
+
+	/**
+	 * @return the locked
+	 */
+	public boolean isLocked() {
+		return locked;
+	}
+
+	/**
+	 * @param locked
+	 *            the locked to set
+	 */
+	public void setLocked(boolean locked) {
+		this.locked = locked;
 	}
 
 	/**
@@ -173,6 +248,21 @@ public class Droplet {
 	 */
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	/**
+	 * @return the createdDate
+	 */
+	public String getCreatedDate() {
+		return createdDate;
+	}
+
+	/**
+	 * @param createdDate
+	 *            the createdDate to set
+	 */
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	/**

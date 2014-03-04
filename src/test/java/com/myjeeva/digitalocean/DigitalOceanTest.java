@@ -65,9 +65,9 @@ public class DigitalOceanTest extends TestCase {
 	 * this is testing values of my own respective to DigitalOcean account, so
 	 * place your's for test case before use
 	 */
-	private String clientId = "";
-	private String apiKey = "";
-	private Integer dropletId = 275815;
+	private String clientId = ""; // to be place during development & test
+	private String apiKey = ""; // to be place during development & test
+	private Integer dropletId = 188913;
 	private Integer sizeId = 63; // 1GB plan
 	private Integer restoreImageId = 502930; // my droplet data backup image id
 	private Integer imageId = 303619; // Debian 7.0 x64 image id
@@ -77,8 +77,8 @@ public class DigitalOceanTest extends TestCase {
 	private Integer deleteDomainId = 44665; // my specific domain id for
 											// deletion
 											// test
-	private String domainName = ""; // my domain name
-	private String dropletIpAddress = ""; // my droplet IP
+	private String domainName = ""; // my domain name - to be place during development & test
+	private String dropletIpAddress = ""; // my droplet IP - to be place during development & test
 	// Address
 
 	private DigitalOcean apiClient = new DigitalOceanClient(clientId, apiKey);
@@ -94,7 +94,8 @@ public class DigitalOceanTest extends TestCase {
 
 		for (Droplet droplet : droplets) {
 			LOG.info("Droplet Id: " + droplet.getId() + ", Name: "
-					+ droplet.getName() + ", Status: " + droplet.getStatus());
+					+ droplet.getName() + ", Status: " + droplet.getStatus()
+					+ ", Backups Active: " + droplet.isBackupsActive());
 		}
 	}
 
@@ -128,7 +129,8 @@ public class DigitalOceanTest extends TestCase {
 
 		LOG.info("Droplet Id: " + droplet.getId() + ", Droplet Name: "
 				+ droplet.getName() + ", Status: " + droplet.getStatus()
-				+ ", Backup Active: " + droplet.getBackupsActive());
+				+ ", Active Backups: " + droplet.getBackups()
+				+ ", Backups Active: " + droplet.isBackupsActive());
 	}
 
 	@Test
