@@ -18,13 +18,15 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+@SuppressWarnings("unused")
 public class DigitalOceanMockTest extends TestCase{
     private @Mocked DefaultHttpClient defaultHttpClient;
     public void testSnapshoWithName() throws Exception {
 
         new Expectations() {{
            defaultHttpClient.execute((HttpUriRequest) with(new Object() {
-               void validate(HttpUriRequest httpUriRequest) throws MalformedURLException, URISyntaxException {
+               
+			void validate(HttpUriRequest httpUriRequest) throws MalformedURLException, URISyntaxException {
                    assertEquals(new URL("https://api.digitalocean.com/droplets/1234/snapshot/?client_id=id&api_key=key&name=snapshot-name").toURI(),httpUriRequest.getURI());
                }
            }));
