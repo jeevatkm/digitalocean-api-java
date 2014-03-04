@@ -222,7 +222,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 		} else {
 			Map<String, String> qp = new HashMap<String, String>();
 			qp.put(PARAM_NAME, snapshotName);
-			response = process(Action.TAKE_DROPLET_SNAPSHOT, dropletId, qp);
+            Object[] params = {dropletId};
+			response = process(Action.TAKE_DROPLET_SNAPSHOT, params, qp);
 		}
 
 		return response;
