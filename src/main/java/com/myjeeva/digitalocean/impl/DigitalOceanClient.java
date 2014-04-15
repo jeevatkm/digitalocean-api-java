@@ -23,26 +23,6 @@
  */
 package com.myjeeva.digitalocean.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.PoolingClientConnectionManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -61,6 +41,26 @@ import com.myjeeva.digitalocean.pojo.DropletSize;
 import com.myjeeva.digitalocean.pojo.Region;
 import com.myjeeva.digitalocean.pojo.Response;
 import com.myjeeva.digitalocean.pojo.SshKey;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.PoolingClientConnectionManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * DigitalOcean API client wrapper methods Implementation
@@ -522,14 +522,15 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 		try {
 			HttpResponse httpResponse = httpClient.execute(httpGet);
 
-			if (401 == httpResponse.getStatusLine().getStatusCode()) {
+			if (HttpStatus.SC_UNAUTHORIZED == httpResponse.getStatusLine().getStatusCode()) {
 				throw new AccessDeniedException(
 						"Request failed to authenticate into the DigitalOcean API successfully");
 			}
 
-			if (404 == httpResponse.getStatusLine().getStatusCode()) {
-				throw new ResourceNotFoundException(
-						"Requested resource is not available DigitalOcean");
+			if (HttpStatus.SC_NOT_FOUND == httpResponse.getStatusLine().getStatusCode()) {
+				JsonObject responseObject = Utils.getResponseObject(httpResponse);
+				JsonElement errorMessage = responseObject.get("error_message");
+				throw new ResourceNotFoundException(errorMessage != null ? errorMessage.getAsString() : "Requested resource is not available DigitalOcean");
 			}
 
 			HttpEntity entity = httpResponse.getEntity();
