@@ -23,16 +23,20 @@
  */
 package com.myjeeva.digitalocean;
 
-import java.io.ByteArrayOutputStream;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.myjeeva.digitalocean.pojo.DomainRecord;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.myjeeva.digitalocean.pojo.DomainRecord;
 
 /**
  * Utility methods for DigitalOcean API Client
@@ -59,15 +63,9 @@ public final class Utils implements Constants {
 	}
 
 	public static String readInputStream(InputStream input) throws IOException {
-
-		ByteArrayOutputStream output = new ByteArrayOutputStream();
-		int n = 0;
-		byte[] buffer = new byte[4096];
-		while (-1 != (n = input.read(buffer))) {
-			output.write(buffer, 0, n);
-		}
-
-		return output.toString(UTF_8);
+		StringWriter writer = new StringWriter();
+		IOUtils.copy(input, writer);
+		return writer.toString();
 	}
 
 	public static Map<String, String> prepareDomainRecordParams(
@@ -100,4 +98,8 @@ public final class Utils implements Constants {
 
 		return qp;
 	}
+
+    public static JsonObject getResponseObject(HttpResponse response) throws IOException {
+		return new JsonParser().parse(readInputStream(response.getEntity().getContent())).getAsJsonObject();
+    }
 }
