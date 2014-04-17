@@ -23,9 +23,10 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
+import com.myjeeva.digitalocean.DropletStatus;
+
+import java.util.List;
 
 /**
  * Represents Droplet attributes of DigitalOcean
@@ -280,4 +281,36 @@ public class Droplet {
 		this.eventId = eventId;
 	}
 
+    /**
+     * @return true if droplet is active
+     */
+    public boolean isActive() {
+        try {
+            return DropletStatus.fromValue(status) == DropletStatus.Active;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    /**
+     * @return true if droplet is new, meaning it's booting up
+     */
+    public boolean isNew() {
+        try {
+            return DropletStatus.fromValue(status) == DropletStatus.New;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    /**
+     * @return true if droplet is turned off
+     */
+    public boolean isOff() {
+        try {
+            return DropletStatus.fromValue(status) == DropletStatus.Off;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
 }
