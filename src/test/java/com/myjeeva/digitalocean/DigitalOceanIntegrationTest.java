@@ -44,7 +44,7 @@ import java.util.List;
 
 /**
  * <p>
- * Junit Test case for DigitalOcean API client wrapper methods
+ * Junit Integration Test case for DigitalOcean API client wrapper methods
  * </p>
  * 
  * <p>
@@ -54,14 +54,15 @@ import java.util.List;
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-@Ignore
-public class DigitalOceanTest extends TestCase {
+@Ignore  // Marked as Ignore since its a Integration Test case with real values
+public class DigitalOceanIntegrationTest extends TestCase {
 
-	private final Logger LOG = LoggerFactory.getLogger(DigitalOceanTest.class);
+	private final Logger LOG = LoggerFactory.getLogger(DigitalOceanIntegrationTest.class);
 
 	/**
-	 * this is testing values of my own respective to DigitalOcean account, so
-	 * place your's for test case before use
+	 * This is testing values of my own respective to DigitalOcean account, 
+	 * to real-time integration with API. So place your's 
+	 * for integration test case before use
 	 */
 	private String clientId = ""; // to be place during development & test
 	private String apiKey = ""; // to be place during development & test
