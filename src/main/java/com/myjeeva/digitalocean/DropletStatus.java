@@ -7,7 +7,8 @@ public enum DropletStatus {
 
     New("new"),
     Active("active"),
-    Off("off");
+    Off("off"),
+    Archive("archive");
 
     private String value;
 
@@ -30,6 +31,8 @@ public enum DropletStatus {
             return DropletStatus.Active;
         } else if ("off".equals(value)) {
             return DropletStatus.Off;
+        } else if ("archive".equals(value)) {
+            return DropletStatus.Archive;
         } else {
             throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
         }

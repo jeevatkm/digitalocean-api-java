@@ -463,6 +463,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 			RequestUnsuccessfulException {
 		URI uri = generateUri(action.getMapPath(), queryParams, pathParams);
 
+                LOG.info("Perform action " + action.toString() + " using URI " + uri.toString());
 		String response = "";
 		try {
 			response = execute(uri);

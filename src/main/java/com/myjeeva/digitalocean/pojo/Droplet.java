@@ -313,4 +313,15 @@ public class Droplet {
             return false;
         }
     }
+
+    /**
+     * @return true if droplet is archived
+     */
+    public boolean isArchived() {
+        try {
+            return DropletStatus.fromValue(status) == DropletStatus.Archive;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
 }
