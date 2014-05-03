@@ -1,0 +1,11 @@
+language: java
+
+jdk:
+  - oraclejdk7
+  - openjdk6
+
+# whitelist
+branches:
+  only:
+    - master
+    - v1.5
