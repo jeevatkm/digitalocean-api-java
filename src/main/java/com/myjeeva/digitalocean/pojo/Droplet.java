@@ -20,10 +20,11 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.Date;
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 import com.myjeeva.digitalocean.DropletStatus;
-
-import java.util.List;
 
 /**
  * Represents Droplet attributes of DigitalOcean
@@ -63,7 +64,7 @@ public class Droplet {
   private String status;
 
   @SerializedName("created_at")
-  private String createdDate;
+  private Date createdDate;
 
   @SerializedName("event_id")
   private Long eventId;
@@ -239,14 +240,14 @@ public class Droplet {
   /**
    * @return the createdDate
    */
-  public String getCreatedDate() {
+  public Date getCreatedDate() {
     return createdDate;
   }
 
   /**
    * @param createdDate the createdDate to set
    */
-  public void setCreatedDate(String createdDate) {
+  public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
   }
 

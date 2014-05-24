@@ -20,20 +20,22 @@
  */
 package com.myjeeva.digitalocean;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.myjeeva.digitalocean.pojo.DomainRecord;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpResponse;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.myjeeva.digitalocean.pojo.DomainRecord;
 
 /**
  * Utility methods for DigitalOcean API Client
@@ -45,9 +47,9 @@ public final class Utils implements Constants {
   private static Gson gson;
 
   public static Gson getGson() {
-    if (null == gson) {
-      gson = new Gson();
-    }
+    if (null == gson)
+      gson = new GsonBuilder().setDateFormat("yyyy-mm-dd'T'HH:mm:ss'Z'").create();
+
     return gson;
   }
 
@@ -70,29 +72,23 @@ public final class Utils implements Constants {
   public static Map<String, String> prepareDomainRecordParams(DomainRecord domainRecord) {
     Map<String, String> qp = new HashMap<String, String>();
 
-    if (null != domainRecord.getRecordType()) {
+    if (null != domainRecord.getRecordType())
       qp.put(PARAM_RECORD_TYPE, domainRecord.getRecordType());
-    }
 
-    if (null != domainRecord.getData()) {
+    if (null != domainRecord.getData())
       qp.put(PARAM_DATA, domainRecord.getData());
-    }
 
-    if (null != domainRecord.getName()) {
+    if (null != domainRecord.getName())
       qp.put(PARAM_NAME, domainRecord.getName());
-    }
 
-    if (null != domainRecord.getPriority()) {
+    if (null != domainRecord.getPriority())
       qp.put(PARAM_PRIORITY, domainRecord.getPriority());
-    }
 
-    if (null != domainRecord.getPort()) {
+    if (null != domainRecord.getPort())
       qp.put(PARAM_PORT, String.valueOf(domainRecord.getPort()));
-    }
 
-    if (null != domainRecord.getWeight()) {
+    if (null != domainRecord.getWeight())
       qp.put(PARAM_WEIGHT, String.valueOf(domainRecord.getWeight()));
-    }
 
     return qp;
   }
@@ -101,4 +97,5 @@ public final class Utils implements Constants {
     return new JsonParser().parse(readInputStream(response.getEntity().getContent()))
         .getAsJsonObject();
   }
+
 }
