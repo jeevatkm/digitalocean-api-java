@@ -25,8 +25,6 @@ import java.util.List;
 import com.myjeeva.digitalocean.exception.AccessDeniedException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
-import com.myjeeva.digitalocean.pojo.BatchRequest;
-import com.myjeeva.digitalocean.pojo.BatchResponse;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
 import com.myjeeva.digitalocean.pojo.Droplet;
@@ -708,20 +706,6 @@ public interface DigitalOcean {
    * @since v1.3
    */
   Response getEventProgress(Integer eventId) throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException;
-
-  /**
-   * Batch API requests, WIP...
-   * 
-   * @param requests
-   * @return List&lt;{@link BatchResponse}>
-   * @throws AccessDeniedException
-   * @throws ResourceNotFoundException
-   * @throws RequestUnsuccessfulException
-   * 
-   * @since v1.5
-   */
-  List<BatchResponse> batchExecute(List<BatchRequest> requests) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
 }

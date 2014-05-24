@@ -20,26 +20,14 @@
  */
 package com.myjeeva.digitalocean.impl;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.myjeeva.digitalocean.Constants;
-import com.myjeeva.digitalocean.DigitalOcean;
-import com.myjeeva.digitalocean.Utils;
-import com.myjeeva.digitalocean.common.Action;
-import com.myjeeva.digitalocean.exception.AccessDeniedException;
-import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
-import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
-import com.myjeeva.digitalocean.pojo.BatchRequest;
-import com.myjeeva.digitalocean.pojo.BatchResponse;
-import com.myjeeva.digitalocean.pojo.Domain;
-import com.myjeeva.digitalocean.pojo.DomainRecord;
-import com.myjeeva.digitalocean.pojo.Droplet;
-import com.myjeeva.digitalocean.pojo.DropletImage;
-import com.myjeeva.digitalocean.pojo.DropletSize;
-import com.myjeeva.digitalocean.pojo.Region;
-import com.myjeeva.digitalocean.pojo.Response;
-import com.myjeeva.digitalocean.pojo.SshKey;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -53,16 +41,24 @@ import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.myjeeva.digitalocean.Constants;
+import com.myjeeva.digitalocean.DigitalOcean;
+import com.myjeeva.digitalocean.Utils;
+import com.myjeeva.digitalocean.common.Action;
+import com.myjeeva.digitalocean.exception.AccessDeniedException;
+import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
+import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
+import com.myjeeva.digitalocean.pojo.Domain;
+import com.myjeeva.digitalocean.pojo.DomainRecord;
+import com.myjeeva.digitalocean.pojo.Droplet;
+import com.myjeeva.digitalocean.pojo.DropletImage;
+import com.myjeeva.digitalocean.pojo.DropletSize;
+import com.myjeeva.digitalocean.pojo.Region;
+import com.myjeeva.digitalocean.pojo.Response;
+import com.myjeeva.digitalocean.pojo.SshKey;
 
 /**
  * DigitalOcean API client wrapper methods Implementation
@@ -406,16 +402,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Response getEventProgress(Integer eventId) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     return process(Action.GET_EVENT_PROGRESS, eventId);
-  }
-
-
-  @Override
-  public List<BatchResponse> batchExecute(List<BatchRequest> requests)
-      throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException {
-
-    // TODO Auto-generated method stub
-
-    throw new NotImplementedException();
   }
 
   private JsonObject performAction(Action action, Map<String, String> queryParams,
