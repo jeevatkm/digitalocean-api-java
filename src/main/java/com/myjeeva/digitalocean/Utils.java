@@ -41,6 +41,8 @@ import com.myjeeva.digitalocean.pojo.DomainRecord;
  * Utility methods for DigitalOcean API Client
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
+ * 
+ * @since v1.0
  */
 public final class Utils implements Constants {
 

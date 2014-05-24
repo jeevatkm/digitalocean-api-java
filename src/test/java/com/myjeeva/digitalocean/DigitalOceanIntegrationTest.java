@@ -90,7 +90,8 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     for (Droplet droplet : droplets) {
       LOG.info("Droplet Id: " + droplet.getId() + ", Name: " + droplet.getName() + ", Status: "
-          + droplet.getStatus() + ", Backups Active: " + droplet.isBackupsActive());
+          + droplet.getStatus() + ", Backups Active: " + droplet.isBackupsActive()
+          + ", Created Date: " + droplet.getCreatedDate());
     }
   }
 
