@@ -1,5 +1,6 @@
 DigitalOcean API Client in Java
 -------------------------------
+[![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java)
 
 Welcome to DigitalOcean's API Client written in Java. I have created a simple and meaningful wrapper methods for DigitalOcean's API. All of the RESTful that you find in [DigitalOcean API's][1] will be made available via simple java method(s).
 
@@ -43,15 +44,15 @@ Have a look on [DigitalOceanIntegrationTest][7] and [DigitalOceanMockTest][17], 
 Supported DigitalOcean API's and Functionalities
 ------------------------------------------------
 I have been skipping below three functionality for while, kindly let me know if you need them. Then I will plan out in upcoming release.
-	* Batch API's for Bulk operation
-	* Caching DigitalOcean elements and refreshing periodically 
-	* Input Validation at API client level
+* Batch API's for Bulk operation
+* Caching DigitalOcean elements and refreshing periodically 
+* Input Validation at API client level
 
 * * *
 
 * **Released in v1.5**
-	* Added more user-friendly error message for 404 responses - contributed by pulse00 [#6][18]
-	* Added [DropletStatus][21] Enum and Added few handy methods in Droplet class - contributed by pulse00 [#7][19]
+	* Added more user-friendly error message for 404 responses by pulse00 [#6][18]
+	* Added [DropletStatus][21] and Added few handy methods in Droplet class by pulse00 [#7][19]
 		* public boolean isActive()
 		* public boolean isNew()
 		* public boolean isOff()
