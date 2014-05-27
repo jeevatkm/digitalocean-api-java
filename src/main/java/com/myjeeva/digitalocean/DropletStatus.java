@@ -18,79 +18,44 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean.pojo;
+package com.myjeeva.digitalocean;
 
 /**
- * Represents backup attributes of Droplet
+ * Describes possible droplet states.
  * 
- * @author Jeevanandam M. (jeeva@myjeeva.com)
+ * @author Robert Gründler (robert@dubture.com) - pulse00
  * 
- * @since v1.4
+ * @since v1.5
  */
-public class Backup {
+public enum DropletStatus {
 
-  private Integer id;
+  New("new"), Active("active"), Off("off"), Archive("archive");
 
-  private String name;
+  private String value;
 
-  private String slug;
-
-  private String distribution;
-
-  /**
-   * @return the id
-   */
-  public Integer getId() {
-    return id;
+  private DropletStatus(String value) {
+    this.value = value;
   }
 
-  /**
-   * @param id the id to set
-   */
-  public void setId(Integer id) {
-    this.id = id;
+  @Override
+  public String toString() {
+    return this.value;
   }
 
-  /**
-   * @return the name
-   */
-  public String getName() {
-    return name;
-  }
+  public static DropletStatus fromValue(String value) {
+    if (null == value || "".equals(value)) {
+      throw new IllegalArgumentException("Value cannot be null or empty!");
 
-  /**
-   * @param name the name to set
-   */
-  public void setName(String name) {
-    this.name = name;
+    } else if ("new".equals(value)) {
+      return DropletStatus.New;
+    } else if ("active".equals(value)) {
+      return DropletStatus.Active;
+    } else if ("off".equals(value)) {
+      return DropletStatus.Off;
+    } else if ("archive".equals(value)) {
+      return DropletStatus.Archive;
+    } else {
+      throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
+    }
   }
-
-  /**
-   * @return the slug
-   */
-  public String getSlug() {
-    return slug;
-  }
-
-  /**
-   * @param slug the slug to set
-   */
-  public void setSlug(String slug) {
-    this.slug = slug;
-  }
-
-  /**
-   * @return the distribution
-   */
-  public String getDistribution() {
-    return distribution;
-  }
-
-  /**
-   * @param distribution the distribution to set
-   */
-  public void setDistribution(String distribution) {
-    this.distribution = distribution;
-  }
-
 }

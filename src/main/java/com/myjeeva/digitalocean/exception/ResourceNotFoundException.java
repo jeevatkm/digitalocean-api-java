@@ -1,44 +1,41 @@
-/* The MIT License
- *
- * Copyright (c) 2010-2014 Jeevanandam M. (myjeeva.com)
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE. 
+/*
+ * The MIT License
  * 
+ * Copyright (c) 2010-2014 Jeevanandam M. (myjeeva.com)
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package com.myjeeva.digitalocean.exception;
 
 /**
- * <code>ResourceNotFoundException</code> will be thrown, while DigitalOcean
- * status code is 404, then api-client will this exception
+ * <code>ResourceNotFoundException</code> will be thrown, while DigitalOcean status code is 404,
+ * then api-client will this exception
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
 public class ResourceNotFoundException extends Exception {
 
-	private static final long serialVersionUID = 1312845736236469187L;
+  private static final long serialVersionUID = 1312845736236469187L;
 
-	public ResourceNotFoundException(String msg) {
-		super(msg);
-	}
+  public ResourceNotFoundException(String msg) {
+    super(msg);
+  }
 
-	public ResourceNotFoundException(String msg, Throwable t) {
-		super(msg, t);
-	}
+  public ResourceNotFoundException(String msg, Throwable t) {
+    super(msg, t);
+  }
 
 }
