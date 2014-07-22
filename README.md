@@ -1,5 +1,5 @@
-DigitalOcean API Client in Java
--------------------------------
+DigitalOcean API Client in Java (for v1 only)
+---------------------------------------------
 [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java)
 
 Welcome to DigitalOcean's API Client written in Java. I have created a simple and meaningful wrapper methods for DigitalOcean's API. All of the RESTful that you find in [DigitalOcean API's][1] will be made available via simple java method(s).
