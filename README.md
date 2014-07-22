@@ -1,3 +1,7 @@
+Note
+----
+**Digital Ocean API v2 public beta support development is in progress**
+
 DigitalOcean API Client in Java
 -------------------------------
 [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java)
