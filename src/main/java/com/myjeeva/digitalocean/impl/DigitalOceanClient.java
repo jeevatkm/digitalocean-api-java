@@ -88,7 +88,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   /**
    * DigitalOcean API Host is <code>api.digitalocean.com</code>
    */
-  private String apiHost = "api.digitalocean.com/v1";
+  private String apiHost = "api.digitalocean.com";
 
   /**
    * Constructor for initializing DigitalOcean Client
