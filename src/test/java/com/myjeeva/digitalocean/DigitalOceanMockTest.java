@@ -33,7 +33,7 @@ public class DigitalOceanMockTest extends TestCase {
               URISyntaxException {
             assertEquals(
                 new URL(
-                    "https://api.digitalocean.com/droplets/1234/snapshot/?client_id=id&api_key=key&name=snapshot-name")
+                    "https://api.digitalocean.com/v1/droplets/1234/snapshot/?client_id=id&api_key=key&name=snapshot-name")
                     .toURI(), httpUriRequest.getURI());
           }
         }));
