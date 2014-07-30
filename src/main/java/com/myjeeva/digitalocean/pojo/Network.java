@@ -18,41 +18,81 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean.common;
+package com.myjeeva.digitalocean.pojo;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
- * Enumeration of DigitalOcean Image Action Type
+ * Represents DigitalOcean Network attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
  * @since v2.0
  */
-public enum ImageActionType {
+public class Network {
 
-  TRANSFER("transfer");
+  @SerializedName("ip_address")
+  private String ipAddress;
 
-  private String value;
+  private String netmask;
 
-  ImageActionType(String value) {
-    this.value = value;
+  private String gateway;
+
+  private String type;
+
+  /**
+   * @return the ipAddress
+   */
+  public String getIpAddress() {
+    return ipAddress;
   }
 
-  @Override
-  public String toString() {
-    return this.value;
+  /**
+   * @param ipAddress the ipAddress to set
+   */
+  public void setIpAddress(String ipAddress) {
+    this.ipAddress = ipAddress;
   }
 
-  public static ImageActionType fromValue(String value) {
-    if (null == value || "".equals(value)) {
-      throw new IllegalArgumentException("Value cannot be null or empty!");
-    }
+  /**
+   * @return the netmask
+   */
+  public String getNetmask() {
+    return netmask;
+  }
 
-    for (ImageActionType iat : ImageActionType.values()) {
-      if (value.equalsIgnoreCase(iat.value)) {
-        return iat;
-      }
-    }
+  /**
+   * @param netmask the netmask to set
+   */
+  public void setNetmask(String netmask) {
+    this.netmask = netmask;
+  }
 
-    throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
+  /**
+   * @return the gateway
+   */
+  public String getGateway() {
+    return gateway;
+  }
+
+  /**
+   * @param gateway the gateway to set
+   */
+  public void setGateway(String gateway) {
+    this.gateway = gateway;
+  }
+
+  /**
+   * @return the type
+   */
+  public String getType() {
+    return type;
+  }
+
+  /**
+   * @param type the type to set
+   */
+  public void setType(String type) {
+    this.type = type;
   }
 }

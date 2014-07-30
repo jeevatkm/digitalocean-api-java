@@ -18,41 +18,50 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean.common;
+package com.myjeeva.digitalocean.pojo;
+
+import java.io.Serializable;
 
 /**
- * Enumeration of DigitalOcean Image Action Type
+ * Represents Meta and Links attributes in Base class
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
  * @since v2.0
  */
-public enum ImageActionType {
+public class Base implements Serializable {
 
-  TRANSFER("transfer");
+  private static final long serialVersionUID = 1640829485449241925L;
 
-  private String value;
+  private Meta meta;
 
-  ImageActionType(String value) {
-    this.value = value;
+  private Links links;
+
+  /**
+   * @return the meta
+   */
+  public Meta getMeta() {
+    return meta;
   }
 
-  @Override
-  public String toString() {
-    return this.value;
+  /**
+   * @param meta the meta to set
+   */
+  public void setMeta(Meta meta) {
+    this.meta = meta;
   }
 
-  public static ImageActionType fromValue(String value) {
-    if (null == value || "".equals(value)) {
-      throw new IllegalArgumentException("Value cannot be null or empty!");
-    }
+  /**
+   * @return the links
+   */
+  public Links getLinks() {
+    return links;
+  }
 
-    for (ImageActionType iat : ImageActionType.values()) {
-      if (value.equalsIgnoreCase(iat.value)) {
-        return iat;
-      }
-    }
-
-    throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
+  /**
+   * @param links the links to set
+   */
+  public void setLinks(Links links) {
+    this.links = links;
   }
 }

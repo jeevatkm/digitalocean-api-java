@@ -28,11 +28,11 @@ import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
 import com.myjeeva.digitalocean.pojo.Droplet;
-import com.myjeeva.digitalocean.pojo.DropletImage;
-import com.myjeeva.digitalocean.pojo.DropletSize;
+import com.myjeeva.digitalocean.pojo.Image;
+import com.myjeeva.digitalocean.pojo.Size;
 import com.myjeeva.digitalocean.pojo.Region;
 import com.myjeeva.digitalocean.pojo.Response;
-import com.myjeeva.digitalocean.pojo.SshKey;
+import com.myjeeva.digitalocean.pojo.Key;
 
 /**
  * <p>
@@ -423,21 +423,21 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  List<DropletImage> getAvailableImages() throws AccessDeniedException, ResourceNotFoundException,
+  List<Image> getAvailableImages() throws AccessDeniedException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
   /**
    * Method retrieves the attributes of an image.
    * 
    * @param imageId the image Id of the droplet/snapshot/backup images
-   * @return {@link DropletImage}
+   * @return {@link Image}
    * @throws AccessDeniedException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  DropletImage getImageInfo(Integer imageId) throws AccessDeniedException,
+  Image getImageInfo(Integer imageId) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -483,21 +483,21 @@ public interface DigitalOcean {
    * 
    * @since v1.2
    */
-  List<SshKey> getAvailableSshKeys() throws AccessDeniedException, ResourceNotFoundException,
+  List<Key> getAvailableSshKeys() throws AccessDeniedException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
   /**
    * Method shows a specific public SSH key in your account that can be added to a droplet.
    * 
    * @param sshKeyId the SSH key Id
-   * @return {@link SshKey}
+   * @return {@link Key}
    * @throws AccessDeniedException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.2
    */
-  SshKey getSshKeyInfo(Integer sshKeyId) throws AccessDeniedException, ResourceNotFoundException,
+  Key getSshKeyInfo(Integer sshKeyId) throws AccessDeniedException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
   /**
@@ -505,14 +505,14 @@ public interface DigitalOcean {
    * 
    * @param sshKeyName the name you want to give this SSH key
    * @param sshPublicKey the actual public SSH key
-   * @return {@link SshKey}
+   * @return {@link Key}
    * @throws AccessDeniedException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.2
    */
-  SshKey addSshKey(String sshKeyName, String sshPublicKey) throws AccessDeniedException,
+  Key addSshKey(String sshKeyName, String sshPublicKey) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -520,14 +520,14 @@ public interface DigitalOcean {
    * 
    * @param sshKeyId the SSH key Id, you would like to edit
    * @param newSshPublicKey the new public SSH key
-   * @return {@link SshKey}
+   * @return {@link Key}
    * @throws AccessDeniedException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.2
    */
-  SshKey editSshKey(Integer sshKeyId, String newSshPublicKey) throws AccessDeniedException,
+  Key editSshKey(Integer sshKeyId, String newSshPublicKey) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -557,7 +557,7 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  List<DropletSize> getAvailableSizes() throws AccessDeniedException, ResourceNotFoundException,
+  List<Size> getAvailableSizes() throws AccessDeniedException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
   /*

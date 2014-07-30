@@ -28,8 +28,8 @@ import com.myjeeva.digitalocean.impl.DigitalOceanClient;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
 import com.myjeeva.digitalocean.pojo.Droplet;
-import com.myjeeva.digitalocean.pojo.DropletImage;
-import com.myjeeva.digitalocean.pojo.DropletSize;
+import com.myjeeva.digitalocean.pojo.Image;
+import com.myjeeva.digitalocean.pojo.Size;
 import com.myjeeva.digitalocean.pojo.Region;
 import com.myjeeva.digitalocean.pojo.Response;
 
@@ -93,8 +93,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     for (Droplet droplet : droplets) {
       LOG.info("Droplet Id: " + droplet.getId() + ", Name: " + droplet.getName() + ", Status: "
-          + droplet.getStatus() + ", Backups Active: " + droplet.isBackupsActive()
-          + ", Created Date: " + droplet.getCreatedDate());
+          + droplet.getStatus() + ", Created Date: " + droplet.getCreatedDate());
     }
   }
 
@@ -103,18 +102,17 @@ public class DigitalOceanIntegrationTest extends TestCase {
       RequestUnsuccessfulException {
 
     Droplet droplet = new Droplet();
-    droplet.setName("api-client-test-host");
+    /*droplet.setName("api-client-test-host");
     droplet.setSizeId(66);
     droplet.setRegionId(1);
-    droplet.setImageId(imageId);
+    droplet.setImageId(imageId);*/
 
     Droplet d = apiClient.createDroplet(droplet);
 
     assertNotNull(d);
     assertNotNull(d.getId());
 
-    LOG.info("Droplet Id: " + d.getId() + ", Name: " + d.getName() + ", Image Id: "
-        + d.getImageId() + ", Event Id: " + d.getEventId());
+    LOG.info("Droplet Id: " + d.getId() + ", Name: " + d.getName());
   }
 
   @Test
@@ -126,8 +124,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(droplet);
 
     LOG.info("Droplet Id: " + droplet.getId() + ", Droplet Name: " + droplet.getName()
-        + ", Status: " + droplet.getStatus() + ", Active Backups: " + droplet.getBackups()
-        + ", Backups Active: " + droplet.isBackupsActive());
+        + ", Status: " + droplet.getStatus());
   }
 
   @Test
@@ -272,7 +269,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(regions);
 
     for (Region region : regions) {
-      LOG.info("Region Id: " + region.getId() + ", Region Name: " + region.getName() + ", Slug: "
+      LOG.info("Region Name: " + region.getName() + ", Slug: "
           + region.getSlug());
     }
   }
@@ -281,12 +278,12 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testGetAvailableImages() throws AccessDeniedException, ResourceNotFoundException,
       RequestUnsuccessfulException {
 
-    List<DropletImage> images = apiClient.getAvailableImages();
+    List<Image> images = apiClient.getAvailableImages();
 
     assertTrue((images.size() > 0));
     assertNotNull(images);
 
-    for (DropletImage img : images) {
+    for (Image img : images) {
       LOG.info("Image Id: " + img.getId() + ", Image Name: " + img.getName() + ", Distribution: "
           + img.getDistribution());
     }
@@ -296,12 +293,12 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testGetImageInfo() throws AccessDeniedException, ResourceNotFoundException,
       RequestUnsuccessfulException {
 
-    DropletImage dropletImage = apiClient.getImageInfo(imageId);
+    Image image = apiClient.getImageInfo(imageId);
 
-    assertNotNull(dropletImage);
+    assertNotNull(image);
 
-    LOG.info("Image Id: " + dropletImage.getId() + ", Image Name: " + dropletImage.getName()
-        + ", Distribution: " + dropletImage.getDistribution() + ", Slug: " + dropletImage.getSlug());
+    LOG.info("Image Id: " + image.getId() + ", Image Name: " + image.getName()
+        + ", Distribution: " + image.getDistribution() + ", Slug: " + image.getSlug());
   }
 
   @Test
@@ -323,13 +320,13 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testGetAvailableSizes() throws AccessDeniedException, ResourceNotFoundException,
       RequestUnsuccessfulException {
 
-    List<DropletSize> sizes = apiClient.getAvailableSizes();
+    List<Size> sizes = apiClient.getAvailableSizes();
 
     assertTrue((sizes.size() > 0));
     assertNotNull(sizes);
 
-    for (DropletSize size : sizes) {
-      LOG.info("Size Id: " + size.getId() + ", Size Name: " + size.getName() + ", Slug: "
+    for (Size size : sizes) {
+      LOG.info("Size Name: " + size.getName() + ", Slug: "
           + size.getSlug());
     }
   }
@@ -344,7 +341,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(domains);
 
     for (Domain d : domains) {
-      LOG.info("Domain Id: " + d.getId() + ", Domain Name: " + d.getName() + ", Time To Live: "
+      LOG.info("Domain Name: " + d.getName() + ", Time To Live: "
           + d.getTimeToLive());
     }
   }
@@ -357,7 +354,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(domain);
 
-    LOG.info("Domain Id: " + domain.getId() + ", Domain Name: " + domain.getName()
+    LOG.info("Domain Name: " + domain.getName()
         + ", Time To Live: " + domain.getTimeToLive());
   }
 
@@ -369,7 +366,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(domain);
 
-    LOG.info("Domain Id: " + domain.getId() + ", Domain Name: " + domain.getName());
+    LOG.info("Domain Name: " + domain.getName());
   }
 
   @Test
@@ -411,9 +408,9 @@ public class DigitalOceanIntegrationTest extends TestCase {
       RequestUnsuccessfulException {
 
     DomainRecord domainRecord = new DomainRecord();
-    domainRecord.setDomainId(domainId);
+    //domainRecord.setDomainId(domainId);
     domainRecord.setData(dropletIpAddress);
-    domainRecord.setRecordType("A");
+    domainRecord.setType("A");
     domainRecord.setName(domainName);
 
     DomainRecord dr = apiClient.createDomainRecord(domainRecord);
@@ -429,10 +426,10 @@ public class DigitalOceanIntegrationTest extends TestCase {
       ResourceNotFoundException, RequestUnsuccessfulException {
 
     DomainRecord domainRecord = new DomainRecord();
-    domainRecord.setDomainId(domainId);
+    //domainRecord.setDomainId(domainId);
     domainRecord.setData("@");
     domainRecord.setName("www");
-    domainRecord.setRecordType("CNAME");
+    domainRecord.setType("CNAME");
 
     DomainRecord dr = apiClient.createDomainRecord(domainRecord);
 
@@ -448,10 +445,10 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     DomainRecord domainRecord = new DomainRecord();
     domainRecord.setId(298952);
-    domainRecord.setDomainId(domainId);
+    //domainRecord.setDomainId(domainId);
     domainRecord.setData("@");
     domainRecord.setName("static");
-    domainRecord.setRecordType("CNAME");
+    domainRecord.setType("CNAME");
 
     DomainRecord dr = apiClient.editDomainRecord(domainRecord);
 
@@ -511,8 +508,8 @@ public class DigitalOceanIntegrationTest extends TestCase {
   }
 
   private void logDomainRecordValues(DomainRecord dr) {
-    LOG.info("Domain Record Id: " + dr.getId() + ", Domain Id: " + dr.getDomainId()
-        + ", Record Name: " + dr.getName() + ", Record Type: " + dr.getRecordType()
+    LOG.info("Domain Record Id: " + dr.getId()
+        + ", Record Name: " + dr.getName() + ", Record Type: " + dr.getType()
         + ", Record Data: " + dr.getData() + ", Record Priority: " + dr.getPriority()
         + ", Record Port: " + dr.getPort() + ", Record Weight: " + dr.getWeight());
   }

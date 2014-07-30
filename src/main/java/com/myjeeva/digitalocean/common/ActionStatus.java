@@ -28,11 +28,11 @@ package com.myjeeva.digitalocean.common;
  * @since v2.0
  */
 public enum ActionStatus {
-  
+
   COMPLETED("completed"),
   IN_PROGRESS("in-progress"),
   ERRORED("errored");
-  
+
   private String value;
 
   ActionStatus(String value) {

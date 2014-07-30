@@ -18,41 +18,34 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean.common;
+package com.myjeeva.digitalocean.pojo;
+
+import java.util.List;
 
 /**
- * Enumeration of DigitalOcean Image Action Type
+ * Represents Droplets attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
  * @since v2.0
  */
-public enum ImageActionType {
+public class Droplets extends Base {
 
-  TRANSFER("transfer");
+  private static final long serialVersionUID = -7765553834725627310L;
 
-  private String value;
+  private List<Droplet> droplets;
 
-  ImageActionType(String value) {
-    this.value = value;
+  /**
+   * @return the droplets
+   */
+  public List<Droplet> getDroplets() {
+    return droplets;
   }
 
-  @Override
-  public String toString() {
-    return this.value;
-  }
-
-  public static ImageActionType fromValue(String value) {
-    if (null == value || "".equals(value)) {
-      throw new IllegalArgumentException("Value cannot be null or empty!");
-    }
-
-    for (ImageActionType iat : ImageActionType.values()) {
-      if (value.equalsIgnoreCase(iat.value)) {
-        return iat;
-      }
-    }
-
-    throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
+  /**
+   * @param droplets the droplets to set
+   */
+  public void setDroplets(List<Droplet> droplets) {
+    this.droplets = droplets;
   }
 }

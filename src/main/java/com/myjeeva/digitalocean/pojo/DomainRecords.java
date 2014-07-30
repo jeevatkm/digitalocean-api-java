@@ -20,59 +20,35 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
+
 /**
- * Represents Droplet Size (aka Droplet Plan) attributes of DigitalOcean
+ * Represents Domain Records attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
+ * 
+ * @since v2.0
  */
-public class DropletSize {
+public class DomainRecords extends Base {
 
-  private Integer id;
+  private static final long serialVersionUID = 6380489095628829061L;
 
-  private String name;
-
-  private String slug;
+  @SerializedName("domain_records")
+  private List<DomainRecord> domainRecords;
 
   /**
-   * @return the id
+   * @return the domainRecords
    */
-  public Integer getId() {
-    return id;
+  public List<DomainRecord> getDomainRecords() {
+    return domainRecords;
   }
 
   /**
-   * @param id the id to set
+   * @param domainRecords the domainRecords to set
    */
-  public void setId(Integer id) {
-    this.id = id;
+  public void setDomainRecords(List<DomainRecord> domainRecords) {
+    this.domainRecords = domainRecords;
   }
-
-  /**
-   * @return the name
-   */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * @param name the name to set
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * @return the slug
-   */
-  public String getSlug() {
-    return slug;
-  }
-
-  /**
-   * @param slug the slug to set
-   */
-  public void setSlug(String slug) {
-    this.slug = slug;
-  }
-
 }

@@ -75,8 +75,8 @@ public final class Helper implements Constants {
   public static Map<String, String> prepareDomainRecordParams(DomainRecord domainRecord) {
     Map<String, String> qp = new HashMap<String, String>();
 
-    if (null != domainRecord.getRecordType())
-      qp.put(PARAM_RECORD_TYPE, domainRecord.getRecordType());
+    if (null != domainRecord.getType())
+      qp.put(PARAM_RECORD_TYPE, domainRecord.getType());
 
     if (null != domainRecord.getData())
       qp.put(PARAM_DATA, domainRecord.getData());

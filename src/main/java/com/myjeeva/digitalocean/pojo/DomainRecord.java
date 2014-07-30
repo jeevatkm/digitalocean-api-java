@@ -20,26 +20,21 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
- * Represents DomainRecord (TLD) Record attributes of DigitalOcean DNS
+ * Represents DomainRecord (TLD) Record attributes of DigitalOcean DNS. Revised as per v2 API data
+ * structure.
  * 
- * @author Jeevanandam (jeeva@myjeeva.com)
+ * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
 public class DomainRecord {
 
   private Integer id;
 
-  @SerializedName("domain_id")
-  private Integer domainId;
-
-  @SerializedName("record_type")
-  private String recordType;
-
-  private String data;
+  private String type;
 
   private String name;
+
+  private String data;
 
   private String priority;
 
@@ -48,148 +43,100 @@ public class DomainRecord {
   private Integer weight;
 
   /**
-   * Default Constructor
-   */
-  public DomainRecord() {
-    // Default Constructor
-  }
-
-  /**
-   * Parameterized {@link DomainRecord} Constructor
-   * 
-   * @param id Domain record Id
-   * @param domainId specifies the domain Id for which to create a record
-   * @param recordType the type of record you would like to create. 'A', 'CNAME', 'NS', 'TXT', 'MX'
-   *        or 'SRV'
-   * @param data this is the value of the record, for example: IP address, '@'
-   * @param name Optional, required for 'A', 'CNAME', 'TXT' and 'SRV' records
-   * @param priority Optional, required for 'SRV' and 'MX' records
-   * @param port Optional, required for 'SRV' records
-   * @param weight Optional, required for 'SRV' records
-   */
-  public DomainRecord(Integer id, Integer domainId, String recordType, String data, String name,
-      String priority, Integer port, Integer weight) {
-    this.id = id;
-    this.domainId = domainId;
-    this.recordType = recordType;
-    this.name = name;
-    this.data = data;
-    this.priority = priority;
-    this.port = port;
-    this.weight = weight;
-  }
-
-  /**
-   * @return the idDomain record Id
+   * @return the id
    */
   public Integer getId() {
     return id;
   }
 
   /**
-   * @param id the id to setDomain Record Id
+   * @param id the id to set
    */
   public void setId(Integer id) {
     this.id = id;
   }
 
   /**
-   * @return the domainIdspecifies the domain Id for which to create a record
+   * @return the type
    */
-  public Integer getDomainId() {
-    return domainId;
+  public String getType() {
+    return type;
   }
 
   /**
-   * @param domainId the domainId to set the domain Id for which to create a record
+   * @param type the type to set
    */
-  public void setDomainId(Integer domainId) {
-    this.domainId = domainId;
+  public void setType(String type) {
+    this.type = type;
   }
 
   /**
-   * @return the recordTypethe type of record you would like to create. 'A', 'CNAME', 'NS', 'TXT',
-   *         'MX' or 'SRV'
-   */
-  public String getRecordType() {
-    return recordType;
-  }
-
-  /**
-   * @param recordType the recordType to set 'A', 'CNAME', 'NS', 'TXT', 'MX' or 'SRV'
-   */
-  public void setRecordType(String recordType) {
-    this.recordType = recordType;
-  }
-
-  /**
-   * @return the data value ofIP address, '@'
-   */
-  public String getData() {
-    return data;
-  }
-
-  /**
-   * @param data the data to setthis is the value of the record, for example: IP address, '@'
-   */
-  public void setData(String data) {
-    this.data = data;
-  }
-
-  /**
-   * @return the namevalue of 'A', 'CNAME', 'TXT' and 'SRV' records
+   * @return the name
    */
   public String getName() {
     return name;
   }
 
   /**
-   * @param name the name to setOptional, required for 'A', 'CNAME', 'TXT' and 'SRV' records
+   * @param name the name to set
    */
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * @return the priority SRV' and 'MX' values
+   * @return the data
+   */
+  public String getData() {
+    return data;
+  }
+
+  /**
+   * @param data the data to set
+   */
+  public void setData(String data) {
+    this.data = data;
+  }
+
+  /**
+   * @return the priority
    */
   public String getPriority() {
     return priority;
   }
 
   /**
-   * @param priority the priority to set Optional, required for 'SRV' and 'MX' records
+   * @param priority the priority to set
    */
   public void setPriority(String priority) {
     this.priority = priority;
   }
 
   /**
-   * @return the port 'SRV' records
+   * @return the port
    */
   public Integer getPort() {
     return port;
   }
 
   /**
-   * @param port the port to setOptional, required for 'SRV' records
+   * @param port the port to set
    */
   public void setPort(Integer port) {
     this.port = port;
   }
 
   /**
-   * @return the weight value of 'SRV' records
+   * @return the weight
    */
   public Integer getWeight() {
     return weight;
   }
 
   /**
-   * @param weight the weight to setOptional, required for 'SRV' records
+   * @param weight the weight to set
    */
   public void setWeight(Integer weight) {
     this.weight = weight;
   }
-
 }

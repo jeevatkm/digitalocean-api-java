@@ -27,10 +27,10 @@ import com.google.gson.reflect.TypeToken;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
 import com.myjeeva.digitalocean.pojo.Droplet;
-import com.myjeeva.digitalocean.pojo.DropletImage;
-import com.myjeeva.digitalocean.pojo.DropletSize;
+import com.myjeeva.digitalocean.pojo.Image;
+import com.myjeeva.digitalocean.pojo.Size;
 import com.myjeeva.digitalocean.pojo.Region;
-import com.myjeeva.digitalocean.pojo.SshKey;
+import com.myjeeva.digitalocean.pojo.Key;
 
 /**
  * DigitalOcean API client Constants
@@ -67,15 +67,15 @@ public interface Constants {
   // Gson Type Tokens
   Type TYPE_DROPLET_LIST = new TypeToken<List<Droplet>>() {}.getType();
 
-  Type TYPE_IMAGE_LIST = new TypeToken<List<DropletImage>>() {}.getType();
+  Type TYPE_IMAGE_LIST = new TypeToken<List<Image>>() {}.getType();
 
   Type TYPE_REGION_LIST = new TypeToken<List<Region>>() {}.getType();
 
-  Type TYPE_SIZE_LIST = new TypeToken<List<DropletSize>>() {}.getType();
+  Type TYPE_SIZE_LIST = new TypeToken<List<Size>>() {}.getType();
 
   Type TYPE_DOMAIN_LIST = new TypeToken<List<Domain>>() {}.getType();
 
   Type TYPE_DOMAIN_RECORD_LIST = new TypeToken<List<DomainRecord>>() {}.getType();
 
-  Type TYPE_SSH_KEY_LIST = new TypeToken<List<SshKey>>() {}.getType();
+  Type TYPE_SSH_KEY_LIST = new TypeToken<List<Key>>() {}.getType();
 }

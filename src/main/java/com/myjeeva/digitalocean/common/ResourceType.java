@@ -28,13 +28,13 @@ package com.myjeeva.digitalocean.common;
  * @since v2.0
  */
 public enum ResourceType {
-  
-  DROPLET("droplet"),
-  IMAGE("image"),
+
+  DROPLET("droplet"), 
+  IMAGE("image"), 
   BACKEND("backend");
-  
+
   private String value;
-  
+
   ResourceType(String value) {
     this.value = value;
   }

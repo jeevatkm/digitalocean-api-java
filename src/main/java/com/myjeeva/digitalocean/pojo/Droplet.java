@@ -27,7 +27,7 @@ import com.google.gson.annotations.SerializedName;
 import com.myjeeva.digitalocean.common.DropletStatus;
 
 /**
- * Represents Droplet attributes of DigitalOcean
+ * Represents Droplet attributes of DigitalOcean. Revised as per v2 API data structure.
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
@@ -37,37 +37,42 @@ public class Droplet {
 
   private String name;
 
-  @SerializedName("image_id")
-  private Integer imageId;
+  @SerializedName("memory")
+  private Integer memorySizeInMb;
 
-  @SerializedName("region_id")
-  private Integer regionId;
+  @SerializedName("vcpus")
+  private Integer virutalCpuCount;
 
-  @SerializedName("size_id")
-  private Integer sizeId;
+  @SerializedName("disk")
+  private Integer diskSize;
 
-  @SerializedName("backups_active")
-  private boolean backupsActive;
+  private Region region;
 
-  private List<Backup> backups;
+  private Image image;
 
-  private List<Snapshot> snapshots;
-
-  @SerializedName("ip_address")
-  private String ipAddress;
-
-  @SerializedName("private_ip_address")
-  private String privateIpAddress;
+  private Size size;
 
   private boolean locked;
 
   private DropletStatus status;
 
+  private Networks networks;
+
+  private Kernel kernel;
+
   @SerializedName("created_at")
   private Date createdDate;
 
-  @SerializedName("event_id")
-  private Long eventId;
+  private List<String> features;
+
+  @SerializedName("backup_ids")
+  private List<Integer> backupIds;
+
+  @SerializedName("snapshot_ids")
+  private List<Integer> snapshotIds;
+
+  @SerializedName("action_ids")
+  private List<Integer> actionIds;
 
   /**
    * @return the id
@@ -98,115 +103,87 @@ public class Droplet {
   }
 
   /**
-   * @return the imageId
+   * @return the memorySizeInMb
    */
-  public Integer getImageId() {
-    return imageId;
+  public Integer getMemorySizeInMb() {
+    return memorySizeInMb;
   }
 
   /**
-   * @param imageId the imageId to set
+   * @param memorySizeInMb the memorySizeInMb to set
    */
-  public void setImageId(Integer imageId) {
-    this.imageId = imageId;
+  public void setMemorySizeInMb(Integer memorySizeInMb) {
+    this.memorySizeInMb = memorySizeInMb;
   }
 
   /**
-   * @return the regionId
+   * @return the virutalCpuCount
    */
-  public Integer getRegionId() {
-    return regionId;
+  public Integer getVirutalCpuCount() {
+    return virutalCpuCount;
   }
 
   /**
-   * @param regionId the regionId to set
+   * @param virutalCpuCount the virutalCpuCount to set
    */
-  public void setRegionId(Integer regionId) {
-    this.regionId = regionId;
+  public void setNoOfVirutalCpu(Integer virutalCpuCount) {
+    this.virutalCpuCount = virutalCpuCount;
   }
 
   /**
-   * @return the sizeId
+   * @return the diskSize
    */
-  public Integer getSizeId() {
-    return sizeId;
+  public Integer getDiskSize() {
+    return diskSize;
   }
 
   /**
-   * @param sizeId the sizeId to set
+   * @param diskSize the diskSize to set
    */
-  public void setSizeId(Integer sizeId) {
-    this.sizeId = sizeId;
+  public void setDiskSize(Integer diskSize) {
+    this.diskSize = diskSize;
   }
 
   /**
-   * @return the backupsActive
+   * @return the region
    */
-  public boolean isBackupsActive() {
-    return backupsActive;
+  public Region getRegion() {
+    return region;
   }
 
   /**
-   * @param backupsActive the backupsActive to set
+   * @param region the region to set
    */
-  public void setBackupsActive(boolean backupsActive) {
-    this.backupsActive = backupsActive;
+  public void setRegion(Region region) {
+    this.region = region;
   }
 
   /**
-   * @return the backups
+   * @return the image
    */
-  public List<Backup> getBackups() {
-    return backups;
+  public Image getImage() {
+    return image;
   }
 
   /**
-   * @param backups the backups to set
+   * @param image the image to set
    */
-  public void setBackups(List<Backup> backups) {
-    this.backups = backups;
+  public void setImage(Image image) {
+    this.image = image;
   }
 
   /**
-   * @return the snapshots
+   * @return the size
    */
-  public List<Snapshot> getSnapshots() {
-    return snapshots;
+  public Size getSize() {
+    return size;
   }
 
   /**
-   * @param snapshots the snapshots to set
+   * @param size the size to set
    */
-  public void setSnapshots(List<Snapshot> snapshots) {
-    this.snapshots = snapshots;
-  }
-
-  /**
-   * @return the ipAddress
-   */
-  public String getIpAddress() {
-    return ipAddress;
-  }
-
-  /**
-   * @param ipAddress the ipAddress to set
-   */
-  public void setIpAddress(String ipAddress) {
-    this.ipAddress = ipAddress;
-  }
-
-  /**
-   * @return the privateIpAddress
-   */
-  public String getPrivateIpAddress() {
-    return privateIpAddress;
-  }
-
-  /**
-   * @param privateIpAddress the privateIpAddress to set
-   */
-  public void setPrivateIpAddress(String privateIpAddress) {
-    this.privateIpAddress = privateIpAddress;
+  public void setSize(Size size) {
+    this.size = size;
   }
 
   /**
@@ -238,6 +215,34 @@ public class Droplet {
   }
 
   /**
+   * @return the networks
+   */
+  public Networks getNetworks() {
+    return networks;
+  }
+
+  /**
+   * @param networks the networks to set
+   */
+  public void setNetworks(Networks networks) {
+    this.networks = networks;
+  }
+
+  /**
+   * @return the kernel
+   */
+  public Kernel getKernel() {
+    return kernel;
+  }
+
+  /**
+   * @param kernel the kernel to set
+   */
+  public void setKernel(Kernel kernel) {
+    this.kernel = kernel;
+  }
+
+  /**
    * @return the createdDate
    */
   public Date getCreatedDate() {
@@ -252,17 +257,59 @@ public class Droplet {
   }
 
   /**
-   * @return the eventId
+   * @return the features
    */
-  public Long getEventId() {
-    return eventId;
+  public List<String> getFeatures() {
+    return features;
   }
 
   /**
-   * @param eventId the eventId to set
+   * @param features the features to set
    */
-  public void setEventId(Long eventId) {
-    this.eventId = eventId;
+  public void setFeatures(List<String> features) {
+    this.features = features;
+  }
+
+  /**
+   * @return the backupIds
+   */
+  public List<Integer> getBackupIds() {
+    return backupIds;
+  }
+
+  /**
+   * @param backupIds the backupIds to set
+   */
+  public void setBackupIds(List<Integer> backupIds) {
+    this.backupIds = backupIds;
+  }
+
+  /**
+   * @return the snapshotIds
+   */
+  public List<Integer> getSnapshotIds() {
+    return snapshotIds;
+  }
+
+  /**
+   * @param snapshotIds the snapshotIds to set
+   */
+  public void setSnapshotIds(List<Integer> snapshotIds) {
+    this.snapshotIds = snapshotIds;
+  }
+
+  /**
+   * @return the actionIds
+   */
+  public List<Integer> getActionIds() {
+    return actionIds;
+  }
+
+  /**
+   * @param actionIds the actionIds to set
+   */
+  public void setActionIds(List<Integer> actionIds) {
+    this.actionIds = actionIds;
   }
 
   /**

@@ -18,41 +18,34 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean.common;
+package com.myjeeva.digitalocean.pojo;
+
+import java.util.List;
 
 /**
- * Enumeration of DigitalOcean Image Action Type
+ * Represents Keys attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
  * @since v2.0
  */
-public enum ImageActionType {
+public class Keys extends Base {
 
-  TRANSFER("transfer");
+  private static final long serialVersionUID = 7938893715787097176L;
 
-  private String value;
+  private List<Key> keys;
 
-  ImageActionType(String value) {
-    this.value = value;
+  /**
+   * @return the keys
+   */
+  public List<Key> getKeys() {
+    return keys;
   }
 
-  @Override
-  public String toString() {
-    return this.value;
-  }
-
-  public static ImageActionType fromValue(String value) {
-    if (null == value || "".equals(value)) {
-      throw new IllegalArgumentException("Value cannot be null or empty!");
-    }
-
-    for (ImageActionType iat : ImageActionType.values()) {
-      if (value.equalsIgnoreCase(iat.value)) {
-        return iat;
-      }
-    }
-
-    throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
+  /**
+   * @param keys the keys to set
+   */
+  public void setKeys(List<Key> keys) {
+    this.keys = keys;
   }
 }

@@ -25,7 +25,7 @@ import java.io.Serializable;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents Domain (TLD) attributes of DigitalOcean DNS
+ * Represents Domain (TLD) attributes of DigitalOcean DNS. Revised as per v2 API data structure.
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
@@ -33,34 +33,13 @@ public class Domain implements Serializable {
 
   private static final long serialVersionUID = -1034777642814045693L;
 
-  private Integer id;
-
   private String name;
 
   @SerializedName("ttl")
   private Integer timeToLive;
 
-  @SerializedName("live_zone_file")
-  private String liveZoneFile;
-
-  private String error;
-
-  @SerializedName("zone_file_with_error")
-  private String zoneFileWithError;
-
-  /**
-   * @return the id
-   */
-  public Integer getId() {
-    return id;
-  }
-
-  /**
-   * @param id the id to set
-   */
-  public void setId(Integer id) {
-    this.id = id;
-  }
+  @SerializedName("zone_file")
+  private String zoneFile;
 
   /**
    * @return the name
@@ -91,45 +70,16 @@ public class Domain implements Serializable {
   }
 
   /**
-   * @return the liveZoneFile
+   * @return the zoneFile
    */
-  public String getLiveZoneFile() {
-    return liveZoneFile;
+  public String getZoneFile() {
+    return zoneFile;
   }
 
   /**
-   * @param liveZoneFile the liveZoneFile to set
+   * @param zoneFile the zoneFile to set
    */
-  public void setLiveZoneFile(String liveZoneFile) {
-    this.liveZoneFile = liveZoneFile;
+  public void setZoneFile(String zoneFile) {
+    this.zoneFile = zoneFile;
   }
-
-  /**
-   * @return the error
-   */
-  public String getError() {
-    return error;
-  }
-
-  /**
-   * @param error the error to set
-   */
-  public void setError(String error) {
-    this.error = error;
-  }
-
-  /**
-   * @return the zoneFileWithError
-   */
-  public String getZoneFileWithError() {
-    return zoneFileWithError;
-  }
-
-  /**
-   * @param zoneFileWithError the zoneFileWithError to set
-   */
-  public void setZoneFileWithError(String zoneFileWithError) {
-    this.zoneFileWithError = zoneFileWithError;
-  }
-
 }

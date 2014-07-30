@@ -53,11 +53,11 @@ import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
 import com.myjeeva.digitalocean.pojo.Droplet;
-import com.myjeeva.digitalocean.pojo.DropletImage;
-import com.myjeeva.digitalocean.pojo.DropletSize;
+import com.myjeeva.digitalocean.pojo.Image;
+import com.myjeeva.digitalocean.pojo.Size;
 import com.myjeeva.digitalocean.pojo.Region;
 import com.myjeeva.digitalocean.pojo.Response;
-import com.myjeeva.digitalocean.pojo.SshKey;
+import com.myjeeva.digitalocean.pojo.Key;
 import com.myjeeva.digitalocean.util.Helper;
 
 /**
@@ -124,9 +124,11 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
     Map<String, String> qp = new HashMap<String, String>();
     qp.put(PARAM_NAME, droplet.getName());
-    qp.put(PARAM_SIDE_ID, String.valueOf(droplet.getSizeId()));
-    qp.put(PARAM_IMAGE_ID, String.valueOf(droplet.getImageId()));
-    qp.put(PARAM_REGION_ID, String.valueOf(droplet.getRegionId()));
+    /*
+     * qp.put(PARAM_SIDE_ID, String.valueOf(droplet.getSizeId())); qp.put(PARAM_IMAGE_ID,
+     * String.valueOf(droplet.getImageId())); qp.put(PARAM_REGION_ID,
+     * String.valueOf(droplet.getRegionId()));
+     */
 
     if (null != sshKeyIds) {
       qp.put(PARAM_SSH_KEY_IDS, sshKeyIds);
@@ -264,15 +266,15 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public List<DropletImage> getAvailableImages() throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
-    return (List<DropletImage>) processByScope(Action.AVAILABLE_IMAGES, TYPE_IMAGE_LIST);
+  public List<Image> getAvailableImages() throws AccessDeniedException, ResourceNotFoundException,
+      RequestUnsuccessfulException {
+    return (List<Image>) processByScope(Action.AVAILABLE_IMAGES, TYPE_IMAGE_LIST);
   }
 
   @Override
-  public DropletImage getImageInfo(Integer imageId) throws AccessDeniedException,
+  public Image getImageInfo(Integer imageId) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException {
-    return (DropletImage) processByScope(Action.GET_IMAGE_INFO, DropletImage.class, imageId);
+    return (Image) processByScope(Action.GET_IMAGE_INFO, Image.class, imageId);
   }
 
   @Override
@@ -292,34 +294,34 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public List<SshKey> getAvailableSshKeys() throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
-    return (List<SshKey>) processByScope(Action.AVAILABLE_SSH_KEYS, TYPE_SSH_KEY_LIST);
+  public List<Key> getAvailableSshKeys() throws AccessDeniedException, ResourceNotFoundException,
+      RequestUnsuccessfulException {
+    return (List<Key>) processByScope(Action.AVAILABLE_SSH_KEYS, TYPE_SSH_KEY_LIST);
   }
 
   @Override
-  public SshKey getSshKeyInfo(Integer sshKeyId) throws AccessDeniedException,
+  public Key getSshKeyInfo(Integer sshKeyId) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException {
-    return (SshKey) processByScope(Action.GET_SSH_KEY, SshKey.class, sshKeyId);
+    return (Key) processByScope(Action.GET_SSH_KEY, Key.class, sshKeyId);
   }
 
   @Override
-  public SshKey addSshKey(String sshKeyName, String sshPublicKey) throws AccessDeniedException,
+  public Key addSshKey(String sshKeyName, String sshPublicKey) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     Map<String, String> qp = new HashMap<String, String>();
     qp.put(PARAM_NAME, sshKeyName);
     qp.put(PARAM_SSH_PUB_KEY, sshPublicKey);
 
-    return (SshKey) processByScope(Action.CREATE_SSH_KEY, SshKey.class, qp);
+    return (Key) processByScope(Action.CREATE_SSH_KEY, Key.class, qp);
   }
 
   @Override
-  public SshKey editSshKey(Integer sshKeyId, String newSshPublicKey) throws AccessDeniedException,
+  public Key editSshKey(Integer sshKeyId, String newSshPublicKey) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     Map<String, String> qp = new HashMap<String, String>();
     qp.put(PARAM_SSH_PUB_KEY, newSshPublicKey);
 
-    return (SshKey) processByScope(Action.EDIT_SSH_KEY, SshKey.class, qp, sshKeyId);
+    return (Key) processByScope(Action.EDIT_SSH_KEY, Key.class, qp, sshKeyId);
   }
 
   @Override
@@ -329,9 +331,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public List<DropletSize> getAvailableSizes() throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
-    return (List<DropletSize>) processByScope(Action.AVAILABLE_SIZES, TYPE_SIZE_LIST);
+  public List<Size> getAvailableSizes() throws AccessDeniedException, ResourceNotFoundException,
+      RequestUnsuccessfulException {
+    return (List<Size>) processByScope(Action.AVAILABLE_SIZES, TYPE_SIZE_LIST);
   }
 
   @Override
@@ -380,13 +382,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public DomainRecord createDomainRecord(DomainRecord domainRecord) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     return (DomainRecord) processByScope(Action.CREATE_DOMAIN_RECORD, DomainRecord.class,
-        Helper.prepareDomainRecordParams(domainRecord), domainRecord.getDomainId());
+        Helper.prepareDomainRecordParams(domainRecord), domainRecord.getId());
   }
 
   @Override
   public DomainRecord editDomainRecord(DomainRecord domainRecord) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException {
-    Object[] params = {domainRecord.getDomainId(), domainRecord.getId()};
+    Object[] params = {domainRecord.getId(), domainRecord.getId()};
     return (DomainRecord) processByScope(Action.EDIT_DOMAIN_RECORD, DomainRecord.class,
         Helper.prepareDomainRecordParams(domainRecord), params);
   }
@@ -523,13 +525,14 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   private Object processByScope(Action action, Class<?> clazz, Map<String, String> queryParams,
       Object... pathParams) throws AccessDeniedException, ResourceNotFoundException,
       RequestUnsuccessfulException {
-    return Helper.byClass(performAction(action, queryParams, pathParams)
-        .get(action.getElementName()), clazz);
+    return Helper.byClass(
+        performAction(action, queryParams, pathParams).get(action.getElementName()), clazz);
   }
 
   private Object processByScope(Action action, Type type, Object... pathParams)
       throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException {
-    return Helper.byType(performAction(action, null, pathParams).get(action.getElementName()), type);
+    return Helper
+        .byType(performAction(action, null, pathParams).get(action.getElementName()), type);
   }
 
 }

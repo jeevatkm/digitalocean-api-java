@@ -28,12 +28,12 @@ package com.myjeeva.digitalocean.common;
  * @since v2.0
  */
 public enum DropletActionType {
-  
+
   REBOOT("reboot"),
-  POWER_CYCLE("power_cycle"),
+  POWER_CYCLE("power_cycle"), 
   SHUTDOWN("shutdown"),
-  POWER_OFF("power_off"),
-  POWER_ON("power_on"), 
+  POWER_OFF("power_off"), 
+  POWER_ON("power_on"),
   PASSWORD_RESET("password_reset"),
   RESIZE("resize"),
   RESTORE("restore"),
@@ -43,8 +43,8 @@ public enum DropletActionType {
   ENABLE_IPV6("enable_ipv6"),
   DISABLE_BACKUPS("disable_backups"),
   ENABLE_PRIVATE_NETWORKING("enable_private_networking"),
-  SNAPSHOT("snapshot"); 
-  
+  SNAPSHOT("snapshot");
+
   private String value;
 
   DropletActionType(String value) {

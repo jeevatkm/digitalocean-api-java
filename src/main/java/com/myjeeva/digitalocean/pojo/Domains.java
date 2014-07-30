@@ -20,62 +20,32 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
 /**
- * Represents SSH Key attributes of DigitalOcean
+ * Represents Domains attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
+ * 
+ * @since v2.0
  */
-public class SshKey {
+public class Domains extends Base {
 
-  private Integer id;
+  private static final long serialVersionUID = -1065060483495579734L;
 
-  private String name;
-
-  @SerializedName("ssh_pub_key")
-  private String sshPublicKey;
+  private List<Domain> domains;
 
   /**
-   * @return the id
+   * @return the domains
    */
-  public Integer getId() {
-    return id;
+  public List<Domain> getDomains() {
+    return domains;
   }
 
   /**
-   * @param id the id to set
+   * @param domains the domains to set
    */
-  public void setId(Integer id) {
-    this.id = id;
+  public void setDomains(List<Domain> domains) {
+    this.domains = domains;
   }
-
-  /**
-   * @return the name
-   */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * @param name the name to set
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * @return the sshPublicKey
-   */
-  public String getSshPublicKey() {
-    return sshPublicKey;
-  }
-
-  /**
-   * @param sshPublicKey the sshPublicKey to set
-   */
-  public void setSshPublicKey(String sshPublicKey) {
-    this.sshPublicKey = sshPublicKey;
-  }
-
 }

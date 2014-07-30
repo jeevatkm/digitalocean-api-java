@@ -18,41 +18,62 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean.common;
+package com.myjeeva.digitalocean.pojo;
 
 /**
- * Enumeration of DigitalOcean Image Action Type
+ * Represents DigitalOcean Kernel attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
  * @since v2.0
  */
-public enum ImageActionType {
+public class Kernel {
 
-  TRANSFER("transfer");
+  private Integer id;
 
-  private String value;
+  private String name;
 
-  ImageActionType(String value) {
-    this.value = value;
+  private String version;
+
+  /**
+   * @return the id
+   */
+  public Integer getId() {
+    return id;
   }
 
-  @Override
-  public String toString() {
-    return this.value;
+  /**
+   * @param id the id to set
+   */
+  public void setId(Integer id) {
+    this.id = id;
   }
 
-  public static ImageActionType fromValue(String value) {
-    if (null == value || "".equals(value)) {
-      throw new IllegalArgumentException("Value cannot be null or empty!");
-    }
+  /**
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
 
-    for (ImageActionType iat : ImageActionType.values()) {
-      if (value.equalsIgnoreCase(iat.value)) {
-        return iat;
-      }
-    }
+  /**
+   * @param name the name to set
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
+  /**
+   * @return the version
+   */
+  public String getVersion() {
+    return version;
+  }
+
+  /**
+   * @param version the version to set
+   */
+  public void setVersion(String version) {
+    this.version = version;
   }
 }

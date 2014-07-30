@@ -21,7 +21,7 @@
 package com.myjeeva.digitalocean.common;
 
 /**
- * Describes possible droplet states.
+ * Enumeration of DigitalOcean droplet states.
  * 
  * @author Robert Gründler (robert@dubture.com)
  * @author Jeevanandam M. (jeeva@myjeeva.com)

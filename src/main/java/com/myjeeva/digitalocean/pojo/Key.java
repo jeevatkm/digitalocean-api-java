@@ -20,21 +20,27 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.io.Serializable;
+
+import com.google.gson.annotations.SerializedName;
+
 /**
- * Represents Droplet Image (also public images aka Distribution) attributes of DigitalOcean
- * (distribution, snapshots or backups)
+ * Represents SSH Key attributes of DigitalOcean. Revised as per v2 API data structure.
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class DropletImage {
+public class Key implements Serializable {
+
+  private static final long serialVersionUID = 3454646433241484585L;
 
   private Integer id;
 
   private String name;
 
-  private String slug;
+  private String fingerprint;
 
-  private String distribution;
+  @SerializedName("public_key")
+  private String publicKey;
 
   /**
    * @return the id
@@ -65,31 +71,30 @@ public class DropletImage {
   }
 
   /**
-   * @return the slug
+   * @return the fingerprint
    */
-  public String getSlug() {
-    return slug;
+  public String getFingerprint() {
+    return fingerprint;
   }
 
   /**
-   * @param slug the slug to set
+   * @param fingerprint the fingerprint to set
    */
-  public void setSlug(String slug) {
-    this.slug = slug;
+  public void setFingerprint(String fingerprint) {
+    this.fingerprint = fingerprint;
   }
 
   /**
-   * @return the distribution
+   * @return the publicKey
    */
-  public String getDistribution() {
-    return distribution;
+  public String getPublicKey() {
+    return publicKey;
   }
 
   /**
-   * @param distribution the distribution to set
+   * @param publicKey the publicKey to set
    */
-  public void setDistribution(String distribution) {
-    this.distribution = distribution;
+  public void setPublicKey(String publicKey) {
+    this.publicKey = publicKey;
   }
-
 }

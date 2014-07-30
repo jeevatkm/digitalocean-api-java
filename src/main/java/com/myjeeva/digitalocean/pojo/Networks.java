@@ -18,41 +18,52 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean.common;
+package com.myjeeva.digitalocean.pojo;
+
+import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
- * Enumeration of DigitalOcean Image Action Type
+ * Represents DigitalOcean Networks attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
  * @since v2.0
  */
-public enum ImageActionType {
+public class Networks {
 
-  TRANSFER("transfer");
+  @SerializedName("v4")
+  private List<Network> version4Networks;
 
-  private String value;
+  @SerializedName("v6")
+  private List<Network> version6Networks;
 
-  ImageActionType(String value) {
-    this.value = value;
+  /**
+   * @return the version4Networks
+   */
+  public List<Network> getVersion4Networks() {
+    return version4Networks;
   }
 
-  @Override
-  public String toString() {
-    return this.value;
+  /**
+   * @param version4Networks the version4Networks to set
+   */
+  public void setVersion4Networks(List<Network> version4Networks) {
+    this.version4Networks = version4Networks;
   }
 
-  public static ImageActionType fromValue(String value) {
-    if (null == value || "".equals(value)) {
-      throw new IllegalArgumentException("Value cannot be null or empty!");
-    }
+  /**
+   * @return the version6Networks
+   */
+  public List<Network> getVersion6Networks() {
+    return version6Networks;
+  }
 
-    for (ImageActionType iat : ImageActionType.values()) {
-      if (value.equalsIgnoreCase(iat.value)) {
-        return iat;
-      }
-    }
-
-    throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
+  /**
+   * @param version6Networks the version6Networks to set
+   */
+  public void setVersion6Networks(List<Network> version6Networks) {
+    this.version6Networks = version6Networks;
   }
 }
