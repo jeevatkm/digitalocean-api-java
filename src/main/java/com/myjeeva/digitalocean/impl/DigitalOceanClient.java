@@ -44,10 +44,9 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.myjeeva.digitalocean.Constants;
 import com.myjeeva.digitalocean.DigitalOcean;
-import com.myjeeva.digitalocean.Utils;
 import com.myjeeva.digitalocean.common.Action;
+import com.myjeeva.digitalocean.common.Constants;
 import com.myjeeva.digitalocean.exception.AccessDeniedException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
@@ -59,6 +58,7 @@ import com.myjeeva.digitalocean.pojo.DropletSize;
 import com.myjeeva.digitalocean.pojo.Region;
 import com.myjeeva.digitalocean.pojo.Response;
 import com.myjeeva.digitalocean.pojo.SshKey;
+import com.myjeeva.digitalocean.util.Helper;
 
 /**
  * DigitalOcean API client wrapper methods Implementation
@@ -380,7 +380,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public DomainRecord createDomainRecord(DomainRecord domainRecord) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     return (DomainRecord) processByScope(Action.CREATE_DOMAIN_RECORD, DomainRecord.class,
-        Utils.prepareDomainRecordParams(domainRecord), domainRecord.getDomainId());
+        Helper.prepareDomainRecordParams(domainRecord), domainRecord.getDomainId());
   }
 
   @Override
@@ -388,7 +388,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       ResourceNotFoundException, RequestUnsuccessfulException {
     Object[] params = {domainRecord.getDomainId(), domainRecord.getId()};
     return (DomainRecord) processByScope(Action.EDIT_DOMAIN_RECORD, DomainRecord.class,
-        Utils.prepareDomainRecordParams(domainRecord), params);
+        Helper.prepareDomainRecordParams(domainRecord), params);
   }
 
   @Override
@@ -474,7 +474,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       }
 
       if (HttpStatus.SC_NOT_FOUND == httpResponse.getStatusLine().getStatusCode()) {
-        JsonObject responseObject = Utils.getResponseObject(httpResponse);
+        JsonObject responseObject = Helper.getResponseObject(httpResponse);
         JsonElement errorMessage = responseObject.get("error_message");
         throw new ResourceNotFoundException(errorMessage != null ? errorMessage.getAsString()
             : "Requested resource is not available DigitalOcean");
@@ -484,7 +484,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
       if (null != entity) {
         InputStream input = entity.getContent();
-        response = Utils.readInputStream(input);
+        response = Helper.readInputStream(input);
 
         // Let's close the stream
         try {
@@ -512,7 +512,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
   private Response process(Action action, Object[] id, Map<String, String> queryParams)
       throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException {
-    return (Response) Utils.byClass(performAction(action, queryParams, id), Response.class);
+    return (Response) Helper.byClass(performAction(action, queryParams, id), Response.class);
   }
 
   private Object processByScope(Action action, Class<?> clazz, Object... pathParams)
@@ -523,13 +523,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   private Object processByScope(Action action, Class<?> clazz, Map<String, String> queryParams,
       Object... pathParams) throws AccessDeniedException, ResourceNotFoundException,
       RequestUnsuccessfulException {
-    return Utils.byClass(performAction(action, queryParams, pathParams)
+    return Helper.byClass(performAction(action, queryParams, pathParams)
         .get(action.getElementName()), clazz);
   }
 
   private Object processByScope(Action action, Type type, Object... pathParams)
       throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException {
-    return Utils.byType(performAction(action, null, pathParams).get(action.getElementName()), type);
+    return Helper.byType(performAction(action, null, pathParams).get(action.getElementName()), type);
   }
 
 }

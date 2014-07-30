@@ -20,6 +20,7 @@
  */
 package com.myjeeva.digitalocean;
 
+import com.myjeeva.digitalocean.common.DropletStatus;
 import com.myjeeva.digitalocean.exception.AccessDeniedException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
@@ -31,7 +32,9 @@ import com.myjeeva.digitalocean.pojo.DropletImage;
 import com.myjeeva.digitalocean.pojo.DropletSize;
 import com.myjeeva.digitalocean.pojo.Region;
 import com.myjeeva.digitalocean.pojo.Response;
+
 import junit.framework.TestCase;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -485,15 +488,15 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testDropletStates() {
 
     Droplet droplet = new Droplet();
-    droplet.setStatus(DropletStatus.New.toString());
+    droplet.setStatus(DropletStatus.NEW);
     assertTrue(droplet.isNew());
     assertFalse(droplet.isActive());
 
-    droplet.setStatus(DropletStatus.Active.toString());
+    droplet.setStatus(DropletStatus.ACTIVE);
     assertTrue(droplet.isActive());
     assertFalse(droplet.isNew());
 
-    droplet.setStatus(DropletStatus.Off.toString());
+    droplet.setStatus(DropletStatus.OFF);
     assertTrue(droplet.isOff());
     assertFalse(droplet.isActive());
 

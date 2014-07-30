@@ -18,7 +18,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean;
+package com.myjeeva.digitalocean.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,16 +35,17 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.myjeeva.digitalocean.common.Constants;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
 
 /**
- * Utility methods for DigitalOcean API Client
+ * Helper methods for DigitalOcean API Client
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
  * @since v1.0
  */
-public final class Utils implements Constants {
+public final class Helper implements Constants {
 
   private static Gson gson;
 

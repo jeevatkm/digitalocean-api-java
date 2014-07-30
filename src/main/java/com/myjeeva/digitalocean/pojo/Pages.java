@@ -18,44 +18,78 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean;
+package com.myjeeva.digitalocean.pojo;
 
 /**
- * Describes possible droplet states.
+ * Represents Pages attributes
  * 
- * @author Robert Gründler (robert@dubture.com) - pulse00
+ * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.5
+ * @since v2.0
  */
-public enum DropletStatus {
+public class Pages {
+  
+  private String first;
+  
+  private String prev;
+  
+  private String next;
+  
+  private String last;
 
-  New("new"), Active("active"), Off("off"), Archive("archive");
-
-  private String value;
-
-  private DropletStatus(String value) {
-    this.value = value;
+  /**
+   * @return the first
+   */
+  public String getFirst() {
+    return first;
   }
 
-  @Override
-  public String toString() {
-    return this.value;
+  /**
+   * @param first the first to set
+   */
+  public void setFirst(String first) {
+    this.first = first;
   }
 
-  public static DropletStatus fromValue(String value) {
-    if (null == value || "".equals(value)) {
-      throw new IllegalArgumentException("Value cannot be null or empty!");
-
-    } else if ("new".equals(value)) {
-      return DropletStatus.New;
-    } else if ("active".equals(value)) {
-      return DropletStatus.Active;
-    } else if ("off".equals(value)) {
-      return DropletStatus.Off;
-    } else if ("archive".equals(value)) {
-      return DropletStatus.Archive;
-    } else {
-      throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
-    }
+  /**
+   * @return the prev
+   */
+  public String getPrev() {
+    return prev;
   }
+
+  /**
+   * @param prev the prev to set
+   */
+  public void setPrev(String prev) {
+    this.prev = prev;
+  }
+
+  /**
+   * @return the next
+   */
+  public String getNext() {
+    return next;
+  }
+
+  /**
+   * @param next the next to set
+   */
+  public void setNext(String next) {
+    this.next = next;
+  }
+
+  /**
+   * @return the last
+   */
+  public String getLast() {
+    return last;
+  }
+
+  /**
+   * @param last the last to set
+   */
+  public void setLast(String last) {
+    this.last = last;
+  }  
 }

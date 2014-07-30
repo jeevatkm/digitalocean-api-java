@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
-import com.myjeeva.digitalocean.DropletStatus;
+import com.myjeeva.digitalocean.common.DropletStatus;
 
 /**
  * Represents Droplet attributes of DigitalOcean
@@ -61,7 +61,7 @@ public class Droplet {
 
   private boolean locked;
 
-  private String status;
+  private DropletStatus status;
 
   @SerializedName("created_at")
   private Date createdDate;
@@ -226,14 +226,14 @@ public class Droplet {
   /**
    * @return the status
    */
-  public String getStatus() {
+  public DropletStatus getStatus() {
     return status;
   }
 
   /**
    * @param status the status to set
    */
-  public void setStatus(String status) {
+  public void setStatus(DropletStatus status) {
     this.status = status;
   }
 
@@ -269,43 +269,27 @@ public class Droplet {
    * @return true if droplet is active
    */
   public boolean isActive() {
-    try {
-      return DropletStatus.fromValue(status) == DropletStatus.Active;
-    } catch (IllegalArgumentException e) {
-      return false;
-    }
+    return status == DropletStatus.ACTIVE;
   }
 
   /**
    * @return true if droplet is new, meaning it's booting up
    */
   public boolean isNew() {
-    try {
-      return DropletStatus.fromValue(status) == DropletStatus.New;
-    } catch (IllegalArgumentException e) {
-      return false;
-    }
+    return status == DropletStatus.NEW;
   }
 
   /**
    * @return true if droplet is turned off
    */
   public boolean isOff() {
-    try {
-      return DropletStatus.fromValue(status) == DropletStatus.Off;
-    } catch (IllegalArgumentException e) {
-      return false;
-    }
+    return status == DropletStatus.OFF;
   }
 
   /**
    * @return true if droplet is archived
    */
   public boolean isArchived() {
-    try {
-      return DropletStatus.fromValue(status) == DropletStatus.Archive;
-    } catch (IllegalArgumentException e) {
-      return false;
-    }
+    return status == DropletStatus.ARCHIVE;
   }
 }
