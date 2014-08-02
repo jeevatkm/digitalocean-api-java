@@ -1,6 +1,6 @@
 DigitalOcean API Client in Java (for v1 only)
 ---------------------------------------------
-[![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java)
+[![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=api-v1)](https://travis-ci.org/jeevatkm/digitalocean-api-java)
 
 Welcome to DigitalOcean's API Client written in Java. I have created a simple and meaningful wrapper methods for DigitalOcean's API. All of the RESTful that you find in [DigitalOcean API's][1] will be made available via simple java method(s).
 
@@ -26,7 +26,7 @@ How to make use of digitalocean-api-client?
 
 * **For using Snapshot Releases available from [OSS - Sonatype Snapshot Repo][4]**
 <pre><code>Follow above application/project dependencies guidelines and then
-just replace version number to 1.6-SNAPSHOT</code></pre>
+just replace version number to 1.7-SNAPSHOT</code></pre>
 
 * **Need of jar, just click here [digitalocean-api-client-x.x.jar][8] - Maven Centeral Repository**
 
