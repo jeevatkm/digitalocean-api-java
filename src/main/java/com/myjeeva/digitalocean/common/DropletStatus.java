@@ -20,6 +20,8 @@
  */
 package com.myjeeva.digitalocean.common;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Enumeration of DigitalOcean droplet states.
  * 
@@ -30,9 +32,16 @@ package com.myjeeva.digitalocean.common;
  */
 public enum DropletStatus {
 
-  NEW("new"), 
-  ACTIVE("active"), 
-  OFF("off"), 
+  @SerializedName("new")
+  NEW("new"),
+  
+  @SerializedName("active")
+  ACTIVE("active"),
+  
+  @SerializedName("off")
+  OFF("off"),
+  
+  @SerializedName("archive")
   ARCHIVE("archive");
 
   private String value;

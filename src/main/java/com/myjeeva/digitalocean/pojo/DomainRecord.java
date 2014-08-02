@@ -20,6 +20,8 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
  * Represents DomainRecord (TLD) Record attributes of DigitalOcean DNS. Revised as per v2 API data
  * structure.
@@ -41,6 +43,11 @@ public class DomainRecord {
   private Integer port;
 
   private Integer weight;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
   /**
    * @return the id

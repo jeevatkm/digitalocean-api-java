@@ -25,17 +25,17 @@ import java.util.List;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
- * Represents Images attributes
+ * Represents Kernels attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
  * @since v2.0
  */
-public class Images extends Base {
+public class Kernels extends Base {
 
-  private static final long serialVersionUID = 5105474750012109285L;
+  private static final long serialVersionUID = -1569568949454011156L;
 
-  private List<Image> images;
+  private List<Kernel> kernels;
 
   @Override
   public String toString() {
@@ -43,16 +43,16 @@ public class Images extends Base {
   }
 
   /**
-   * @return the images
+   * @return the kernels
    */
-  public List<Image> getImages() {
-    return images;
+  public List<Kernel> getKernels() {
+    return kernels;
   }
 
   /**
-   * @param images the images to set
+   * @param kernels the kernels to set
    */
-  public void setImages(List<Image> images) {
-    this.images = images;
+  public void setKernels(List<Kernel> kernels) {
+    this.kernels = kernels;
   }
 }

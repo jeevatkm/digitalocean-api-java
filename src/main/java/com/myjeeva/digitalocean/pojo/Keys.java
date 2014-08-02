@@ -22,6 +22,8 @@ package com.myjeeva.digitalocean.pojo;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
  * Represents Keys attributes
  * 
@@ -34,6 +36,11 @@ public class Keys extends Base {
   private static final long serialVersionUID = 7938893715787097176L;
 
   private List<Key> keys;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
   /**
    * @return the keys

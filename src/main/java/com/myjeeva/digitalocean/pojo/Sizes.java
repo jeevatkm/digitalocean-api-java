@@ -22,6 +22,8 @@ package com.myjeeva.digitalocean.pojo;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
  * Represents Sizes attributes
  * 
@@ -34,6 +36,11 @@ public class Sizes extends Base {
   private static final long serialVersionUID = -455046973170719411L;
 
   private List<Size> sizes;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
   /**
    * @return the sizes

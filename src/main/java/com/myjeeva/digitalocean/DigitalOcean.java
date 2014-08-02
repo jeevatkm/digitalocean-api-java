@@ -25,18 +25,24 @@ import java.util.List;
 import com.myjeeva.digitalocean.exception.AccessDeniedException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
+import com.myjeeva.digitalocean.pojo.Actions;
+import com.myjeeva.digitalocean.pojo.Backups;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
 import com.myjeeva.digitalocean.pojo.Droplet;
+import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.Image;
-import com.myjeeva.digitalocean.pojo.Size;
+import com.myjeeva.digitalocean.pojo.Images;
+import com.myjeeva.digitalocean.pojo.Kernels;
+import com.myjeeva.digitalocean.pojo.Key;
 import com.myjeeva.digitalocean.pojo.Region;
 import com.myjeeva.digitalocean.pojo.Response;
-import com.myjeeva.digitalocean.pojo.Key;
+import com.myjeeva.digitalocean.pojo.Size;
+import com.myjeeva.digitalocean.pojo.Snapshots;
 
 /**
  * <p>
- * <strong>DigitalOcean API client written in Java</strong>
+ * <strong>DigitalOcean API client in Java</strong>
  * </p>
  * 
  * <p>
@@ -80,22 +86,105 @@ import com.myjeeva.digitalocean.pojo.Key;
 public interface DigitalOcean {
 
   /*
-   * Droplet manipulation methods
+   * Droplets methods
    */
 
   /**
    * Method returns all active droplets that are currently running in your account. All available
    * API information is presented for each droplet.
    * 
-   * @return List&lt;Droplet>
+   * @param pageNo of request pagination
+   * @return {@link Droplets}
+   * @throws AccessDeniedException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   **/
+  Droplets getAvailableDroplets(Integer pageNo) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException;
+
+  Kernels getAvailableKernels(Integer dropletId, Integer pageNo) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException;
+
+  Snapshots getAvailableSnapshots(Integer dropletId, Integer pageNo) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException;
+
+  Backups getAvailableBackups(Integer dropletId, Integer pageNo) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException;
+
+  Actions getAvailableActions(Integer dropletId, Integer pageNo) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException;
+
+  /**
+   * Method returns full information for a specific droplet ID that is passed in the URL.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link Droplet}
    * @throws AccessDeniedException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  List<Droplet> getAvailableDroplets() throws AccessDeniedException, ResourceNotFoundException,
+  Droplet getDropletInfo(Integer dropletId) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException;
+
+
+  /*
+   * Images manipulation (aka Distribution) methods
+   */
+  /**
+   * Method returns all the available images that can be accessed by your client ID. You will have
+   * access to all public images by default, and any snapshots or backups that you have created in
+   * your own account.
+   * 
+   * @param pageNo of request pagination
+   * @return Images
+   * @throws AccessDeniedException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  Images getAvailableImages(Integer pageNo) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException;
+
+  /**
+   * Method retrieves the attributes of an image.
+   * 
+   * @param imageId the image Id of the droplet/snapshot/backup images
+   * @return {@link Image}
+   * @throws AccessDeniedException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Image getImageInfo(Integer imageId) throws AccessDeniedException, ResourceNotFoundException,
       RequestUnsuccessfulException;
+
+  /**
+   * Method retrieves the attributes of an image.
+   * 
+   * @param slug of the public image
+   * @return {@link Image}
+   * @throws AccessDeniedException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  Image getImageInfo(String slug) throws AccessDeniedException, ResourceNotFoundException,
+      RequestUnsuccessfulException;
+  
+  Image updateImage(Image image) throws AccessDeniedException, ResourceNotFoundException,
+  RequestUnsuccessfulException;
+
+
+
+  // ===========
+
 
   /**
    * <p>
@@ -157,19 +246,6 @@ public interface DigitalOcean {
   Droplet createDroplet(Droplet droplet, String sshKeyIds) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
-  /**
-   * Method returns full information for a specific droplet ID that is passed in the URL.
-   * 
-   * @param dropletId the id of the droplet
-   * @return {@link Droplet}
-   * @throws AccessDeniedException
-   * @throws ResourceNotFoundException
-   * @throws RequestUnsuccessfulException
-   * 
-   * @since v1.0
-   */
-  Droplet getDropletInfo(Integer dropletId) throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to reboot a droplet. This is the preferred method to use if a server is not
@@ -408,37 +484,7 @@ public interface DigitalOcean {
   List<Region> getAvailableRegions() throws AccessDeniedException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
-  /*
-   * Images manipulation (aka Distribution) methods
-   */
-  /**
-   * Method returns all the available images that can be accessed by your client ID. You will have
-   * access to all public images by default, and any snapshots or backups that you have created in
-   * your own account.
-   * 
-   * @return List&ltDropletImage>
-   * @throws AccessDeniedException
-   * @throws ResourceNotFoundException
-   * @throws RequestUnsuccessfulException
-   * 
-   * @since v1.0
-   */
-  List<Image> getAvailableImages() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException;
 
-  /**
-   * Method retrieves the attributes of an image.
-   * 
-   * @param imageId the image Id of the droplet/snapshot/backup images
-   * @return {@link Image}
-   * @throws AccessDeniedException
-   * @throws ResourceNotFoundException
-   * @throws RequestUnsuccessfulException
-   * 
-   * @since v1.0
-   */
-  Image getImageInfo(Integer imageId) throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to deletes an image. There is no way to restore a deleted image so be careful

@@ -22,6 +22,8 @@ package com.myjeeva.digitalocean.pojo;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
  * Represents Domains attributes
  * 
@@ -34,6 +36,11 @@ public class Domains extends Base {
   private static final long serialVersionUID = -1065060483495579734L;
 
   private List<Domain> domains;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
   /**
    * @return the domains

@@ -41,11 +41,18 @@ public interface Constants {
 
   // General
   String UTF_8 = "utf-8";
+  Integer START_PAGE_NO = 1;
+  String URL_PATH_SEPARATOR = "/";
+  String JSON_CONTENT_TYPE = "application/json";
 
   // HTTPS Scheme
   String HTTPS_SCHEME = "https";
 
   // HTTP Param name
+  String PARAM_PAGE_NO = "page";
+  
+  
+  
   String PARAM_CLIENT_ID = "client_id";
   String PARAM_API_KEY = "api_key";
   String PARAM_NAME = "name";

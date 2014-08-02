@@ -22,6 +22,8 @@ package com.myjeeva.digitalocean.pojo;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
  * Represents Regions attributes
  * 
@@ -34,6 +36,11 @@ public class Regions extends Base {
   private static final long serialVersionUID = 1917719197626447746L;
 
   private List<Region> regions;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
   /**
    * @return the regions

@@ -22,37 +22,30 @@ package com.myjeeva.digitalocean.pojo;
 
 import java.util.List;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-
 /**
- * Represents Images attributes
+ * Represents Backups attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
  * @since v2.0
  */
-public class Images extends Base {
+public class Backups extends Base {
 
-  private static final long serialVersionUID = 5105474750012109285L;
+  private static final long serialVersionUID = 1762528749600488760L;
 
-  private List<Image> images;
+  List<Backup> backups;
 
-  @Override
-  public String toString() {
-    return ReflectionToStringBuilder.toString(this);
+  /**
+   * @return the backups
+   */
+  public List<Backup> getBackups() {
+    return backups;
   }
 
   /**
-   * @return the images
+   * @param backups the backups to set
    */
-  public List<Image> getImages() {
-    return images;
-  }
-
-  /**
-   * @param images the images to set
-   */
-  public void setImages(List<Image> images) {
-    this.images = images;
+  public void setBackups(List<Backup> backups) {
+    this.backups = backups;
   }
 }

@@ -22,6 +22,8 @@ package com.myjeeva.digitalocean.pojo;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
  * Represents Region (aka Data Center) attributes of DigitalOcean. Revised as per v2 API data
  * structure.
@@ -39,6 +41,11 @@ public class Region {
   private boolean available;
 
   private List<String> features;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
   /**
    * @return the slug

@@ -20,6 +20,8 @@
  */
 package com.myjeeva.digitalocean.common;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Enumeration of DigitalOcean Action Status
  * 
@@ -29,8 +31,13 @@ package com.myjeeva.digitalocean.common;
  */
 public enum ActionStatus {
 
+  @SerializedName("completed")
   COMPLETED("completed"),
+  
+  @SerializedName("in-progress")
   IN_PROGRESS("in-progress"),
+  
+  @SerializedName("errored")
   ERRORED("errored");
 
   private String value;

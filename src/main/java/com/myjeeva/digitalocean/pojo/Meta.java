@@ -20,6 +20,8 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
  * Represents Meta attributes
  * 
@@ -28,8 +30,13 @@ package com.myjeeva.digitalocean.pojo;
  * @since v2.0
  */
 public class Meta {
-  
+
   private Integer total;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
   /**
    * @return the total

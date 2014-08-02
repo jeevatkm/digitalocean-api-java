@@ -27,7 +27,6 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 
 import com.google.gson.Gson;
@@ -68,7 +67,7 @@ public final class Helper implements Constants {
     StringWriter writer = new StringWriter();
     // Accept a pull request as part of #6; will re-think about it.
     // Using library just for one API ...
-    IOUtils.copy(input, writer);
+    //IOUtils.copy(input, writer);
     return writer.toString();
   }
 

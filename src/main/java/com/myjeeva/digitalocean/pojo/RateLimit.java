@@ -22,6 +22,8 @@ package com.myjeeva.digitalocean.pojo;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
  * Represents Rate Limit header values
  * 
@@ -30,12 +32,17 @@ import java.util.Date;
  * @since v2.0
  */
 public class RateLimit {
-  
+
   private Integer limit;
-  
+
   private Integer remaining;
-  
+
   private Date reset;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
   /**
    * @return the limit

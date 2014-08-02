@@ -20,6 +20,8 @@
  */
 package com.myjeeva.digitalocean.common;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Enumeration of DigitalOcean Image Action Type
  * 
@@ -29,6 +31,7 @@ package com.myjeeva.digitalocean.common;
  */
 public enum ImageActionType {
 
+  @SerializedName("transfer")
   TRANSFER("transfer");
 
   private String value;
