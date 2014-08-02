@@ -22,6 +22,8 @@ package com.myjeeva.digitalocean.pojo;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -37,6 +39,11 @@ public class DomainRecords extends Base {
 
   @SerializedName("domain_records")
   private List<DomainRecord> domainRecords;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
   /**
    * @return the domainRecords

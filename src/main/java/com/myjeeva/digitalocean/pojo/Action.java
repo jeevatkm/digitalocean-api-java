@@ -22,6 +22,8 @@ package com.myjeeva.digitalocean.pojo;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import com.google.gson.annotations.SerializedName;
 import com.myjeeva.digitalocean.common.ActionStatus;
 import com.myjeeva.digitalocean.common.DropletActionType;
@@ -35,26 +37,31 @@ import com.myjeeva.digitalocean.common.ResourceType;
  * @since v2.0
  */
 public class Action {
-  
+
   private Integer id;
-  
+
   @SerializedName("resource_id")
   private Integer resourceId;
-  
+
   private ActionStatus status;
-  
+
   private DropletActionType type;
-  
+
   @SerializedName("resource_type")
   private ResourceType resourceType;
-  
+
   @SerializedName("started_at")
   private Date startedAt;
-  
+
   @SerializedName("completed_at")
   private Date completedAt;
-  
+
   private String region;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
   /**
    * @return the id

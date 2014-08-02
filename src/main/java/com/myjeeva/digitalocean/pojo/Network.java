@@ -20,6 +20,8 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -39,6 +41,11 @@ public class Network {
   private String gateway;
 
   private String type;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
   /**
    * @return the ipAddress

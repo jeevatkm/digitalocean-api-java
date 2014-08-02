@@ -20,16 +20,39 @@
  */
 package com.myjeeva.digitalocean.common;
 
-/**
- * Enumeration of DigitalOcean API and its map path and element name
- * 
- * @author Jeevanandam (jeeva@myjeeva.com)
- */
-public enum Action {
+import com.myjeeva.digitalocean.pojo.Actions;
+import com.myjeeva.digitalocean.pojo.Backups;
+import com.myjeeva.digitalocean.pojo.Droplet;
+import com.myjeeva.digitalocean.pojo.Droplets;
+import com.myjeeva.digitalocean.pojo.Image;
+import com.myjeeva.digitalocean.pojo.Images;
+import com.myjeeva.digitalocean.pojo.Kernels;
+import com.myjeeva.digitalocean.pojo.Snapshots;
 
-  AVAILABLE_DROPLETS("/droplets/", "droplets"),
-  CREATE_DROPLET("/droplets/new/", "droplet"),
-  GET_DROPLET_INFO("/droplets/%s/", "droplet"),
+/**
+ * Enumeration of DigitalOcean API and its path and element name
+ * 
+ * @author Jeevanandam M. (jeeva@myjeeva.com)
+ * 
+ * @since v2.0
+ */
+public enum ApiAction {
+
+  // Droplet
+  AVAILABLE_DROPLETS("/droplets", "droplets", RequestMethod.GET, Droplets.class),
+  AVAILABLE_DROPLETS_KERNELS("/droplets/%s/kernels", "kernels", RequestMethod.GET, Kernels.class),
+  GET_DROPLET_SNAPSHOTS("/droplets/%s/snapshots", "snapshots", RequestMethod.GET, Snapshots.class),
+  GET_DROPLET_BACKUPS("/droplets/%s/backups", "backups", RequestMethod.GET, Backups.class),
+  GET_DROPLET_ACTIONS("/droplets/%s/actions", "actions", RequestMethod.GET, Actions.class),
+  GET_DROPLET_INFO("/droplets/%s", "droplet", RequestMethod.GET, Droplet.class),
+  
+  // Image
+  AVAILABLE_IMAGES("/images", "images", RequestMethod.GET, Images.class),
+  GET_IMAGE_INFO("/images/%s", "image", RequestMethod.GET, Image.class),
+  UPDATE_IMAGE_INFO("/images/%s", "image", RequestMethod.PUT, Image.class),
+  
+  
+  /*CREATE_DROPLET("/droplets/new/", "droplet"),  
   REBOOT_DROPLET("/droplets/%s/reboot/"),
   POWER_CYCLE_DROPLET("/droplets/%s/power_cycle/"),
   SHUTDOWN_DROPLET("/droplets/%s/shutdown/"),
@@ -64,26 +87,40 @@ public enum Action {
   GET_DOMAIN_RECORD_INFO("/domains/%s/records/%s/", "record"),
   EDIT_DOMAIN_RECORD("/domains/%s/records/%s/edit/", "record"),
   DELETE_DOMAIN_RECORD("/domains/%s/records/%s/destroy/"),
-  GET_EVENT_PROGRESS("/events/%s/", "event");    
+  GET_EVENT_PROGRESS("/events/%s/", "event")*/;    
    
-  private String mapPath;
+  private String path;
 
   private String elementName;
+  
+  private RequestMethod method;
 
-  Action(String mapPath) {
-    this(mapPath, "");
+  private Class<?> clazz;
+
+  ApiAction(String path) {
+    this(path, "", RequestMethod.GET);
   }
 
-  Action(String mapPath, String elementName) {
-    this.mapPath = mapPath;
+  ApiAction(String path, String elementName) {
+    this(path, elementName, RequestMethod.GET);
+  }
+
+  ApiAction(String path, String elementName, RequestMethod method) {
+    this(path, elementName, method, null);
+  }
+  
+  ApiAction(String path, String elementName, RequestMethod method, Class<?> clazz) {
+    this.path = path;
     this.elementName = elementName;
+    this.method = method;
+    this.clazz = clazz;
   }
 
   /**
-   * @return the mapPath
+   * @return the path
    */
-  public String getMapPath() {
-    return mapPath;
+  public String getPath() {
+    return path;
   }
 
   /**
@@ -93,4 +130,17 @@ public enum Action {
     return elementName;
   }
 
+  /**
+   * @return the method
+   */
+  public RequestMethod getMethod() {
+    return method;
+  }
+
+  /**
+   * @return the clazz
+   */
+  public Class<?> getClazz() {
+    return clazz;
+  }
 }

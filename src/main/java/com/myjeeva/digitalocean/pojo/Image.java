@@ -23,6 +23,9 @@ package com.myjeeva.digitalocean.pojo;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -35,6 +38,7 @@ public class Image {
 
   private Integer id;
 
+  @Expose
   private String name;
 
   private String distribution;
@@ -48,6 +52,11 @@ public class Image {
 
   @SerializedName("created_at")
   private Date createdDate;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
   /**
    * @return the id

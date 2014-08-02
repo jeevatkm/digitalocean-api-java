@@ -21,76 +21,12 @@
 package com.myjeeva.digitalocean.pojo;
 
 /**
- * Represents backup attributes of Snapshot
+ * Represents Snapshot attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
  * @since v1.4
  */
-public class Snapshot {
-
-  private Integer id;
-
-  private String name;
-
-  private String slug;
-
-  private String distribution;
-
-  /**
-   * @return the id
-   */
-  public Integer getId() {
-    return id;
-  }
-
-  /**
-   * @param id the id to set
-   */
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  /**
-   * @return the name
-   */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * @param name the name to set
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * @return the slug
-   */
-  public String getSlug() {
-    return slug;
-  }
-
-  /**
-   * @param slug the slug to set
-   */
-  public void setSlug(String slug) {
-    this.slug = slug;
-  }
-
-  /**
-   * @return the distribution
-   */
-  public String getDistribution() {
-    return distribution;
-  }
-
-  /**
-   * @param distribution the distribution to set
-   */
-  public void setDistribution(String distribution) {
-    this.distribution = distribution;
-  }
+public class Snapshot extends Image {
 
 }

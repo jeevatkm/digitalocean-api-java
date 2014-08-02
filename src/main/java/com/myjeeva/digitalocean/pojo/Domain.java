@@ -22,6 +22,8 @@ package com.myjeeva.digitalocean.pojo;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -40,6 +42,11 @@ public class Domain implements Serializable {
 
   @SerializedName("zone_file")
   private String zoneFile;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
   /**
    * @return the name

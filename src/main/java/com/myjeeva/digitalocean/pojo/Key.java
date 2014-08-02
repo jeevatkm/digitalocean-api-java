@@ -22,6 +22,8 @@ package com.myjeeva.digitalocean.pojo;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -41,6 +43,11 @@ public class Key implements Serializable {
 
   @SerializedName("public_key")
   private String publicKey;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
   /**
    * @return the id

@@ -23,6 +23,8 @@ package com.myjeeva.digitalocean.pojo;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import com.google.gson.annotations.SerializedName;
 import com.myjeeva.digitalocean.common.DropletStatus;
 
@@ -73,6 +75,11 @@ public class Droplet {
 
   @SerializedName("action_ids")
   private List<Integer> actionIds;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
   /**
    * @return the id

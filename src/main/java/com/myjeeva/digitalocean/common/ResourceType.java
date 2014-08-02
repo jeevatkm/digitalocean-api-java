@@ -20,6 +20,8 @@
  */
 package com.myjeeva.digitalocean.common;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Enumeration of DigitalOcean Resource Types
  * 
@@ -29,8 +31,13 @@ package com.myjeeva.digitalocean.common;
  */
 public enum ResourceType {
 
-  DROPLET("droplet"), 
-  IMAGE("image"), 
+  @SerializedName("droplet")
+  DROPLET("droplet"),
+  
+  @SerializedName("image")
+  IMAGE("image"),
+  
+  @SerializedName("backend")
   BACKEND("backend");
 
   private String value;

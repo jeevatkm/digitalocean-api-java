@@ -22,6 +22,8 @@ package com.myjeeva.digitalocean.pojo;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
  * Represents Meta and Links attributes in Base class
  * 
@@ -29,13 +31,18 @@ import java.io.Serializable;
  * 
  * @since v2.0
  */
-public class Base implements Serializable {
+public abstract class Base implements Serializable {
 
   private static final long serialVersionUID = 1640829485449241925L;
 
   private Meta meta;
 
   private Links links;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
   /**
    * @return the meta

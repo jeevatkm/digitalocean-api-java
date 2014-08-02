@@ -18,41 +18,61 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean.pojo;
+package com.myjeeva.digitalocean.impl;
 
-import java.util.List;
-
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import com.myjeeva.digitalocean.common.ApiAction;
 
 /**
- * Represents Images attributes
+ * Represents DigitalOcean API Response details
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
  * @since v2.0
  */
-public class Images extends Base {
+public class ApiResponse {
 
-  private static final long serialVersionUID = 5105474750012109285L;
+  private ApiAction apiAction;
 
-  private List<Image> images;
+  private Object data;
 
-  @Override
-  public String toString() {
-    return ReflectionToStringBuilder.toString(this);
+  public ApiResponse() {
+    // Default constructor
+  }
+
+  public ApiResponse(ApiAction apiAction) {
+    this(apiAction, null);
+  }
+
+  public ApiResponse(ApiAction apiAction, Object data) {
+    this.apiAction = apiAction;
+    this.data = data;
   }
 
   /**
-   * @return the images
+   * @return the apiAction
    */
-  public List<Image> getImages() {
-    return images;
+  public ApiAction getApiAction() {
+    return apiAction;
   }
 
   /**
-   * @param images the images to set
+   * @param apiAction the apiAction to set
    */
-  public void setImages(List<Image> images) {
-    this.images = images;
+  public void setApiAction(ApiAction apiAction) {
+    this.apiAction = apiAction;
+  }
+
+  /**
+   * @return the data
+   */
+  public Object getData() {
+    return data;
+  }
+
+  /**
+   * @param data the data to set
+   */
+  public void setData(Object data) {
+    this.data = data;
   }
 }
