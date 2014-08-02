@@ -8,4 +8,4 @@ jdk:
 branches:
   only:
     - master
-    - v1.5
+    - api-v1
