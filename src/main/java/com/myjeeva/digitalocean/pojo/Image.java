@@ -53,6 +53,14 @@ public class Image {
   @SerializedName("created_at")
   private Date createdDate;
 
+  public Image() {
+    // Default constructor
+  }
+
+  public Image(Integer id) {
+    this.id = id;
+  }
+
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);

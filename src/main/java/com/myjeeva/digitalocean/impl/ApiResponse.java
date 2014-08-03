@@ -35,17 +35,24 @@ public class ApiResponse {
 
   private Object data;
 
+  private boolean requestSuccess;
+
   public ApiResponse() {
     // Default constructor
   }
 
-  public ApiResponse(ApiAction apiAction) {
-    this(apiAction, null);
+  public ApiResponse(ApiAction apiAction, boolean requestSuccess) {
+    this(apiAction, null, requestSuccess);
   }
 
-  public ApiResponse(ApiAction apiAction, Object data) {
+  public ApiResponse(ApiAction apiAction, Object data, boolean requestSuccess) {
     this.apiAction = apiAction;
     this.data = data;
+    this.requestSuccess = requestSuccess;
+  }
+
+  public boolean isDataExists() {
+    return (null == data);
   }
 
   /**
@@ -74,5 +81,19 @@ public class ApiResponse {
    */
   public void setData(Object data) {
     this.data = data;
+  }
+
+  /**
+   * @return the requestSuccess
+   */
+  public boolean isRequestSuccess() {
+    return requestSuccess;
+  }
+
+  /**
+   * @param requestSuccess the requestSuccess to set
+   */
+  public void setRequestSuccess(boolean requestSuccess) {
+    this.requestSuccess = requestSuccess;
   }
 }

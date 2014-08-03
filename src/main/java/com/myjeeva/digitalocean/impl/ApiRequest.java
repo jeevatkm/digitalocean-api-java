@@ -21,6 +21,7 @@
 package com.myjeeva.digitalocean.impl;
 
 import com.myjeeva.digitalocean.common.ApiAction;
+import com.myjeeva.digitalocean.common.RequestMethod;
 
 /**
  * Represents DigitalOcean API Request details
@@ -51,6 +52,10 @@ public class ApiRequest {
     this(apiAction, null, null, pageNo);
   }
 
+  public ApiRequest(ApiAction apiAction, Object data) {
+    this(apiAction, data, null, null);
+  }
+
   public ApiRequest(ApiAction apiAction, Object[] params, Integer pageNo) {
     this(apiAction, null, params, pageNo);
   }
@@ -64,6 +69,34 @@ public class ApiRequest {
     this.data = data;
     this.params = params;
     this.pageNo = pageNo;
+  }
+
+  /**
+   * @return the path
+   */
+  public String getPath() {
+    return apiAction.getPath();
+  }
+
+  /**
+   * @return the elementName
+   */
+  public String getElementName() {
+    return apiAction.getElementName();
+  }
+
+  /**
+   * @return the method
+   */
+  public RequestMethod getMethod() {
+    return apiAction.getMethod();
+  }
+
+  /**
+   * @return the clazz
+   */
+  public Class<?> getClazz() {
+    return apiAction.getClazz();
   }
 
   /**

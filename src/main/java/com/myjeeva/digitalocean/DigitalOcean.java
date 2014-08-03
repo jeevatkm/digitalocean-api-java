@@ -29,15 +29,16 @@ import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
+import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
 import com.myjeeva.digitalocean.pojo.Key;
-import com.myjeeva.digitalocean.pojo.Region;
+import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Response;
-import com.myjeeva.digitalocean.pojo.Size;
+import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
 
 /**
@@ -85,9 +86,9 @@ import com.myjeeva.digitalocean.pojo.Snapshots;
  */
 public interface DigitalOcean {
 
-  /*
-   * Droplets methods
-   */
+  // ===========================================
+  // Droplets methods
+  // ===========================================
 
   /**
    * Method returns all active droplets that are currently running in your account. All available
@@ -130,10 +131,58 @@ public interface DigitalOcean {
   Droplet getDropletInfo(Integer dropletId) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
-
-  /*
-   * Images manipulation (aka Distribution) methods
+  /**
+   * <p>
+   * Method allows you to create a new droplet. See the required parameters section below for an
+   * explanation of the variables that are needed to create a new droplet.
+   * </p>
+   * 
+   * <p>
+   * Create a instance of {@link Droplet} object and populated the droplet object appropriately.
+   * </p>
+   * <p>
+   * Minimum required values are -
+   * </p>
+   * 
+   * <pre>
+   * {
+   *   "name": "example-droplet-name",
+   *   "region": "nyc1",
+   *   "size": "512mb",
+   *   "image": 3445812
+   * }
+   * </pre>
+   * 
+   * @param droplet the id of the droplet
+   * @return {@link Droplet}
+   * @throws AccessDeniedException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
    */
+  Droplet createDroplet(Droplet droplet) throws AccessDeniedException, ResourceNotFoundException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method destroys one of your droplets; this is irreversible.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link Boolean}
+   * @throws AccessDeniedException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Boolean deleteDroplet(Integer dropletId) throws AccessDeniedException, ResourceNotFoundException,
+      RequestUnsuccessfulException;
+
+
+
+  // ==============================================
+  // Images manipulation (aka Distribution) methods
+  // ==============================================
   /**
    * Method returns all the available images that can be accessed by your client ID. You will have
    * access to all public images by default, and any snapshots or backups that you have created in
@@ -177,43 +226,111 @@ public interface DigitalOcean {
    */
   Image getImageInfo(String slug) throws AccessDeniedException, ResourceNotFoundException,
       RequestUnsuccessfulException;
-  
+
   Image updateImage(Image image) throws AccessDeniedException, ResourceNotFoundException,
-  RequestUnsuccessfulException;
+      RequestUnsuccessfulException;
 
 
-
-  // ===========
-
-
+  // ===========================================
+  // Regions (aka Data Centers) methods
+  // ===========================================
   /**
-   * <p>
-   * Method allows you to create a new droplet. See the required parameters section below for an
-   * explanation of the variables that are needed to create a new droplet.
-   * </p>
+   * Method will return all the available regions within the DigitalOcean cloud.
    * 
-   * <p>
-   * Create a instance of {@link Droplet} object and populate following values
-   * </p>
-   * <ul>
-   * <li>Name Required, String, this is the name of the droplet must be formatted by hostname rules</li>
-   * <li>Side Id Required, Numeric, this is the id of the size you would like the droplet created at
-   * </li>
-   * <li>Image Id Required, Numeric, this is the id of the image you would like the droplet created
-   * with</li>
-   * <li>Region Id Required, Numeric, this is the id of the region you would like your server in</li>
-   * </ul>
+   * @param pageNo of request pagination
+   * @return {@link Regions}
+   * @throws AccessDeniedException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
    * 
-   * @param droplet the id of the droplet
-   * @return {@link Droplet}
+   * @since v2.0
+   */
+  Regions getAvailableRegions(Integer pageNo) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException;
+
+
+  // ===========================================
+  // Sizes (aka Available Droplet Plans) methods
+  // ===========================================
+  /**
+   * Method returns all the available sizes that can be used to create a droplet.
+   * 
+   * @param pageNo of request pagination
+   * @return {@link Sizes}
    * @throws AccessDeniedException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Droplet createDroplet(Droplet droplet) throws AccessDeniedException, ResourceNotFoundException,
+  Sizes getAvailableSizes(Integer pageNo) throws AccessDeniedException, ResourceNotFoundException,
       RequestUnsuccessfulException;
+
+
+  // ===========================================
+  // Domain manipulation methods
+  // ===========================================
+  /**
+   * Method returns all of your available domains from DNS control panel
+   * 
+   * @param pageNo of request pagination
+   * @return {@link Domains}
+   * @throws AccessDeniedException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  Domains getAvailableDomains(Integer pageNo) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException;
+
+  /**
+   * Method returns the specified domain attributes and zone file info.
+   * 
+   * @param domainName the name of the domain
+   * @return {@link Domain}
+   * @throws AccessDeniedException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  Domain getDomainInfo(String domainName) throws AccessDeniedException, ResourceNotFoundException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method creates a new domain name with an A record for the specified [ip_address].
+   * 
+   * @param domain object with name and IP address for creation
+   * @return {@link Domain}
+   * @throws AccessDeniedException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  Domain createDomain(Domain domain) throws AccessDeniedException, ResourceNotFoundException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method deletes the specified domain from DNS control panel
+   * 
+   * @param domainName the name of the domain
+   * @return {@link Boolean}
+   * @throws AccessDeniedException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  Boolean deleteDomain(String domainName) throws AccessDeniedException, ResourceNotFoundException,
+      RequestUnsuccessfulException;
+
+
+
+  // ===========
+
+
 
   /**
    * <p>
@@ -454,36 +571,6 @@ public interface DigitalOcean {
   Response renameDroplet(Integer dropletId, String name) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
-  /**
-   * Method destroys one of your droplets this is irreversible.
-   * 
-   * @param dropletId the id of the droplet
-   * @return {@link Response}
-   * @throws AccessDeniedException
-   * @throws ResourceNotFoundException
-   * @throws RequestUnsuccessfulException
-   * 
-   * @since v1.0
-   */
-  Response deleteDroplet(Integer dropletId) throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException;
-
-  /*
-   * Regions (aka Data Centers) methods
-   */
-  /**
-   * Method will return all the available regions within the DigitalOcean cloud.
-   * 
-   * @return List&ltRegion>
-   * @throws AccessDeniedException
-   * @throws ResourceNotFoundException
-   * @throws RequestUnsuccessfulException
-   * 
-   * @since v1.0
-   */
-  List<Region> getAvailableRegions() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException;
-
 
 
   /**
@@ -590,80 +677,7 @@ public interface DigitalOcean {
   Response deleteSshKey(Integer sshKeyId) throws AccessDeniedException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
-  /*
-   * Sizes (aka Available Droplet Plans) methods
-   */
-  /**
-   * Method returns all the available sizes that can be used to create a droplet.
-   * 
-   * @return List&lt;DropletSize>
-   * @throws AccessDeniedException
-   * @throws ResourceNotFoundException
-   * @throws RequestUnsuccessfulException
-   * 
-   * @since v1.0
-   */
-  List<Size> getAvailableSizes() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException;
 
-  /*
-   * Domain manipulation methods
-   */
-  /**
-   * Method returns all of your available domains from DNS control panel
-   * 
-   * @return <code>List&lt;Domain></code>
-   * @throws AccessDeniedException
-   * @throws ResourceNotFoundException
-   * @throws RequestUnsuccessfulException
-   * 
-   * @since v1.1
-   */
-  List<Domain> getAvailableDomains() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException;
-
-  /**
-   * Method creates a new domain name with an A record for the specified [ip_address].
-   * 
-   * @param domainName the name of the domain
-   * @param ipAddress the IP Address for the domain
-   * @return {@link Domain}
-   * @throws AccessDeniedException
-   * @throws ResourceNotFoundException
-   * @throws RequestUnsuccessfulException
-   * 
-   * @since v1.1
-   */
-  Domain createDomain(String domainName, String ipAddress) throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException;
-
-  /**
-   * Method returns the specified domain attributes and zone file info.
-   * 
-   * @param domainId the Id of the domain
-   * @return {@link Domain}
-   * @throws AccessDeniedException
-   * @throws ResourceNotFoundException
-   * @throws RequestUnsuccessfulException
-   * 
-   * @since v1.1
-   */
-  Domain getDomainInfo(Integer domainId) throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException;
-
-  /**
-   * Method deletes the specified domain from DNS control panel
-   * 
-   * @param domainId the Id of the domain
-   * @return {@link Response}
-   * @throws AccessDeniedException
-   * @throws ResourceNotFoundException
-   * @throws RequestUnsuccessfulException
-   * 
-   * @since v1.1
-   */
-  Response deleteDomain(Integer domainId) throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException;
 
   /**
    * Method returns all of your current domain records from DNS control panel for given domain.

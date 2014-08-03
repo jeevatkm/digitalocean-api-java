@@ -22,11 +22,15 @@ package com.myjeeva.digitalocean.common;
 
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
+import com.myjeeva.digitalocean.pojo.Domain;
+import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
+import com.myjeeva.digitalocean.pojo.Regions;
+import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
 
 /**
@@ -45,6 +49,9 @@ public enum ApiAction {
   GET_DROPLET_BACKUPS("/droplets/%s/backups", "backups", RequestMethod.GET, Backups.class),
   GET_DROPLET_ACTIONS("/droplets/%s/actions", "actions", RequestMethod.GET, Actions.class),
   GET_DROPLET_INFO("/droplets/%s", "droplet", RequestMethod.GET, Droplet.class),
+  CREATE_DROPLET("/droplets", "droplet", RequestMethod.POST, Droplet.class),
+  DELETE_DROPLET("/droplets/%s", RequestMethod.DELETE),
+  
   
   // Image
   AVAILABLE_IMAGES("/images", "images", RequestMethod.GET, Images.class),
@@ -52,7 +59,25 @@ public enum ApiAction {
   UPDATE_IMAGE_INFO("/images/%s", "image", RequestMethod.PUT, Image.class),
   
   
-  /*CREATE_DROPLET("/droplets/new/", "droplet"),  
+  // Region
+  AVAILABLE_REGIONS("/regions", "regions", RequestMethod.GET, Regions.class),
+  
+  
+  // Sizes
+  AVAILABLE_SIZES("/sizes", "sizes", RequestMethod.GET, Sizes.class),
+  
+  
+  // Domains
+  AVAILABLE_DOMAINS("/domains", "domains", RequestMethod.GET, Domains.class),
+  GET_DOMAIN_INFO("/domains/%s", "domain", RequestMethod.GET, Domain.class),
+  CREATE_DOMAIN("/domains", "domain", RequestMethod.POST, Domain.class),  
+  DELETE_DOMAIN("/domains/%s", RequestMethod.DELETE),
+  
+  
+  // Domain Record
+  
+  
+  /*  
   REBOOT_DROPLET("/droplets/%s/reboot/"),
   POWER_CYCLE_DROPLET("/droplets/%s/power_cycle/"),
   SHUTDOWN_DROPLET("/droplets/%s/shutdown/"),
@@ -97,8 +122,8 @@ public enum ApiAction {
 
   private Class<?> clazz;
 
-  ApiAction(String path) {
-    this(path, "", RequestMethod.GET);
+  ApiAction(String path, RequestMethod method) {
+    this(path, null, method);
   }
 
   ApiAction(String path, String elementName) {

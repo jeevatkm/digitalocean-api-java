@@ -42,6 +42,14 @@ public class Region {
 
   private List<String> features;
 
+  public Region() {
+    // Default Constructor
+  }
+
+  public Region(String slug) {
+    this.slug = slug;
+  }
+
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);

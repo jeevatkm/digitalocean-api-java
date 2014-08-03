@@ -44,6 +44,8 @@ public interface Constants {
   Integer START_PAGE_NO = 1;
   String URL_PATH_SEPARATOR = "/";
   String JSON_CONTENT_TYPE = "application/json";
+  String FORM_URLENCODED_CONTENT_TYPE = "application/x-www-form-urlencoded";
+  String DATE_FORMAT = "yyyy-mm-dd'T'HH:mm:ss'Z'";
 
   // HTTPS Scheme
   String HTTPS_SCHEME = "https";

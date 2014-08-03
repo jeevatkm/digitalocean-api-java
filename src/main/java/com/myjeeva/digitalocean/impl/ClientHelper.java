@@ -35,6 +35,8 @@ import com.myjeeva.digitalocean.common.RequestMethod;
 import com.myjeeva.digitalocean.exception.AccessDeniedException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
+import com.myjeeva.digitalocean.pojo.Droplet;
+import com.myjeeva.digitalocean.serializer.DropletSerializer;
 
 /**
  * @author madanj01
@@ -77,10 +79,11 @@ public abstract class ClientHelper implements Constants {
   private JsonParser jsonParser;
 
   public ClientHelper() {
-    this.deserialize = new GsonBuilder().setDateFormat("yyyy-mm-dd'T'HH:mm:ss'Z'").create();
+    this.deserialize = new GsonBuilder().setDateFormat(DATE_FORMAT).create();
 
     this.serialize =
-        new GsonBuilder().setDateFormat("yyyy-mm-dd'T'HH:mm:ss'Z'")
+        new GsonBuilder().setDateFormat(DATE_FORMAT)
+            .registerTypeAdapter(Droplet.class, new DropletSerializer())
             .excludeFieldsWithoutExposeAnnotation().create();
 
     this.jsonParser = new JsonParser();
@@ -118,28 +121,30 @@ public abstract class ClientHelper implements Constants {
       ResourceNotFoundException, RequestUnsuccessfulException {
 
     URI uri = createUri(request);
-    ApiAction action = request.getApiAction();
     String response = null;
 
-    if (RequestMethod.GET.equals(action.getMethod())) {
+    if (RequestMethod.GET.equals(request.getMethod())) {
       response = doGet(uri);
-    } else if (RequestMethod.POST.equals(action.getMethod())) {
+    } else if (RequestMethod.POST.equals(request.getMethod())) {
       response = doPost(uri, getRequestData(request));
-    } else if (RequestMethod.PUT.equals(action.getMethod())) {
+    } else if (RequestMethod.PUT.equals(request.getMethod())) {
       response = doPut(uri, getRequestData(request));
-    } else if (RequestMethod.DELETE.equals(action.getMethod())) {
+    } else if (RequestMethod.DELETE.equals(request.getMethod())) {
       response = doDelete(uri);
     }
 
-    ApiResponse apiResponse = new ApiResponse(request.getApiAction());
+    ApiResponse apiResponse = new ApiResponse(request.getApiAction(), true);
 
-
-    if (action.getElementName().endsWith("s")) {
-      apiResponse.setData(deserialize.fromJson(response, action.getClazz()));
+    if ("true".equals(response) || "false".equals(response)) {
+      apiResponse.setData(Boolean.valueOf(response));
     } else {
-      JsonElement element =
-          jsonParser.parse(response).getAsJsonObject().get(action.getElementName());
-      apiResponse.setData(deserialize.fromJson(element, action.getClazz()));
+      if (request.getElementName().endsWith("s")) {
+        apiResponse.setData(deserialize.fromJson(response, request.getClazz()));
+      } else {
+        JsonElement element =
+            jsonParser.parse(response).getAsJsonObject().get(request.getElementName());
+        apiResponse.setData(deserialize.fromJson(element, request.getClazz()));
+      }
     }
 
     return apiResponse;
@@ -180,7 +185,7 @@ public abstract class ClientHelper implements Constants {
       RequestUnsuccessfulException {
     HttpDelete delete = new HttpDelete(uri);
     delete.setHeaders(getHttpHeaders());
-    delete.setHeader("Content-Type", "application/x-www-form-urlencoded");
+    delete.setHeader("Content-Type", FORM_URLENCODED_CONTENT_TYPE);
     return execute(delete);
   }
 
@@ -191,6 +196,10 @@ public abstract class ClientHelper implements Constants {
       HttpResponse httpResponse = httpClient.execute(request);
 
       int statusCode = httpResponse.getStatusLine().getStatusCode();
+      if (HttpStatus.SC_NO_CONTENT == statusCode) {
+        response = "true";
+      }
+
       if (HttpStatus.SC_UNAUTHORIZED == statusCode) {
         throw new AccessDeniedException(
             "Request failed to authenticate into the DigitalOcean API successfully");
@@ -200,7 +209,9 @@ public abstract class ClientHelper implements Constants {
         throw new ResourceNotFoundException("Requested resource is not available at DigitalOcean");
       }
 
-      response = EntityUtils.toString(httpResponse.getEntity(), UTF_8);
+      if (null != httpResponse.getEntity()) {
+        response = EntityUtils.toString(httpResponse.getEntity(), UTF_8);
+      }
 
       LOG.debug("HTTP Response: " + response);
     } catch (ClientProtocolException cpe) {

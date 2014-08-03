@@ -24,6 +24,7 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -35,6 +36,7 @@ public class Domain implements Serializable {
 
   private static final long serialVersionUID = -1034777642814045693L;
 
+  @Expose
   private String name;
 
   @SerializedName("ttl")
@@ -42,6 +44,19 @@ public class Domain implements Serializable {
 
   @SerializedName("zone_file")
   private String zoneFile;
+
+  @Expose
+  @SerializedName("ip_address")
+  private String ipAddress;
+
+  public Domain() {
+    // Default Constructor
+  }
+
+  public Domain(String name, String ipAddress) {
+    this.name = name;
+    this.ipAddress = ipAddress;
+  }
 
   @Override
   public String toString() {
@@ -88,5 +103,19 @@ public class Domain implements Serializable {
    */
   public void setZoneFile(String zoneFile) {
     this.zoneFile = zoneFile;
+  }
+
+  /**
+   * @return the ipAddress
+   */
+  public String getIpAddress() {
+    return ipAddress;
+  }
+
+  /**
+   * @param ipAddress the ipAddress to set
+   */
+  public void setIpAddress(String ipAddress) {
+    this.ipAddress = ipAddress;
   }
 }

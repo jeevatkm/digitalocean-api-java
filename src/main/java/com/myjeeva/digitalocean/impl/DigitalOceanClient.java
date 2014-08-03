@@ -22,6 +22,7 @@ package com.myjeeva.digitalocean.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.slf4j.Logger;
@@ -29,7 +30,6 @@ import org.slf4j.LoggerFactory;
 
 import com.myjeeva.digitalocean.DigitalOcean;
 import com.myjeeva.digitalocean.common.ApiAction;
-import com.myjeeva.digitalocean.common.RequestMethod;
 import com.myjeeva.digitalocean.exception.AccessDeniedException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
@@ -37,15 +37,16 @@ import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
+import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
 import com.myjeeva.digitalocean.pojo.Key;
-import com.myjeeva.digitalocean.pojo.Region;
+import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Response;
-import com.myjeeva.digitalocean.pojo.Size;
+import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
 
 /**
@@ -88,15 +89,15 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   @Override
   public Droplets getAvailableDroplets(Integer pageNo) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException {
+    validatePageNo(pageNo);
+
     return (Droplets) invokeAction(new ApiRequest(ApiAction.AVAILABLE_DROPLETS, pageNo));
   }
 
   @Override
   public Kernels getAvailableKernels(Integer dropletId, Integer pageNo)
       throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException {
-    if (null == dropletId || null == pageNo) {
-      throw new IllegalArgumentException("Missing required parameters [dropletId, pageNo].");
-    }
+    validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
     return (Kernels) invokeAction(new ApiRequest(ApiAction.AVAILABLE_DROPLETS_KERNELS, params,
@@ -106,9 +107,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   @Override
   public Snapshots getAvailableSnapshots(Integer dropletId, Integer pageNo)
       throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException {
-    if (null == dropletId || null == pageNo) {
-      throw new IllegalArgumentException("Missing required parameters [dropletId, pageNo].");
-    }
+    validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
     return (Snapshots) invokeAction(new ApiRequest(ApiAction.GET_DROPLET_SNAPSHOTS, params, pageNo));
@@ -117,9 +116,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   @Override
   public Backups getAvailableBackups(Integer dropletId, Integer pageNo)
       throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException {
-    if (null == dropletId || null == pageNo) {
-      throw new IllegalArgumentException("Missing required parameters [dropletId, pageNo].");
-    }
+    validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
     return (Backups) invokeAction(new ApiRequest(ApiAction.GET_DROPLET_BACKUPS, params, pageNo));
@@ -128,25 +125,43 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   @Override
   public Actions getAvailableActions(Integer dropletId, Integer pageNo)
       throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException {
-    if (null == dropletId || null == pageNo) {
-      throw new IllegalArgumentException("Missing required parameters [dropletId, pageNo].");
-    }
+    validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
-    return (Actions) invokeAction(new ApiRequest(ApiAction.GET_DROPLET_ACTIONS, RequestMethod.GET,
-        params, pageNo));
+    return (Actions) invokeAction(new ApiRequest(ApiAction.GET_DROPLET_ACTIONS, params, pageNo));
   }
 
   @Override
   public Droplet getDropletInfo(Integer dropletId) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException {
-    if (null == dropletId) {
-      throw new IllegalArgumentException("Missing required parameter - dropletId.");
-    }
+    validateDropletId(dropletId);
 
     Object[] params = {dropletId};
     return (Droplet) invokeAction(new ApiRequest(ApiAction.GET_DROPLET_INFO, params));
   }
+
+  @Override
+  public Droplet createDroplet(Droplet droplet) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException {
+    if (null == droplet || null == droplet.getName() || null == droplet.getRegion()
+        || null == droplet.getSize() || null == droplet.getImage()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Name, Region Slug, Size Slug, Image Id]");
+    }
+
+    return (Droplet) invokeAction(new ApiRequest(ApiAction.CREATE_DROPLET, droplet));
+  }
+
+  @Override
+  public Boolean deleteDroplet(Integer dropletId) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    return (Boolean) invokeAction(new ApiRequest(ApiAction.DELETE_DROPLET, params));
+  }
+
+
 
   // =======================================
   // Images access/manipulation methods
@@ -155,35 +170,32 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   @Override
   public Images getAvailableImages(Integer pageNo) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException {
+    validatePageNo(pageNo);
     return (Images) invokeAction(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo));
   }
 
   @Override
   public Image getImageInfo(Integer imageId) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException {
-    if (null == imageId) {
-      throw new IllegalArgumentException("Missing required parameter - imageId.");
-    }
+    checkNullAndThrowError(imageId, "Missing required parameter - imageId.");
 
     Object[] params = {imageId};
     return (Image) invokeAction(new ApiRequest(ApiAction.GET_IMAGE_INFO, params));
   }
-  
+
   @Override
-  public Image getImageInfo(String slug) throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
-    if (null == slug || "" == slug.trim()) {
-      throw new IllegalArgumentException("Missing required parameter - slug.");
-    }
+  public Image getImageInfo(String slug) throws AccessDeniedException, ResourceNotFoundException,
+      RequestUnsuccessfulException {
+    checkEmptyAndThrowError(slug, "Missing required parameter - slug.");
 
     Object[] params = {slug};
     return (Image) invokeAction(new ApiRequest(ApiAction.GET_IMAGE_INFO, params));
   }
-  
+
   @Override
   public Image updateImage(Image image) throws AccessDeniedException, ResourceNotFoundException,
-  RequestUnsuccessfulException {
-    if (null == image) {
+      RequestUnsuccessfulException {
+    if (null == image || null == image.getName()) {
       throw new IllegalArgumentException("Missing required parameter - image object.");
     }
 
@@ -193,22 +205,108 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
 
 
+  // =======================================
+  // Regions methods
+  // =======================================
+
+  @Override
+  public Regions getAvailableRegions(Integer pageNo) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException {
+    validatePageNo(pageNo);
+    return (Regions) invokeAction(new ApiRequest(ApiAction.AVAILABLE_REGIONS, pageNo));
+  }
+
+
+  // =======================================
+  // Sizes methods
+  // =======================================
+
+  @Override
+  public Sizes getAvailableSizes(Integer pageNo) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException {
+    validatePageNo(pageNo);
+    return (Sizes) invokeAction(new ApiRequest(ApiAction.AVAILABLE_SIZES, pageNo));
+  }
+
+
+  // =======================================
+  // Domain methods
+  // =======================================
+
+  @Override
+  public Domains getAvailableDomains(Integer pageNo) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException {
+    return (Domains) invokeAction(new ApiRequest(ApiAction.AVAILABLE_DOMAINS, pageNo));
+  }
+
+  @Override
+  public Domain getDomainInfo(String domainName) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException {
+    checkEmptyAndThrowError(domainName, "Missing required parameter - domainId.");
+
+    Object[] params = {domainName};
+    return (Domain) invokeAction(new ApiRequest(ApiAction.GET_DOMAIN_INFO, params));
+  }
+
+  @Override
+  public Domain createDomain(Domain domain) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException {
+    checkEmptyAndThrowError(domain.getName(), "Missing required parameter - domainId.");
+    checkEmptyAndThrowError(domain.getIpAddress(), "Missing required parameter - ipAddress.");
+
+    return (Domain) invokeAction(new ApiRequest(ApiAction.CREATE_DOMAIN, domain));
+  }
+
+  @Override
+  public Boolean deleteDomain(String domainName) throws AccessDeniedException,
+      ResourceNotFoundException, RequestUnsuccessfulException {
+    checkEmptyAndThrowError(domainName, "Missing required parameter - domainId.");
+
+    Object[] params = {domainName};
+    return (Boolean) invokeAction(new ApiRequest(ApiAction.DELETE_DOMAIN, params));
+  }
+
+
+
   private Object invokeAction(ApiRequest request) throws AccessDeniedException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     ApiResponse response = performAction(request);
-    return (null == response.getData()) ? null : response.getData();
+    return response.getData();
   }
+
+  // =======================================
+  // Validation methods
+  // =======================================
+
+  private void validateDropletIdAndPageNo(Integer dropletId, Integer pageNo) {
+    validateDropletId(dropletId);
+    validatePageNo(pageNo);
+  }
+
+  private void validateDropletId(Integer dropletId) {
+    checkNullAndThrowError(dropletId, "Missing required parameter - dropletId.");
+  }
+
+  private void validatePageNo(Integer pageNo) {
+    checkNullAndThrowError(pageNo, "Missing required parameter - pageNo.");
+  }
+
+  private void checkNullAndThrowError(Integer integer, String msg) {
+    if (null == integer) {
+      throw new IllegalArgumentException(msg);
+    }
+  }
+
+  private void checkEmptyAndThrowError(String str, String msg) {
+    if (StringUtils.isEmpty(str)) {
+      throw new IllegalArgumentException(msg);
+    }
+  }
+
 
   // ===========================================================//
 
 
-
-  @Override
-  public Droplet createDroplet(Droplet droplet) throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
-    // TODO Auto-generated method stub
-    return null;
-  }
 
   @Override
   public Droplet createDroplet(Droplet droplet, String sshKeyIds) throws AccessDeniedException,
@@ -317,20 +415,6 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
     return null;
   }
 
-  @Override
-  public Response deleteDroplet(Integer dropletId) throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
-  public List<Region> getAvailableRegions() throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
 
 
   @Override
@@ -382,40 +466,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
     return null;
   }
 
-  @Override
-  public List<Size> getAvailableSizes() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-    // TODO Auto-generated method stub
-    return null;
-  }
 
-  @Override
-  public List<Domain> getAvailableDomains() throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
-  public Domain createDomain(String domainName, String ipAddress) throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
-  public Domain getDomainInfo(Integer domainId) throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
-  public Response deleteDomain(Integer domainId) throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
-    // TODO Auto-generated method stub
-    return null;
-  }
 
   @Override
   public List<DomainRecord> getDomainRecords(Integer domainId) throws AccessDeniedException,

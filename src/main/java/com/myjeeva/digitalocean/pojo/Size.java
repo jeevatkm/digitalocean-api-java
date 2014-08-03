@@ -37,8 +37,6 @@ public class Size {
 
   private String slug;
 
-  private String name;
-
   @SerializedName("memory")
   private Integer memorySizeInMb;
 
@@ -58,6 +56,14 @@ public class Size {
 
   private List<String> regions;
 
+  public Size() {
+    // Default constructor
+  }
+
+  public Size(String slug) {
+    this.slug = slug;
+  }
+
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
@@ -75,20 +81,6 @@ public class Size {
    */
   public void setSlug(String slug) {
     this.slug = slug;
-  }
-
-  /**
-   * @return the name
-   */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * @param name the name to set
-   */
-  public void setName(String name) {
-    this.name = name;
   }
 
   /**
