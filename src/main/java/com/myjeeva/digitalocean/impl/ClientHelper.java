@@ -35,7 +35,6 @@ import com.myjeeva.digitalocean.common.Constants;
 import com.myjeeva.digitalocean.common.RequestMethod;
 import com.myjeeva.digitalocean.exception.DigitalOceanException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
-import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.serializer.DropletSerializer;
 
@@ -119,7 +118,7 @@ public abstract class ClientHelper implements Constants {
   }
 
   protected ApiResponse performAction(ApiRequest request) throws DigitalOceanException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
+      RequestUnsuccessfulException {
 
     URI uri = createUri(request);
     String response = null;
@@ -151,15 +150,14 @@ public abstract class ClientHelper implements Constants {
     return apiResponse;
   }
 
-  private String doGet(URI uri) throws DigitalOceanException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
+  private String doGet(URI uri) throws DigitalOceanException, RequestUnsuccessfulException {
     HttpGet get = new HttpGet(uri);
     get.setHeaders(getHttpHeaders());
     return execute(get);
   }
 
   private String doPost(URI uri, StringEntity entity) throws DigitalOceanException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
+      RequestUnsuccessfulException {
     HttpPost post = new HttpPost(uri);
     post.setHeaders(getHttpHeaders());
 
@@ -171,7 +169,7 @@ public abstract class ClientHelper implements Constants {
   }
 
   private String doPut(URI uri, StringEntity entity) throws DigitalOceanException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
+      RequestUnsuccessfulException {
     HttpPut put = new HttpPut(uri);
     put.setHeaders(getHttpHeaders());
 
@@ -182,8 +180,7 @@ public abstract class ClientHelper implements Constants {
     return execute(put);
   }
 
-  private String doDelete(URI uri) throws DigitalOceanException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
+  private String doDelete(URI uri) throws DigitalOceanException, RequestUnsuccessfulException {
     HttpDelete delete = new HttpDelete(uri);
     delete.setHeaders(getHttpHeaders());
     delete.setHeader("Content-Type", FORM_URLENCODED_CONTENT_TYPE);
@@ -191,7 +188,7 @@ public abstract class ClientHelper implements Constants {
   }
 
   private String execute(HttpRequestBase request) throws DigitalOceanException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
+      RequestUnsuccessfulException {
     String response = "";
     try {
       HttpResponse httpResponse = httpClient.execute(request);
@@ -214,8 +211,7 @@ public abstract class ClientHelper implements Constants {
     return response;
   }
 
-  private String evaluateResponse(HttpResponse httpResponse) throws DigitalOceanException,
-      ResourceNotFoundException {
+  private String evaluateResponse(HttpResponse httpResponse) throws DigitalOceanException {
     int statusCode = httpResponse.getStatusLine().getStatusCode();
 
     if (HttpStatus.SC_NO_CONTENT == statusCode) {
