@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
@@ -28,11 +29,11 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.myjeeva.digitalocean.common.ApiAction;
 import com.myjeeva.digitalocean.common.Constants;
 import com.myjeeva.digitalocean.common.RequestMethod;
-import com.myjeeva.digitalocean.exception.AccessDeniedException;
+import com.myjeeva.digitalocean.exception.DigitalOceanException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
 import com.myjeeva.digitalocean.pojo.Droplet;
@@ -117,7 +118,7 @@ public abstract class ClientHelper implements Constants {
     return apiHost;
   }
 
-  protected ApiResponse performAction(ApiRequest request) throws AccessDeniedException,
+  protected ApiResponse performAction(ApiRequest request) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
 
     URI uri = createUri(request);
@@ -150,14 +151,14 @@ public abstract class ClientHelper implements Constants {
     return apiResponse;
   }
 
-  private String doGet(URI uri) throws AccessDeniedException, ResourceNotFoundException,
+  private String doGet(URI uri) throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException {
     HttpGet get = new HttpGet(uri);
     get.setHeaders(getHttpHeaders());
     return execute(get);
   }
 
-  private String doPost(URI uri, StringEntity entity) throws AccessDeniedException,
+  private String doPost(URI uri, StringEntity entity) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     HttpPost post = new HttpPost(uri);
     post.setHeaders(getHttpHeaders());
@@ -169,7 +170,7 @@ public abstract class ClientHelper implements Constants {
     return execute(post);
   }
 
-  private String doPut(URI uri, StringEntity entity) throws AccessDeniedException,
+  private String doPut(URI uri, StringEntity entity) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     HttpPut put = new HttpPut(uri);
     put.setHeaders(getHttpHeaders());
@@ -181,7 +182,7 @@ public abstract class ClientHelper implements Constants {
     return execute(put);
   }
 
-  private String doDelete(URI uri) throws AccessDeniedException, ResourceNotFoundException,
+  private String doDelete(URI uri) throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException {
     HttpDelete delete = new HttpDelete(uri);
     delete.setHeaders(getHttpHeaders());
@@ -189,28 +190,16 @@ public abstract class ClientHelper implements Constants {
     return execute(delete);
   }
 
-  private String execute(HttpRequestBase request) throws AccessDeniedException,
+  private String execute(HttpRequestBase request) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     String response = "";
     try {
       HttpResponse httpResponse = httpClient.execute(request);
 
-      int statusCode = httpResponse.getStatusLine().getStatusCode();
-      if (HttpStatus.SC_NO_CONTENT == statusCode) {
-        response = "true";
-      }
-
-      if (HttpStatus.SC_UNAUTHORIZED == statusCode) {
-        throw new AccessDeniedException(
-            "Request failed to authenticate into the DigitalOcean API successfully");
-      }
-
-      if (HttpStatus.SC_NOT_FOUND == statusCode) {
-        throw new ResourceNotFoundException("Requested resource is not available at DigitalOcean");
-      }
-
-      if (null != httpResponse.getEntity()) {
-        response = EntityUtils.toString(httpResponse.getEntity(), UTF_8);
+      if (HttpStatus.SC_OK == httpResponse.getStatusLine().getStatusCode()) {
+        response = httpResponseToString(httpResponse);
+      } else {
+        response = evaluateResponse(httpResponse);
       }
 
       LOG.debug("HTTP Response: " + response);
@@ -222,6 +211,44 @@ public abstract class ClientHelper implements Constants {
       request.releaseConnection();
     }
 
+    return response;
+  }
+
+  private String evaluateResponse(HttpResponse httpResponse) throws DigitalOceanException,
+      ResourceNotFoundException {
+    int statusCode = httpResponse.getStatusLine().getStatusCode();
+
+    if (HttpStatus.SC_NO_CONTENT == statusCode) {
+      return "true";
+    }
+
+    if (statusCode >= 400 && statusCode < 510) {
+      String jsonStr = httpResponseToString(httpResponse);
+      LOG.debug("JSON Response: " + jsonStr);
+
+      JsonObject jsonObj = jsonParser.parse(jsonStr).getAsJsonObject();
+      String id = jsonObj.get("id").getAsString();
+      String errorMsg =
+          String.format("\nHTTP Status Code: %s\nError Id: %s\nError Message: %s", statusCode, id,
+              jsonObj.get("message").getAsString());
+      LOG.debug(errorMsg);
+      throw new DigitalOceanException(errorMsg, id, statusCode);
+    }
+
+    return null;
+  }
+
+  private String httpResponseToString(HttpResponse httpResponse) {
+    String response = "";
+    if (null != httpResponse.getEntity()) {
+      try {
+        response = EntityUtils.toString(httpResponse.getEntity(), UTF_8);
+      } catch (ParseException pe) {
+        LOG.error(pe.getMessage(), pe);
+      } catch (IOException ioe) {
+        LOG.error(ioe.getMessage(), ioe);
+      }
+    }
     return response;
   }
 

@@ -22,7 +22,7 @@ package com.myjeeva.digitalocean;
 
 import java.util.List;
 
-import com.myjeeva.digitalocean.exception.AccessDeniedException;
+import com.myjeeva.digitalocean.exception.DigitalOceanException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
 import com.myjeeva.digitalocean.pojo.Actions;
@@ -96,25 +96,25 @@ public interface DigitalOcean {
    * 
    * @param pageNo of request pagination
    * @return {@link Droplets}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v2.0
    **/
-  Droplets getAvailableDroplets(Integer pageNo) throws AccessDeniedException,
+  Droplets getAvailableDroplets(Integer pageNo) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
-  Kernels getAvailableKernels(Integer dropletId, Integer pageNo) throws AccessDeniedException,
+  Kernels getAvailableKernels(Integer dropletId, Integer pageNo) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
-  Snapshots getAvailableSnapshots(Integer dropletId, Integer pageNo) throws AccessDeniedException,
+  Snapshots getAvailableSnapshots(Integer dropletId, Integer pageNo) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
-  Backups getAvailableBackups(Integer dropletId, Integer pageNo) throws AccessDeniedException,
+  Backups getAvailableBackups(Integer dropletId, Integer pageNo) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
-  Actions getAvailableActions(Integer dropletId, Integer pageNo) throws AccessDeniedException,
+  Actions getAvailableActions(Integer dropletId, Integer pageNo) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -122,13 +122,13 @@ public interface DigitalOcean {
    * 
    * @param dropletId the id of the droplet
    * @return {@link Droplet}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Droplet getDropletInfo(Integer dropletId) throws AccessDeniedException,
+  Droplet getDropletInfo(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -155,13 +155,13 @@ public interface DigitalOcean {
    * 
    * @param droplet the id of the droplet
    * @return {@link Droplet}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Droplet createDroplet(Droplet droplet) throws AccessDeniedException, ResourceNotFoundException,
+  Droplet createDroplet(Droplet droplet) throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
   /**
@@ -169,13 +169,13 @@ public interface DigitalOcean {
    * 
    * @param dropletId the id of the droplet
    * @return {@link Boolean}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Boolean deleteDroplet(Integer dropletId) throws AccessDeniedException, ResourceNotFoundException,
+  Boolean deleteDroplet(Integer dropletId) throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
 
@@ -190,13 +190,13 @@ public interface DigitalOcean {
    * 
    * @param pageNo of request pagination
    * @return Images
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v2.0
    */
-  Images getAvailableImages(Integer pageNo) throws AccessDeniedException,
+  Images getAvailableImages(Integer pageNo) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -204,13 +204,13 @@ public interface DigitalOcean {
    * 
    * @param imageId the image Id of the droplet/snapshot/backup images
    * @return {@link Image}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Image getImageInfo(Integer imageId) throws AccessDeniedException, ResourceNotFoundException,
+  Image getImageInfo(Integer imageId) throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
   /**
@@ -218,16 +218,16 @@ public interface DigitalOcean {
    * 
    * @param slug of the public image
    * @return {@link Image}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v2.0
    */
-  Image getImageInfo(String slug) throws AccessDeniedException, ResourceNotFoundException,
+  Image getImageInfo(String slug) throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
-  Image updateImage(Image image) throws AccessDeniedException, ResourceNotFoundException,
+  Image updateImage(Image image) throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
 
@@ -239,13 +239,13 @@ public interface DigitalOcean {
    * 
    * @param pageNo of request pagination
    * @return {@link Regions}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v2.0
    */
-  Regions getAvailableRegions(Integer pageNo) throws AccessDeniedException,
+  Regions getAvailableRegions(Integer pageNo) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
 
@@ -257,13 +257,13 @@ public interface DigitalOcean {
    * 
    * @param pageNo of request pagination
    * @return {@link Sizes}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Sizes getAvailableSizes(Integer pageNo) throws AccessDeniedException, ResourceNotFoundException,
+  Sizes getAvailableSizes(Integer pageNo) throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
 
@@ -275,13 +275,13 @@ public interface DigitalOcean {
    * 
    * @param pageNo of request pagination
    * @return {@link Domains}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v2.0
    */
-  Domains getAvailableDomains(Integer pageNo) throws AccessDeniedException,
+  Domains getAvailableDomains(Integer pageNo) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -289,13 +289,13 @@ public interface DigitalOcean {
    * 
    * @param domainName the name of the domain
    * @return {@link Domain}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v2.0
    */
-  Domain getDomainInfo(String domainName) throws AccessDeniedException, ResourceNotFoundException,
+  Domain getDomainInfo(String domainName) throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
   /**
@@ -303,13 +303,13 @@ public interface DigitalOcean {
    * 
    * @param domain object with name and IP address for creation
    * @return {@link Domain}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v2.0
    */
-  Domain createDomain(Domain domain) throws AccessDeniedException, ResourceNotFoundException,
+  Domain createDomain(Domain domain) throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
   /**
@@ -317,13 +317,13 @@ public interface DigitalOcean {
    * 
    * @param domainName the name of the domain
    * @return {@link Boolean}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v2.0
    */
-  Boolean deleteDomain(String domainName) throws AccessDeniedException, ResourceNotFoundException,
+  Boolean deleteDomain(String domainName) throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
 
@@ -354,13 +354,13 @@ public interface DigitalOcean {
    * @param sshKeyIds Numeric CSV, comma separated list of ssh_key_ids that you would like to be
    *        added to the server
    * @return {@link Droplet}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Droplet createDroplet(Droplet droplet, String sshKeyIds) throws AccessDeniedException,
+  Droplet createDroplet(Droplet droplet, String sshKeyIds) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
 
@@ -370,13 +370,13 @@ public interface DigitalOcean {
    * 
    * @param dropletId the id of the droplet
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Response rebootDroplet(Integer dropletId) throws AccessDeniedException,
+  Response rebootDroplet(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -385,13 +385,13 @@ public interface DigitalOcean {
    * 
    * @param dropletId the id of the droplet
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Response powerCyleDroplet(Integer dropletId) throws AccessDeniedException,
+  Response powerCyleDroplet(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -399,13 +399,13 @@ public interface DigitalOcean {
    * 
    * @param dropletId the id of the droplet
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Response shutdownDroplet(Integer dropletId) throws AccessDeniedException,
+  Response shutdownDroplet(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -413,13 +413,13 @@ public interface DigitalOcean {
    * 
    * @param dropletId the id of the droplet
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Response powerOffDroplet(Integer dropletId) throws AccessDeniedException,
+  Response powerOffDroplet(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -427,13 +427,13 @@ public interface DigitalOcean {
    * 
    * @param dropletId the id of the droplet
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Response powerOnDroplet(Integer dropletId) throws AccessDeniedException,
+  Response powerOnDroplet(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -442,13 +442,13 @@ public interface DigitalOcean {
    * 
    * @param dropletId the id of the droplet
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Response resetDropletPassword(Integer dropletId) throws AccessDeniedException,
+  Response resetDropletPassword(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -457,13 +457,13 @@ public interface DigitalOcean {
    * 
    * @param dropletId the id of the droplet
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Response resizeDroplet(Integer dropletId, Integer sizeId) throws AccessDeniedException,
+  Response resizeDroplet(Integer dropletId, Integer sizeId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -472,13 +472,13 @@ public interface DigitalOcean {
    * 
    * @param dropletId the id of the droplet
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Response takeDropletSnapshot(Integer dropletId) throws AccessDeniedException,
+  Response takeDropletSnapshot(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -488,14 +488,14 @@ public interface DigitalOcean {
    * @param dropletId the id of the droplet
    * @param snapshotName the name the snapshot to be created
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
   Response takeDropletSnapshot(Integer dropletId, String snapshotName)
-      throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException;
+      throws DigitalOceanException, ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to restore a droplet with a previous image or snapshot. This will be a mirror
@@ -504,13 +504,13 @@ public interface DigitalOcean {
    * 
    * @param dropletId the id of the droplet
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Response restoreDroplet(Integer dropletId, Integer imageId) throws AccessDeniedException,
+  Response restoreDroplet(Integer dropletId, Integer imageId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -519,13 +519,13 @@ public interface DigitalOcean {
    * 
    * @param dropletId the id of the droplet
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Response rebuildDroplet(Integer dropletId, Integer imageId) throws AccessDeniedException,
+  Response rebuildDroplet(Integer dropletId, Integer imageId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -534,13 +534,13 @@ public interface DigitalOcean {
    * 
    * @param dropletId the id of the droplet
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Response enableDropletBackups(Integer dropletId) throws AccessDeniedException,
+  Response enableDropletBackups(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -548,13 +548,13 @@ public interface DigitalOcean {
    * 
    * @param dropletId the id of the droplet
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Response disableDropletBackups(Integer dropletId) throws AccessDeniedException,
+  Response disableDropletBackups(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -562,13 +562,13 @@ public interface DigitalOcean {
    * 
    * @param dropletId the id of the droplet
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Response renameDroplet(Integer dropletId, String name) throws AccessDeniedException,
+  Response renameDroplet(Integer dropletId, String name) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
 
@@ -579,13 +579,13 @@ public interface DigitalOcean {
    * 
    * @param imageId the image Id of the droplet/snapshot/backup images
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Response deleteImage(Integer imageId) throws AccessDeniedException, ResourceNotFoundException,
+  Response deleteImage(Integer imageId) throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
   /**
@@ -594,13 +594,13 @@ public interface DigitalOcean {
    * @param imageId the image Id of the droplet/snapshot/backup images
    * @param regionId the region Id of the digitalocean data centers
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Response transferImage(Integer imageId, Integer regionId) throws AccessDeniedException,
+  Response transferImage(Integer imageId, Integer regionId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /*
@@ -610,13 +610,13 @@ public interface DigitalOcean {
    * Method lists all the available public SSH keys in your account that can be added to a droplet.
    * 
    * @return <code>List&lt;SshKey></code>
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.2
    */
-  List<Key> getAvailableSshKeys() throws AccessDeniedException, ResourceNotFoundException,
+  List<Key> getAvailableSshKeys() throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
   /**
@@ -624,13 +624,13 @@ public interface DigitalOcean {
    * 
    * @param sshKeyId the SSH key Id
    * @return {@link Key}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.2
    */
-  Key getSshKeyInfo(Integer sshKeyId) throws AccessDeniedException, ResourceNotFoundException,
+  Key getSshKeyInfo(Integer sshKeyId) throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
   /**
@@ -639,13 +639,13 @@ public interface DigitalOcean {
    * @param sshKeyName the name you want to give this SSH key
    * @param sshPublicKey the actual public SSH key
    * @return {@link Key}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.2
    */
-  Key addSshKey(String sshKeyName, String sshPublicKey) throws AccessDeniedException,
+  Key addSshKey(String sshKeyName, String sshPublicKey) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -654,13 +654,13 @@ public interface DigitalOcean {
    * @param sshKeyId the SSH key Id, you would like to edit
    * @param newSshPublicKey the new public SSH key
    * @return {@link Key}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.2
    */
-  Key editSshKey(Integer sshKeyId, String newSshPublicKey) throws AccessDeniedException,
+  Key editSshKey(Integer sshKeyId, String newSshPublicKey) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -670,11 +670,11 @@ public interface DigitalOcean {
    * @return {@link Response}
    * @throws RequestUnsuccessfulException
    * @throws ResourceNotFoundException
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * 
    * @since v1.2
    */
-  Response deleteSshKey(Integer sshKeyId) throws AccessDeniedException, ResourceNotFoundException,
+  Response deleteSshKey(Integer sshKeyId) throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException;
 
 
@@ -684,13 +684,13 @@ public interface DigitalOcean {
    * 
    * @param domainId the Id of the domain
    * @return <code>List&lt;DomainRecord></code>
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.1
    */
-  List<DomainRecord> getDomainRecords(Integer domainId) throws AccessDeniedException,
+  List<DomainRecord> getDomainRecords(Integer domainId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -699,13 +699,13 @@ public interface DigitalOcean {
    * @param domainRecord the domain record values domain Id, record type, data, name, priority,
    *        port, weight
    * @return {@link DomainRecord}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.1
    */
-  DomainRecord createDomainRecord(DomainRecord domainRecord) throws AccessDeniedException,
+  DomainRecord createDomainRecord(DomainRecord domainRecord) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -714,14 +714,14 @@ public interface DigitalOcean {
    * @param domainId the Id of the domain
    * @param recordId the record Id of the domain
    * @return {@link DomainRecord}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.1
    */
   DomainRecord getDomainRecordInfo(Integer domainId, Integer recordId)
-      throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException;
+      throws DigitalOceanException, ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
    * method edits an existing domain record of the given domain.
@@ -729,13 +729,13 @@ public interface DigitalOcean {
    * @param domainRecord the domain record values domain Id, record type, data, name, priority,
    *        port, weight
    * @return {@link DomainRecord}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.1
    */
-  DomainRecord editDomainRecord(DomainRecord domainRecord) throws AccessDeniedException,
+  DomainRecord editDomainRecord(DomainRecord domainRecord) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /**
@@ -743,11 +743,11 @@ public interface DigitalOcean {
    * 
    * @throws RequestUnsuccessfulException
    * @throws ResourceNotFoundException
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * 
    * @since v1.1
    */
-  Response deleteDomainRecord(Integer domainId, Integer recordId) throws AccessDeniedException,
+  Response deleteDomainRecord(Integer domainId, Integer recordId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
   /*
@@ -759,13 +759,13 @@ public interface DigitalOcean {
    * 
    * @param eventId this is event id of the event you would like to get more information
    * @return {@link Response}
-   * @throws AccessDeniedException
+   * @throws DigitalOceanException
    * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.3
    */
-  Response getEventProgress(Integer eventId) throws AccessDeniedException,
+  Response getEventProgress(Integer eventId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException;
 
 }

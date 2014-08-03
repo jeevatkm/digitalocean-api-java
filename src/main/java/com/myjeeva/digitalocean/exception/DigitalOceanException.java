@@ -21,21 +21,45 @@
 package com.myjeeva.digitalocean.exception;
 
 /**
- * <code>AccessDeniedException</code> will be thrown, when request failed to authenticate into the
- * DigitalOcean API successfully.
+ * <code>DigitalOceanException</code> will be thrown, when request had interruption [
+ * <code>HTTP status
+ * code >= 400 && < 510</code>] DigitalOcean API
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class AccessDeniedException extends Exception {
+public class DigitalOceanException extends Exception {
 
-  private static final long serialVersionUID = -925220451573356906L;
+  static final long serialVersionUID = -925220451573356906L;
 
-  public AccessDeniedException(String msg) {
+  private String id;
+
+  private int httpStatusCode;
+
+  public DigitalOceanException(String msg) {
     super(msg);
   }
 
-  public AccessDeniedException(String msg, Throwable t) {
+  public DigitalOceanException(String msg, Throwable t) {
     super(msg, t);
   }
 
+  public DigitalOceanException(String msg, String id, int statusCode) {
+    super(msg);
+    this.id = id;
+    this.httpStatusCode = statusCode;
+  }
+
+  /**
+   * @return the id
+   */
+  public String getId() {
+    return id;
+  }
+
+  /**
+   * @return the httpStatusCode
+   */
+  public int getHttpStatusCode() {
+    return httpStatusCode;
+  }
 }

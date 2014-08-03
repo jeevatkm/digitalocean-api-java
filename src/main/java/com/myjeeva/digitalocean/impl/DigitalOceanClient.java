@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import com.myjeeva.digitalocean.DigitalOcean;
 import com.myjeeva.digitalocean.common.ApiAction;
-import com.myjeeva.digitalocean.exception.AccessDeniedException;
+import com.myjeeva.digitalocean.exception.DigitalOceanException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
 import com.myjeeva.digitalocean.pojo.Actions;
@@ -87,7 +87,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   // =======================================
 
   @Override
-  public Droplets getAvailableDroplets(Integer pageNo) throws AccessDeniedException,
+  public Droplets getAvailableDroplets(Integer pageNo) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
 
@@ -96,7 +96,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
   @Override
   public Kernels getAvailableKernels(Integer dropletId, Integer pageNo)
-      throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException {
+      throws DigitalOceanException, ResourceNotFoundException, RequestUnsuccessfulException {
     validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
@@ -106,7 +106,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
   @Override
   public Snapshots getAvailableSnapshots(Integer dropletId, Integer pageNo)
-      throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException {
+      throws DigitalOceanException, ResourceNotFoundException, RequestUnsuccessfulException {
     validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
@@ -115,7 +115,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
   @Override
   public Backups getAvailableBackups(Integer dropletId, Integer pageNo)
-      throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException {
+      throws DigitalOceanException, ResourceNotFoundException, RequestUnsuccessfulException {
     validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
@@ -124,7 +124,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
   @Override
   public Actions getAvailableActions(Integer dropletId, Integer pageNo)
-      throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException {
+      throws DigitalOceanException, ResourceNotFoundException, RequestUnsuccessfulException {
     validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
@@ -132,7 +132,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   }
 
   @Override
-  public Droplet getDropletInfo(Integer dropletId) throws AccessDeniedException,
+  public Droplet getDropletInfo(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     validateDropletId(dropletId);
 
@@ -141,7 +141,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   }
 
   @Override
-  public Droplet createDroplet(Droplet droplet) throws AccessDeniedException,
+  public Droplet createDroplet(Droplet droplet) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     if (null == droplet || null == droplet.getName() || null == droplet.getRegion()
         || null == droplet.getSize() || null == droplet.getImage()) {
@@ -153,7 +153,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   }
 
   @Override
-  public Boolean deleteDroplet(Integer dropletId) throws AccessDeniedException,
+  public Boolean deleteDroplet(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     validateDropletId(dropletId);
 
@@ -168,14 +168,14 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   // =======================================
 
   @Override
-  public Images getAvailableImages(Integer pageNo) throws AccessDeniedException,
+  public Images getAvailableImages(Integer pageNo) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
     return (Images) invokeAction(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo));
   }
 
   @Override
-  public Image getImageInfo(Integer imageId) throws AccessDeniedException,
+  public Image getImageInfo(Integer imageId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     checkNullAndThrowError(imageId, "Missing required parameter - imageId.");
 
@@ -184,7 +184,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   }
 
   @Override
-  public Image getImageInfo(String slug) throws AccessDeniedException, ResourceNotFoundException,
+  public Image getImageInfo(String slug) throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException {
     checkEmptyAndThrowError(slug, "Missing required parameter - slug.");
 
@@ -193,7 +193,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   }
 
   @Override
-  public Image updateImage(Image image) throws AccessDeniedException, ResourceNotFoundException,
+  public Image updateImage(Image image) throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException {
     if (null == image || null == image.getName()) {
       throw new IllegalArgumentException("Missing required parameter - image object.");
@@ -210,7 +210,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   // =======================================
 
   @Override
-  public Regions getAvailableRegions(Integer pageNo) throws AccessDeniedException,
+  public Regions getAvailableRegions(Integer pageNo) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
     return (Regions) invokeAction(new ApiRequest(ApiAction.AVAILABLE_REGIONS, pageNo));
@@ -222,7 +222,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   // =======================================
 
   @Override
-  public Sizes getAvailableSizes(Integer pageNo) throws AccessDeniedException,
+  public Sizes getAvailableSizes(Integer pageNo) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
     return (Sizes) invokeAction(new ApiRequest(ApiAction.AVAILABLE_SIZES, pageNo));
@@ -234,13 +234,13 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   // =======================================
 
   @Override
-  public Domains getAvailableDomains(Integer pageNo) throws AccessDeniedException,
+  public Domains getAvailableDomains(Integer pageNo) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     return (Domains) invokeAction(new ApiRequest(ApiAction.AVAILABLE_DOMAINS, pageNo));
   }
 
   @Override
-  public Domain getDomainInfo(String domainName) throws AccessDeniedException,
+  public Domain getDomainInfo(String domainName) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     checkEmptyAndThrowError(domainName, "Missing required parameter - domainId.");
 
@@ -249,7 +249,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   }
 
   @Override
-  public Domain createDomain(Domain domain) throws AccessDeniedException,
+  public Domain createDomain(Domain domain) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     checkEmptyAndThrowError(domain.getName(), "Missing required parameter - domainId.");
     checkEmptyAndThrowError(domain.getIpAddress(), "Missing required parameter - ipAddress.");
@@ -258,7 +258,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   }
 
   @Override
-  public Boolean deleteDomain(String domainName) throws AccessDeniedException,
+  public Boolean deleteDomain(String domainName) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     checkEmptyAndThrowError(domainName, "Missing required parameter - domainId.");
 
@@ -268,7 +268,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
 
 
-  private Object invokeAction(ApiRequest request) throws AccessDeniedException,
+  private Object invokeAction(ApiRequest request) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     ApiResponse response = performAction(request);
     return response.getData();
@@ -309,7 +309,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
 
   @Override
-  public Droplet createDroplet(Droplet droplet, String sshKeyIds) throws AccessDeniedException,
+  public Droplet createDroplet(Droplet droplet, String sshKeyIds) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
@@ -318,56 +318,56 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
 
   @Override
-  public Response rebootDroplet(Integer dropletId) throws AccessDeniedException,
+  public Response rebootDroplet(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Response powerCyleDroplet(Integer dropletId) throws AccessDeniedException,
+  public Response powerCyleDroplet(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Response shutdownDroplet(Integer dropletId) throws AccessDeniedException,
+  public Response shutdownDroplet(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Response powerOffDroplet(Integer dropletId) throws AccessDeniedException,
+  public Response powerOffDroplet(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Response powerOnDroplet(Integer dropletId) throws AccessDeniedException,
+  public Response powerOnDroplet(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Response resetDropletPassword(Integer dropletId) throws AccessDeniedException,
+  public Response resetDropletPassword(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Response resizeDroplet(Integer dropletId, Integer sizeId) throws AccessDeniedException,
+  public Response resizeDroplet(Integer dropletId, Integer sizeId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Response takeDropletSnapshot(Integer dropletId) throws AccessDeniedException,
+  public Response takeDropletSnapshot(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
@@ -375,41 +375,41 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
   @Override
   public Response takeDropletSnapshot(Integer dropletId, String snapshotName)
-      throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException {
+      throws DigitalOceanException, ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Response restoreDroplet(Integer dropletId, Integer imageId) throws AccessDeniedException,
+  public Response restoreDroplet(Integer dropletId, Integer imageId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Response rebuildDroplet(Integer dropletId, Integer imageId) throws AccessDeniedException,
+  public Response rebuildDroplet(Integer dropletId, Integer imageId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Response enableDropletBackups(Integer dropletId) throws AccessDeniedException,
+  public Response enableDropletBackups(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Response disableDropletBackups(Integer dropletId) throws AccessDeniedException,
+  public Response disableDropletBackups(Integer dropletId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Response renameDroplet(Integer dropletId, String name) throws AccessDeniedException,
+  public Response renameDroplet(Integer dropletId, String name) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
@@ -418,49 +418,49 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
 
   @Override
-  public Response deleteImage(Integer imageId) throws AccessDeniedException,
+  public Response deleteImage(Integer imageId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Response transferImage(Integer imageId, Integer regionId) throws AccessDeniedException,
+  public Response transferImage(Integer imageId, Integer regionId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public List<Key> getAvailableSshKeys() throws AccessDeniedException, ResourceNotFoundException,
+  public List<Key> getAvailableSshKeys() throws DigitalOceanException, ResourceNotFoundException,
       RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Key getSshKeyInfo(Integer sshKeyId) throws AccessDeniedException,
+  public Key getSshKeyInfo(Integer sshKeyId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Key addSshKey(String sshKeyName, String sshPublicKey) throws AccessDeniedException,
+  public Key addSshKey(String sshKeyName, String sshPublicKey) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Key editSshKey(Integer sshKeyId, String newSshPublicKey) throws AccessDeniedException,
+  public Key editSshKey(Integer sshKeyId, String newSshPublicKey) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Response deleteSshKey(Integer sshKeyId) throws AccessDeniedException,
+  public Response deleteSshKey(Integer sshKeyId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
@@ -469,14 +469,14 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
 
   @Override
-  public List<DomainRecord> getDomainRecords(Integer domainId) throws AccessDeniedException,
+  public List<DomainRecord> getDomainRecords(Integer domainId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public DomainRecord createDomainRecord(DomainRecord domainRecord) throws AccessDeniedException,
+  public DomainRecord createDomainRecord(DomainRecord domainRecord) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
@@ -484,13 +484,13 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
   @Override
   public DomainRecord getDomainRecordInfo(Integer domainId, Integer recordId)
-      throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException {
+      throws DigitalOceanException, ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public DomainRecord editDomainRecord(DomainRecord domainRecord) throws AccessDeniedException,
+  public DomainRecord editDomainRecord(DomainRecord domainRecord) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
@@ -498,13 +498,13 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
   @Override
   public Response deleteDomainRecord(Integer domainId, Integer recordId)
-      throws AccessDeniedException, ResourceNotFoundException, RequestUnsuccessfulException {
+      throws DigitalOceanException, ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
   }
 
   @Override
-  public Response getEventProgress(Integer eventId) throws AccessDeniedException,
+  public Response getEventProgress(Integer eventId) throws DigitalOceanException,
       ResourceNotFoundException, RequestUnsuccessfulException {
     // TODO Auto-generated method stub
     return null;
