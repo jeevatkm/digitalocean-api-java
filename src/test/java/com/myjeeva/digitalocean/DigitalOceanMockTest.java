@@ -1,23 +1,27 @@
 package com.myjeeva.digitalocean;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-import com.myjeeva.digitalocean.impl.DigitalOceanClient;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 import junit.framework.TestCase;
 import mockit.Expectations;
 import mockit.Mocked;
+
 import org.apache.http.HttpVersion;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHttpResponse;
+import org.junit.Ignore;
 
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.myjeeva.digitalocean.impl.DigitalOceanClient;
 
 @SuppressWarnings("unused")
+@Ignore
 public class DigitalOceanMockTest extends TestCase {
 
   private @Mocked
@@ -48,6 +52,6 @@ public class DigitalOceanMockTest extends TestCase {
     };
 
     DigitalOcean digitalOcean = new DigitalOceanClient("id", "key");
-    digitalOcean.takeDropletSnapshot(1234, "snapshot-name");
+    //digitalOcean.takeDropletSnapshot(1234, "snapshot-name");
   }
 }
