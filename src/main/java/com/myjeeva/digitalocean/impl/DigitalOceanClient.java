@@ -27,14 +27,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.myjeeva.digitalocean.DigitalOcean;
+import com.myjeeva.digitalocean.common.ActionType;
 import com.myjeeva.digitalocean.common.ApiAction;
 import com.myjeeva.digitalocean.exception.DigitalOceanException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
+import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
+import com.myjeeva.digitalocean.pojo.DropletAction;
 import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.Images;
@@ -154,7 +157,26 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
     Object[] params = {dropletId};
     return (Boolean) invokeAction(new ApiRequest(ApiAction.DELETE_DROPLET, params));
   }
-
+  
+  // Droplet action methods
+  
+  @Override
+  public Action rebootDroplet(Integer dropletId) throws DigitalOceanException,
+  RequestUnsuccessfulException {    
+    validateDropletId(dropletId);
+    
+    Object[] params = {dropletId};
+    return (Action) invokeAction(new ApiRequest(ApiAction.REBOOT_DROPLET, new DropletAction(ActionType.REBOOT), params));
+  }
+  
+  @Override
+  public Action powerCycleDroplet(Integer dropletId) throws DigitalOceanException,
+  RequestUnsuccessfulException {    
+    validateDropletId(dropletId);
+    
+    Object[] params = {dropletId};
+    return (Action) invokeAction(new ApiRequest(ApiAction.POWER_CYCLE_DROPLET, new DropletAction(ActionType.POWER_CYCLE), params));
+  }
 
 
   // =======================================

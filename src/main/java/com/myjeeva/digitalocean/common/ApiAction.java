@@ -20,6 +20,7 @@
  */
 package com.myjeeva.digitalocean.common;
 
+import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
 import com.myjeeva.digitalocean.pojo.Domain;
@@ -51,6 +52,13 @@ public enum ApiAction {
   GET_DROPLET_INFO("/droplets/%s", "droplet", RequestMethod.GET, Droplet.class),
   CREATE_DROPLET("/droplets", "droplet", RequestMethod.POST, Droplet.class),
   DELETE_DROPLET("/droplets/%s", RequestMethod.DELETE),
+  REBOOT_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  POWER_CYCLE_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  SHUTDOWN_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  POWER_OFF_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  POWER_ON_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class), 
+  RESET_PASSWORD_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  RESIZE_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   
   
   // Image

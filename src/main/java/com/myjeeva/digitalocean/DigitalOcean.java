@@ -20,21 +20,18 @@
  */
 package com.myjeeva.digitalocean;
 
-import java.util.List;
-
 import com.myjeeva.digitalocean.exception.DigitalOceanException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
+import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
 import com.myjeeva.digitalocean.pojo.Domain;
-import com.myjeeva.digitalocean.pojo.DomainRecord;
 import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
-import com.myjeeva.digitalocean.pojo.Key;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
@@ -173,6 +170,38 @@ public interface DigitalOcean {
    * @since v1.0
    */
   Boolean deleteDroplet(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  // Droplet Action methods
+
+  /**
+   * Method allows you to reboot a droplet. This is the preferred method to use if a server is not
+   * responding.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Action rebootDroplet(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to power cycle a droplet. This will turn off the droplet and then turn it
+   * back on.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Action powerCycleDroplet(Integer dropletId) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
 
