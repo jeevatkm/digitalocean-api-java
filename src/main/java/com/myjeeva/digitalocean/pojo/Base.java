@@ -20,8 +20,6 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
-import java.io.Serializable;
-
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
@@ -31,9 +29,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  * 
  * @since v2.0
  */
-public abstract class Base implements Serializable {
-
-  private static final long serialVersionUID = 1640829485449241925L;
+public abstract class Base {
 
   private Meta meta;
 

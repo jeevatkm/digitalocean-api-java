@@ -33,8 +33,6 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  */
 public class Keys extends Base {
 
-  private static final long serialVersionUID = 7938893715787097176L;
-
   private List<Key> keys;
 
   @Override

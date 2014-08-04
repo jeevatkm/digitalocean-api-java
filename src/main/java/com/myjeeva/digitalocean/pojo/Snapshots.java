@@ -30,9 +30,7 @@ import java.util.List;
  * @since v2.0
  */
 public class Snapshots extends Base {
-
-  private static final long serialVersionUID = -2542708910681965063L;
-
+  
   List<Snapshot> snapshots;
 
   /**

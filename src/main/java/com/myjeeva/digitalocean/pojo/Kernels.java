@@ -33,8 +33,6 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  */
 public class Kernels extends Base {
 
-  private static final long serialVersionUID = -1569568949454011156L;
-
   private List<Kernel> kernels;
 
   @Override

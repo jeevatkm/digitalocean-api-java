@@ -23,13 +23,13 @@ package com.myjeeva.digitalocean.common;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Enumeration of DigitalOcean Droplet Action Type
+ * Enumeration of DigitalOcean Droplet & Image Action Type
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
  * @since v2.0
  */
-public enum DropletActionType {
+public enum ActionType {
 
   @SerializedName("reboot")
   REBOOT("reboot"),
@@ -77,11 +77,14 @@ public enum DropletActionType {
   SNAPSHOT("snapshot"),
   
   @SerializedName("backup")
-  BACKUP("backup");
+  BACKUP("backup"),
+  
+  @SerializedName("transfer")
+  TRANSFER("transfer");
 
   private String value;
 
-  DropletActionType(String value) {
+  ActionType(String value) {
     this.value = value;
   }
 
@@ -90,12 +93,12 @@ public enum DropletActionType {
     return this.value;
   }
 
-  public static DropletActionType fromValue(String value) {
+  public static ActionType fromValue(String value) {
     if (null == value || "".equals(value)) {
       throw new IllegalArgumentException("Value cannot be null or empty!");
     }
 
-    for (DropletActionType dat : DropletActionType.values()) {
+    for (ActionType dat : ActionType.values()) {
       if (value.equalsIgnoreCase(dat.value)) {
         return dat;
       }

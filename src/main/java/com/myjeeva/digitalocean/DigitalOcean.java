@@ -222,7 +222,31 @@ public interface DigitalOcean {
    */
   Image getImageInfo(String slug) throws DigitalOceanException, RequestUnsuccessfulException;
 
+  /**
+   * Method updates the given details for an image.
+   * 
+   * @param image object for update
+   * @return {@link Image}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
   Image updateImage(Image image) throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to deletes an image. There is no way to restore a deleted image so be careful
+   * and ensure your data is properly backed up.
+   * 
+   * @param imageId of the droplet/snapshot/backup images
+   * @return {@link Boolean}
+   * @throws DigitalOceanException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Boolean deleteImage(Integer imageId) throws DigitalOceanException, RequestUnsuccessfulException;
 
 
   // ===========================================
@@ -318,4 +342,6 @@ public interface DigitalOcean {
    */
   Boolean deleteDomain(String domainName) throws DigitalOceanException,
       RequestUnsuccessfulException;
+
+
 }

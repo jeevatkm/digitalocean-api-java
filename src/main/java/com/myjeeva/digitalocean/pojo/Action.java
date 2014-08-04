@@ -26,7 +26,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.google.gson.annotations.SerializedName;
 import com.myjeeva.digitalocean.common.ActionStatus;
-import com.myjeeva.digitalocean.common.DropletActionType;
+import com.myjeeva.digitalocean.common.ActionType;
 import com.myjeeva.digitalocean.common.ResourceType;
 
 /**
@@ -45,7 +45,7 @@ public class Action {
 
   private ActionStatus status;
 
-  private DropletActionType type;
+  private ActionType type;
 
   @SerializedName("resource_type")
   private ResourceType resourceType;
@@ -108,14 +108,14 @@ public class Action {
   /**
    * @return the type
    */
-  public DropletActionType getType() {
+  public ActionType getType() {
     return type;
   }
 
   /**
    * @param type the type to set
    */
-  public void setType(DropletActionType type) {
+  public void setType(ActionType type) {
     this.type = type;
   }
 

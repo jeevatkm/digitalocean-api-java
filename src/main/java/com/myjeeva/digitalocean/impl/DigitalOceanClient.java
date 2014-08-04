@@ -20,8 +20,6 @@
  */
 package com.myjeeva.digitalocean.impl;
 
-import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
@@ -35,14 +33,12 @@ import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
 import com.myjeeva.digitalocean.pojo.Domain;
-import com.myjeeva.digitalocean.pojo.DomainRecord;
 import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
-import com.myjeeva.digitalocean.pojo.Key;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
@@ -198,6 +194,14 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
     Object[] params = {image.getId()};
     return (Image) invokeAction(new ApiRequest(ApiAction.UPDATE_IMAGE_INFO, image, params));
   }
+  
+  @Override
+  public Boolean deleteImage(Integer imageId) throws DigitalOceanException, RequestUnsuccessfulException {
+    checkNullAndThrowError(imageId, "Missing required parameter - imageId.");
+
+    Object[] params = {imageId};
+    return (Boolean) invokeAction(new ApiRequest(ApiAction.DELETE_IMAGE, params));
+  }
 
 
 
@@ -266,8 +270,8 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
   private Object invokeAction(ApiRequest request) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    ApiResponse Object = performAction(request);
-    return Object.getData();
+    ApiResponse response = performAction(request);
+    return response.getData();
   }
 
   // =======================================

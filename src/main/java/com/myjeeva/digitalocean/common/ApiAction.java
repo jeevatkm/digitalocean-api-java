@@ -57,6 +57,7 @@ public enum ApiAction {
   AVAILABLE_IMAGES("/images", "images", RequestMethod.GET, Images.class),
   GET_IMAGE_INFO("/images/%s", "image", RequestMethod.GET, Image.class),
   UPDATE_IMAGE_INFO("/images/%s", "image", RequestMethod.PUT, Image.class),
+  DELETE_IMAGE("/images/%s", RequestMethod.DELETE),
   
   
   // Region

@@ -32,9 +32,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  * @since v2.0
  */
 public class Regions extends Base {
-
-  private static final long serialVersionUID = 1917719197626447746L;
-
+  
   private List<Region> regions;
 
   @Override

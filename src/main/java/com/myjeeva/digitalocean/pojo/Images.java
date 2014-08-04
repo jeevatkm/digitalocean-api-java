@@ -33,8 +33,6 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  */
 public class Images extends Base {
 
-  private static final long serialVersionUID = 5105474750012109285L;
-
   private List<Image> images;
 
   @Override
