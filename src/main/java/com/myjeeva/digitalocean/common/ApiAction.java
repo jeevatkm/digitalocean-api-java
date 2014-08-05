@@ -57,8 +57,16 @@ public enum ApiAction {
   SHUTDOWN_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   POWER_OFF_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   POWER_ON_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class), 
-  RESET_PASSWORD_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  RESET_DROPLET_PASSWORD("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   RESIZE_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  RESTORE_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  REBUILD_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  RENAME_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  CHANGE_DROPLET_KERNEL("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  ENABLE_DROPLET_IPV6("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  DISABLE_DROPLET_BACKUPS("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  ENABLE_DROPLET_PRIVATE_NETWORKING("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  SNAPSHOT_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   
   
   // Image

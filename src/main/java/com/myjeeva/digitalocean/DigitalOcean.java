@@ -204,6 +204,178 @@ public interface DigitalOcean {
   Action powerCycleDroplet(Integer dropletId) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
+  /**
+   * Method allows you to shutdown a running droplet. The droplet will remain in your account.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Action shutdownDroplet(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to poweroff a running droplet. The droplet will remain in your account.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Action powerOffDroplet(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to poweron a powered off droplet.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Action powerOnDroplet(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method will reset the root password for a droplet. Please be aware that this will reboot the
+   * droplet to allow resetting the password.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Action resetDropletPassword(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to resize a specific droplet to a different size. This will affect the number
+   * of processors and memory allocated to the droplet.
+   * 
+   * @param dropletId the id of the droplet
+   * @param size of the droplet
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Action resizeDroplet(Integer dropletId, String size) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to take a snapshot of the running droplet, which can later be restored or
+   * used to create a new droplet from the same image. Please be aware this may cause a reboot.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Action takeDropletSnapshot(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to take a snapshot of the running droplet, which can later be restored or
+   * used to create a new droplet from the same image. Please be aware this may cause a reboot.
+   * 
+   * @param dropletId the id of the droplet
+   * @param snapshotName the name the snapshot to be created
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Action takeDropletSnapshot(Integer dropletId, String snapshotName) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to restore a droplet with a previous image or snapshot. This will be a mirror
+   * copy of the image or snapshot to your droplet. Be sure you have backed up any necessary
+   * information prior to restore.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Action restoreDroplet(Integer dropletId, Integer imageId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to reinstall a droplet with a default image. This is useful if you want to
+   * start again but retain the same IP address for your droplet.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Action rebuildDroplet(Integer dropletId, Integer imageId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method disables automatic backups from running to backup your droplet's data.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Action disableDropletBackups(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method renames the droplet to the specified name.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Action renameDroplet(Integer dropletId, String name) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  Action changeDropletKernel(Integer dropletId, Integer kernelId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  Action enableDropletIpv6(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  Action enableDropletPrivateNetworking(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
 
 
   // ==============================================

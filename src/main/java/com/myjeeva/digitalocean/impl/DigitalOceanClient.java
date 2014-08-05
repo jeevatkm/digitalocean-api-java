@@ -51,7 +51,6 @@ import com.myjeeva.digitalocean.pojo.Snapshots;
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-@SuppressWarnings("unchecked")
 public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
   private final Logger LOG = LoggerFactory.getLogger(DigitalOceanClient.class);
@@ -157,25 +156,173 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
     Object[] params = {dropletId};
     return (Boolean) invokeAction(new ApiRequest(ApiAction.DELETE_DROPLET, params));
   }
-  
+
   // Droplet action methods
-  
+
   @Override
   public Action rebootDroplet(Integer dropletId) throws DigitalOceanException,
-  RequestUnsuccessfulException {    
+      RequestUnsuccessfulException {
     validateDropletId(dropletId);
-    
+
     Object[] params = {dropletId};
-    return (Action) invokeAction(new ApiRequest(ApiAction.REBOOT_DROPLET, new DropletAction(ActionType.REBOOT), params));
+    return (Action) invokeAction(new ApiRequest(ApiAction.REBOOT_DROPLET, new DropletAction(
+        ActionType.REBOOT), params));
   }
-  
+
   @Override
   public Action powerCycleDroplet(Integer dropletId) throws DigitalOceanException,
-  RequestUnsuccessfulException {    
+      RequestUnsuccessfulException {
     validateDropletId(dropletId);
-    
+
     Object[] params = {dropletId};
-    return (Action) invokeAction(new ApiRequest(ApiAction.POWER_CYCLE_DROPLET, new DropletAction(ActionType.POWER_CYCLE), params));
+    return (Action) invokeAction(new ApiRequest(ApiAction.POWER_CYCLE_DROPLET, new DropletAction(
+        ActionType.POWER_CYCLE), params));
+  }
+
+  @Override
+  public Action shutdownDroplet(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    return (Action) invokeAction(new ApiRequest(ApiAction.SHUTDOWN_DROPLET, new DropletAction(
+        ActionType.SHUTDOWN), params));
+  }
+
+  @Override
+  public Action powerOffDroplet(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    return (Action) invokeAction(new ApiRequest(ApiAction.POWER_OFF_DROPLET, new DropletAction(
+        ActionType.POWER_OFF), params));
+  }
+
+  @Override
+  public Action powerOnDroplet(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    return (Action) invokeAction(new ApiRequest(ApiAction.POWER_ON_DROPLET, new DropletAction(
+        ActionType.POWER_ON), params));
+  }
+
+  @Override
+  public Action resetDropletPassword(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    return (Action) invokeAction(new ApiRequest(ApiAction.RESET_DROPLET_PASSWORD,
+        new DropletAction(ActionType.POWER_CYCLE), params));
+  }
+
+  @Override
+  public Action resizeDroplet(Integer dropletId, String size) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    DropletAction action = new DropletAction(ActionType.RESIZE);
+    action.setSize(size);
+    return (Action) invokeAction(new ApiRequest(ApiAction.RESIZE_DROPLET, action, params));
+  }
+
+  @Override
+  public Action takeDropletSnapshot(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    return (Action) invokeAction(new ApiRequest(ApiAction.SNAPSHOT_DROPLET, new DropletAction(
+        ActionType.SNAPSHOT), params));
+  }
+
+  @Override
+  public Action takeDropletSnapshot(Integer dropletId, String snapshotName)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    DropletAction action = new DropletAction(ActionType.SNAPSHOT);
+    action.setName(snapshotName);
+    return (Action) invokeAction(new ApiRequest(ApiAction.SNAPSHOT_DROPLET, action, params));
+  }
+
+  @Override
+  public Action restoreDroplet(Integer dropletId, Integer imageId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    DropletAction action = new DropletAction(ActionType.RESTORE);
+    action.setImage(imageId);
+    return (Action) invokeAction(new ApiRequest(ApiAction.RESTORE_DROPLET, action, params));
+  }
+
+  @Override
+  public Action rebuildDroplet(Integer dropletId, Integer imageId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    DropletAction action = new DropletAction(ActionType.REBUILD);
+    action.setImage(imageId);
+    return (Action) invokeAction(new ApiRequest(ApiAction.REBUILD_DROPLET, action, params));
+  }
+
+  @Override
+  public Action disableDropletBackups(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    return (Action) invokeAction(new ApiRequest(ApiAction.DISABLE_DROPLET_BACKUPS,
+        new DropletAction(ActionType.DISABLE_BACKUPS), params));
+  }
+
+  @Override
+  public Action renameDroplet(Integer dropletId, String name) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    DropletAction action = new DropletAction(ActionType.RENAME);
+    action.setName(name);
+    return (Action) invokeAction(new ApiRequest(ApiAction.RENAME_DROPLET, action, params));
+  }
+
+  @Override
+  public Action changeDropletKernel(Integer dropletId, Integer kernelId)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    DropletAction action = new DropletAction(ActionType.CHANGE_KERNEL);
+    action.setKernel(kernelId);
+    return (Action) invokeAction(new ApiRequest(ApiAction.CHANGE_DROPLET_KERNEL, action, params));
+  }
+
+  @Override
+  public Action enableDropletIpv6(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    return (Action) invokeAction(new ApiRequest(ApiAction.ENABLE_DROPLET_IPV6, new DropletAction(
+        ActionType.ENABLE_IPV6), params));
+  }
+
+  @Override
+  public Action enableDropletPrivateNetworking(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    return (Action) invokeAction(new ApiRequest(ApiAction.ENABLE_DROPLET_PRIVATE_NETWORKING,
+        new DropletAction(ActionType.ENABLE_PRIVATE_NETWORKING), params));
   }
 
 
@@ -216,9 +363,10 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
     Object[] params = {image.getId()};
     return (Image) invokeAction(new ApiRequest(ApiAction.UPDATE_IMAGE_INFO, image, params));
   }
-  
+
   @Override
-  public Boolean deleteImage(Integer imageId) throws DigitalOceanException, RequestUnsuccessfulException {
+  public Boolean deleteImage(Integer imageId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
     checkNullAndThrowError(imageId, "Missing required parameter - imageId.");
 
     Object[] params = {imageId};

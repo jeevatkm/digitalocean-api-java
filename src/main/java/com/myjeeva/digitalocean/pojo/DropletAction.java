@@ -33,18 +33,30 @@ import com.myjeeva.digitalocean.common.ActionType;
  * @since v2.0
  */
 public class DropletAction {
-  
+
   @Expose
-  ActionType type;
-  
+  private ActionType type;
+
+  @Expose
+  private String name;
+
+  @Expose
+  private Integer image;
+
+  @Expose
+  private Integer kernel;
+
+  @Expose
+  private String size;
+
   public DropletAction() {
     // Default Constructor
   }
-  
+
   public DropletAction(ActionType type) {
     this.type = type;
-  }  
-  
+  }
+
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
@@ -62,5 +74,61 @@ public class DropletAction {
    */
   public void setType(ActionType type) {
     this.type = type;
-  } 
+  }
+
+  /**
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * @param name the name to set
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  /**
+   * @return the image
+   */
+  public Integer getImage() {
+    return image;
+  }
+
+  /**
+   * @param image the image to set
+   */
+  public void setImage(Integer image) {
+    this.image = image;
+  }
+
+  /**
+   * @return the kernel
+   */
+  public Integer getKernel() {
+    return kernel;
+  }
+
+  /**
+   * @param kernel the kernel to set
+   */
+  public void setKernel(Integer kernel) {
+    this.kernel = kernel;
+  }
+
+  /**
+   * @return the size
+   */
+  public String getSize() {
+    return size;
+  }
+
+  /**
+   * @param size the size to set
+   */
+  public void setSize(String size) {
+    this.size = size;
+  }
 }
