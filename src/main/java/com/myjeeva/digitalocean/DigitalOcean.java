@@ -109,9 +109,6 @@ public interface DigitalOcean {
   Backups getAvailableBackups(Integer dropletId, Integer pageNo) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
-  Actions getAvailableActions(Integer dropletId, Integer pageNo) throws DigitalOceanException,
-      RequestUnsuccessfulException;
-
   /**
    * Method returns full information for a specific droplet ID that is passed in the URL.
    * 
@@ -377,6 +374,21 @@ public interface DigitalOcean {
       RequestUnsuccessfulException;
 
 
+  // ==============================================
+  // Actions manipulation/access methods
+  // ==============================================
+
+  Actions getAvailableActions(Integer pageNo) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  Action getActionInfo(Integer actionId) throws DigitalOceanException, RequestUnsuccessfulException;
+
+  Actions getAvailableDropletActions(Integer dropletId, Integer pageNo)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  Actions getAvailableImageActions(Integer imageId, Integer pageNo) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
 
   // ==============================================
   // Images manipulation (aka Distribution) methods
@@ -448,6 +460,21 @@ public interface DigitalOcean {
    * @since v1.0
    */
   Boolean deleteImage(Integer imageId) throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to transfer an image to a specified region.
+   * 
+   * @param imageId the image Id of the droplet/snapshot/backup images
+   * @param regionSlug is code name of the region aka digitalocean data centers
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws ResourceNotFoundException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.0
+   */
+  Action transferImage(Integer imageId, String regionSlug) throws DigitalOceanException,
+      RequestUnsuccessfulException;
 
 
   // ===========================================

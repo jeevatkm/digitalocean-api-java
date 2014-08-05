@@ -80,7 +80,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   private String domainName = "";
   private String domainIp = "127.0.0.1";
 
-  private DigitalOcean apiClient = new DigitalOceanClient(authTokenR);
+  private DigitalOcean apiClient = new DigitalOceanClient(authTokenRW);
 
   // Droplet test cases
 
@@ -138,23 +138,6 @@ public class DigitalOceanIntegrationTest extends TestCase {
   }
 
   @Test
-  public void testGetAvailableActions() throws DigitalOceanException, RequestUnsuccessfulException {
-
-    Actions actions = apiClient.getAvailableActions(dropletIdForInfo, 1);
-    Actions actions3 = apiClient.getAvailableActions(dropletIdForInfo, 3);
-
-    assertNotNull(actions);
-    assertTrue((actions.getActions().size() > 0));
-
-    assertNotNull(actions3);
-    assertTrue((actions3.getActions().size() > 0));
-
-    for (Action a : actions.getActions()) {
-      LOG.info(a.toString());
-    }
-  }
-
-  @Test
   public void testGetDropletInfo() throws DigitalOceanException, RequestUnsuccessfulException {
 
     Droplet droplet = apiClient.getDropletInfo(dropletIdForInfo);
@@ -168,9 +151,9 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testCreateDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
 
     Droplet droplet = new Droplet();
-    droplet.setName("api-client-test-host2");
+    droplet.setName("api-client-test-host");
     droplet.setSize(new Size("512mb"));
-    droplet.setImage(new Image(imageId));
+    droplet.setImage(new Image(1601));
     droplet.setRegion(new Region("sgp1"));
 
     Droplet d = apiClient.createDroplet(droplet);
@@ -184,11 +167,207 @@ public class DigitalOceanIntegrationTest extends TestCase {
   @Test
   public void testDeleteDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    Boolean Object = apiClient.deleteDroplet(2243517);
+    Boolean result = apiClient.deleteDroplet(2258153);
 
-    assertNotNull(Object);
-    LOG.info("Delete Request Object: " + Object);
+    assertNotNull(result);
+    LOG.info("Delete Request Object: " + result);
   }
+
+  @Test
+  public void testRebootDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.rebootDroplet(2258136);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testPowerCycleDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.rebootDroplet(2258136);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testShutdownDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.shutdownDroplet(2258168);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testPowerOffDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.powerOffDroplet(2258168);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testPowerOnDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.powerOnDroplet(2258136);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testResetDropletPassword() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.resetDropletPassword(2258168);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testResizeDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.resizeDroplet(2258136, "1gb");
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testTakeDropletSnapshot() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    // Action action = apiClient.takeDropletSnapshot(2258168, "api-client-test-snapshot1");
+    Action action = apiClient.takeDropletSnapshot(2258136);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testRestoreDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.restoreDroplet(2258168, 5489522); // Snapshot id
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testRebuildDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.rebuildDroplet(2258136, 3445812); // Debian 7.0 x64
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testDisableDropletBackups() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Action action = apiClient.disableDropletBackups(2258168);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testRenameDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.renameDroplet(2258168, "renamed-droplet-name-test");
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testChangeDropletKernel() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.changeDropletKernel(2258168, 1649);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testEnableDropletIpv6() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.enableDropletIpv6(2258168);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testEnableDropletPrivateNetworking() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Action action = apiClient.enableDropletPrivateNetworking(2258168);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+
+  // Action Test cases
+
+  @Test
+  public void testGetAvailableActions() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Actions actions = apiClient.getAvailableActions(1);
+
+    assertNotNull(actions);
+    assertTrue((actions.getActions().size() > 0));
+
+    for (Action a : actions.getActions()) {
+      LOG.info(a.toString());
+    }
+  }
+
+  @Test
+  public void testGetActionInfo() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.getActionInfo(28336352);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testGetAvailableDropletActions() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Actions actions = apiClient.getAvailableDropletActions(dropletIdForInfo, 1);
+    Actions actions3 = apiClient.getAvailableDropletActions(dropletIdForInfo, 3);
+
+    assertNotNull(actions);
+    assertTrue((actions.getActions().size() > 0));
+
+    assertNotNull(actions3);
+    assertTrue((actions3.getActions().size() > 0));
+
+    for (Action a : actions.getActions()) {
+      LOG.info(a.toString());
+    }
+  }
+
+  @Test
+  public void testGetAvailableImageActions() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Actions actions = apiClient.getAvailableImageActions(3794738, 1);
+
+    assertNotNull(actions);
+    assertTrue((actions.getActions().size() > 0));
+
+    for (Action a : actions.getActions()) {
+      LOG.info(a.toString());
+    }
+  }
+
 
 
   // Image test cases
@@ -237,6 +416,22 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(image);
 
     LOG.info(image.toString());
+  }
+
+  @Test
+  public void testDeleteImage() throws DigitalOceanException, RequestUnsuccessfulException {
+    Boolean result = apiClient.deleteImage(3897539);
+
+    assertNotNull(result);
+    LOG.info("Delete Request result: " + result);
+  }
+
+  @Test
+  public void testTransferImage() throws DigitalOceanException, RequestUnsuccessfulException {
+    Action action = apiClient.transferImage(5489522, "lon1");
+
+    assertNotNull(action);
+    LOG.info(action.toString());
   }
 
 
@@ -309,10 +504,10 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
   @Test
   public void testDeleteDomain() throws DigitalOceanException, RequestUnsuccessfulException {
-    Boolean Object = apiClient.deleteDomain(domainName);
+    Boolean result = apiClient.deleteDomain(domainName);
 
-    assertNotNull(Object);
-    LOG.info("Delete Request Object: " + Object);
+    assertNotNull(result);
+    LOG.info("Delete Request Object: " + result);
   }
 
 }

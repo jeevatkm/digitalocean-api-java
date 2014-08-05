@@ -47,9 +47,8 @@ public enum ApiAction {
   AVAILABLE_DROPLETS("/droplets", "droplets", RequestMethod.GET, Droplets.class),
   AVAILABLE_DROPLETS_KERNELS("/droplets/%s/kernels", "kernels", RequestMethod.GET, Kernels.class),
   GET_DROPLET_SNAPSHOTS("/droplets/%s/snapshots", "snapshots", RequestMethod.GET, Snapshots.class),
-  GET_DROPLET_BACKUPS("/droplets/%s/backups", "backups", RequestMethod.GET, Backups.class),
-  GET_DROPLET_ACTIONS("/droplets/%s/actions", "actions", RequestMethod.GET, Actions.class),
-  GET_DROPLET_INFO("/droplets/%s", "droplet", RequestMethod.GET, Droplet.class),
+  GET_DROPLET_BACKUPS("/droplets/%s/backups", "backups", RequestMethod.GET, Backups.class),  
+  GET_DROPLET_INFO("/droplets/%s", "droplet", RequestMethod.GET, Droplet.class),  
   CREATE_DROPLET("/droplets", "droplet", RequestMethod.POST, Droplet.class),
   DELETE_DROPLET("/droplets/%s", RequestMethod.DELETE),
   REBOOT_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
@@ -69,22 +68,30 @@ public enum ApiAction {
   SNAPSHOT_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   
   
+  // Action
+  AVAILABLE_ACTIONS("/actions", "actions", RequestMethod.GET, Actions.class),
+  GET_ACTION_INFO("/actions/%s", "action", RequestMethod.GET, Action.class),
+  GET_DROPLET_ACTIONS("/droplets/%s/actions", "actions", RequestMethod.GET, Actions.class),
+  GET_IMAGE_ACTIONS("/images/%s/actions", "actions", RequestMethod.GET, Actions.class),
+  
+  
   // Image
-  AVAILABLE_IMAGES("/images", "images", RequestMethod.GET, Images.class),
-  GET_IMAGE_INFO("/images/%s", "image", RequestMethod.GET, Image.class),
+  AVAILABLE_IMAGES("/images", "images", RequestMethod.GET, Images.class),  
+  GET_IMAGE_INFO("/images/%s", "image", RequestMethod.GET, Image.class),  
   UPDATE_IMAGE_INFO("/images/%s", "image", RequestMethod.PUT, Image.class),
   DELETE_IMAGE("/images/%s", RequestMethod.DELETE),
+  TRANSFER_IMAGE("/images/%s/actions", "action", RequestMethod.POST, Action.class),
   
   
   // Region
   AVAILABLE_REGIONS("/regions", "regions", RequestMethod.GET, Regions.class),
   
   
-  // Sizes
+  // Size
   AVAILABLE_SIZES("/sizes", "sizes", RequestMethod.GET, Sizes.class),
   
   
-  // Domains
+  // Domain
   AVAILABLE_DOMAINS("/domains", "domains", RequestMethod.GET, Domains.class),
   GET_DOMAIN_INFO("/domains/%s", "domain", RequestMethod.GET, Domain.class),
   CREATE_DOMAIN("/domains", "domain", RequestMethod.POST, Domain.class),  

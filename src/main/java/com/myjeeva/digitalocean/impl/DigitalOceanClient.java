@@ -40,6 +40,7 @@ import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.DropletAction;
 import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.Image;
+import com.myjeeva.digitalocean.pojo.ImageAction;
 import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
 import com.myjeeva.digitalocean.pojo.Regions;
@@ -116,15 +117,6 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
     Object[] params = {dropletId};
     return (Backups) invokeAction(new ApiRequest(ApiAction.GET_DROPLET_BACKUPS, params, pageNo));
-  }
-
-  @Override
-  public Actions getAvailableActions(Integer dropletId, Integer pageNo)
-      throws DigitalOceanException, RequestUnsuccessfulException {
-    validateDropletIdAndPageNo(dropletId, pageNo);
-
-    Object[] params = {dropletId};
-    return (Actions) invokeAction(new ApiRequest(ApiAction.GET_DROPLET_ACTIONS, params, pageNo));
   }
 
   @Override
@@ -326,6 +318,46 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   }
 
 
+  // ==============================================
+  // Actions manipulation/access methods
+  // ==============================================
+
+  @Override
+  public Actions getAvailableActions(Integer pageNo) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validatePageNo(pageNo);
+    return (Actions) invokeAction(new ApiRequest(ApiAction.AVAILABLE_ACTIONS, pageNo));
+  }
+
+  @Override
+  public Action getActionInfo(Integer actionId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    checkNullAndThrowError(actionId, "Missing required parameter - actionId");
+
+    Object[] params = {actionId};
+    return (Action) invokeAction(new ApiRequest(ApiAction.GET_ACTION_INFO, params));
+  }
+
+  @Override
+  public Actions getAvailableDropletActions(Integer dropletId, Integer pageNo)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    validateDropletIdAndPageNo(dropletId, pageNo);
+
+    Object[] params = {dropletId};
+    return (Actions) invokeAction(new ApiRequest(ApiAction.GET_DROPLET_ACTIONS, params, pageNo));
+  }
+
+  @Override
+  public Actions getAvailableImageActions(Integer imageId, Integer pageNo)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    checkNullAndThrowError(imageId, "Missing required parameter - imageId.");
+    validatePageNo(pageNo);
+
+    Object[] params = {imageId};
+    return (Actions) invokeAction(new ApiRequest(ApiAction.GET_IMAGE_ACTIONS, params, pageNo));
+  }
+
+
   // =======================================
   // Images access/manipulation methods
   // =======================================
@@ -371,6 +403,17 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
     Object[] params = {imageId};
     return (Boolean) invokeAction(new ApiRequest(ApiAction.DELETE_IMAGE, params));
+  }
+
+  @Override
+  public Action transferImage(Integer imageId, String regionSlug) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    checkNullAndThrowError(imageId, "Missing required parameter - imageId.");
+    checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+
+    Object[] params = {imageId};
+    return (Action) invokeAction(new ApiRequest(ApiAction.TRANSFER_IMAGE, new ImageAction(
+        ActionType.TRANSFER, regionSlug), params));
   }
 
 
