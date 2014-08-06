@@ -35,6 +35,8 @@ import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backup;
 import com.myjeeva.digitalocean.pojo.Backups;
 import com.myjeeva.digitalocean.pojo.Domain;
+import com.myjeeva.digitalocean.pojo.DomainRecord;
+import com.myjeeva.digitalocean.pojo.DomainRecords;
 import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
@@ -509,5 +511,53 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(result);
     LOG.info("Delete Request Object: " + result);
   }
+
+  @Test
+  public void testGetDomainRecords() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    DomainRecords domainRecords = apiClient.getDomainRecords("rakeshshetty.me");
+
+    assertNotNull(domainRecords);
+    assertTrue((domainRecords.getDomainRecords().size() > 0));
+
+    for (DomainRecord dr : domainRecords.getDomainRecords()) {
+      LOG.info(dr.toString());
+    }
+  }
+
+  @Test
+  public void testGetDomainRecordInfo() throws DigitalOceanException, RequestUnsuccessfulException {
+    DomainRecord domainRecord = apiClient.getDomainRecordInfo("jeeutil.com", 160448);
+
+    assertNotNull(domainRecord);
+    LOG.info(domainRecord.toString());
+  }
+
+  @Test
+  public void testCreateDomainRecord() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    DomainRecord input = new DomainRecord("test", "@", "CNAME");
+    DomainRecord domainRecord = apiClient.createDomainRecord("jeeutil.com", input);
+
+    assertNotNull(domainRecord);
+    LOG.info(domainRecord.toString());
+  }
+
+  @Test
+  public void testUpdateDomainRecord() throws DigitalOceanException, RequestUnsuccessfulException {
+    DomainRecord domainRecord = apiClient.updateDomainRecord("jeeutil.com", 2596063, "testjs");
+
+    assertNotNull(domainRecord);
+    LOG.info(domainRecord.toString());
+  }
+
+  @Test
+  public void testDeleteDomainRecord() throws DigitalOceanException, RequestUnsuccessfulException {
+    Boolean result = apiClient.deleteDomainRecord("jeeutil.com", 2576287);
+
+    assertNotNull(result);
+    LOG.info("Delete Request Object: " + result);
+  }
+
 
 }

@@ -22,6 +22,8 @@ package com.myjeeva.digitalocean.pojo;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Represents DomainRecord (TLD) Record attributes of DigitalOcean DNS. Revised as per v2 API data
  * structure.
@@ -32,17 +34,45 @@ public class DomainRecord {
 
   private Integer id;
 
+  @Expose
   private String type;
 
+  @Expose
   private String name;
 
+  @Expose
   private String data;
 
+  @Expose
   private String priority;
 
+  @Expose
   private Integer port;
 
+  @Expose
   private Integer weight;
+
+  public DomainRecord() {
+    // Default Constructor
+  }
+
+  public DomainRecord(String name) {
+    this.name = name;
+  }
+
+  public DomainRecord(String name, String data, String type) {
+    this(name, data, type, null, null, null);
+  }
+
+  public DomainRecord(String name, String data, String type, String priority, Integer port,
+      Integer weight) {
+    this.name = name;
+    this.data = data;
+    this.type = type;
+    this.priority = priority;
+    this.port = port;
+    this.weight = weight;
+  }
 
   @Override
   public String toString() {

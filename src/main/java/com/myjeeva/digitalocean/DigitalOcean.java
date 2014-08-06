@@ -26,6 +26,8 @@ import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
 import com.myjeeva.digitalocean.pojo.Domain;
+import com.myjeeva.digitalocean.pojo.DomainRecord;
+import com.myjeeva.digitalocean.pojo.DomainRecords;
 import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
@@ -563,7 +565,6 @@ public interface DigitalOcean {
    * @param domainName the name of the domain
    * @return {@link Boolean}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v2.0
@@ -571,5 +572,71 @@ public interface DigitalOcean {
   Boolean deleteDomain(String domainName) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
+  /**
+   * Method returns all of your current domain records from DNS control panel for given domain.
+   * 
+   * @param domainName of the domain
+   * @return {@link DomainRecords}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.1
+   */
+  DomainRecords getDomainRecords(String domainName) throws DigitalOceanException,
+      RequestUnsuccessfulException;
 
+  /**
+   * Method creates a new domain record name with an given domain record values
+   * 
+   * @param domainName of the domain
+   * @param domainRecord the domain record values domain Id, record type, data, name, priority,
+   *        port, weight
+   * @return {@link DomainRecord}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.1
+   */
+  DomainRecord createDomainRecord(String domainName, DomainRecord domainRecord)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method returns the specified domain record.
+   * 
+   * @param domainName of the domain
+   * @param recordId of the domain
+   * @return {@link DomainRecord}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v1.1
+   */
+  DomainRecord getDomainRecordInfo(String domainName, Integer recordId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * method edits an existing domain record of the given domain.
+   * 
+   * @param domainName of the domain
+   * @param recordId of the domain
+   * @param name of the domain record
+   * @return {@link DomainRecord}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  DomainRecord updateDomainRecord(String domainName, Integer recordId, String name)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method deletes the specified domain record from domain.
+   * 
+   * @throws RequestUnsuccessfulException
+   * @throws DigitalOceanException
+   * 
+   * @since v1.1
+   */
+  Boolean deleteDomainRecord(String domainName, Integer recordId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
 }

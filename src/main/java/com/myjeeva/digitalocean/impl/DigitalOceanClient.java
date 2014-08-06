@@ -35,6 +35,8 @@ import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
 import com.myjeeva.digitalocean.pojo.Domain;
+import com.myjeeva.digitalocean.pojo.DomainRecord;
+import com.myjeeva.digitalocean.pojo.DomainRecords;
 import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.DropletAction;
@@ -455,7 +457,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   @Override
   public Domain getDomainInfo(String domainName) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    checkEmptyAndThrowError(domainName, "Missing required parameter - domainId.");
+    checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
 
     Object[] params = {domainName};
     return (Domain) invokeAction(new ApiRequest(ApiAction.GET_DOMAIN_INFO, params));
@@ -464,7 +466,7 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   @Override
   public Domain createDomain(Domain domain) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    checkEmptyAndThrowError(domain.getName(), "Missing required parameter - domainId.");
+    checkEmptyAndThrowError(domain.getName(), "Missing required parameter - domainName.");
     checkEmptyAndThrowError(domain.getIpAddress(), "Missing required parameter - ipAddress.");
 
     return (Domain) invokeAction(new ApiRequest(ApiAction.CREATE_DOMAIN, domain));
@@ -473,12 +475,65 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   @Override
   public Boolean deleteDomain(String domainName) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    checkEmptyAndThrowError(domainName, "Missing required parameter - domainId.");
+    checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
 
     Object[] params = {domainName};
     return (Boolean) invokeAction(new ApiRequest(ApiAction.DELETE_DOMAIN, params));
   }
 
+  @Override
+  public DomainRecords getDomainRecords(String domainName) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
+
+    Object[] params = {domainName};
+    return (DomainRecords) invokeAction(new ApiRequest(ApiAction.GET_DOMAIN_RECORDS, params));
+  }
+
+  @Override
+  public DomainRecord getDomainRecordInfo(String domainName, Integer recordId)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
+    checkNullAndThrowError(recordId, "Missing required parameter - recordId.");
+
+    Object[] params = {domainName, recordId};
+    return (DomainRecord) invokeAction(new ApiRequest(ApiAction.GET_DOMAIN_RECORD_INFO, params));
+  }
+
+  @Override
+  public DomainRecord createDomainRecord(String domainName, DomainRecord domainRecord)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
+    if (null == domainRecord) {
+      throw new IllegalArgumentException("Missing required parameter - domainRecord");
+    }
+
+    Object[] params = {domainName};
+    return (DomainRecord) invokeAction(new ApiRequest(ApiAction.CREATE_DOMAIN_RECORD, domainRecord,
+        params));
+  }
+
+  @Override
+  public DomainRecord updateDomainRecord(String domainName, Integer recordId, String name)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
+    checkNullAndThrowError(recordId, "Missing required parameter - recordId.");
+    checkEmptyAndThrowError(name, "Missing required parameter - name.");
+
+    Object[] params = {domainName, recordId};
+    return (DomainRecord) invokeAction(new ApiRequest(ApiAction.UPDATE_DOMAIN_RECORD,
+        new DomainRecord(name), params));
+  }
+
+  @Override
+  public Boolean deleteDomainRecord(String domainName, Integer recordId)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
+    checkNullAndThrowError(recordId, "Missing required parameter - recordId.");
+
+    Object[] params = {domainName, recordId};
+    return (Boolean) invokeAction(new ApiRequest(ApiAction.DELETE_DOMAIN_RECORD, params));
+  }
 
 
   private Object invokeAction(ApiRequest request) throws DigitalOceanException,
@@ -506,12 +561,14 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
   private void checkNullAndThrowError(Integer integer, String msg) {
     if (null == integer) {
+      LOG.error(msg);
       throw new IllegalArgumentException(msg);
     }
   }
 
   private void checkEmptyAndThrowError(String str, String msg) {
     if (StringUtils.isEmpty(str)) {
+      LOG.error(msg);
       throw new IllegalArgumentException(msg);
     }
   }
