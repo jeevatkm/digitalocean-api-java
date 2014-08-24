@@ -38,14 +38,35 @@ import com.myjeeva.digitalocean.pojo.Droplet;
 public class DropletSerializer implements JsonSerializer<Droplet> {
 
   @Override
-  public JsonElement serialize(Droplet droplet, Type paramType,
-      JsonSerializationContext paramJsonSerializationContext) {
+  public JsonElement serialize(Droplet droplet, Type paramType, JsonSerializationContext context) {
 
     final JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("name", droplet.getName());
     jsonObject.addProperty("region", droplet.getRegion().getSlug());
     jsonObject.addProperty("size", droplet.getSize().getSlug());
-    jsonObject.addProperty("image", droplet.getImage().getId());
+
+    if (null == droplet.getImage().getId()) {
+      jsonObject.addProperty("image", droplet.getImage().getSlug());
+    } else {
+      jsonObject.addProperty("image", droplet.getImage().getId());
+    }
+
+    if (null != droplet.getEnableBackup()) {
+      jsonObject.addProperty("backups", droplet.getEnableBackup());
+    }
+
+    if (null != droplet.getEnableIpv6()) {
+      jsonObject.addProperty("ipv6", droplet.getEnableIpv6());
+    }
+
+    if (null != droplet.getEnablePrivateNetworking()) {
+      jsonObject.addProperty("private_networking", droplet.getEnablePrivateNetworking());
+    }
+
+    if (null != droplet.getKeys() && droplet.getKeys().size() > 0) {
+      final JsonElement jsonSshKeys = context.serialize(droplet.getKeys());
+      jsonObject.add("ssh_keys", jsonSshKeys);
+    }
 
     return jsonObject;
   }

@@ -133,10 +133,14 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
   @Override
   public Droplet createDroplet(Droplet droplet) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    if (null == droplet || null == droplet.getName() || null == droplet.getRegion()
-        || null == droplet.getSize() || null == droplet.getImage()) {
+    if (null == droplet
+        || null == droplet.getName()
+        || null == droplet.getRegion()
+        || null == droplet.getSize()
+        || (null == droplet.getImage() || (null == droplet.getImage().getId() && null == droplet
+            .getImage().getSlug()))) {
       throw new IllegalArgumentException(
-          "Missing required parameters [Name, Region Slug, Size Slug, Image Id]");
+          "Missing required parameters [Name, Region Slug, Size Slug, Image Id/Slug] for create droplet.");
     }
 
     return (Droplet) invokeAction(new ApiRequest(ApiAction.CREATE_DROPLET, droplet));

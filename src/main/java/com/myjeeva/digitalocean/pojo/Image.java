@@ -61,6 +61,10 @@ public class Image {
     this.id = id;
   }
 
+  public Image(String slug) {
+    this.slug = slug;
+  }
+
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);

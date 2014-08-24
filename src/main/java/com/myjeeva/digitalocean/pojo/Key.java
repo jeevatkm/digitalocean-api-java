@@ -24,6 +24,7 @@ import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -35,10 +36,12 @@ public class Key implements Serializable {
 
   private static final long serialVersionUID = 3454646433241484585L;
 
+  @Expose
   private Integer id;
 
   private String name;
 
+  @Expose
   private String fingerprint;
 
   @SerializedName("public_key")

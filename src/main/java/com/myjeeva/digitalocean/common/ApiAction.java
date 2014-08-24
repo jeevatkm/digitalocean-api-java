@@ -107,12 +107,13 @@ public enum ApiAction {
   UPDATE_DOMAIN_RECORD("/domains/%s/records/%s", "domain_record", RequestMethod.PUT, DomainRecord.class),
   DELETE_DOMAIN_RECORD("/domains/%s/records/%s", RequestMethod.DELETE),
   
-  /*  
-  AVAILABLE_SSH_KEYS("/ssh_keys/", "ssh_keys"),
-  CREATE_SSH_KEY("/ssh_keys/new/", "ssh_key"),
-  GET_SSH_KEY("/ssh_keys/%s/", "ssh_key"),
-  EDIT_SSH_KEY("/ssh_keys/%s/edit/", "ssh_key"),
-  DELETE_SSH_KEY("/ssh_keys/%s/destroy/"),*/;    
+  
+  // Key
+  AVAILABLE_KEYS("/account/keys", "ssh_keys"),
+  CREATE_KEY("/ssh_keys/new/", "ssh_key"),
+  GET_KEY_INFO("/ssh_keys/%s/", "ssh_key"),
+  UPDATE_KEY("/ssh_keys/%s/edit/", "ssh_key"),
+  DELETE_KEY("/ssh_keys/%s/destroy/", "");    
    
   private String path;
 

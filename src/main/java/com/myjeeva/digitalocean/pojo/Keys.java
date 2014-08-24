@@ -24,6 +24,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Represents Keys attributes
  * 
@@ -33,6 +35,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  */
 public class Keys extends Base {
 
+  @SerializedName("ssh_keys")
   private List<Key> keys;
 
   @Override

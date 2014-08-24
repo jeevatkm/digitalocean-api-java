@@ -67,6 +67,12 @@ public class Droplet {
 
   private List<String> features;
 
+  private Boolean enableBackup;
+
+  private Boolean enableIpv6;
+
+  private Boolean enablePrivateNetworking;
+
   @SerializedName("backup_ids")
   private List<Integer> backupIds;
 
@@ -75,6 +81,9 @@ public class Droplet {
 
   @SerializedName("action_ids")
   private List<Integer> actionIds;
+
+  @SerializedName("ssh_keys")
+  private List<Key> keys;
 
   @Override
   public String toString() {
@@ -133,7 +142,7 @@ public class Droplet {
   /**
    * @param virutalCpuCount the virutalCpuCount to set
    */
-  public void setNoOfVirutalCpu(Integer virutalCpuCount) {
+  public void setVirutalCpuCount(Integer virutalCpuCount) {
     this.virutalCpuCount = virutalCpuCount;
   }
 
@@ -278,6 +287,48 @@ public class Droplet {
   }
 
   /**
+   * @return the enableBackup
+   */
+  public Boolean getEnableBackup() {
+    return enableBackup;
+  }
+
+  /**
+   * @param enableBackup the enableBackup to set
+   */
+  public void setEnableBackup(Boolean enableBackup) {
+    this.enableBackup = enableBackup;
+  }
+
+  /**
+   * @return the enableIpv6
+   */
+  public Boolean getEnableIpv6() {
+    return enableIpv6;
+  }
+
+  /**
+   * @param enableIpv6 the enableIpv6 to set
+   */
+  public void setEnableIpv6(Boolean enableIpv6) {
+    this.enableIpv6 = enableIpv6;
+  }
+
+  /**
+   * @return the enablePrivateNetworking
+   */
+  public Boolean getEnablePrivateNetworking() {
+    return enablePrivateNetworking;
+  }
+
+  /**
+   * @param enablePrivateNetworking the enablePrivateNetworking to set
+   */
+  public void setEnablePrivateNetworking(Boolean enablePrivateNetworking) {
+    this.enablePrivateNetworking = enablePrivateNetworking;
+  }
+
+  /**
    * @return the backupIds
    */
   public List<Integer> getBackupIds() {
@@ -317,6 +368,20 @@ public class Droplet {
    */
   public void setActionIds(List<Integer> actionIds) {
     this.actionIds = actionIds;
+  }
+
+  /**
+   * @return the keys
+   */
+  public List<Key> getKeys() {
+    return keys;
+  }
+
+  /**
+   * @param keys the keys to set
+   */
+  public void setKeys(List<Key> keys) {
+    this.keys = keys;
   }
 
   /**
