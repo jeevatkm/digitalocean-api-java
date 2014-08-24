@@ -34,6 +34,8 @@ import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
+import com.myjeeva.digitalocean.pojo.Key;
+import com.myjeeva.digitalocean.pojo.Keys;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
@@ -639,4 +641,108 @@ public interface DigitalOcean {
    */
   Boolean deleteDomainRecord(String domainName, Integer recordId) throws DigitalOceanException,
       RequestUnsuccessfulException;
+
+  // ===========================================
+  // SSH Key manipulation methods
+  // ===========================================
+  /**
+   * Method lists all the available public SSH keys in your account that can be added to a droplet.
+   * 
+   * @return {@link Keys}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  Keys getAvailableKeys(Integer pageNo) throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method shows a specific public SSH key information from your account that can be added to a
+   * droplet.
+   * 
+   * @param sshKeyId the SSH key Id
+   * @return {@link Key}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  Key getKeyInfo(Integer sshKeyId) throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method shows a specific public SSH key information from your account that can be added to a
+   * droplet.
+   * 
+   * @param fingerprint the SSH key fingerprint
+   * @return {@link Key}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  Key getKeyInfo(String fingerprint) throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to add a new public SSH key to your account
+   * 
+   * @param newKey the {@link Key} object with sshKeyName and sshPublicKey
+   * @return {@link Key}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  Key createKey(Key newKey) throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to modify an existing SSH key in your account.
+   * 
+   * @param sshKeyId the SSH key Id
+   * @param newSshKeyName the new name to give the SSH key
+   * @return {@link Key}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  Key updateKey(Integer sshKeyId, String newSshKeyName) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to modify an existing SSH key in your account.
+   * 
+   * @param fingerprint the SSH fingerprint
+   * @param newSshKeyName the new name to give the SSH key
+   * @return {@link Key}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  Key updateKey(String fingerprint, String newSshKeyName) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method will delete the SSH key from your account.
+   * 
+   * @param sshKeyId the SSH key Id, you would like to delete
+   * @return {@link Boolean}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  Boolean deleteKey(Integer sshKeyId) throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method will delete the SSH key from your account.
+   * 
+   * @param fingerprint the SSH fingerprint
+   * @return {@link Boolean}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  Boolean deleteKey(String fingerprint) throws DigitalOceanException, RequestUnsuccessfulException;
 }

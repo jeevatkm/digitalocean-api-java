@@ -44,6 +44,8 @@ import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernel;
 import com.myjeeva.digitalocean.pojo.Kernels;
+import com.myjeeva.digitalocean.pojo.Key;
+import com.myjeeva.digitalocean.pojo.Keys;
 import com.myjeeva.digitalocean.pojo.Region;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Size;
@@ -74,9 +76,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
    * with API. So place your's for integration test case before use
    */
   private String authTokenRW = "";
-  private String authTokenR = "";
   private Integer dropletIdForInfo = 10001; // to be placed before use
-  private Integer dropletIdForDelete = 10002;
   private Integer imageId = 3445812; // Debian 7.0 x64 image id
   private String imageSlug = "ubuntu-12-04-x64";
   private String domainName = "";
@@ -150,13 +150,38 @@ public class DigitalOceanIntegrationTest extends TestCase {
   }
 
   @Test
-  public void testCreateDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+  public void testCreateDropletByImageId() throws DigitalOceanException,
+      RequestUnsuccessfulException {
 
     Droplet droplet = new Droplet();
-    droplet.setName("api-client-test-host");
+    droplet.setName("api-client-test-host-byid");
     droplet.setSize(new Size("512mb"));
     droplet.setImage(new Image(1601));
     droplet.setRegion(new Region("sgp1"));
+    droplet.setEnableBackup(Boolean.TRUE);
+    droplet.setEnableIpv6(Boolean.TRUE);
+    droplet.setEnablePrivateNetworking(Boolean.TRUE);
+
+    Droplet d = apiClient.createDroplet(droplet);
+
+    assertNotNull(d);
+    assertNotNull(d.getId());
+
+    LOG.info(d.toString());
+  }
+
+  @Test
+  public void testCreateDropletByImageSlug() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Droplet droplet = new Droplet();
+    droplet.setName("api-client-test-host-byslug");
+    droplet.setSize(new Size("512mb"));
+    droplet.setImage(new Image("centos-5-8-x64"));
+    droplet.setRegion(new Region("sgp1"));
+    droplet.setEnableBackup(Boolean.TRUE);
+    droplet.setEnableIpv6(Boolean.TRUE);
+    droplet.setEnablePrivateNetworking(Boolean.TRUE);
 
     Droplet d = apiClient.createDroplet(droplet);
 
@@ -559,5 +584,90 @@ public class DigitalOceanIntegrationTest extends TestCase {
     LOG.info("Delete Request Object: " + result);
   }
 
+  // SSH Key test cases
 
+  @Test
+  public void testGetAvailableKeys() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Keys keys = apiClient.getAvailableKeys(1);
+
+    assertNotNull(keys);
+    assertTrue((keys.getKeys().size() > 0));
+
+    for (Key k : keys.getKeys()) {
+      LOG.info(k.toString());
+    }
+  }
+
+  @Test
+  public void testCreateKey() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    // Key key = new Key("TestKey1",
+    // "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDiyGRkL26BEFPkce1Xtv8u05t8IYHZ63EVDEoAfvg/HCM7SEauBogDGknd4aMd7p9XtxuEIiojiNDIpTnoYbS0RojzhtomefQ/Lx02Rpfsbj1U3zg1H/MMObgJILGIYyHwfT+1rkkRxJQBVcs2Yj7IOmsrmE6SkAZaDLnMxq74HWzd7sPHxx/Dmv6fE0VMaZa+l7Fwr/2Tm46RMF5vzb93QwwmShV+08Ik/0NjGgP7QcNzT11lrI1eCjwCFyT00sGXR+xa4n+M80NB3b8GqDJDAMKqxELcFkpGyGAqESlYt4DXoCRDmnUwhhHReOuutOUHqrSMCym94FFeJ6p6M1f jenkinsci@dexmedia.com");
+    Key key =
+        new Key(
+            "TestKey1",
+            "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCqMycrkDQdWJUuI5/yx5+Du2BD/W5CXRPnd1xr60MV1zSaRA7OI6sShBontgdI7iepq33hMNaBdr1VttagCjeVJpIsM78Dkcq2NmJ2DKqPnzmfcuJOfcVXO0al2kn4wkYhCKoCV1u3YFCSBW5h3KWOXnptUq30cLUnjgOpAHpugNatJS5Wk8h9V53V2m06FOOty9TY3L8BLQlG3Btl201XMQasFb25izoablwupRLeItzzOHSlwbXWDcrkEQz7o+doOsgpdUfPdQrC1Nv9ujV/Va7BIuUBVVQSznBddCvxmIv/9LIRR7S+Hk+jB8ZgSBcFdmfjdzdQxU39xri5OFTF madanje");
+
+    Key resultKey = apiClient.createKey(key);
+
+    assertNotNull(resultKey);
+    assertNotNull(resultKey.getId());
+    LOG.info(resultKey.toString());
+  }
+
+  @Test
+  public void testGetKeyById() throws DigitalOceanException, RequestUnsuccessfulException {
+    Key resultKey = apiClient.getKeyInfo(245798);
+
+    assertNotNull(resultKey);
+    assertNotNull(resultKey.getId());
+    LOG.info(resultKey.toString());
+  }
+
+  @Test
+  public void testGetKeyByFingerprint() throws DigitalOceanException, RequestUnsuccessfulException {
+    Key resultKey = apiClient.getKeyInfo("3b:0b:99:54:ef:75:cb:88:88:66:3c:8d:10:64:74:32");
+
+    assertNotNull(resultKey);
+    assertNotNull(resultKey.getId());
+    LOG.info(resultKey.toString());
+  }
+
+  @Test
+  public void testUpdateKeyById() throws DigitalOceanException, RequestUnsuccessfulException {
+    Key resultKey = apiClient.updateKey(245798, "TestKey5");
+
+    assertNotNull(resultKey);
+    assertNotNull(resultKey.getId());
+    LOG.info(resultKey.toString());
+  }
+
+  @Test
+  public void testUpdateKeyByFingerprint() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    Key resultKey =
+        apiClient.updateKey("3b:0b:99:54:ef:75:cb:88:88:66:3c:8d:10:64:74:32", "TestKey4");
+
+    assertNotNull(resultKey);
+    assertNotNull(resultKey.getId());
+    LOG.info(resultKey.toString());
+  }
+
+  @Test
+  public void testDeleteKeyById() throws DigitalOceanException, RequestUnsuccessfulException {
+    Boolean result = apiClient.deleteKey(245798);
+
+    assertNotNull(result);
+    LOG.info("Delete Key Request Object: " + result);
+  }
+
+  @Test
+  public void testDeleteKeyByFingerprint() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    Boolean result = apiClient.deleteKey("3b:0b:99:54:ef:75:cb:88:88:66:3c:8d:10:64:74:32");
+
+    assertNotNull(result);
+    LOG.info("Delete Key Request Object: " + result);
+  }
 }

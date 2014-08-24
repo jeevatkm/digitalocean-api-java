@@ -39,13 +39,32 @@ public class Key implements Serializable {
   @Expose
   private Integer id;
 
+  @Expose
   private String name;
 
   @Expose
   private String fingerprint;
 
+  @Expose
   @SerializedName("public_key")
   private String publicKey;
+
+  public Key() {
+    // Default constructor
+  }
+
+  public Key(Integer id) {
+    this.id = id;
+  }
+
+  public Key(String name) {
+    this.name = name;
+  }
+
+  public Key(String name, String publicKey) {
+    this.name = name;
+    this.publicKey = publicKey;
+  }
 
   @Override
   public String toString() {

@@ -194,7 +194,8 @@ public abstract class ClientHelper implements Constants {
       HttpResponse httpResponse = httpClient.execute(request);
 
       int statusCode = httpResponse.getStatusLine().getStatusCode();
-      if (HttpStatus.SC_OK == statusCode || HttpStatus.SC_ACCEPTED == statusCode) {
+      if (HttpStatus.SC_OK == statusCode || HttpStatus.SC_CREATED == statusCode
+          || HttpStatus.SC_ACCEPTED == statusCode) {
         response = httpResponseToString(httpResponse);
       } else {
         response = evaluateResponse(httpResponse);

@@ -32,6 +32,8 @@ import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
+import com.myjeeva.digitalocean.pojo.Key;
+import com.myjeeva.digitalocean.pojo.Keys;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
@@ -109,11 +111,11 @@ public enum ApiAction {
   
   
   // Key
-  AVAILABLE_KEYS("/account/keys", "ssh_keys"),
-  CREATE_KEY("/ssh_keys/new/", "ssh_key"),
-  GET_KEY_INFO("/ssh_keys/%s/", "ssh_key"),
-  UPDATE_KEY("/ssh_keys/%s/edit/", "ssh_key"),
-  DELETE_KEY("/ssh_keys/%s/destroy/", "");    
+  AVAILABLE_KEYS("/account/keys", "ssh_keys", RequestMethod.GET, Keys.class),
+  GET_KEY_INFO("/account/keys/%s", "ssh_key", RequestMethod.GET, Key.class),
+  CREATE_KEY("/account/keys", "ssh_key", RequestMethod.POST, Key.class),  
+  UPDATE_KEY("/account/keys/%s", "ssh_key", RequestMethod.PUT, Key.class),
+  DELETE_KEY("/account/keys/%s", RequestMethod.DELETE);
    
   private String path;
 

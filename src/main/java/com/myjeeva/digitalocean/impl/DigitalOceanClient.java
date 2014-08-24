@@ -45,6 +45,8 @@ import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.ImageAction;
 import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
+import com.myjeeva.digitalocean.pojo.Key;
+import com.myjeeva.digitalocean.pojo.Keys;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
@@ -537,6 +539,79 @@ public class DigitalOceanClient extends ClientHelper implements DigitalOcean {
 
     Object[] params = {domainName, recordId};
     return (Boolean) invokeAction(new ApiRequest(ApiAction.DELETE_DOMAIN_RECORD, params));
+  }
+
+  @Override
+  public Keys getAvailableKeys(Integer pageNo) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    return (Keys) invokeAction(new ApiRequest(ApiAction.AVAILABLE_KEYS, pageNo));
+  }
+
+  @Override
+  public Key getKeyInfo(Integer sshKeyId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    checkNullAndThrowError(sshKeyId, "Missing required parameter - sshKeyId.");
+
+    Object[] params = {sshKeyId};
+    return (Key) invokeAction(new ApiRequest(ApiAction.GET_KEY_INFO, params));
+  }
+
+  @Override
+  public Key getKeyInfo(String fingerprint) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    checkEmptyAndThrowError(fingerprint, "Missing required parameter - fingerprint.");
+
+    Object[] params = {fingerprint};
+    return (Key) invokeAction(new ApiRequest(ApiAction.GET_KEY_INFO, params));
+  }
+
+  @Override
+  public Key createKey(Key newKey) throws DigitalOceanException, RequestUnsuccessfulException {
+    if (null == newKey) {
+      throw new IllegalArgumentException("Missing required parameter - newKey");
+    }
+    checkEmptyAndThrowError(newKey.getName(), "Missing required parameter - name.");
+    checkEmptyAndThrowError(newKey.getPublicKey(), "Missing required parameter - publicKey.");
+
+    return (Key) invokeAction(new ApiRequest(ApiAction.CREATE_KEY, newKey));
+  }
+
+  @Override
+  public Key updateKey(Integer sshKeyId, String newSshKeyName) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    checkNullAndThrowError(sshKeyId, "Missing required parameter - sshKeyId.");
+    checkEmptyAndThrowError(newSshKeyName, "Missing required parameter - newSshKeyName.");
+
+    Object[] params = {sshKeyId};
+    return (Key) invokeAction(new ApiRequest(ApiAction.UPDATE_KEY, new Key(newSshKeyName), params));
+  }
+
+  @Override
+  public Key updateKey(String fingerprint, String newSshKeyName) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    checkEmptyAndThrowError(fingerprint, "Missing required parameter - fingerprint.");
+    checkEmptyAndThrowError(newSshKeyName, "Missing required parameter - newSshKeyName.");
+
+    Object[] params = {fingerprint};
+    return (Key) invokeAction(new ApiRequest(ApiAction.UPDATE_KEY, new Key(newSshKeyName), params));
+  }
+
+  @Override
+  public Boolean deleteKey(Integer sshKeyId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    checkNullAndThrowError(sshKeyId, "Missing required parameter - sshKeyId.");
+
+    Object[] params = {sshKeyId};
+    return (Boolean) invokeAction(new ApiRequest(ApiAction.DELETE_KEY, params));
+  }
+
+  @Override
+  public Boolean deleteKey(String fingerprint) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    checkEmptyAndThrowError(fingerprint, "Missing required parameter - fingerprint.");
+
+    Object[] params = {fingerprint};
+    return (Boolean) invokeAction(new ApiRequest(ApiAction.DELETE_KEY, params));
   }
 
 
