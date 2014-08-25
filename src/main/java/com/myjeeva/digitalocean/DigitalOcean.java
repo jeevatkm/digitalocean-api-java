@@ -46,9 +46,9 @@ import com.myjeeva.digitalocean.pojo.Snapshots;
  * </p>
  * 
  * <p>
- * A simple and meaningful wrapper methods for <a href="https://api.digitalocean.com/"
+ * A simple and meaningful java methods for <a href="https://api.digitalocean.com/"
  * title="DigitalOcean's API">DigitalOcean's API</a>. All of the RESTful that you find in
- * DigitalOcean API's will be made available via simple java methods.
+ * DigitalOcean API's Version 2 is available via simple java methods.
  * </p>
  * 
  * <p>
@@ -56,25 +56,37 @@ import com.myjeeva.digitalocean.pojo.Snapshots;
  * 
  * <pre>
  * // Create a DigitalOcean client
- * DigitalOcean apiClient = new DigitalOceanClient(clientId, apiKey);
+ * DigitalOcean apiClient = new DigitalOceanClient(authToken); 
+ * <code>or</code>
+ * DigitalOcean apiClient = new DigitalOceanClient("v2", authToken);
  * 
- * // Let's invoke the appropriate method as per need
+ * <strong>Let's invoke the appropriate method as per need</strong>
+ * 
  * // Fetching all the available droplets from control panel 
- * List&lt;Droplet> droplets = apiClient.getAvailableDroplets();
+ * Droplets droplets = apiClient.getAvailableDroplets(pageNo);
+ * 
+ * // Fetching all the available kernels for droplet
+ * Kernels kernels = apiClient.getAvailableKernels(dropletId, pageNo); 
  * 
  * // Create a new droplet
  * Droplet newDroplet = new Droplet();
- * newDroplet.setName("api-cliet-test-host");
- * newDroplet.setSizeId(66); // 66 => 512MB plan
- * newDroplet.setRegionId(3); // 3 => San Francisco 1 Data center
- * newDroplet.setImageId(473123); // 473123 => Ubuntu 12.10 x64 Image
+ * newDroplet.setName("api-client-test-host");
+ * newDroplet.setSize(new Size("512mb")); // setting size by slug value
+ * newDroplet.setRegion(new Region("sgp1")); // setting region by slug value; sgp1 => Singapore 1 Data center
+ * newDroplet.setImage(new Image(1601)); // setting by Image Id 1601 => centos-5-8-x64 also available in image slug value
+ * newDroplet.setEnableBackup(Boolean.TRUE);
+ * newDroplet.setEnableIpv6(Boolean.TRUE);
+ * newDroplet.setEnablePrivateNetworking(Boolean.TRUE);
  * Droplet droplet = apiClient.createDroplet(newDroplet); 
  * 
  * // Fetch droplet information 
  * Droplet droplet = apiClient.getDropletInfo(dropletId);
  * 
  * // Fetch Available Plans/Sizes supported by DigitalOcean
- * List&lt;DropletSize> sizes = apiClient.getAvailableSizes();
+ * Sizes sizes = apiClient.getAvailableSizes(pageNo);
+ * 
+ * // Fetch Available Regions supported by DigitalOcean
+ * Sizes sizes = apiClient.getAvailableRegions(pageNo);
  * 
  * and so on... simple to use and effective!
  * </pre>
@@ -93,10 +105,9 @@ public interface DigitalOcean {
    * Method returns all active droplets that are currently running in your account. All available
    * API information is presented for each droplet.
    * 
-   * @param pageNo of request pagination
+   * @param pageNo for pagination
    * @return {@link Droplets}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v2.0
@@ -104,22 +115,54 @@ public interface DigitalOcean {
   Droplets getAvailableDroplets(Integer pageNo) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
+  /**
+   * Method returns all available kernels for given droplet ID
+   * 
+   * @param dropletId for kernel info
+   * @param pageNo for pagination
+   * @return {@link Kernels}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
   Kernels getAvailableKernels(Integer dropletId, Integer pageNo) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
+  /**
+   * Method returns all available snapshots for given droplet ID
+   * 
+   * @param dropletId for snapshot info
+   * @param pageNo for pagination
+   * @return {@link Snapshots}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
   Snapshots getAvailableSnapshots(Integer dropletId, Integer pageNo) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
+  /**
+   * Method returns all available snapshots for given droplet ID
+   * 
+   * @param dropletId for backup info
+   * @param pageNo for pagination
+   * @return {@link Backups}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
   Backups getAvailableBackups(Integer dropletId, Integer pageNo) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
   /**
-   * Method returns full information for a specific droplet ID that is passed in the URL.
+   * Method returns complete information for given droplet ID
    * 
    * @param dropletId the id of the droplet
    * @return {@link Droplet}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -134,7 +177,7 @@ public interface DigitalOcean {
    * </p>
    * 
    * <p>
-   * Create a instance of {@link Droplet} object and populated the droplet object appropriately.
+   * Create a instance of {@link Droplet} class and populated the droplet object appropriately.
    * </p>
    * <p>
    * Minimum required values are -
@@ -152,7 +195,6 @@ public interface DigitalOcean {
    * @param droplet the id of the droplet
    * @return {@link Droplet}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -160,12 +202,11 @@ public interface DigitalOcean {
   Droplet createDroplet(Droplet droplet) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
-   * Method destroys one of your droplets; this is irreversible.
+   * Method destroys one of your droplet; this is irreversible.
    * 
    * @param dropletId the id of the droplet
    * @return {@link Boolean}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -182,7 +223,6 @@ public interface DigitalOcean {
    * @param dropletId the id of the droplet
    * @return {@link Action}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -197,7 +237,6 @@ public interface DigitalOcean {
    * @param dropletId the id of the droplet
    * @return {@link Action}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -206,12 +245,11 @@ public interface DigitalOcean {
       RequestUnsuccessfulException;
 
   /**
-   * Method allows you to shutdown a running droplet. The droplet will remain in your account.
+   * Method allows you to shutdown a running droplet.
    * 
    * @param dropletId the id of the droplet
    * @return {@link Action}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -220,12 +258,11 @@ public interface DigitalOcean {
       RequestUnsuccessfulException;
 
   /**
-   * Method allows you to poweroff a running droplet. The droplet will remain in your account.
+   * Method allows you to poweroff a running droplet.
    * 
    * @param dropletId the id of the droplet
    * @return {@link Action}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -239,7 +276,6 @@ public interface DigitalOcean {
    * @param dropletId the id of the droplet
    * @return {@link Action}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -254,7 +290,6 @@ public interface DigitalOcean {
    * @param dropletId the id of the droplet
    * @return {@link Action}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -270,7 +305,6 @@ public interface DigitalOcean {
    * @param size of the droplet
    * @return {@link Action}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -285,7 +319,6 @@ public interface DigitalOcean {
    * @param dropletId the id of the droplet
    * @return {@link Action}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -301,7 +334,6 @@ public interface DigitalOcean {
    * @param snapshotName the name the snapshot to be created
    * @return {@link Action}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -315,9 +347,9 @@ public interface DigitalOcean {
    * information prior to restore.
    * 
    * @param dropletId the id of the droplet
+   * @param imageId the id of the DigitalOcean public image or your private image
    * @return {@link Action}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -330,9 +362,9 @@ public interface DigitalOcean {
    * start again but retain the same IP address for your droplet.
    * 
    * @param dropletId the id of the droplet
+   * @param imageId the id of the DigitalOcean public image or your private image
    * @return {@link Action}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -346,7 +378,6 @@ public interface DigitalOcean {
    * @param dropletId the id of the droplet
    * @return {@link Action}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -358,9 +389,9 @@ public interface DigitalOcean {
    * Method renames the droplet to the specified name.
    * 
    * @param dropletId the id of the droplet
+   * @param name the new name of droplet to be called
    * @return {@link Action}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -368,12 +399,42 @@ public interface DigitalOcean {
   Action renameDroplet(Integer dropletId, String name) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
+  /**
+   * Method changes a OS kernel for given droplet
+   * 
+   * @param dropletId the id of the droplet
+   * @param kernelId the kernel id to be changed for droplet
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
   Action changeDropletKernel(Integer dropletId, Integer kernelId) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
+  /**
+   * Enabling IP v6 networking capability for droplet. It may be dependent on Data Center Features.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   */
   Action enableDropletIpv6(Integer dropletId) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
+  /**
+   * Enabling private networking capability for droplet. It may be dependent on Data Center
+   * Features.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
   Action enableDropletPrivateNetworking(Integer dropletId) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
@@ -382,14 +443,56 @@ public interface DigitalOcean {
   // Actions manipulation/access methods
   // ==============================================
 
+  /**
+   * Method return all the action informations, regardless of categories.
+   * 
+   * @param pageNo for pagination
+   * @return {@link Actions}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
   Actions getAvailableActions(Integer pageNo) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
+  /**
+   * To retrieve a specific action information by action ID
+   * 
+   * @param actionId the id of action
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
   Action getActionInfo(Integer actionId) throws DigitalOceanException, RequestUnsuccessfulException;
 
+  /**
+   * Method return all the action informations; specific to given Droplet Id
+   * 
+   * @param dropletId the id of the droplet
+   * @param pageNo for pagination
+   * @return {@link Actions}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
   Actions getAvailableDropletActions(Integer dropletId, Integer pageNo)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
+  /**
+   * Method return all the action informations; specific to given Image Id
+   * 
+   * @param imageId the id of the Image
+   * @param pageNo for pagination
+   * @return {@link Actions}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
   Actions getAvailableImageActions(Integer imageId, Integer pageNo) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
@@ -398,17 +501,16 @@ public interface DigitalOcean {
   // Images manipulation (aka Distribution) methods
   // ==============================================
   /**
-   * Method returns all the available images that can be accessed by your client ID. You will have
+   * Method returns all the available images that can be accessed by your OAuth Token. You will have
    * access to all public images by default, and any snapshots or backups that you have created in
    * your own account.
    * 
    * @param pageNo of request pagination
-   * @return Images
+   * @return {@link Images}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
-   * @since v2.0
+   * @since v1.0
    */
   Images getAvailableImages(Integer pageNo) throws DigitalOceanException,
       RequestUnsuccessfulException;
@@ -419,7 +521,6 @@ public interface DigitalOcean {
    * @param imageId the image Id of the droplet/snapshot/backup images
    * @return {@link Image}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -432,7 +533,6 @@ public interface DigitalOcean {
    * @param slug of the public image
    * @return {@link Image}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v2.0
@@ -458,7 +558,6 @@ public interface DigitalOcean {
    * @param imageId of the droplet/snapshot/backup images
    * @return {@link Boolean}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -468,11 +567,10 @@ public interface DigitalOcean {
   /**
    * Method allows you to transfer an image to a specified region.
    * 
-   * @param imageId the image Id of the droplet/snapshot/backup images
-   * @param regionSlug is code name of the region aka digitalocean data centers
+   * @param imageId the Id of the droplet/snapshot/backup images
+   * @param regionSlug is code name of the region aka DigitalOcean data centers
    * @return {@link Action}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -485,15 +583,14 @@ public interface DigitalOcean {
   // Regions (aka Data Centers) methods
   // ===========================================
   /**
-   * Method will return all the available regions within the DigitalOcean cloud.
+   * Method returns all the available regions within the DigitalOcean cloud.
    * 
-   * @param pageNo of request pagination
+   * @param pageNo for pagination
    * @return {@link Regions}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
-   * @since v2.0
+   * @since v1.0
    */
   Regions getAvailableRegions(Integer pageNo) throws DigitalOceanException,
       RequestUnsuccessfulException;
@@ -505,10 +602,9 @@ public interface DigitalOcean {
   /**
    * Method returns all the available sizes that can be used to create a droplet.
    * 
-   * @param pageNo of request pagination
+   * @param pageNo for pagination
    * @return {@link Sizes}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
@@ -523,13 +619,12 @@ public interface DigitalOcean {
   /**
    * Method returns all of your available domains from DNS control panel
    * 
-   * @param pageNo of request pagination
+   * @param pageNo for pagination
    * @return {@link Domains}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
-   * @since v2.0
+   * @since v1.0
    */
   Domains getAvailableDomains(Integer pageNo) throws DigitalOceanException,
       RequestUnsuccessfulException;
@@ -540,7 +635,6 @@ public interface DigitalOcean {
    * @param domainName the name of the domain
    * @return {@link Domain}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v2.0
@@ -554,7 +648,6 @@ public interface DigitalOcean {
    * @param domain object with name and IP address for creation
    * @return {@link Domain}
    * @throws DigitalOceanException
-   * @throws ResourceNotFoundException
    * @throws RequestUnsuccessfulException
    * 
    * @since v2.0
@@ -569,7 +662,7 @@ public interface DigitalOcean {
    * @throws DigitalOceanException
    * @throws RequestUnsuccessfulException
    * 
-   * @since v2.0
+   * @since v1.0
    */
   Boolean deleteDomain(String domainName) throws DigitalOceanException,
       RequestUnsuccessfulException;
@@ -634,6 +727,8 @@ public interface DigitalOcean {
   /**
    * Method deletes the specified domain record from domain.
    * 
+   * @param domainName of the domain
+   * @param recordId of the domain
    * @throws RequestUnsuccessfulException
    * @throws DigitalOceanException
    * 
@@ -642,17 +737,19 @@ public interface DigitalOcean {
   Boolean deleteDomainRecord(String domainName, Integer recordId) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
+
   // ===========================================
   // SSH Key manipulation methods
   // ===========================================
   /**
    * Method lists all the available public SSH keys in your account that can be added to a droplet.
    * 
+   * @param pageNo for pagination
    * @return {@link Keys}
    * @throws DigitalOceanException
    * @throws RequestUnsuccessfulException
    * 
-   * @since v2.0
+   * @since v1.2
    */
   Keys getAvailableKeys(Integer pageNo) throws DigitalOceanException, RequestUnsuccessfulException;
 
@@ -665,7 +762,7 @@ public interface DigitalOcean {
    * @throws DigitalOceanException
    * @throws RequestUnsuccessfulException
    * 
-   * @since v2.0
+   * @since v1.2
    */
   Key getKeyInfo(Integer sshKeyId) throws DigitalOceanException, RequestUnsuccessfulException;
 
@@ -690,7 +787,7 @@ public interface DigitalOcean {
    * @throws DigitalOceanException
    * @throws RequestUnsuccessfulException
    * 
-   * @since v2.0
+   * @since v1.2
    */
   Key createKey(Key newKey) throws DigitalOceanException, RequestUnsuccessfulException;
 
@@ -703,7 +800,7 @@ public interface DigitalOcean {
    * @throws DigitalOceanException
    * @throws RequestUnsuccessfulException
    * 
-   * @since v2.0
+   * @since v1.2
    */
   Key updateKey(Integer sshKeyId, String newSshKeyName) throws DigitalOceanException,
       RequestUnsuccessfulException;
@@ -730,7 +827,7 @@ public interface DigitalOcean {
    * @throws DigitalOceanException
    * @throws RequestUnsuccessfulException
    * 
-   * @since v2.0
+   * @since v1.2
    */
   Boolean deleteKey(Integer sshKeyId) throws DigitalOceanException, RequestUnsuccessfulException;
 
