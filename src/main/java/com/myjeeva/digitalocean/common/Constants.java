@@ -20,22 +20,13 @@
  */
 package com.myjeeva.digitalocean.common;
 
-import java.lang.reflect.Type;
-import java.util.List;
-
-import com.google.gson.reflect.TypeToken;
-import com.myjeeva.digitalocean.pojo.Domain;
-import com.myjeeva.digitalocean.pojo.DomainRecord;
-import com.myjeeva.digitalocean.pojo.Droplet;
-import com.myjeeva.digitalocean.pojo.Image;
-import com.myjeeva.digitalocean.pojo.Size;
-import com.myjeeva.digitalocean.pojo.Region;
-import com.myjeeva.digitalocean.pojo.Key;
 
 /**
  * DigitalOcean API client Constants
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
+ * 
+ * @since v1.0
  */
 public interface Constants {
 
@@ -52,39 +43,4 @@ public interface Constants {
 
   // HTTP Param name
   String PARAM_PAGE_NO = "page";
-  
-  
-  
-  String PARAM_CLIENT_ID = "client_id";
-  String PARAM_API_KEY = "api_key";
-  String PARAM_NAME = "name";
-  String PARAM_SIDE_ID = "size_id";
-  String PARAM_REGION_ID = "region_id";
-  String PARAM_IMAGE_ID = "image_id";
-  String PARAM_SSH_KEY_IDS = "ssh_key_ids";
-  String PARAM_IP_ADDRESS = "ip_address";
-  String PARAM_RECORD_TYPE = "record_type";
-  String PARAM_DATA = "data";
-  String PARAM_PRIORITY = "priority";
-  String PARAM_PORT = "port";
-  String PARAM_WEIGHT = "weight";
-  String PARAM_SSH_PUB_KEY = "ssh_pub_key";
-
-  // JSON Element Name
-  String STATUS = "status";
-
-  // Gson Type Tokens
-  Type TYPE_DROPLET_LIST = new TypeToken<List<Droplet>>() {}.getType();
-
-  Type TYPE_IMAGE_LIST = new TypeToken<List<Image>>() {}.getType();
-
-  Type TYPE_REGION_LIST = new TypeToken<List<Region>>() {}.getType();
-
-  Type TYPE_SIZE_LIST = new TypeToken<List<Size>>() {}.getType();
-
-  Type TYPE_DOMAIN_LIST = new TypeToken<List<Domain>>() {}.getType();
-
-  Type TYPE_DOMAIN_RECORD_LIST = new TypeToken<List<DomainRecord>>() {}.getType();
-
-  Type TYPE_SSH_KEY_LIST = new TypeToken<List<Key>>() {}.getType();
 }
