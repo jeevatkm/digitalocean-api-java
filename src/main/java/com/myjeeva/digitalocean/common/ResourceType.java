@@ -18,15 +18,50 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean.pojo;
+package com.myjeeva.digitalocean.common;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents Snapshot attributes
+ * Enumeration of DigitalOcean Resource Types
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.4
+ * @since v2.0
  */
-public class Snapshot extends Image {
+public enum ResourceType {
 
+  @SerializedName("droplet")
+  DROPLET("droplet"),
+  
+  @SerializedName("image")
+  IMAGE("image"),
+  
+  @SerializedName("backend")
+  BACKEND("backend");
+
+  private String value;
+
+  ResourceType(String value) {
+    this.value = value;
+  }
+
+  @Override
+  public String toString() {
+    return this.value;
+  }
+
+  public static ResourceType fromValue(String value) {
+    if (null == value || "".equals(value)) {
+      throw new IllegalArgumentException("Value cannot be null or empty!");
+    }
+
+    for (ResourceType rt : ResourceType.values()) {
+      if (value.equalsIgnoreCase(rt.value)) {
+        return rt;
+      }
+    }
+
+    throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
+  }
 }

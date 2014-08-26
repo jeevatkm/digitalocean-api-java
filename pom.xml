@@ -44,8 +44,7 @@
     
     <properties>
         <javadoc.basepath>${project.basedir}/javadoc</javadoc.basepath>
-        <javadoc.output.path>${javadoc.basepath}/docs</javadoc.output.path>
-        <javadoc.stylesheet.path>${javadoc.basepath}/stylesheets/stylesheet.css</javadoc.stylesheet.path>
+        <javadoc.output.path>${javadoc.basepath}</javadoc.output.path>
     </properties>
 
     <!-- Dependencies -->
@@ -53,13 +52,18 @@
     	<dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.2.5</version> 
+            <version>4.2.6</version> 
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
-        </dependency>
+        </dependency> -->
+        <dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.3</version>
+		</dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -109,7 +113,7 @@
 					   	<detectLinks>true</detectLinks>
 					   	<charset>UTF-8</charset>
 					   	<header>${project.name}</header>
-					   	<bottom><![CDATA[<div class="license-info">Copyright &#169; 2014 <a href="http://myjeeva.com" target="_blank" title="myjeeva blog">myjeeva blog</a>, All rights reserved. <br /><br /><span>The copyright of the pages and contents on this website is with myjeeva.com and the content is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-Share Alike 3.0 Unported License</a>. Libraries and code snippets on myjeeva blog has license information.</span></div>]]> </bottom>
+					   	<bottom><![CDATA[<div class="license-info">Copyright &#169; <script>document.write(new Date().getFullYear())</script> <a href="http://myjeeva.com" target="_blank" title="myjeeva blog">myjeeva blog</a>, All rights reserved. <br /><br /><span>The copyright of the pages and contents on this website is with myjeeva.com and the content is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-Share Alike 3.0 Unported License</a>. Libraries and code snippets on myjeeva blog has license information.</span></div>]]> </bottom>
 				    	<footer>${project.name}</footer>
 				    	<stylesheetfile>${javadoc.stylesheet.path}</stylesheetfile>
 				    	<docfilessubdirs>true</docfilessubdirs>

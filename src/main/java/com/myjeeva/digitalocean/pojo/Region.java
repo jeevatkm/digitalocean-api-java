@@ -20,31 +20,53 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.List;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
- * Represents Region (aka Data Center) attributes of DigitalOcean
+ * Represents Region (aka Data Center) attributes of DigitalOcean. Revised as per v2 API data
+ * structure.
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
 public class Region {
 
-  private Integer id;
+  private String slug;
 
   private String name;
 
-  private String slug;
+  private List<String> sizes;
 
-  /**
-   * @return the id
-   */
-  public Integer getId() {
-    return id;
+  private boolean available;
+
+  private List<String> features;
+
+  public Region() {
+    // Default Constructor
+  }
+
+  public Region(String slug) {
+    this.slug = slug;
+  }
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
   }
 
   /**
-   * @param id the id to set
+   * @return the slug
    */
-  public void setId(Integer id) {
-    this.id = id;
+  public String getSlug() {
+    return slug;
+  }
+
+  /**
+   * @param slug the slug to set
+   */
+  public void setSlug(String slug) {
+    this.slug = slug;
   }
 
   /**
@@ -62,17 +84,44 @@ public class Region {
   }
 
   /**
-   * @return the slug
+   * @return the sizes
    */
-  public String getSlug() {
-    return slug;
+  public List<String> getSizes() {
+    return sizes;
   }
 
   /**
-   * @param slug the slug to set
+   * @param sizes the sizes to set
    */
-  public void setSlug(String slug) {
-    this.slug = slug;
+  public void setSizes(List<String> sizes) {
+    this.sizes = sizes;
   }
 
+  /**
+   * @return the available
+   */
+  public boolean isAvailable() {
+    return available;
+  }
+
+  /**
+   * @param available the available to set
+   */
+  public void setAvailable(boolean available) {
+    this.available = available;
+  }
+
+  /**
+   * @return the features
+   */
+  public List<String> getFeatures() {
+    return features;
+  }
+
+  /**
+   * @param features the features to set
+   */
+  public void setFeatures(List<String> features) {
+    this.features = features;
+  }
 }

@@ -20,13 +20,57 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.List;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
+import com.google.gson.annotations.SerializedName;
+
 /**
- * Represents Snapshot attributes
+ * Represents DigitalOcean Networks attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.4
+ * @since v2.0
  */
-public class Snapshot extends Image {
+public class Networks {
 
+  @SerializedName("v4")
+  private List<Network> version4Networks;
+
+  @SerializedName("v6")
+  private List<Network> version6Networks;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return the version4Networks
+   */
+  public List<Network> getVersion4Networks() {
+    return version4Networks;
+  }
+
+  /**
+   * @param version4Networks the version4Networks to set
+   */
+  public void setVersion4Networks(List<Network> version4Networks) {
+    this.version4Networks = version4Networks;
+  }
+
+  /**
+   * @return the version6Networks
+   */
+  public List<Network> getVersion6Networks() {
+    return version6Networks;
+  }
+
+  /**
+   * @param version6Networks the version6Networks to set
+   */
+  public void setVersion6Networks(List<Network> version6Networks) {
+    this.version6Networks = version6Networks;
+  }
 }

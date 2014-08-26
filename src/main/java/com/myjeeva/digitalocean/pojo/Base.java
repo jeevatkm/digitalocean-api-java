@@ -20,13 +20,51 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
- * Represents Snapshot attributes
+ * Represents Meta and Links attributes in Base class
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.4
+ * @since v2.0
  */
-public class Snapshot extends Image {
+public abstract class Base {
 
+  private Meta meta;
+
+  private Links links;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return the meta
+   */
+  public Meta getMeta() {
+    return meta;
+  }
+
+  /**
+   * @param meta the meta to set
+   */
+  public void setMeta(Meta meta) {
+    this.meta = meta;
+  }
+
+  /**
+   * @return the links
+   */
+  public Links getLinks() {
+    return links;
+  }
+
+  /**
+   * @param links the links to set
+   */
+  public void setLinks(Links links) {
+    this.links = links;
+  }
 }

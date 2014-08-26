@@ -20,58 +20,49 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.Date;
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents DomainRecord (TLD) Record attributes of DigitalOcean DNS. Revised as per v2 API data
- * structure.
+ * Represents Droplet Image (also public images aka Distribution) attributes of DigitalOcean
+ * (distribution, snapshots or backups). Revised as per v2 API data structure.
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class DomainRecord {
+public class Image {
 
   private Integer id;
 
   @Expose
-  private String type;
-
-  @Expose
   private String name;
 
-  @Expose
-  private String data;
+  private String distribution;
 
-  @Expose
-  private String priority;
+  private String slug;
 
-  @Expose
-  private Integer port;
+  @SerializedName("public")
+  private boolean availablePublic;
 
-  @Expose
-  private Integer weight;
+  private List<String> regions;
 
-  public DomainRecord() {
-    // Default Constructor
+  @SerializedName("created_at")
+  private Date createdDate;
+
+  public Image() {
+    // Default constructor
   }
 
-  public DomainRecord(String name) {
-    this.name = name;
+  public Image(Integer id) {
+    this.id = id;
   }
 
-  public DomainRecord(String name, String data, String type) {
-    this(name, data, type, null, null, null);
-  }
-
-  public DomainRecord(String name, String data, String type, String priority, Integer port,
-      Integer weight) {
-    this.name = name;
-    this.data = data;
-    this.type = type;
-    this.priority = priority;
-    this.port = port;
-    this.weight = weight;
+  public Image(String slug) {
+    this.slug = slug;
   }
 
   @Override
@@ -94,20 +85,6 @@ public class DomainRecord {
   }
 
   /**
-   * @return the type
-   */
-  public String getType() {
-    return type;
-  }
-
-  /**
-   * @param type the type to set
-   */
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  /**
    * @return the name
    */
   public String getName() {
@@ -122,58 +99,72 @@ public class DomainRecord {
   }
 
   /**
-   * @return the data
+   * @return the distribution
    */
-  public String getData() {
-    return data;
+  public String getDistribution() {
+    return distribution;
   }
 
   /**
-   * @param data the data to set
+   * @param distribution the distribution to set
    */
-  public void setData(String data) {
-    this.data = data;
+  public void setDistribution(String distribution) {
+    this.distribution = distribution;
   }
 
   /**
-   * @return the priority
+   * @return the slug
    */
-  public String getPriority() {
-    return priority;
+  public String getSlug() {
+    return slug;
   }
 
   /**
-   * @param priority the priority to set
+   * @param slug the slug to set
    */
-  public void setPriority(String priority) {
-    this.priority = priority;
+  public void setSlug(String slug) {
+    this.slug = slug;
   }
 
   /**
-   * @return the port
+   * @return the availablePublic
    */
-  public Integer getPort() {
-    return port;
+  public boolean isAvailablePublic() {
+    return availablePublic;
   }
 
   /**
-   * @param port the port to set
+   * @param availablePublic the availablePublic to set
    */
-  public void setPort(Integer port) {
-    this.port = port;
+  public void setAvailablePublic(boolean availablePublic) {
+    this.availablePublic = availablePublic;
   }
 
   /**
-   * @return the weight
+   * @return the regions
    */
-  public Integer getWeight() {
-    return weight;
+  public List<String> getRegions() {
+    return regions;
   }
 
   /**
-   * @param weight the weight to set
+   * @param regions the regions to set
    */
-  public void setWeight(Integer weight) {
-    this.weight = weight;
+  public void setRegions(List<String> regions) {
+    this.regions = regions;
+  }
+
+  /**
+   * @return the createdDate
+   */
+  public Date getCreatedDate() {
+    return createdDate;
+  }
+
+  /**
+   * @param createdDate the createdDate to set
+   */
+  public void setCreatedDate(Date createdDate) {
+    this.createdDate = createdDate;
   }
 }

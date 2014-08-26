@@ -20,13 +20,30 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.List;
+
 /**
- * Represents Snapshot attributes
+ * Represents Snapshots attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.4
+ * @since v2.0
  */
-public class Snapshot extends Image {
+public class Snapshots extends Base {
+  
+  List<Snapshot> snapshots;
 
+  /**
+   * @return the snapshots
+   */
+  public List<Snapshot> getSnapshots() {
+    return snapshots;
+  }
+
+  /**
+   * @param snapshots the snapshots to set
+   */
+  public void setSnapshots(List<Snapshot> snapshots) {
+    this.snapshots = snapshots;
+  }
 }

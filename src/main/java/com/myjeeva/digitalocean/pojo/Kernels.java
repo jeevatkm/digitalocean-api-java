@@ -20,76 +20,37 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.List;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
- * Represents Droplet Image (also public images aka Distribution) attributes of DigitalOcean
- * (distribution, snapshots or backups)
+ * Represents Kernels attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
+ * 
+ * @since v2.0
  */
-public class DropletImage {
+public class Kernels extends Base {
 
-  private Integer id;
+  private List<Kernel> kernels;
 
-  private String name;
-
-  private String slug;
-
-  private String distribution;
-
-  /**
-   * @return the id
-   */
-  public Integer getId() {
-    return id;
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
   }
 
   /**
-   * @param id the id to set
+   * @return the kernels
    */
-  public void setId(Integer id) {
-    this.id = id;
+  public List<Kernel> getKernels() {
+    return kernels;
   }
 
   /**
-   * @return the name
+   * @param kernels the kernels to set
    */
-  public String getName() {
-    return name;
+  public void setKernels(List<Kernel> kernels) {
+    this.kernels = kernels;
   }
-
-  /**
-   * @param name the name to set
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * @return the slug
-   */
-  public String getSlug() {
-    return slug;
-  }
-
-  /**
-   * @param slug the slug to set
-   */
-  public void setSlug(String slug) {
-    this.slug = slug;
-  }
-
-  /**
-   * @return the distribution
-   */
-  public String getDistribution() {
-    return distribution;
-  }
-
-  /**
-   * @param distribution the distribution to set
-   */
-  public void setDistribution(String distribution) {
-    this.distribution = distribution;
-  }
-
 }

@@ -20,13 +20,37 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.List;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
- * Represents Snapshot attributes
+ * Represents Images attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.4
+ * @since v2.0
  */
-public class Snapshot extends Image {
+public class Images extends Base {
 
+  private List<Image> images;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return the images
+   */
+  public List<Image> getImages() {
+    return images;
+  }
+
+  /**
+   * @param images the images to set
+   */
+  public void setImages(List<Image> images) {
+    this.images = images;
+  }
 }

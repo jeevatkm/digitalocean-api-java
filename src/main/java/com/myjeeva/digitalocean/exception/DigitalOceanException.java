@@ -18,61 +18,48 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean.pojo;
+package com.myjeeva.digitalocean.exception;
 
 /**
- * Represents Droplet Size (aka Droplet Plan) attributes of DigitalOcean
+ * <code>DigitalOceanException</code> will be thrown, when request had interruption [
+ * <code>HTTP status
+ * code >= 400 && < 510</code>] DigitalOcean API
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class DropletSize {
+public class DigitalOceanException extends Exception {
 
-  private Integer id;
+  static final long serialVersionUID = -925220451573356906L;
 
-  private String name;
+  private String id;
 
-  private String slug;
+  private int httpStatusCode;
+
+  public DigitalOceanException(String msg) {
+    super(msg);
+  }
+
+  public DigitalOceanException(String msg, Throwable t) {
+    super(msg, t);
+  }
+
+  public DigitalOceanException(String msg, String id, int statusCode) {
+    super(msg);
+    this.id = id;
+    this.httpStatusCode = statusCode;
+  }
 
   /**
    * @return the id
    */
-  public Integer getId() {
+  public String getId() {
     return id;
   }
 
   /**
-   * @param id the id to set
+   * @return the httpStatusCode
    */
-  public void setId(Integer id) {
-    this.id = id;
+  public int getHttpStatusCode() {
+    return httpStatusCode;
   }
-
-  /**
-   * @return the name
-   */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * @param name the name to set
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * @return the slug
-   */
-  public String getSlug() {
-    return slug;
-  }
-
-  /**
-   * @param slug the slug to set
-   */
-  public void setSlug(String slug) {
-    this.slug = slug;
-  }
-
 }

@@ -18,24 +18,50 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean.exception;
+package com.myjeeva.digitalocean.common;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
- * <code>AccessDeniedException</code> will be thrown, when request failed to authenticate into the
- * DigitalOcean API successfully.
+ * Enumeration of DigitalOcean Action Status
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
+ * 
+ * @since v2.0
  */
-public class AccessDeniedException extends Exception {
+public enum ActionStatus {
 
-  private static final long serialVersionUID = -925220451573356906L;
+  @SerializedName("completed")
+  COMPLETED("completed"),
+  
+  @SerializedName("in-progress")
+  IN_PROGRESS("in-progress"),
+  
+  @SerializedName("errored")
+  ERRORED("errored");
 
-  public AccessDeniedException(String msg) {
-    super(msg);
+  private String value;
+
+  ActionStatus(String value) {
+    this.value = value;
   }
 
-  public AccessDeniedException(String msg, Throwable t) {
-    super(msg, t);
+  @Override
+  public String toString() {
+    return this.value;
   }
 
+  public static ActionStatus fromValue(String value) {
+    if (null == value || "".equals(value)) {
+      throw new IllegalArgumentException("Value cannot be null or empty!");
+    }
+
+    for (ActionStatus as : ActionStatus.values()) {
+      if (value.equalsIgnoreCase(as.value)) {
+        return as;
+      }
+    }
+
+    throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
+  }
 }

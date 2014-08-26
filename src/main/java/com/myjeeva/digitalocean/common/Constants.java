@@ -18,15 +18,29 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean.pojo;
+package com.myjeeva.digitalocean.common;
+
 
 /**
- * Represents Snapshot attributes
+ * DigitalOcean API client Constants
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.4
+ * @since v1.0
  */
-public class Snapshot extends Image {
+public interface Constants {
 
+  // General
+  String UTF_8 = "utf-8";
+  Integer START_PAGE_NO = 1;
+  String URL_PATH_SEPARATOR = "/";
+  String JSON_CONTENT_TYPE = "application/json";
+  String FORM_URLENCODED_CONTENT_TYPE = "application/x-www-form-urlencoded";
+  String DATE_FORMAT = "yyyy-mm-dd'T'HH:mm:ss'Z'";
+
+  // HTTPS Scheme
+  String HTTPS_SCHEME = "https";
+
+  // HTTP Param name
+  String PARAM_PAGE_NO = "page";
 }

@@ -23,55 +23,38 @@ package com.myjeeva.digitalocean.pojo;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.google.gson.annotations.Expose;
+import com.myjeeva.digitalocean.common.ActionType;
 
 /**
- * Represents DomainRecord (TLD) Record attributes of DigitalOcean DNS. Revised as per v2 API data
- * structure.
+ * Represents Droplet Actions like reboot, powercycle, power on , power off, etc.
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
+ * 
+ * @since v2.0
  */
-public class DomainRecord {
-
-  private Integer id;
+public class DropletAction {
 
   @Expose
-  private String type;
+  private ActionType type;
 
   @Expose
   private String name;
 
   @Expose
-  private String data;
+  private Integer image;
 
   @Expose
-  private String priority;
+  private Integer kernel;
 
   @Expose
-  private Integer port;
+  private String size;
 
-  @Expose
-  private Integer weight;
-
-  public DomainRecord() {
+  public DropletAction() {
     // Default Constructor
   }
 
-  public DomainRecord(String name) {
-    this.name = name;
-  }
-
-  public DomainRecord(String name, String data, String type) {
-    this(name, data, type, null, null, null);
-  }
-
-  public DomainRecord(String name, String data, String type, String priority, Integer port,
-      Integer weight) {
-    this.name = name;
-    this.data = data;
+  public DropletAction(ActionType type) {
     this.type = type;
-    this.priority = priority;
-    this.port = port;
-    this.weight = weight;
   }
 
   @Override
@@ -80,30 +63,16 @@ public class DomainRecord {
   }
 
   /**
-   * @return the id
-   */
-  public Integer getId() {
-    return id;
-  }
-
-  /**
-   * @param id the id to set
-   */
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  /**
    * @return the type
    */
-  public String getType() {
+  public ActionType getType() {
     return type;
   }
 
   /**
    * @param type the type to set
    */
-  public void setType(String type) {
+  public void setType(ActionType type) {
     this.type = type;
   }
 
@@ -122,58 +91,44 @@ public class DomainRecord {
   }
 
   /**
-   * @return the data
+   * @return the image
    */
-  public String getData() {
-    return data;
+  public Integer getImage() {
+    return image;
   }
 
   /**
-   * @param data the data to set
+   * @param image the image to set
    */
-  public void setData(String data) {
-    this.data = data;
+  public void setImage(Integer image) {
+    this.image = image;
   }
 
   /**
-   * @return the priority
+   * @return the kernel
    */
-  public String getPriority() {
-    return priority;
+  public Integer getKernel() {
+    return kernel;
   }
 
   /**
-   * @param priority the priority to set
+   * @param kernel the kernel to set
    */
-  public void setPriority(String priority) {
-    this.priority = priority;
+  public void setKernel(Integer kernel) {
+    this.kernel = kernel;
   }
 
   /**
-   * @return the port
+   * @return the size
    */
-  public Integer getPort() {
-    return port;
+  public String getSize() {
+    return size;
   }
 
   /**
-   * @param port the port to set
+   * @param size the size to set
    */
-  public void setPort(Integer port) {
-    this.port = port;
-  }
-
-  /**
-   * @return the weight
-   */
-  public Integer getWeight() {
-    return weight;
-  }
-
-  /**
-   * @param weight the weight to set
-   */
-  public void setWeight(Integer weight) {
-    this.weight = weight;
+  public void setSize(String size) {
+    this.size = size;
   }
 }

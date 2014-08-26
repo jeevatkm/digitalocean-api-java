@@ -20,62 +20,37 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.List;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
- * Represents SSH Key attributes of DigitalOcean
+ * Represents Droplets attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
+ * 
+ * @since v2.0
  */
-public class SshKey {
+public class Droplets extends Base {
+  
+  private List<Droplet> droplets;
 
-  private Integer id;
-
-  private String name;
-
-  @SerializedName("ssh_pub_key")
-  private String sshPublicKey;
-
-  /**
-   * @return the id
-   */
-  public Integer getId() {
-    return id;
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
   }
 
   /**
-   * @param id the id to set
+   * @return the droplets
    */
-  public void setId(Integer id) {
-    this.id = id;
+  public List<Droplet> getDroplets() {
+    return droplets;
   }
 
   /**
-   * @return the name
+   * @param droplets the droplets to set
    */
-  public String getName() {
-    return name;
+  public void setDroplets(List<Droplet> droplets) {
+    this.droplets = droplets;
   }
-
-  /**
-   * @param name the name to set
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * @return the sshPublicKey
-   */
-  public String getSshPublicKey() {
-    return sshPublicKey;
-  }
-
-  /**
-   * @param sshPublicKey the sshPublicKey to set
-   */
-  public void setSshPublicKey(String sshPublicKey) {
-    this.sshPublicKey = sshPublicKey;
-  }
-
 }

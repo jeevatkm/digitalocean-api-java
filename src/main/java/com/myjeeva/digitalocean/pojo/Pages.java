@@ -20,13 +20,83 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
- * Represents Snapshot attributes
+ * Represents Pages attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.4
+ * @since v2.0
  */
-public class Snapshot extends Image {
+public class Pages {
 
+  private String first;
+
+  private String prev;
+
+  private String next;
+
+  private String last;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return the first
+   */
+  public String getFirst() {
+    return first;
+  }
+
+  /**
+   * @param first the first to set
+   */
+  public void setFirst(String first) {
+    this.first = first;
+  }
+
+  /**
+   * @return the prev
+   */
+  public String getPrev() {
+    return prev;
+  }
+
+  /**
+   * @param prev the prev to set
+   */
+  public void setPrev(String prev) {
+    this.prev = prev;
+  }
+
+  /**
+   * @return the next
+   */
+  public String getNext() {
+    return next;
+  }
+
+  /**
+   * @param next the next to set
+   */
+  public void setNext(String next) {
+    this.next = next;
+  }
+
+  /**
+   * @return the last
+   */
+  public String getLast() {
+    return last;
+  }
+
+  /**
+   * @param last the last to set
+   */
+  public void setLast(String last) {
+    this.last = last;
+  }
 }

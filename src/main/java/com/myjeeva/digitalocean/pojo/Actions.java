@@ -18,44 +18,39 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean;
+package com.myjeeva.digitalocean.pojo;
+
+import java.util.List;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
- * Describes possible droplet states.
+ * Represents Actions attributes
  * 
- * @author Robert Gründler (robert@dubture.com) - pulse00
+ * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.5
+ * @since v2.0
  */
-public enum DropletStatus {
+public class Actions extends Base {
 
-  New("new"), Active("active"), Off("off"), Archive("archive");
-
-  private String value;
-
-  private DropletStatus(String value) {
-    this.value = value;
-  }
+  private List<Action> actions;
 
   @Override
   public String toString() {
-    return this.value;
+    return ReflectionToStringBuilder.toString(this);
   }
 
-  public static DropletStatus fromValue(String value) {
-    if (null == value || "".equals(value)) {
-      throw new IllegalArgumentException("Value cannot be null or empty!");
+  /**
+   * @return the actions
+   */
+  public List<Action> getActions() {
+    return actions;
+  }
 
-    } else if ("new".equals(value)) {
-      return DropletStatus.New;
-    } else if ("active".equals(value)) {
-      return DropletStatus.Active;
-    } else if ("off".equals(value)) {
-      return DropletStatus.Off;
-    } else if ("archive".equals(value)) {
-      return DropletStatus.Archive;
-    } else {
-      throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
-    }
+  /**
+   * @param actions the actions to set
+   */
+  public void setActions(List<Action> actions) {
+    this.actions = actions;
   }
 }

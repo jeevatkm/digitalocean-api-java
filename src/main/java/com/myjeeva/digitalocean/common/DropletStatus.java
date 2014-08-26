@@ -18,15 +18,54 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean.pojo;
+package com.myjeeva.digitalocean.common;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents Snapshot attributes
+ * Enumeration of DigitalOcean droplet states.
  * 
+ * @author Robert Gründler (robert@dubture.com)
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.4
+ * @since v1.5
  */
-public class Snapshot extends Image {
+public enum DropletStatus {
 
+  @SerializedName("new")
+  NEW("new"),
+  
+  @SerializedName("active")
+  ACTIVE("active"),
+  
+  @SerializedName("off")
+  OFF("off"),
+  
+  @SerializedName("archive")
+  ARCHIVE("archive");
+
+  private String value;
+
+  private DropletStatus(String value) {
+    this.value = value;
+  }
+
+  @Override
+  public String toString() {
+    return this.value;
+  }
+
+  public static DropletStatus fromValue(String value) {
+    if (null == value || "".equals(value)) {
+      throw new IllegalArgumentException("Value cannot be null or empty!");
+    }
+
+    for (DropletStatus ds : DropletStatus.values()) {
+      if (value.equalsIgnoreCase(ds.value)) {
+        return ds;
+      }
+    }
+
+    throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
+  }
 }

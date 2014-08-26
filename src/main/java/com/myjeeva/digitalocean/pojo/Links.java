@@ -20,13 +20,35 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
- * Represents Snapshot attributes
+ * Represents Links attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.4
+ * @since v2.0
  */
-public class Snapshot extends Image {
+public class Links {
 
+  private Pages pages;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return the pages
+   */
+  public Pages getPages() {
+    return pages;
+  }
+
+  /**
+   * @param pages the pages to set
+   */
+  public void setPages(Pages pages) {
+    this.pages = pages;
+  }
 }

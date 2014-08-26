@@ -22,10 +22,13 @@ package com.myjeeva.digitalocean.pojo;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents Domain (TLD) attributes of DigitalOcean DNS
+ * Represents Domain (TLD) attributes of DigitalOcean DNS. Revised as per v2 API data structure.
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
@@ -33,33 +36,31 @@ public class Domain implements Serializable {
 
   private static final long serialVersionUID = -1034777642814045693L;
 
-  private Integer id;
-
+  @Expose
   private String name;
 
   @SerializedName("ttl")
   private Integer timeToLive;
 
-  @SerializedName("live_zone_file")
-  private String liveZoneFile;
+  @SerializedName("zone_file")
+  private String zoneFile;
 
-  private String error;
+  @Expose
+  @SerializedName("ip_address")
+  private String ipAddress;
 
-  @SerializedName("zone_file_with_error")
-  private String zoneFileWithError;
-
-  /**
-   * @return the id
-   */
-  public Integer getId() {
-    return id;
+  public Domain() {
+    // Default Constructor
   }
 
-  /**
-   * @param id the id to set
-   */
-  public void setId(Integer id) {
-    this.id = id;
+  public Domain(String name, String ipAddress) {
+    this.name = name;
+    this.ipAddress = ipAddress;
+  }
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
   }
 
   /**
@@ -91,45 +92,30 @@ public class Domain implements Serializable {
   }
 
   /**
-   * @return the liveZoneFile
+   * @return the zoneFile
    */
-  public String getLiveZoneFile() {
-    return liveZoneFile;
+  public String getZoneFile() {
+    return zoneFile;
   }
 
   /**
-   * @param liveZoneFile the liveZoneFile to set
+   * @param zoneFile the zoneFile to set
    */
-  public void setLiveZoneFile(String liveZoneFile) {
-    this.liveZoneFile = liveZoneFile;
+  public void setZoneFile(String zoneFile) {
+    this.zoneFile = zoneFile;
   }
 
   /**
-   * @return the error
+   * @return the ipAddress
    */
-  public String getError() {
-    return error;
+  public String getIpAddress() {
+    return ipAddress;
   }
 
   /**
-   * @param error the error to set
+   * @param ipAddress the ipAddress to set
    */
-  public void setError(String error) {
-    this.error = error;
+  public void setIpAddress(String ipAddress) {
+    this.ipAddress = ipAddress;
   }
-
-  /**
-   * @return the zoneFileWithError
-   */
-  public String getZoneFileWithError() {
-    return zoneFileWithError;
-  }
-
-  /**
-   * @param zoneFileWithError the zoneFileWithError to set
-   */
-  public void setZoneFileWithError(String zoneFileWithError) {
-    this.zoneFileWithError = zoneFileWithError;
-  }
-
 }

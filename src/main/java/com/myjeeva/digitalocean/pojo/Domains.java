@@ -20,13 +20,37 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.List;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
- * Represents Snapshot attributes
+ * Represents Domains attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.4
+ * @since v2.0
  */
-public class Snapshot extends Image {
+public class Domains extends Base {
 
+  private List<Domain> domains;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return the domains
+   */
+  public List<Domain> getDomains() {
+    return domains;
+  }
+
+  /**
+   * @param domains the domains to set
+   */
+  public void setDomains(List<Domain> domains) {
+    this.domains = domains;
+  }
 }

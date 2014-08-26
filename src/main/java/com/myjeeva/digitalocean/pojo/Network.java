@@ -20,98 +20,86 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents Event return object of DigitalOcean API request
+ * Represents DigitalOcean Network attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.3
+ * @since v2.0
  */
-public class Event {
+public class Network {
 
-  private Long id;
+  @SerializedName("ip_address")
+  private String ipAddress;
 
-  @SerializedName("action_status")
-  private String actionStatus;
+  private String netmask;
 
-  @SerializedName("droplet_id")
-  private Integer dropletId;
+  private String gateway;
 
-  @SerializedName("event_type_id")
-  private Integer eventTypeId;
+  private String type;
 
-  private String percentage;
-
-  /**
-   * @return the id
-   */
-  public Long getId() {
-    return id;
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
   }
 
   /**
-   * @param id the id to set
+   * @return the ipAddress
    */
-  public void setId(Long id) {
-    this.id = id;
+  public String getIpAddress() {
+    return ipAddress;
   }
 
   /**
-   * @return the actionStatus
+   * @param ipAddress the ipAddress to set
    */
-  public String getActionStatus() {
-    return actionStatus;
+  public void setIpAddress(String ipAddress) {
+    this.ipAddress = ipAddress;
   }
 
   /**
-   * @param actionStatus the actionStatus to set
+   * @return the netmask
    */
-  public void setActionStatus(String actionStatus) {
-    this.actionStatus = actionStatus;
+  public String getNetmask() {
+    return netmask;
   }
 
   /**
-   * @return the dropletId
+   * @param netmask the netmask to set
    */
-  public Integer getDropletId() {
-    return dropletId;
+  public void setNetmask(String netmask) {
+    this.netmask = netmask;
   }
 
   /**
-   * @param dropletId the dropletId to set
+   * @return the gateway
    */
-  public void setDropletId(Integer dropletId) {
-    this.dropletId = dropletId;
+  public String getGateway() {
+    return gateway;
   }
 
   /**
-   * @return the eventTypeId
+   * @param gateway the gateway to set
    */
-  public Integer getEventTypeId() {
-    return eventTypeId;
+  public void setGateway(String gateway) {
+    this.gateway = gateway;
   }
 
   /**
-   * @param eventTypeId the eventTypeId to set
+   * @return the type
    */
-  public void setEventTypeId(Integer eventTypeId) {
-    this.eventTypeId = eventTypeId;
+  public String getType() {
+    return type;
   }
 
   /**
-   * @return the percentage
+   * @param type the type to set
    */
-  public String getPercentage() {
-    return percentage;
+  public void setType(String type) {
+    this.type = type;
   }
-
-  /**
-   * @param percentage the percentage to set
-   */
-  public void setPercentage(String percentage) {
-    this.percentage = percentage;
-  }
-
 }

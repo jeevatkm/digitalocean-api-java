@@ -20,85 +20,40 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.List;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents generic response return object of DigitalOcean API request
+ * Represents Keys attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
+ * 
+ * @since v2.0
  */
-public class Response {
+public class Keys extends Base {
 
-  private String status;
+  @SerializedName("ssh_keys")
+  private List<Key> keys;
 
-  @SerializedName("event_id")
-  private Long eventId;
-
-  /**
-   * @since v1.3
-   */
-  @SerializedName("error_message")
-  private String errorMessage;
-
-  /**
-   * @since v1.3
-   */
-  private Event event;
-
-  /**
-   * @return the status
-   */
-  public String getStatus() {
-    return status;
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
   }
 
   /**
-   * @param status the status to set
+   * @return the keys
    */
-  public void setStatus(String status) {
-    this.status = status;
+  public List<Key> getKeys() {
+    return keys;
   }
 
   /**
-   * @return the eventId
+   * @param keys the keys to set
    */
-  public Long getEventId() {
-    return eventId;
+  public void setKeys(List<Key> keys) {
+    this.keys = keys;
   }
-
-  /**
-   * @param eventId the eventId to set
-   */
-  public void setEventId(Long eventId) {
-    this.eventId = eventId;
-  }
-
-  /**
-   * @return the errorMessage
-   */
-  public String getErrorMessage() {
-    return errorMessage;
-  }
-
-  /**
-   * @param errorMessage the errorMessage to set
-   */
-  public void setErrorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-  }
-
-  /**
-   * @return the event
-   */
-  public Event getEvent() {
-    return event;
-  }
-
-  /**
-   * @param event the event to set
-   */
-  public void setEvent(Event event) {
-    this.event = event;
-  }
-
 }

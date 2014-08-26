@@ -20,24 +20,38 @@
  */
 package com.myjeeva.digitalocean;
 
-import com.myjeeva.digitalocean.exception.AccessDeniedException;
-import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
-import com.myjeeva.digitalocean.exception.ResourceNotFoundException;
-import com.myjeeva.digitalocean.impl.DigitalOceanClient;
-import com.myjeeva.digitalocean.pojo.Domain;
-import com.myjeeva.digitalocean.pojo.DomainRecord;
-import com.myjeeva.digitalocean.pojo.Droplet;
-import com.myjeeva.digitalocean.pojo.DropletImage;
-import com.myjeeva.digitalocean.pojo.DropletSize;
-import com.myjeeva.digitalocean.pojo.Region;
-import com.myjeeva.digitalocean.pojo.Response;
 import junit.framework.TestCase;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
+import com.myjeeva.digitalocean.exception.DigitalOceanException;
+import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
+import com.myjeeva.digitalocean.impl.DigitalOceanClient;
+import com.myjeeva.digitalocean.pojo.Action;
+import com.myjeeva.digitalocean.pojo.Actions;
+import com.myjeeva.digitalocean.pojo.Backup;
+import com.myjeeva.digitalocean.pojo.Backups;
+import com.myjeeva.digitalocean.pojo.Domain;
+import com.myjeeva.digitalocean.pojo.DomainRecord;
+import com.myjeeva.digitalocean.pojo.DomainRecords;
+import com.myjeeva.digitalocean.pojo.Domains;
+import com.myjeeva.digitalocean.pojo.Droplet;
+import com.myjeeva.digitalocean.pojo.Droplets;
+import com.myjeeva.digitalocean.pojo.Image;
+import com.myjeeva.digitalocean.pojo.Images;
+import com.myjeeva.digitalocean.pojo.Kernel;
+import com.myjeeva.digitalocean.pojo.Kernels;
+import com.myjeeva.digitalocean.pojo.Key;
+import com.myjeeva.digitalocean.pojo.Keys;
+import com.myjeeva.digitalocean.pojo.Region;
+import com.myjeeva.digitalocean.pojo.Regions;
+import com.myjeeva.digitalocean.pojo.Size;
+import com.myjeeva.digitalocean.pojo.Sizes;
+import com.myjeeva.digitalocean.pojo.Snapshot;
+import com.myjeeva.digitalocean.pojo.Snapshots;
 
 /**
  * <p>
@@ -61,456 +75,599 @@ public class DigitalOceanIntegrationTest extends TestCase {
    * This is testing values of my own respective to DigitalOcean account, to real-time integration
    * with API. So place your's for integration test case before use
    */
-  private String clientId = ""; // to be place during development & test
-  private String apiKey = ""; // to be place during development & test
-  private Integer dropletId = 188913;
-  private Integer sizeId = 63; // 1GB plan
-  private Integer restoreImageId = 502930; // my droplet data backup image id
-  private Integer imageId = 303619; // Debian 7.0 x64 image id
-  private Integer regionId = 1; // Region Id 1 is New York
-  private Integer deleteImageId = 506262; // my droplet snapshot image id
-  private Integer domainId = 44665; // my domain id
-  private Integer deleteDomainId = 44665; // my specific domain id for
-  // deletion
-  // test
-  private String domainName = ""; // my domain name - to be place during development & test
-  private String dropletIpAddress = ""; // my droplet IP - to be place during development & test
-  // Address
+  private String authTokenRW = "";
+  private Integer dropletIdForInfo = 10001; // to be placed before use
+  private Integer imageId = 3445812; // Debian 7.0 x64 image id
+  private String imageSlug = "ubuntu-12-04-x64";
+  private String domainName = "";
+  private String domainIp = "127.0.0.1";
 
-  private DigitalOcean apiClient = new DigitalOceanClient(clientId, apiKey);
+  private DigitalOcean apiClient = new DigitalOceanClient(authTokenRW);
+
+  // Droplet test cases
 
   @Test
-  public void testGetAvailableDroplets() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
+  public void testGetAvailableDroplets() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    List<Droplet> droplets = apiClient.getAvailableDroplets();
+    Droplets droplets = apiClient.getAvailableDroplets(1);
 
     assertNotNull(droplets);
-    assertTrue((droplets.size() > 0));
+    assertTrue((droplets.getDroplets().size() > 0));
 
-    for (Droplet droplet : droplets) {
-      LOG.info("Droplet Id: " + droplet.getId() + ", Name: " + droplet.getName() + ", Status: "
-          + droplet.getStatus() + ", Backups Active: " + droplet.isBackupsActive()
-          + ", Created Date: " + droplet.getCreatedDate());
+    for (Droplet droplet : droplets.getDroplets()) {
+      LOG.info(droplet.toString());
     }
   }
 
   @Test
-  public void testCreateDroplet() throws AccessDeniedException, ResourceNotFoundException,
+  public void testGetAvailableKernels() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Kernels kernels = apiClient.getAvailableKernels(dropletIdForInfo, 1);
+
+    assertNotNull(kernels);
+    assertTrue((kernels.getKernels().size() > 0));
+
+    for (Kernel k : kernels.getKernels()) {
+      LOG.info(k.toString());
+    }
+  }
+
+  @Test
+  public void testGetAvailableSnapshots() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Snapshots snapshots = apiClient.getAvailableSnapshots(dropletIdForInfo, 1);
+
+    assertNotNull(snapshots);
+    assertTrue((snapshots.getSnapshots().size() > 0));
+
+    for (Snapshot s : snapshots.getSnapshots()) {
+      LOG.info(s.toString());
+    }
+  }
+
+  @Test
+  public void testGetAvailableBackups() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Backups backups = apiClient.getAvailableBackups(dropletIdForInfo, 1);
+
+    assertNotNull(backups);
+    assertTrue((backups.getBackups().size() > 0));
+
+    for (Backup b : backups.getBackups()) {
+      LOG.info(b.toString());
+    }
+  }
+
+  @Test
+  public void testGetDropletInfo() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Droplet droplet = apiClient.getDropletInfo(dropletIdForInfo);
+
+    assertNotNull(droplet);
+
+    LOG.info(droplet.toString());
+  }
+
+  @Test
+  public void testCreateDropletByImageId() throws DigitalOceanException,
       RequestUnsuccessfulException {
 
     Droplet droplet = new Droplet();
-    droplet.setName("api-client-test-host");
-    droplet.setSizeId(66);
-    droplet.setRegionId(1);
-    droplet.setImageId(imageId);
+    droplet.setName("api-client-test-host-byid");
+    droplet.setSize(new Size("512mb"));
+    droplet.setImage(new Image(1601));
+    droplet.setRegion(new Region("sgp1"));
+    droplet.setEnableBackup(Boolean.TRUE);
+    droplet.setEnableIpv6(Boolean.TRUE);
+    droplet.setEnablePrivateNetworking(Boolean.TRUE);
 
     Droplet d = apiClient.createDroplet(droplet);
 
     assertNotNull(d);
     assertNotNull(d.getId());
 
-    LOG.info("Droplet Id: " + d.getId() + ", Name: " + d.getName() + ", Image Id: "
-        + d.getImageId() + ", Event Id: " + d.getEventId());
+    LOG.info(d.toString());
   }
 
   @Test
-  public void testGetDropletInfo() throws AccessDeniedException, ResourceNotFoundException,
+  public void testCreateDropletByImageSlug() throws DigitalOceanException,
       RequestUnsuccessfulException {
-
-    Droplet droplet = apiClient.getDropletInfo(dropletId);
-
-    assertNotNull(droplet);
-
-    LOG.info("Droplet Id: " + droplet.getId() + ", Droplet Name: " + droplet.getName()
-        + ", Status: " + droplet.getStatus() + ", Active Backups: " + droplet.getBackups()
-        + ", Backups Active: " + droplet.isBackupsActive());
-  }
-
-  @Test
-  public void testRebootDroplet() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.rebootDroplet(dropletId);
-
-    assertAndLogResponseValue(response);
-  }
-
-  @Test
-  public void testPowerCyleDroplet() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-    assertAndLogResponseValue(apiClient.powerCyleDroplet(dropletId));
-  }
-
-  @Test
-  public void testShutdownDroplet() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.shutdownDroplet(dropletId);
-
-    assertAndLogResponseValue(response);
-  }
-
-  @Test
-  public void testPowerOffDroplet() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.powerOffDroplet(dropletId);
-
-    assertAndLogResponseValue(response);
-  }
-
-  @Test
-  public void testPowerOnDroplet() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.powerOnDroplet(dropletId);
-
-    assertAndLogResponseValue(response);
-  }
-
-  @Test
-  public void testResetDropletPassword() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.resetDropletPassword(dropletId);
-
-    assertAndLogResponseValue(response);
-  }
-
-  @Test
-  public void testResizeDroplet() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.resizeDroplet(dropletId, sizeId);
-
-    assertAndLogResponseValue(response);
-  }
-
-  @Test
-  public void testTakeDropletSnapshot() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.takeDropletSnapshot(dropletId);
-
-    assertAndLogResponseValue(response);
-  }
-
-  @Test
-  public void testTakeDropletSnapshotWithCustomName() throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
-
-    Response response = apiClient.takeDropletSnapshot(dropletId, "droplet-snapshot-20130607-1");
-
-    assertAndLogResponseValue(response);
-  }
-
-  @Test
-  public void testRestoreDroplet() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.restoreDroplet(dropletId, restoreImageId);
-
-    assertAndLogResponseValue(response);
-  }
-
-  @Test
-  public void testRebuildDroplet() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.rebuildDroplet(dropletId, imageId);
-
-    assertAndLogResponseValue(response);
-  }
-
-  @Test
-  public void testEnableDropletBackups() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.enableDropletBackups(dropletId);
-
-    assertAndLogResponseValue(response);
-  }
-
-  @Test
-  public void testDisableDropletBackups() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.disableDropletBackups(dropletId);
-
-    assertAndLogResponseValue(response);
-  }
-
-  @Test
-  public void testRenameDroplet() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.renameDroplet(dropletId, "api-client-test-host-rename");
-
-    assertAndLogResponseValue(response);
-  }
-
-  @Test
-  public void testDeleteDroplet() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.deleteDroplet(dropletId);
-
-    assertAndLogResponseValue(response);
-  }
-
-  @Test
-  public void testGetAvailableRegions() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    List<Region> regions = apiClient.getAvailableRegions();
-
-    assertTrue((regions.size() > 0));
-    assertNotNull(regions);
-
-    for (Region region : regions) {
-      LOG.info("Region Id: " + region.getId() + ", Region Name: " + region.getName() + ", Slug: "
-          + region.getSlug());
-    }
-  }
-
-  @Test
-  public void testGetAvailableImages() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    List<DropletImage> images = apiClient.getAvailableImages();
-
-    assertTrue((images.size() > 0));
-    assertNotNull(images);
-
-    for (DropletImage img : images) {
-      LOG.info("Image Id: " + img.getId() + ", Image Name: " + img.getName() + ", Distribution: "
-          + img.getDistribution());
-    }
-  }
-
-  @Test
-  public void testGetImageInfo() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    DropletImage dropletImage = apiClient.getImageInfo(imageId);
-
-    assertNotNull(dropletImage);
-
-    LOG.info("Image Id: " + dropletImage.getId() + ", Image Name: " + dropletImage.getName()
-        + ", Distribution: " + dropletImage.getDistribution() + ", Slug: " + dropletImage.getSlug());
-  }
-
-  @Test
-  public void testDeleteImage() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.deleteImage(deleteImageId);
-
-    LOG.info("Response Status: " + response.getStatus());
-  }
-
-  @Test
-  public void testTransferImage() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-    assertAndLogResponseValue(apiClient.transferImage(792441, regionId));
-  }
-
-  @Test
-  public void testGetAvailableSizes() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    List<DropletSize> sizes = apiClient.getAvailableSizes();
-
-    assertTrue((sizes.size() > 0));
-    assertNotNull(sizes);
-
-    for (DropletSize size : sizes) {
-      LOG.info("Size Id: " + size.getId() + ", Size Name: " + size.getName() + ", Slug: "
-          + size.getSlug());
-    }
-  }
-
-  @Test
-  public void testGetAvailableDomains() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    List<Domain> domains = apiClient.getAvailableDomains();
-
-    assertTrue((domains.size() > 0));
-    assertNotNull(domains);
-
-    for (Domain d : domains) {
-      LOG.info("Domain Id: " + d.getId() + ", Domain Name: " + d.getName() + ", Time To Live: "
-          + d.getTimeToLive());
-    }
-  }
-
-  @Test
-  public void testGetDomainInfo() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Domain domain = apiClient.getDomainInfo(domainId);
-
-    assertNotNull(domain);
-
-    LOG.info("Domain Id: " + domain.getId() + ", Domain Name: " + domain.getName()
-        + ", Time To Live: " + domain.getTimeToLive());
-  }
-
-  @Test
-  public void testCreateDomain() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Domain domain = apiClient.createDomain(domainName, dropletIpAddress);
-
-    assertNotNull(domain);
-
-    LOG.info("Domain Id: " + domain.getId() + ", Domain Name: " + domain.getName());
-  }
-
-  @Test
-  public void testDeleteDomain() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.deleteDomain(deleteDomainId);
-
-    LOG.info("Response Status: " + response.getStatus());
-  }
-
-  @Test
-  public void testGetDomainRecords() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    List<DomainRecord> domainRecords = apiClient.getDomainRecords(domainId);
-
-    assertTrue((domainRecords.size() > 0));
-    assertNotNull(domainRecords);
-
-    for (DomainRecord dr : domainRecords) {
-      logDomainRecordValues(dr);
-    }
-  }
-
-  @Test
-  public void testGetDomainRecordInfo() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    DomainRecord dr = apiClient.getDomainRecordInfo(domainId, 298949);
-
-    assertNotNull(dr);
-
-    logDomainRecordValues(dr);
-  }
-
-  @Test
-  public void testCreateDomainRecordForA() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    DomainRecord domainRecord = new DomainRecord();
-    domainRecord.setDomainId(domainId);
-    domainRecord.setData(dropletIpAddress);
-    domainRecord.setRecordType("A");
-    domainRecord.setName(domainName);
-
-    DomainRecord dr = apiClient.createDomainRecord(domainRecord);
-
-    assertNotNull(dr.getId());
-    assertNotNull(dr);
-
-    logDomainRecordValues(dr);
-  }
-
-  @Test
-  public void testCreateDomainRecordForSubdomain() throws AccessDeniedException,
-      ResourceNotFoundException, RequestUnsuccessfulException {
-
-    DomainRecord domainRecord = new DomainRecord();
-    domainRecord.setDomainId(domainId);
-    domainRecord.setData("@");
-    domainRecord.setName("www");
-    domainRecord.setRecordType("CNAME");
-
-    DomainRecord dr = apiClient.createDomainRecord(domainRecord);
-
-    assertNotNull(dr.getId());
-    assertNotNull(dr);
-
-    logDomainRecordValues(dr);
-  }
-
-  @Test
-  public void testEditDomainRecord() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    DomainRecord domainRecord = new DomainRecord();
-    domainRecord.setId(298952);
-    domainRecord.setDomainId(domainId);
-    domainRecord.setData("@");
-    domainRecord.setName("static");
-    domainRecord.setRecordType("CNAME");
-
-    DomainRecord dr = apiClient.editDomainRecord(domainRecord);
-
-    assertNotNull(dr.getId());
-    assertNotNull(dr);
-
-    logDomainRecordValues(dr);
-  }
-
-  @Test
-  public void testDeleteDomainRecord() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.deleteDomainRecord(domainId, 298928);
-
-    assertNotNull(response.getStatus());
-
-    LOG.info("Response Status: " + response.getStatus());
-  }
-
-  @Test
-  public void testGetEventProgress() throws AccessDeniedException, ResourceNotFoundException,
-      RequestUnsuccessfulException {
-
-    Response response = apiClient.getEventProgress(6125598);
-
-    assertNotNull(response);
-
-    LOG.info("Response Status: " + response.getStatus());
-    LOG.info("Response Object: " + response);
-  }
-
-  @Test
-  public void testDropletStates() {
 
     Droplet droplet = new Droplet();
-    droplet.setStatus(DropletStatus.New.toString());
-    assertTrue(droplet.isNew());
-    assertFalse(droplet.isActive());
+    droplet.setName("api-client-test-host-byslug");
+    droplet.setSize(new Size("512mb"));
+    droplet.setImage(new Image("centos-5-8-x64"));
+    droplet.setRegion(new Region("sgp1"));
+    droplet.setEnableBackup(Boolean.TRUE);
+    droplet.setEnableIpv6(Boolean.TRUE);
+    droplet.setEnablePrivateNetworking(Boolean.TRUE);
 
-    droplet.setStatus(DropletStatus.Active.toString());
-    assertTrue(droplet.isActive());
-    assertFalse(droplet.isNew());
+    Droplet d = apiClient.createDroplet(droplet);
 
-    droplet.setStatus(DropletStatus.Off.toString());
-    assertTrue(droplet.isOff());
-    assertFalse(droplet.isActive());
+    assertNotNull(d);
+    assertNotNull(d.getId());
 
+    LOG.info(d.toString());
   }
 
-  private void assertAndLogResponseValue(Response response) {
+  @Test
+  public void testDeleteDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    assertNotNull(response.getEventId());
-    assertNotNull(response.getStatus());
+    Boolean result = apiClient.deleteDroplet(2258153);
 
-    LOG.info("Response Status: " + response.getStatus() + ", Event Id: " + response.getEventId());
+    assertNotNull(result);
+    LOG.info("Delete Request Object: " + result);
   }
 
-  private void logDomainRecordValues(DomainRecord dr) {
-    LOG.info("Domain Record Id: " + dr.getId() + ", Domain Id: " + dr.getDomainId()
-        + ", Record Name: " + dr.getName() + ", Record Type: " + dr.getRecordType()
-        + ", Record Data: " + dr.getData() + ", Record Priority: " + dr.getPriority()
-        + ", Record Port: " + dr.getPort() + ", Record Weight: " + dr.getWeight());
+  @Test
+  public void testRebootDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.rebootDroplet(2258136);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testPowerCycleDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.rebootDroplet(2258136);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testShutdownDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.shutdownDroplet(2258168);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testPowerOffDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.powerOffDroplet(2258168);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testPowerOnDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.powerOnDroplet(2258136);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testResetDropletPassword() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.resetDropletPassword(2258168);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testResizeDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.resizeDroplet(2258136, "1gb");
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testTakeDropletSnapshot() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    // Action action = apiClient.takeDropletSnapshot(2258168, "api-client-test-snapshot1");
+    Action action = apiClient.takeDropletSnapshot(2258136);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testRestoreDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.restoreDroplet(2258168, 5489522); // Snapshot id
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testRebuildDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.rebuildDroplet(2258136, 3445812); // Debian 7.0 x64
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testDisableDropletBackups() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Action action = apiClient.disableDropletBackups(2258168);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testRenameDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.renameDroplet(2258168, "renamed-droplet-name-test");
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testChangeDropletKernel() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.changeDropletKernel(2258168, 1649);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testEnableDropletIpv6() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.enableDropletIpv6(2258168);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testEnableDropletPrivateNetworking() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Action action = apiClient.enableDropletPrivateNetworking(2258168);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+
+  // Action Test cases
+
+  @Test
+  public void testGetAvailableActions() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Actions actions = apiClient.getAvailableActions(1);
+
+    assertNotNull(actions);
+    assertTrue((actions.getActions().size() > 0));
+
+    for (Action a : actions.getActions()) {
+      LOG.info(a.toString());
+    }
+  }
+
+  @Test
+  public void testGetActionInfo() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.getActionInfo(28336352);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
+  public void testGetAvailableDropletActions() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Actions actions = apiClient.getAvailableDropletActions(dropletIdForInfo, 1);
+    Actions actions3 = apiClient.getAvailableDropletActions(dropletIdForInfo, 3);
+
+    assertNotNull(actions);
+    assertTrue((actions.getActions().size() > 0));
+
+    assertNotNull(actions3);
+    assertTrue((actions3.getActions().size() > 0));
+
+    for (Action a : actions.getActions()) {
+      LOG.info(a.toString());
+    }
+  }
+
+  @Test
+  public void testGetAvailableImageActions() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Actions actions = apiClient.getAvailableImageActions(3794738, 1);
+
+    assertNotNull(actions);
+    assertTrue((actions.getActions().size() > 0));
+
+    for (Action a : actions.getActions()) {
+      LOG.info(a.toString());
+    }
+  }
+
+
+
+  // Image test cases
+
+  @Test
+  public void testGetAvailableImages() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Images images = apiClient.getAvailableImages(1);
+
+    assertNotNull(images);
+    assertTrue((images.getImages().size() > 0));
+
+    for (Image img : images.getImages()) {
+      LOG.info(img.toString());
+    }
+  }
+
+  @Test
+  public void testGetImageInfoById() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Image image = apiClient.getImageInfo(imageId);
+
+    assertNotNull(image);
+
+    LOG.info(image.toString());
+  }
+
+  @Test
+  public void testGetImageInfoBySlug() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Image image = apiClient.getImageInfo(imageSlug);
+
+    assertNotNull(image);
+
+    LOG.info(image.toString());
+  }
+
+  @Test
+  public void testUpdateImageInfo() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Image input = new Image();
+    input.setId(3897539);
+    input.setName("test-myjeeva.com-before-wp-upgrade");
+    Image image = apiClient.updateImage(input);
+
+    assertNotNull(image);
+
+    LOG.info(image.toString());
+  }
+
+  @Test
+  public void testDeleteImage() throws DigitalOceanException, RequestUnsuccessfulException {
+    Boolean result = apiClient.deleteImage(3897539);
+
+    assertNotNull(result);
+    LOG.info("Delete Request result: " + result);
+  }
+
+  @Test
+  public void testTransferImage() throws DigitalOceanException, RequestUnsuccessfulException {
+    Action action = apiClient.transferImage(5489522, "lon1");
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+
+  // Regions test cases
+
+  @Test
+  public void testGetAvailableRegions() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Regions regions = apiClient.getAvailableRegions(1);
+
+    assertNotNull(regions);
+    assertTrue((regions.getRegions().size() > 0));
+
+    for (Region region : regions.getRegions()) {
+      LOG.info(region.toString());
+    }
+  }
+
+
+  // Sizes test cases
+
+  @Test
+  public void testGetAvailableSizes() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Sizes sizes = apiClient.getAvailableSizes(1);
+
+    assertNotNull(sizes);
+    assertTrue((sizes.getSizes().size() > 0));
+
+    for (Size size : sizes.getSizes()) {
+      LOG.info(size.toString());
+    }
+  }
+
+
+  // Domain test cases
+
+  @Test
+  public void testGetAvailableDomains() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Domains domains = apiClient.getAvailableDomains(1);
+
+    assertNotNull(domains);
+    assertTrue((domains.getDomains().size() > 0));
+
+    for (Domain d : domains.getDomains()) {
+      LOG.info(d.toString());
+    }
+  }
+
+  @Test
+  public void testGetDomainInfo() throws DigitalOceanException, RequestUnsuccessfulException {
+    Domain domain = apiClient.getDomainInfo("jeeutil.com");
+
+    assertNotNull(domain);
+    LOG.info(domain.toString());
+  }
+
+  @Test
+  public void testCreateDomain() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Domain input = new Domain(domainName, domainIp);
+    Domain domain = apiClient.createDomain(input);
+
+    assertNotNull(domain);
+    assertNotNull(domain.getName());
+
+    LOG.info(domain.toString());
+  }
+
+  @Test
+  public void testDeleteDomain() throws DigitalOceanException, RequestUnsuccessfulException {
+    Boolean result = apiClient.deleteDomain(domainName);
+
+    assertNotNull(result);
+    LOG.info("Delete Request Object: " + result);
+  }
+
+  @Test
+  public void testGetDomainRecords() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    DomainRecords domainRecords = apiClient.getDomainRecords("rakeshshetty.me");
+
+    assertNotNull(domainRecords);
+    assertTrue((domainRecords.getDomainRecords().size() > 0));
+
+    for (DomainRecord dr : domainRecords.getDomainRecords()) {
+      LOG.info(dr.toString());
+    }
+  }
+
+  @Test
+  public void testGetDomainRecordInfo() throws DigitalOceanException, RequestUnsuccessfulException {
+    DomainRecord domainRecord = apiClient.getDomainRecordInfo("jeeutil.com", 160448);
+
+    assertNotNull(domainRecord);
+    LOG.info(domainRecord.toString());
+  }
+
+  @Test
+  public void testCreateDomainRecord() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    DomainRecord input = new DomainRecord("test", "@", "CNAME");
+    DomainRecord domainRecord = apiClient.createDomainRecord("jeeutil.com", input);
+
+    assertNotNull(domainRecord);
+    LOG.info(domainRecord.toString());
+  }
+
+  @Test
+  public void testUpdateDomainRecord() throws DigitalOceanException, RequestUnsuccessfulException {
+    DomainRecord domainRecord = apiClient.updateDomainRecord("jeeutil.com", 2596063, "testjs");
+
+    assertNotNull(domainRecord);
+    LOG.info(domainRecord.toString());
+  }
+
+  @Test
+  public void testDeleteDomainRecord() throws DigitalOceanException, RequestUnsuccessfulException {
+    Boolean result = apiClient.deleteDomainRecord("jeeutil.com", 2576287);
+
+    assertNotNull(result);
+    LOG.info("Delete Request Object: " + result);
+  }
+
+  // SSH Key test cases
+
+  @Test
+  public void testGetAvailableKeys() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Keys keys = apiClient.getAvailableKeys(1);
+
+    assertNotNull(keys);
+    assertTrue((keys.getKeys().size() > 0));
+
+    for (Key k : keys.getKeys()) {
+      LOG.info(k.toString());
+    }
+  }
+
+  @Test
+  public void testCreateKey() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    // Key key = new Key("TestKey1",
+    // "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDiyGRkL26BEFPkce1Xtv8u05t8IYHZ63EVDEoAfvg/HCM7SEauBogDGknd4aMd7p9XtxuEIiojiNDIpTnoYbS0RojzhtomefQ/Lx02Rpfsbj1U3zg1H/MMObgJILGIYyHwfT+1rkkRxJQBVcs2Yj7IOmsrmE6SkAZaDLnMxq74HWzd7sPHxx/Dmv6fE0VMaZa+l7Fwr/2Tm46RMF5vzb93QwwmShV+08Ik/0NjGgP7QcNzT11lrI1eCjwCFyT00sGXR+xa4n+M80NB3b8GqDJDAMKqxELcFkpGyGAqESlYt4DXoCRDmnUwhhHReOuutOUHqrSMCym94FFeJ6p6M1f jenkinsci@dexmedia.com");
+    Key key =
+        new Key(
+            "TestKey1",
+            "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCqMycrkDQdWJUuI5/yx5+Du2BD/W5CXRPnd1xr60MV1zSaRA7OI6sShBontgdI7iepq33hMNaBdr1VttagCjeVJpIsM78Dkcq2NmJ2DKqPnzmfcuJOfcVXO0al2kn4wkYhCKoCV1u3YFCSBW5h3KWOXnptUq30cLUnjgOpAHpugNatJS5Wk8h9V53V2m06FOOty9TY3L8BLQlG3Btl201XMQasFb25izoablwupRLeItzzOHSlwbXWDcrkEQz7o+doOsgpdUfPdQrC1Nv9ujV/Va7BIuUBVVQSznBddCvxmIv/9LIRR7S+Hk+jB8ZgSBcFdmfjdzdQxU39xri5OFTF madanje");
+
+    Key resultKey = apiClient.createKey(key);
+
+    assertNotNull(resultKey);
+    assertNotNull(resultKey.getId());
+    LOG.info(resultKey.toString());
+  }
+
+  @Test
+  public void testGetKeyById() throws DigitalOceanException, RequestUnsuccessfulException {
+    Key resultKey = apiClient.getKeyInfo(245798);
+
+    assertNotNull(resultKey);
+    assertNotNull(resultKey.getId());
+    LOG.info(resultKey.toString());
+  }
+
+  @Test
+  public void testGetKeyByFingerprint() throws DigitalOceanException, RequestUnsuccessfulException {
+    Key resultKey = apiClient.getKeyInfo("3b:0b:99:54:ef:75:cb:88:88:66:3c:8d:10:64:74:32");
+
+    assertNotNull(resultKey);
+    assertNotNull(resultKey.getId());
+    LOG.info(resultKey.toString());
+  }
+
+  @Test
+  public void testUpdateKeyById() throws DigitalOceanException, RequestUnsuccessfulException {
+    Key resultKey = apiClient.updateKey(245798, "TestKey5");
+
+    assertNotNull(resultKey);
+    assertNotNull(resultKey.getId());
+    LOG.info(resultKey.toString());
+  }
+
+  @Test
+  public void testUpdateKeyByFingerprint() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    Key resultKey =
+        apiClient.updateKey("3b:0b:99:54:ef:75:cb:88:88:66:3c:8d:10:64:74:32", "TestKey4");
+
+    assertNotNull(resultKey);
+    assertNotNull(resultKey.getId());
+    LOG.info(resultKey.toString());
+  }
+
+  @Test
+  public void testDeleteKeyById() throws DigitalOceanException, RequestUnsuccessfulException {
+    Boolean result = apiClient.deleteKey(245798);
+
+    assertNotNull(result);
+    LOG.info("Delete Key Request Object: " + result);
+  }
+
+  @Test
+  public void testDeleteKeyByFingerprint() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    Boolean result = apiClient.deleteKey("3b:0b:99:54:ef:75:cb:88:88:66:3c:8d:10:64:74:32");
+
+    assertNotNull(result);
+    LOG.info("Delete Key Request Object: " + result);
   }
 }

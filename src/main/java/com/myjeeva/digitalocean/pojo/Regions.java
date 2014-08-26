@@ -20,13 +20,37 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.List;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
- * Represents Snapshot attributes
+ * Represents Regions attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.4
+ * @since v2.0
  */
-public class Snapshot extends Image {
+public class Regions extends Base {
+  
+  private List<Region> regions;
 
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return the regions
+   */
+  public List<Region> getRegions() {
+    return regions;
+  }
+
+  /**
+   * @param regions the regions to set
+   */
+  public void setRegions(List<Region> regions) {
+    this.regions = regions;
+  }
 }

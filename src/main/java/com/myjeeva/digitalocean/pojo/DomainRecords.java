@@ -20,13 +20,40 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.List;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
+import com.google.gson.annotations.SerializedName;
+
 /**
- * Represents Snapshot attributes
+ * Represents Domain Records attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.4
+ * @since v2.0
  */
-public class Snapshot extends Image {
+public class DomainRecords extends Base {
 
+  @SerializedName("domain_records")
+  private List<DomainRecord> domainRecords;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return the domainRecords
+   */
+  public List<DomainRecord> getDomainRecords() {
+    return domainRecords;
+  }
+
+  /**
+   * @param domainRecords the domainRecords to set
+   */
+  public void setDomainRecords(List<DomainRecord> domainRecords) {
+    this.domainRecords = domainRecords;
+  }
 }

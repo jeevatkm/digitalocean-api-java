@@ -20,13 +20,69 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.Date;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
- * Represents Snapshot attributes
+ * Represents Rate Limit header values
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.4
+ * @since v2.0
  */
-public class Snapshot extends Image {
+public class RateLimit {
 
+  private Integer limit;
+
+  private Integer remaining;
+
+  private Date reset;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return the limit
+   */
+  public Integer getLimit() {
+    return limit;
+  }
+
+  /**
+   * @param limit the limit to set
+   */
+  public void setLimit(Integer limit) {
+    this.limit = limit;
+  }
+
+  /**
+   * @return the remaining
+   */
+  public Integer getRemaining() {
+    return remaining;
+  }
+
+  /**
+   * @param remaining the remaining to set
+   */
+  public void setRemaining(Integer remaining) {
+    this.remaining = remaining;
+  }
+
+  /**
+   * @return the reset
+   */
+  public Date getReset() {
+    return reset;
+  }
+
+  /**
+   * @param reset the reset to set
+   */
+  public void setReset(Date reset) {
+    this.reset = reset;
+  }
 }

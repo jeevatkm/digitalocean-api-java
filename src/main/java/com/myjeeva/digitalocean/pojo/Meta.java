@@ -20,13 +20,35 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 /**
- * Represents Snapshot attributes
+ * Represents Meta attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.4
+ * @since v2.0
  */
-public class Snapshot extends Image {
+public class Meta {
 
+  private Integer total;
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return the total
+   */
+  public Integer getTotal() {
+    return total;
+  }
+
+  /**
+   * @param total the total to set
+   */
+  public void setTotal(Integer total) {
+    this.total = total;
+  }
 }

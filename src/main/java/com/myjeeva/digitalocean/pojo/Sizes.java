@@ -18,24 +18,39 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean.exception;
+package com.myjeeva.digitalocean.pojo;
+
+import java.util.List;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
- * <code>ResourceNotFoundException</code> will be thrown, while DigitalOcean status code is 404,
- * then api-client will this exception
+ * Represents Sizes attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
+ * 
+ * @since v2.0
  */
-public class ResourceNotFoundException extends Exception {
+public class Sizes extends Base {
+  
+  private List<Size> sizes;
 
-  private static final long serialVersionUID = 1312845736236469187L;
-
-  public ResourceNotFoundException(String msg) {
-    super(msg);
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
   }
 
-  public ResourceNotFoundException(String msg, Throwable t) {
-    super(msg, t);
+  /**
+   * @return the sizes
+   */
+  public List<Size> getSizes() {
+    return sizes;
   }
 
+  /**
+   * @param sizes the sizes to set
+   */
+  public void setSizes(List<Size> sizes) {
+    this.sizes = sizes;
+  }
 }

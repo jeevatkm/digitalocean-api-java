@@ -20,58 +20,50 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents DomainRecord (TLD) Record attributes of DigitalOcean DNS. Revised as per v2 API data
- * structure.
+ * Represents SSH Key attributes of DigitalOcean. Revised as per v2 API data structure.
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class DomainRecord {
+public class Key implements Serializable {
 
-  private Integer id;
+  private static final long serialVersionUID = 3454646433241484585L;
 
   @Expose
-  private String type;
+  private Integer id;
 
   @Expose
   private String name;
 
   @Expose
-  private String data;
+  private String fingerprint;
 
   @Expose
-  private String priority;
+  @SerializedName("public_key")
+  private String publicKey;
 
-  @Expose
-  private Integer port;
-
-  @Expose
-  private Integer weight;
-
-  public DomainRecord() {
-    // Default Constructor
+  public Key() {
+    // Default constructor
   }
 
-  public DomainRecord(String name) {
+  public Key(Integer id) {
+    this.id = id;
+  }
+
+  public Key(String name) {
     this.name = name;
   }
 
-  public DomainRecord(String name, String data, String type) {
-    this(name, data, type, null, null, null);
-  }
-
-  public DomainRecord(String name, String data, String type, String priority, Integer port,
-      Integer weight) {
+  public Key(String name, String publicKey) {
     this.name = name;
-    this.data = data;
-    this.type = type;
-    this.priority = priority;
-    this.port = port;
-    this.weight = weight;
+    this.publicKey = publicKey;
   }
 
   @Override
@@ -94,20 +86,6 @@ public class DomainRecord {
   }
 
   /**
-   * @return the type
-   */
-  public String getType() {
-    return type;
-  }
-
-  /**
-   * @param type the type to set
-   */
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  /**
    * @return the name
    */
   public String getName() {
@@ -122,58 +100,30 @@ public class DomainRecord {
   }
 
   /**
-   * @return the data
+   * @return the fingerprint
    */
-  public String getData() {
-    return data;
+  public String getFingerprint() {
+    return fingerprint;
   }
 
   /**
-   * @param data the data to set
+   * @param fingerprint the fingerprint to set
    */
-  public void setData(String data) {
-    this.data = data;
+  public void setFingerprint(String fingerprint) {
+    this.fingerprint = fingerprint;
   }
 
   /**
-   * @return the priority
+   * @return the publicKey
    */
-  public String getPriority() {
-    return priority;
+  public String getPublicKey() {
+    return publicKey;
   }
 
   /**
-   * @param priority the priority to set
+   * @param publicKey the publicKey to set
    */
-  public void setPriority(String priority) {
-    this.priority = priority;
-  }
-
-  /**
-   * @return the port
-   */
-  public Integer getPort() {
-    return port;
-  }
-
-  /**
-   * @param port the port to set
-   */
-  public void setPort(Integer port) {
-    this.port = port;
-  }
-
-  /**
-   * @return the weight
-   */
-  public Integer getWeight() {
-    return weight;
-  }
-
-  /**
-   * @param weight the weight to set
-   */
-  public void setWeight(Integer weight) {
-    this.weight = weight;
+  public void setPublicKey(String publicKey) {
+    this.publicKey = publicKey;
   }
 }

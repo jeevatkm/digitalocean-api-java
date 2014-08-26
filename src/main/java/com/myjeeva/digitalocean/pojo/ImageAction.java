@@ -20,13 +20,65 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
+import com.google.gson.annotations.Expose;
+import com.myjeeva.digitalocean.common.ActionType;
+
 /**
- * Represents Snapshot attributes
+ * Represents Image Actions like transfer.
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v1.4
+ * @since v2.0
  */
-public class Snapshot extends Image {
+public class ImageAction {
 
+  @Expose
+  private ActionType type;
+
+  @Expose
+  private String region;
+
+  public ImageAction() {
+    // Default Constructor
+  }
+
+  public ImageAction(ActionType type, String region) {
+    this.type = type;
+    this.region = region;
+  }
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return the type
+   */
+  public ActionType getType() {
+    return type;
+  }
+
+  /**
+   * @param type the type to set
+   */
+  public void setType(ActionType type) {
+    this.type = type;
+  }
+
+  /**
+   * @return the region
+   */
+  public String getRegion() {
+    return region;
+  }
+
+  /**
+   * @param region the region to set
+   */
+  public void setRegion(String region) {
+    this.region = region;
+  }
 }
