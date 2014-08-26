@@ -1,8 +1,8 @@
 Note
 ----
-**Digital Ocean API v2 development is in progress**
+**Digital Ocean API v2 development is completed**
 
-***Periodically 2.0-SNAPSHOT version is pushed to OSS Snapshot Repo, give a try and share feedback via Issues.***
+***2.0-SNAPSHOT version is pushed to OSS Snapshot Repo, give a try and share feedback via Issues.***
 
 * * *
 
@@ -35,7 +35,8 @@ How to make use of digitalocean-api-client?
 
 Documentation
 -------------
-...***development is-in-progress***...
+See [JavaDocs - DigitalOcean API Client in Java][2]
+
 
 Examples
 --------
@@ -44,7 +45,7 @@ Have a look on [DigitalOceanIntegrationTest][7] simple and easy to use.
 Supported DigitalOcean API's and Functionalities
 ------------------------------------------------
 
-...***development is-in-progress***...
+Detailed java method API list is [here][22]
 
 
 Issue Tracker
@@ -61,7 +62,7 @@ See [LICENSE.txt][6]
 
 
 [1]: https://developers.digitalocean.com
-[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.5/
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.0-SNAPSHOT/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/com/myjeeva/digitalocean/digitalocean-api-client/
 [5]: http://myjeeva.com
@@ -81,3 +82,4 @@ See [LICENSE.txt][6]
 [19]: https://github.com/jeevatkm/digitalocean-api-java/issues/7
 [20]: https://github.com/jeevatkm/digitalocean-api-java/issues/9
 [21]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.5/com/myjeeva/digitalocean/pojo/DropletStatus.html
+[22]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.0-SNAPSHOT/com/myjeeva/digitalocean/DigitalOcean.html
