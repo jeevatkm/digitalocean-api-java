@@ -158,6 +158,34 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     this.httpClient = httpClient;
   }
 
+  /**
+   * @return the authToken
+   */
+  public String getAuthToken() {
+    return authToken;
+  }
+
+  /**
+   * @param authToken the authToken to set
+   */
+  public void setAuthToken(String authToken) {
+    this.authToken = authToken;
+  }
+
+  /**
+   * @return the apiVersion
+   */
+  public String getApiVersion() {
+    return apiVersion;
+  }
+
+  /**
+   * @param apiVersion the apiVersion to set
+   */
+  public void setApiVersion(String apiVersion) {
+    this.apiVersion = apiVersion;
+  }
+
   // =======================================
   // Droplet access/manipulation methods
   // =======================================

@@ -113,9 +113,8 @@
 					   	<detectLinks>true</detectLinks>
 					   	<charset>UTF-8</charset>
 					   	<header>${project.name}</header>
-					   	<bottom><![CDATA[<div class="license-info">Copyright &#169; <script>document.write(new Date().getFullYear())</script> <a href="http://myjeeva.com" target="_blank" title="myjeeva blog">myjeeva blog</a>, All rights reserved. <br /><br /><span>The copyright of the pages and contents on this website is with myjeeva.com and the content is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-Share Alike 3.0 Unported License</a>. Libraries and code snippets on myjeeva blog has license information.</span></div>]]> </bottom>
+					   	<bottom><![CDATA[<div style="font-size: 14px;">Copyright &#169; <script>document.write(new Date().getFullYear())</script> <a href="http://myjeeva.com" target="_blank" title="myjeeva blog">myjeeva blog</a>, All rights reserved. <br /><br /><span style="font-size:11px; font-style:italic;">The copyright of the pages and contents on this website is with myjeeva.com and the content is licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">Creative Commons Attribution-Share Alike 3.0 Unported License</a>. Libraries and code snippets on myjeeva blog has license information.</span></div>]]> </bottom>
 				    	<footer>${project.name}</footer>
-				    	<stylesheetfile>${javadoc.stylesheet.path}</stylesheetfile>
 				    	<docfilessubdirs>true</docfilessubdirs>
 				    	<verbose>true</verbose>
 				    	<reportOutputDirectory>${javadoc.output.path}</reportOutputDirectory>
