@@ -37,15 +37,78 @@ Documentation
 -------------
 See [JavaDocs - DigitalOcean API Client in Java][2]
 
-
 Examples
 --------
 Have a look on [DigitalOceanIntegrationTest][7] simple and easy to use.
 
-Supported DigitalOcean API's and Functionalities
-------------------------------------------------
-
-Detailed java method API list is [here][10]
+Supported API's and Revision Logs
+---------------------------------
+* **Released in v2.0**
+	* Actions
+	<pre>
+	Actions getAvailableActions(Integer pageNo)
+	Actions	getAvailableDropletActions(Integer dropletId, Integer pageNo)
+	Actions	getAvailableImageActions(Integer imageId, Integer pageNo)
+	Action getActionInfo(Integer actionId)</pre>
+	* Droplets
+	<pre>
+	Droplets getAvailableDroplets(Integer pageNo)
+	Kernels	getAvailableKernels(Integer dropletId, Integer pageNo)
+	Snapshots getAvailableSnapshots(Integer dropletId, Integer pageNo)
+	Backups	getAvailableBackups(Integer dropletId, Integer pageNo)
+	Droplet	getDropletInfo(Integer dropletId)
+	Droplet	createDroplet(Droplet droplet)
+	Boolean	deleteDroplet(Integer dropletId)
+	</pre>
+	* Droplet Actions
+	<pre>
+	Action powerCycleDroplet(Integer dropletId)
+	Action powerOffDroplet(Integer dropletId)
+	Action powerOnDroplet(Integer dropletId)
+	Action rebootDroplet(Integer dropletId)
+	Action rebuildDroplet(Integer dropletId, Integer imageId)
+	Action renameDroplet(Integer dropletId, String name)
+	Action resetDropletPassword(Integer dropletId)
+	Action resizeDroplet(Integer dropletId, String size)
+	Action restoreDroplet(Integer dropletId, Integer imageId)
+	Action shutdownDroplet(Integer dropletId)
+	Action takeDropletSnapshot(Integer dropletId)
+	Action takeDropletSnapshot(Integer dropletId, String snapshotName)
+	Action disableDropletBackups(Integer dropletId)
+	Action enableDropletIpv6(Integer dropletId)
+	Action enableDropletPrivateNetworking(Integer dropletId)
+	Action changeDropletKernel(Integer dropletId, Integer kernelId)
+	</pre>
+	* Sizes
+	<pre>Sizes getAvailableSizes(Integer pageNo)</pre>
+	* Regions
+	<pre>Regions getAvailableRegions(Integer pageNo)</pre>
+	* Domains
+	<pre>
+	Domains	getAvailableDomains(Integer pageNo)
+	Domain getDomainInfo(String domainName)
+	Domain createDomain(Domain domain)
+	Boolean	deleteDomain(String domainName)
+	</pre>
+	* Domain Records
+	<pre>
+	DomainRecords getDomainRecords(String domainName)
+	DomainRecord getDomainRecordInfo(String domainName, Integer recordId)
+	DomainRecord createDomainRecord(String domainName, DomainRecord domainRecord)
+	DomainRecord updateDomainRecord(String domainName, Integer recordId, String name)
+	Boolean	deleteDomainRecord(String domainName, Integer recordId)
+	</pre>
+	* Keys
+	<pre>
+	Keys getAvailableKeys(Integer pageNo)
+	Key	getKeyInfo(Integer sshKeyId)
+	Key	getKeyInfo(String fingerprint)
+	Key	createKey(Key newKey)
+	Key	updateKey(Integer sshKeyId, String newSshKeyName)
+	Key	updateKey(String fingerprint, String newSshKeyName)
+	Boolean	deleteKey(Integer sshKeyId)
+	Boolean	deleteKey(String fingerprint)
+	</pre>
 
 
 Issue Tracker

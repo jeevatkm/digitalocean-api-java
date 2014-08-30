@@ -134,6 +134,17 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
    * @param authToken a {@link String} object
    */
   public DigitalOceanClient(String apiVersion, String authToken) {
+    this(apiVersion, authToken, null);
+  }
+
+  /**
+   * DigitalOcean Client Constructor
+   * 
+   * @param apiVersion a {@link String} object
+   * @param authToken a {@link String} object
+   * @param httpClient a {@link HttpClient} object
+   */
+  public DigitalOceanClient(String apiVersion, String authToken, HttpClient httpClient) {
 
     if (!"v2".equalsIgnoreCase(apiVersion)) {
       throw new IllegalArgumentException("Only API version 2 is supported.");
@@ -141,6 +152,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
     this.apiVersion = apiVersion;
     this.authToken = authToken;
+    this.httpClient = httpClient;
     initialize();
   }
 
@@ -942,6 +954,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
     this.jsonParser = new JsonParser();
 
-    this.httpClient = new DefaultHttpClient(new PoolingClientConnectionManager());
+    if (null == this.httpClient) {
+      this.httpClient = new DefaultHttpClient(new PoolingClientConnectionManager());
+    }
   }
 }
