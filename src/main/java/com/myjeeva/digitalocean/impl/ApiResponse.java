@@ -20,6 +20,8 @@
  */
 package com.myjeeva.digitalocean.impl;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import com.myjeeva.digitalocean.common.ApiAction;
 
 /**
@@ -37,18 +39,38 @@ public class ApiResponse {
 
   private boolean requestSuccess;
 
+  /**
+   * Default Constructor
+   */
   public ApiResponse() {
     // Default constructor
   }
 
+  /**
+   * Constructor
+   * 
+   * @param apiAction a info about api request
+   * @param requestSuccess result of the executed api request
+   */
   public ApiResponse(ApiAction apiAction, boolean requestSuccess) {
     this(apiAction, null, requestSuccess);
   }
 
+  /**
+   * 
+   * @param apiAction a info about api request
+   * @param data a api response object
+   * @param requestSuccess result of the executed api request
+   */
   public ApiResponse(ApiAction apiAction, Object data, boolean requestSuccess) {
     this.apiAction = apiAction;
     this.data = data;
     this.requestSuccess = requestSuccess;
+  }
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
   }
 
   public boolean isDataExists() {

@@ -39,7 +39,7 @@ import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
 
 /**
- * Enumeration of DigitalOcean API and its path and element name
+ * Enumeration of DigitalOcean RESTful resource information.
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 

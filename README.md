@@ -10,27 +10,27 @@ DigitalOcean API Client in Java
 -------------------------------
 [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java)
 
-Welcome to DigitalOcean's API Client written in Java. I have created a simple and meaningful wrapper methods for DigitalOcean's API. All of the RESTful that you find in [DigitalOcean API's][1] will be made available via simple java method(s).
+Welcome to DigitalOcean API Client written in Java. Created a simple and meaningful wrapper methods for [DigitalOcean RESTful APIs][1].
 
-> Simple and Lightweight Library for Enterprise Application/Utilities Integration
+> Simple and Lightweight Library for Enterprise Application or Utilities Integration
 
 How to make use of digitalocean-api-client?
-------------------------------------
-* **Application/Project Dependencies**
+-------------------------------------------
+* **Application or Project Dependencies**
 	* Maven dependency
-	<pre><code>&lt;dependency>
+	<pre>&lt;dependency>
     		&lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
     		&lt;artifactId>digitalocean-api-client&lt;/artifactId>
     		&lt;version>2.0-SNAPSHOT&lt;/version>
-		&lt;/dependency></code></pre>
+		&lt;/dependency></pre>
 	* Grails dependency
-	<pre><code>compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.0-SNAPSHOT'</code</pre>
+	<pre>compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.0-SNAPSHOT'</pre>
 	* Groovy Grape
-	<pre><code>@Grapes( 
+	<pre>@Grapes( 
 @Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.0-SNAPSHOT') 
-)</code></pre>
+)</pre>
 	* Scala SBT
-	<pre><code>libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.0-SNAPSHOT"</code></pre>
+	<pre>libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.0-SNAPSHOT"</pre>
 
 
 Documentation

@@ -40,30 +40,73 @@ public class ApiRequest {
 
   private Integer pageNo;
 
+  /**
+   * Default Constructor
+   */
   public ApiRequest() {
     // Default Constructor
   }
 
+  /**
+   * Constructor
+   * 
+   * @param apiAction a info about api request
+   * @param params a api request path variable value(s)
+   */
   public ApiRequest(ApiAction apiAction, Object[] params) {
     this(apiAction, null, params, null);
   }
 
+  /**
+   * Constructor
+   * 
+   * @param apiAction a info about api request
+   * @param pageNo of the request pagination
+   */
   public ApiRequest(ApiAction apiAction, Integer pageNo) {
     this(apiAction, null, null, pageNo);
   }
 
+  /**
+   * Constructor
+   * 
+   * @param apiAction a info about api request
+   * @param data a api request body data object
+   */
   public ApiRequest(ApiAction apiAction, Object data) {
     this(apiAction, data, null, null);
   }
 
+  /**
+   * Constructor
+   * 
+   * @param apiAction a info about api request
+   * @param params a api request path variable value(s)
+   * @param pageNo of the request pagination
+   */
   public ApiRequest(ApiAction apiAction, Object[] params, Integer pageNo) {
     this(apiAction, null, params, pageNo);
   }
 
+  /**
+   * Constructor
+   * 
+   * @param apiAction a info about api request
+   * @param data a api request body data object
+   * @param params a api request path variable value(s)
+   */
   public ApiRequest(ApiAction apiAction, Object data, Object[] params) {
     this(apiAction, data, params, null);
   }
 
+  /**
+   * Constructor
+   * 
+   * @param apiAction a info about api request
+   * @param data a api request body data object
+   * @param params a api request path variable value(s)
+   * @param pageNo of the request pagination
+   */
   public ApiRequest(ApiAction apiAction, Object data, Object[] params, Integer pageNo) {
     this.apiAction = apiAction;
     this.data = data;
