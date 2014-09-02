@@ -37,6 +37,7 @@ public interface Constants {
   String JSON_CONTENT_TYPE = "application/json";
   String FORM_URLENCODED_CONTENT_TYPE = "application/x-www-form-urlencoded";
   String DATE_FORMAT = "yyyy-mm-dd'T'HH:mm:ss'Z'";
+  String RATE_LIMIT_JSON_STRUCT = "\"rateLimit\": { \"limit\": %s, \"remaining\": %s, \"reset\": \"%s\"}";
 
   // HTTPS Scheme
   String HTTPS_SCHEME = "https";

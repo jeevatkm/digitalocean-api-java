@@ -23,6 +23,8 @@ package com.myjeeva.digitalocean.impl;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
@@ -830,16 +832,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     String response = "";
     try {
       HttpResponse httpResponse = httpClient.execute(request);
+      LOG.debug("HTTP Response Object:: " + httpResponse);
 
-      int statusCode = httpResponse.getStatusLine().getStatusCode();
-      if (HttpStatus.SC_OK == statusCode || HttpStatus.SC_CREATED == statusCode
-          || HttpStatus.SC_ACCEPTED == statusCode) {
-        response = httpResponseToString(httpResponse);
-      } else {
-        response = evaluateResponse(httpResponse);
-      }
-
-      LOG.debug("HTTP Response: " + response);
+      response = appendRateLimitValues(evaluateResponse(httpResponse), httpResponse);
+      LOG.debug("Parsed Response:: " + response);
     } catch (ClientProtocolException cpe) {
       throw new RequestUnsuccessfulException(cpe.getMessage(), cpe);
     } catch (IOException ioe) {
@@ -853,9 +849,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
   private String evaluateResponse(HttpResponse httpResponse) throws DigitalOceanException {
     int statusCode = httpResponse.getStatusLine().getStatusCode();
+    String response = "";
 
-    if (HttpStatus.SC_NO_CONTENT == statusCode) {
-      return "true";
+    if (HttpStatus.SC_OK == statusCode || HttpStatus.SC_CREATED == statusCode
+        || HttpStatus.SC_ACCEPTED == statusCode) {
+      response = httpResponseToString(httpResponse);
+    } else if (HttpStatus.SC_NO_CONTENT == statusCode) {
+      response = "true";
     }
 
     if (statusCode >= 400 && statusCode < 510) {
@@ -871,7 +871,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       throw new DigitalOceanException(errorMsg, id, statusCode);
     }
 
-    return null;
+    return response;
   }
 
   private String httpResponseToString(HttpResponse httpResponse) {
@@ -930,6 +930,29 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     }
 
     return data;
+  }
+
+  private String appendRateLimitValues(String response, HttpResponse httpResponse) {
+    if (StringUtils.isEmpty(response)) {
+      return "";
+    }
+
+    String rateLimitData =
+        String.format(RATE_LIMIT_JSON_STRUCT, httpResponse.getFirstHeader("RateLimit-Limit")
+            .getValue(), httpResponse.getFirstHeader("RateLimit-Remaining").getValue(),
+            getDateString(httpResponse.getFirstHeader("RateLimit-Reset").getValue(), DATE_FORMAT));
+
+    return StringUtils.substringBeforeLast(response, "}") + ", " + rateLimitData + "}";
+  }
+
+  private String getDateString(String epochString, String dateFormat) {
+    long epoch = Long.parseLong(epochString);
+    Date expiry = new Date(epoch * 1000);
+
+    SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+    String dateString = formatter.format(expiry);
+    LOG.debug(dateString);
+    return dateString;
   }
 
   // =======================================

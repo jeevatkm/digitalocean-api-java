@@ -35,6 +35,8 @@ public abstract class Base {
 
   private Links links;
 
+  private RateLimit rateLimit;
+
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
@@ -66,5 +68,19 @@ public abstract class Base {
    */
   public void setLinks(Links links) {
     this.links = links;
+  }
+
+  /**
+   * @return the rateLimit
+   */
+  public RateLimit getRateLimit() {
+    return rateLimit;
+  }
+
+  /**
+   * @param rateLimit the rateLimit to set
+   */
+  public void setRateLimit(RateLimit rateLimit) {
+    this.rateLimit = rateLimit;
   }
 }

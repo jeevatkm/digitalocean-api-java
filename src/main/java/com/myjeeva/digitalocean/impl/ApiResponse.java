@@ -57,6 +57,7 @@ public class ApiResponse {
   }
 
   /**
+   * Constructor
    * 
    * @param apiAction a info about api request
    * @param data a api response object

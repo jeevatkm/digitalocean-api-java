@@ -39,6 +39,26 @@ public class RateLimit {
 
   private Date reset;
 
+  /**
+   * Default Constructor
+   */
+  public RateLimit() {
+    // Default Constructor
+  }
+
+  /**
+   * Parameterized Constructor
+   * 
+   * @param limit the number of requests that can be made per hour
+   * @param remaining the number of requests that remain before you hit your request limit
+   * @param reset this represents the time when the oldest request will expire
+   */
+  public RateLimit(Integer limit, Integer remaining, Date reset) {
+    this.limit = limit;
+    this.remaining = remaining;
+    this.reset = reset;
+  }
+
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
@@ -52,13 +72,6 @@ public class RateLimit {
   }
 
   /**
-   * @param limit the limit to set
-   */
-  public void setLimit(Integer limit) {
-    this.limit = limit;
-  }
-
-  /**
    * @return the remaining
    */
   public Integer getRemaining() {
@@ -66,23 +79,9 @@ public class RateLimit {
   }
 
   /**
-   * @param remaining the remaining to set
-   */
-  public void setRemaining(Integer remaining) {
-    this.remaining = remaining;
-  }
-
-  /**
    * @return the reset
    */
   public Date getReset() {
     return reset;
-  }
-
-  /**
-   * @param reset the reset to set
-   */
-  public void setReset(Date reset) {
-    this.reset = reset;
   }
 }
