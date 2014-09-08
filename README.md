@@ -1,11 +1,3 @@
-Note
-----
-**Digital Ocean API v2 development is completed**
-
-***2.0-SNAPSHOT version is pushed to OSS Snapshot Repo, give a try and share feedback via Issues.***
-
-* * *
-
 DigitalOcean API Client in Java
 -------------------------------
 [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java)
@@ -14,9 +6,9 @@ Welcome to DigitalOcean API Client written in Java. Created a simple and meaning
 
 > Simple and Lightweight Library for Enterprise Application or Utilities Integration
 
-How to make use of digitalocean-api-client?
--------------------------------------------
-* **Application or Project Dependencies**
+Getting Started
+---------------
+* **Project Dependencies**
 	* Maven dependency
 	<pre>&lt;dependency>
     		&lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
@@ -33,17 +25,62 @@ How to make use of digitalocean-api-client?
 	<pre>libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.0-SNAPSHOT"</pre>
 
 
-Documentation
--------------
-See [JavaDocs - DigitalOcean API Client in Java][2]
+Getting Help
+------------
+For API documentation see:
 
-Examples
---------
-Have a look on [DigitalOceanIntegrationTest][7] simple and easy to use.
+* [DigitalOcean API Client in Java][2]
+
+For Example usage see:
+
+* Have a look at [DigitalOceanIntegrationTest][7]
+
+Samples
+-------
+* Creating a DigitalOcean Client in three simple ways!
+<pre>// Way one, just pass on [authToken][6]
+DigitalOcean apiClient = new DigitalOceanClient(authToken);</pre>
+<pre>// Way two, pass on version number & authToken
+DigitalOcean apiClient = new DigitalOceanClient("v2", authToken);</pre>
+<pre>// Way three, pass on version number, authToken & httpClient
+// Go ahead and customize httpClient attributes for requirements
+HttpClient httpclient = new DefaultHttpClient();  
+DigitalOcean apiClient = new DigitalOceanClient("v2", authToken, httpClient);
+</pre>
+
+* Let's invoke the method(s) as per need via <code>apiClient</code>
+<pre>// Fetching all the available droplets from control panel 
+Droplets droplets = apiClient.getAvailableDroplets(pageNo);</pre>
+<pre>// Fetching all the available kernels for droplet
+Kernels kernels = apiClient.getAvailableKernels(dropletId, pageNo);</pre>
+<pre>// Create a new droplet
+Droplet newDroplet = new Droplet();
+newDroplet.setName("api-client-test-host");
+newDroplet.setSize(new Size("512mb")); // setting size by slug value
+newDroplet.setRegion(new Region("sgp1")); // setting region by slug value; sgp1 => Singapore 1 Data center
+newDroplet.setImage(new Image(1601)); // setting by Image Id 1601 => centos-5-8-x64 also available in image slug value
+newDroplet.setEnableBackup(Boolean.TRUE);
+newDroplet.setEnableIpv6(Boolean.TRUE);
+newDroplet.setEnablePrivateNetworking(Boolean.TRUE);
+Droplet droplet = apiClient.createDroplet(newDroplet);</pre> 
+<pre>// Fetch droplet information 
+Droplet droplet = apiClient.getDropletInfo(dropletId);</pre> 
+<pre>// Fetch Available Plans/Sizes supported by DigitalOcean
+Sizes sizes = apiClient.getAvailableSizes(pageNo);</pre> 
+<pre>// Fetch Available Regions supported by DigitalOcean
+Sizes sizes = apiClient.getAvailableRegions(pageNo);</pre>
+
+Reporting Issues
+----------------
+DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to record bugs and feature requests. If you want to raise an issue, please follow the recommendations bellow:
+
+* Before you log a bug, please search the issue tracker to see if someone has already reported the problem. If the issue doesn’t already exist, create a new issue.
+* Please provide as much information as possible with the issue report, we like to know the version of DigitalOcean API Client that you are using.
+* If you need to paste code, or include a stack trace use Markdown ``` escapes before and after your text.
 
 Supported API's and Revision Logs
 ---------------------------------
-* **Released in v2.0**
+* **Released in v2.0-SNAPSHOT**
 	* Actions
 	<pre>
 	Actions getAvailableActions(Integer pageNo)
@@ -110,18 +147,13 @@ Supported API's and Revision Logs
 	Boolean	deleteKey(String fingerprint)
 	</pre>
 
-
-Issue Tracker
--------------
-Please submit any bugs or annoyances on the [Issues][3]
-
 Author
 ------
 Jeevanandam M. - jeeva@myjeeva.com
 
 License
 -------
-See [LICENSE.txt][6]
+The DigitalOcean API Client is released under [MIT License][6].
 
 
 [1]: https://developers.digitalocean.com
