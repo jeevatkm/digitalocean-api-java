@@ -8,7 +8,9 @@ Welcome to DigitalOcean API Client written in Java. Created a simple and meaning
 
 Getting Started
 ---------------
-* **Project Dependencies**
+DigitalOcean API Client library per version project dependencies:
+
+* **For v2:** maps to branch [master][11]
 	* Maven dependency
 	<pre>&lt;dependency>
     		&lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
@@ -23,6 +25,13 @@ Getting Started
 )</pre>
 	* Scala SBT
 	<pre>libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.0-SNAPSHOT"</pre>
+
+* * *
+
+* **For v1:** maps to branch [api-v1][12]
+	* [Click here][12] to see detailed information
+
+* * *
 
 
 Getting Help
@@ -166,3 +175,5 @@ The DigitalOcean API Client is released under [MIT License][6].
 [8]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/1.5/digitalocean-api-client-1.5.jar
 [9]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanMockTest.java
 [10]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.0-SNAPSHOT/com/myjeeva/digitalocean/DigitalOcean.html
+[11]: https://github.com/jeevatkm/digitalocean-api-java
+[12]: https://github.com/jeevatkm/digitalocean-api-java/tree/api-v1
