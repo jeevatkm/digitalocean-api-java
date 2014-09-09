@@ -46,10 +46,10 @@ public class Size {
   @SerializedName("disk")
   private Integer diskSize;
 
-  private Integer transfer;
+  private Long transfer;
 
   @SerializedName("price_monthly")
-  private Integer priceMonthly;
+  private BigDecimal priceMonthly;
 
   @SerializedName("price_hourly")
   private BigDecimal priceHourly;
@@ -128,28 +128,28 @@ public class Size {
   /**
    * @return the transfer
    */
-  public Integer getTransfer() {
+  public Long getTransfer() {
     return transfer;
   }
 
   /**
    * @param transfer the transfer to set
    */
-  public void setTransfer(Integer transfer) {
+  public void setTransfer(Long transfer) {
     this.transfer = transfer;
   }
 
   /**
    * @return the priceMonthly
    */
-  public Integer getPriceMonthly() {
+  public BigDecimal getPriceMonthly() {
     return priceMonthly;
   }
 
   /**
    * @param priceMonthly the priceMonthly to set
    */
-  public void setPriceMonthly(Integer priceMonthly) {
+  public void setPriceMonthly(BigDecimal priceMonthly) {
     this.priceMonthly = priceMonthly;
   }
 

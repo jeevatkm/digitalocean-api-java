@@ -79,9 +79,6 @@ public class Droplet {
   @SerializedName("snapshot_ids")
   private List<Integer> snapshotIds;
 
-  @SerializedName("action_ids")
-  private List<Integer> actionIds;
-
   @SerializedName("ssh_keys")
   private List<Key> keys;
 
@@ -354,20 +351,6 @@ public class Droplet {
    */
   public void setSnapshotIds(List<Integer> snapshotIds) {
     this.snapshotIds = snapshotIds;
-  }
-
-  /**
-   * @return the actionIds
-   */
-  public List<Integer> getActionIds() {
-    return actionIds;
-  }
-
-  /**
-   * @param actionIds the actionIds to set
-   */
-  public void setActionIds(List<Integer> actionIds) {
-    this.actionIds = actionIds;
   }
 
   /**
