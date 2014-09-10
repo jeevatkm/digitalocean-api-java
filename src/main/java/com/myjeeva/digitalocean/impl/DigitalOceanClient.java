@@ -341,7 +341,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
     Object[] params = {dropletId};
     return (Action) perform(
-        new ApiRequest(ApiAction.RESET_DROPLET_PASSWORD, new DropletAction(ActionType.POWER_CYCLE),
+        new ApiRequest(ApiAction.RESET_DROPLET_PASSWORD, new DropletAction(ActionType.PASSWORD_RESET),
             params)).getData();
   }
 
