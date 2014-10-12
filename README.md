@@ -6,6 +6,8 @@ Welcome to DigitalOcean API Client written in Java. Created a simple and meaning
 
 > Simple and Lightweight Library for Enterprise Application or Utilities Integration
 
+Give your support by providing Hearts here [DigitalOcean API Client in Java](https://www.digitalocean.com/community/projects/api-client-in-java) :)
+
 Getting Started
 ---------------
 DigitalOcean API Client library per version project dependencies:
