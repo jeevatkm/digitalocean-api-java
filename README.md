@@ -13,24 +13,22 @@ How to make use of digitalocean-api-client?
 	<pre><code>&lt;dependency>
     		&lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
     		&lt;artifactId>digitalocean-api-client&lt;/artifactId>
-    		&lt;version>1.6&lt;/version>
+    		&lt;version>1.7&lt;/version>
 		&lt;/dependency></code></pre>
 	* Grails dependency
-	<pre><code>compile 'com.myjeeva.digitalocean:digitalocean-api-client:1.6'</code</pre>
+	<pre><code>compile 'com.myjeeva.digitalocean:digitalocean-api-client:1.7'</code</pre>
 	* Groovy Grape
 	<pre><code>@Grapes( 
-@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='1.6') 
+@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='1.7') 
 )</code></pre>
 	* Scala SBT
-	<pre><code>libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "1.6"</code></pre>
+	<pre><code>libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "1.7"</code></pre>
 
 * **For using Snapshot Releases available from [OSS - Sonatype Snapshot Repo][4]**
 <pre><code>Follow above application/project dependencies guidelines and then
-just replace version number to 1.7-SNAPSHOT</code></pre>
+just replace version number to 1.8-SNAPSHOT</code></pre>
 
 * **Need of jar, just click here [digitalocean-api-client-x.x.jar][8] - Maven Centeral Repository**
-
-* **Clone/Download the repo [http://github.com/jeevatkm/digitalocean-api-java] and build it!**
 
 
 Documentation
@@ -49,6 +47,8 @@ I have been skipping below three functionality for while, kindly let me know if 
 * Input Validation at API client level
 
 * * *
+* **Released in v1.7**
+	* Maintenance release
 
 * **Released in v1.6**
 	* Added support for v1 path in the host URI [#12][22]
@@ -162,22 +162,22 @@ Jeevanandam M. - jeeva@myjeeva.com ([myjeeva.com][5])
 
 License
 -------
-See [LICENSE.txt][6]
+DigitalOcean API Client library released under [MIT LICENSE][6]
 
 
 [1]: https://api.digitalocean.com/
-[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.6/
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.7/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/com/myjeeva/digitalocean/digitalocean-api-client/
 [5]: http://myjeeva.com
 [6]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/LICENSE.txt
 [7]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanIntegrationTest.java
-[8]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/1.6/digitalocean-api-client-1.6.jar
-[9]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.6/com/myjeeva/digitalocean/pojo/Event.html
-[10]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.6/com/myjeeva/digitalocean/pojo/Backup.html
-[11]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.6/com/myjeeva/digitalocean/pojo/Snapshot.html
-[12]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.6/com/myjeeva/digitalocean/pojo/Droplet.html
-[13]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.6/com/myjeeva/digitalocean/pojo/Response.html
+[8]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/1.7/digitalocean-api-client-1.7.jar
+[9]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.7/com/myjeeva/digitalocean/pojo/Event.html
+[10]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.7/com/myjeeva/digitalocean/pojo/Backup.html
+[11]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.7/com/myjeeva/digitalocean/pojo/Snapshot.html
+[12]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.7/com/myjeeva/digitalocean/pojo/Droplet.html
+[13]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.7/com/myjeeva/digitalocean/pojo/Response.html
 [14]: https://github.com/jeevatkm/digitalocean-api-java/issues/1
 [15]: https://github.com/jeevatkm/digitalocean-api-java/issues/5
 [16]: https://github.com/jeevatkm/digitalocean-api-java/issues/3
@@ -185,5 +185,5 @@ See [LICENSE.txt][6]
 [18]: https://github.com/jeevatkm/digitalocean-api-java/issues/6
 [19]: https://github.com/jeevatkm/digitalocean-api-java/issues/7
 [20]: https://github.com/jeevatkm/digitalocean-api-java/issues/9
-[21]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.6/com/myjeeva/digitalocean/pojo/DropletStatus.html
+[21]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/1.7/com/myjeeva/digitalocean/pojo/DropletStatus.html
 [22]: https://github.com/jeevatkm/digitalocean-api-java/issues/12
