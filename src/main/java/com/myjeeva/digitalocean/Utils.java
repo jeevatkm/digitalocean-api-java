@@ -50,7 +50,7 @@ public final class Utils implements Constants {
 
   public static Gson getGson() {
     if (null == gson)
-      gson = new GsonBuilder().setDateFormat("yyyy-mm-dd'T'HH:mm:ss'Z'").create();
+      gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").create();
 
     return gson;
   }
