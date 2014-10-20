@@ -82,9 +82,40 @@ public class Droplet {
   @SerializedName("ssh_keys")
   private List<Key> keys;
 
+  @SerializedName("user_data")
+  private String userData;
+
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return true if droplet is active
+   */
+  public boolean isActive() {
+    return status == DropletStatus.ACTIVE;
+  }
+
+  /**
+   * @return true if droplet is new, meaning it's booting up
+   */
+  public boolean isNew() {
+    return DropletStatus.NEW == status;
+  }
+
+  /**
+   * @return true if droplet is turned off
+   */
+  public boolean isOff() {
+    return DropletStatus.OFF == status;
+  }
+
+  /**
+   * @return true if droplet is archived
+   */
+  public boolean isArchived() {
+    return DropletStatus.ARCHIVE == status;
   }
 
   /**
@@ -368,30 +399,17 @@ public class Droplet {
   }
 
   /**
-   * @return true if droplet is active
+   * @return the userData
    */
-  public boolean isActive() {
-    return status == DropletStatus.ACTIVE;
+  public String getUserData() {
+    return userData;
   }
 
   /**
-   * @return true if droplet is new, meaning it's booting up
+   * @param userData the userData to set
    */
-  public boolean isNew() {
-    return status == DropletStatus.NEW;
+  public void setUserData(String userData) {
+    this.userData = userData;
   }
 
-  /**
-   * @return true if droplet is turned off
-   */
-  public boolean isOff() {
-    return status == DropletStatus.OFF;
-  }
-
-  /**
-   * @return true if droplet is archived
-   */
-  public boolean isArchived() {
-    return status == DropletStatus.ARCHIVE;
-  }
 }

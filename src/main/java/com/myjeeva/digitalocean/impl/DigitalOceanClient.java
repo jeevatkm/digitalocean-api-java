@@ -759,9 +759,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     if (RequestMethod.GET == request.getMethod()) {
       response = doGet(uri);
     } else if (RequestMethod.POST == request.getMethod()) {
-      response = doPost(uri, getRequestData(request));
+      response = doPost(uri, createRequestData(request));
     } else if (RequestMethod.PUT == request.getMethod()) {
-      response = doPut(uri, getRequestData(request));
+      response = doPut(uri, createRequestData(request));
     } else if (RequestMethod.DELETE == request.getMethod()) {
       response = doDelete(uri);
     }
@@ -921,7 +921,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (null == request.getParams() ? path : String.format(path, request.getParams()));
   }
 
-  private StringEntity getRequestData(ApiRequest request) {
+  private StringEntity createRequestData(ApiRequest request) {
     StringEntity data = null;
 
     if (null != request.getData()) {

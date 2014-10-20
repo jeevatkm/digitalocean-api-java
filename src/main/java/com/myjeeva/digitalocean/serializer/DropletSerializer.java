@@ -68,6 +68,11 @@ public class DropletSerializer implements JsonSerializer<Droplet> {
       jsonObject.add("ssh_keys", jsonSshKeys);
     }
 
+    // #19 - https://github.com/jeevatkm/digitalocean-api-java/issues/19
+    if (null != droplet.getUserData()) {
+      jsonObject.addProperty("user_data", droplet.getUserData());
+    }
+
     return jsonObject;
   }
 

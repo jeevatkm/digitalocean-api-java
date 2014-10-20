@@ -20,6 +20,9 @@
  */
 package com.myjeeva.digitalocean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import junit.framework.TestCase;
 
 import org.junit.Ignore;
@@ -161,6 +164,20 @@ public class DigitalOceanIntegrationTest extends TestCase {
     droplet.setEnableBackup(Boolean.TRUE);
     droplet.setEnableIpv6(Boolean.TRUE);
     droplet.setEnablePrivateNetworking(Boolean.TRUE);
+    
+    // Adding SSH key info
+    List<Key> keys = new ArrayList<Key>();
+    keys.add(new Key(6536653));
+    keys.add(new Key(6536654));
+    droplet.setKeys(keys);
+    
+    // Adding Metadata API - User Data
+    droplet.setUserData("#!/bin/bash" +
+"apt-get -y update" +
+"apt-get -y install nginx" +
+"export HOSTNAME=$(curl -s http://169.254.169.254/metadata/v1/hostname)" +
+"export PUBLIC_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address)" +
+"echo Droplet: $HOSTNAME, IP Address: $PUBLIC_IPV4 > /usr/share/nginx/html/index.html"); 
 
     Droplet d = apiClient.createDroplet(droplet);
 
