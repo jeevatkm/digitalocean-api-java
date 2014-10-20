@@ -82,7 +82,6 @@ keys.add(new Key(6536654));
 newDroplet.setKeys(keys);
 // Adding Metadata API - User Data
 newDroplet.setUserData(" &lt; YAML Content > "); // Follow DigitalOcean documentation to prepare user_data value
-
 Droplet droplet = apiClient.createDroplet(newDroplet);</pre> 
 <pre>// Fetch droplet information 
 Droplet droplet = apiClient.getDropletInfo(dropletId);</pre> 
