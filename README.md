@@ -76,17 +76,12 @@ newDroplet.setEnableBackup(Boolean.TRUE);
 newDroplet.setEnableIpv6(Boolean.TRUE);
 newDroplet.setEnablePrivateNetworking(Boolean.TRUE);
 // Adding SSH key info
-List<Key> keys = new ArrayList<Key>();
+List&lt;Key> keys = new ArrayList&lt;Key>();
 keys.add(new Key(6536653));
 keys.add(new Key(6536654));
 newDroplet.setKeys(keys);
 // Adding Metadata API - User Data
-newDroplet.setUserData("#!/bin/bash" +
-"apt-get -y update" +
-"apt-get -y install nginx" +
-"export HOSTNAME=$(curl -s http://169.254.169.254/metadata/v1/hostname)" +
-"export PUBLIC_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address)" +
-"echo Droplet: $HOSTNAME, IP Address: $PUBLIC_IPV4 > /usr/share/nginx/html/index.html"); 
+newDroplet.setUserData(" &lt; YAML Content > "); // Follow DigitalOcean documentation to prepare user_data value
 
 Droplet droplet = apiClient.createDroplet(newDroplet);</pre> 
 <pre>// Fetch droplet information 
