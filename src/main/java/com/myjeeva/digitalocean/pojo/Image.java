@@ -53,6 +53,9 @@ public class Image {
   @SerializedName("created_at")
   private Date createdDate;
 
+  @SerializedName("min_size")
+  private String minSize;
+
   public Image() {
     // Default constructor
   }
@@ -166,5 +169,19 @@ public class Image {
    */
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
+  }
+
+  /**
+   * @return the minSize
+   */
+  public String getMinSize() {
+    return minSize;
+  }
+
+  /**
+   * @param minSize the minSize to set
+   */
+  public void setMinSize(String minSize) {
+    this.minSize = minSize;
   }
 }

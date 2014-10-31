@@ -43,7 +43,7 @@ public class DropletSerializer implements JsonSerializer<Droplet> {
     final JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("name", droplet.getName());
     jsonObject.addProperty("region", droplet.getRegion().getSlug());
-    jsonObject.addProperty("size", droplet.getSize().getSlug());
+    jsonObject.addProperty("size", droplet.getSize());
 
     if (null == droplet.getImage().getId()) {
       jsonObject.addProperty("image", droplet.getImage().getSlug());

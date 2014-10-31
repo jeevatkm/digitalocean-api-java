@@ -52,7 +52,8 @@ public class Droplet {
 
   private Image image;
 
-  private Size size;
+  @SerializedName("size_slug")
+  private String size;
 
   private boolean locked;
 
@@ -219,14 +220,14 @@ public class Droplet {
   /**
    * @return the size
    */
-  public Size getSize() {
+  public String getSize() {
     return size;
   }
 
   /**
    * @param size the size to set
    */
-  public void setSize(Size size) {
+  public void setSize(String size) {
     this.size = size;
   }
 
