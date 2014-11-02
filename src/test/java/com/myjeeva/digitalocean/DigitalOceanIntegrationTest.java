@@ -37,6 +37,7 @@ import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backup;
 import com.myjeeva.digitalocean.pojo.Backups;
+import com.myjeeva.digitalocean.pojo.Delete;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
 import com.myjeeva.digitalocean.pojo.DomainRecords;
@@ -212,7 +213,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   @Test
   public void testDeleteDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    Boolean result = apiClient.deleteDroplet(2258153);
+    Delete result = apiClient.deleteDroplet(2258153);
 
     assertNotNull(result);
     LOG.info("Delete Request Object: " + result);
@@ -465,7 +466,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
   @Test
   public void testDeleteImage() throws DigitalOceanException, RequestUnsuccessfulException {
-    Boolean result = apiClient.deleteImage(3897539);
+    Delete result = apiClient.deleteImage(3897539);
 
     assertNotNull(result);
     LOG.info("Delete Request result: " + result);
@@ -549,7 +550,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
   @Test
   public void testDeleteDomain() throws DigitalOceanException, RequestUnsuccessfulException {
-    Boolean result = apiClient.deleteDomain(domainName);
+    Delete result = apiClient.deleteDomain(domainName);
 
     assertNotNull(result);
     LOG.info("Delete Request Object: " + result);
@@ -558,7 +559,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   @Test
   public void testGetDomainRecords() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    DomainRecords domainRecords = apiClient.getDomainRecords("rakeshshetty.me");
+    DomainRecords domainRecords = apiClient.getDomainRecords("jeeutil.com");
 
     assertNotNull(domainRecords);
     assertTrue((domainRecords.getDomainRecords().size() > 0));
@@ -579,7 +580,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   @Test
   public void testCreateDomainRecord() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    DomainRecord input = new DomainRecord("test", "@", "CNAME");
+    DomainRecord input = new DomainRecord("test1", "@", "CNAME");
     DomainRecord domainRecord = apiClient.createDomainRecord("jeeutil.com", input);
 
     assertNotNull(domainRecord);
@@ -596,10 +597,10 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
   @Test
   public void testDeleteDomainRecord() throws DigitalOceanException, RequestUnsuccessfulException {
-    Boolean result = apiClient.deleteDomainRecord("jeeutil.com", 2576287);
+    Delete result = apiClient.deleteDomainRecord("jeeutil.com", 3253734);
 
     assertNotNull(result);
-    LOG.info("Delete Request Object: " + result);
+    LOG.info("Delete Request Object: " + result.toString());
   }
 
   // SSH Key test cases
@@ -674,7 +675,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
   @Test
   public void testDeleteKeyById() throws DigitalOceanException, RequestUnsuccessfulException {
-    Boolean result = apiClient.deleteKey(245798);
+    Delete result = apiClient.deleteKey(245798);
 
     assertNotNull(result);
     LOG.info("Delete Key Request Object: " + result);
@@ -683,7 +684,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   @Test
   public void testDeleteKeyByFingerprint() throws DigitalOceanException,
       RequestUnsuccessfulException {
-    Boolean result = apiClient.deleteKey("3b:0b:99:54:ef:75:cb:88:88:66:3c:8d:10:64:74:32");
+    Delete result = apiClient.deleteKey("3b:0b:99:54:ef:75:cb:88:88:66:3c:8d:10:64:74:32");
 
     assertNotNull(result);
     LOG.info("Delete Key Request Object: " + result);

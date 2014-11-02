@@ -32,7 +32,9 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  * @since v2.0
  */
 public class Droplets extends Base {
-  
+
+  private static final long serialVersionUID = 8034193005189329161L;
+
   private List<Droplet> droplets;
 
   @Override

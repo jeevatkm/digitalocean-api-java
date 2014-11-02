@@ -30,7 +30,9 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class Region {
+public class Region extends RateLimitBase {
+
+  private static final long serialVersionUID = 5407997886217553770L;
 
   private String slug;
 

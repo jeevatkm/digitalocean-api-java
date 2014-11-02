@@ -33,7 +33,9 @@ import com.myjeeva.digitalocean.common.DropletStatus;
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class Droplet {
+public class Droplet extends RateLimitBase {
+
+  private static final long serialVersionUID = 1110964622197874436L;
 
   private Integer id;
 

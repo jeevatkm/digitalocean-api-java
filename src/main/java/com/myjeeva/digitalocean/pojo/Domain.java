@@ -20,8 +20,6 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
-import java.io.Serializable;
-
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.google.gson.annotations.Expose;
@@ -32,9 +30,9 @@ import com.google.gson.annotations.SerializedName;
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class Domain implements Serializable {
+public class Domain extends RateLimitBase {
 
-  private static final long serialVersionUID = -1034777642814045693L;
+  private static final long serialVersionUID = 5958407274594550472L;
 
   @Expose
   private String name;

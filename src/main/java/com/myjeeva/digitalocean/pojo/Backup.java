@@ -29,4 +29,6 @@ package com.myjeeva.digitalocean.pojo;
  */
 public class Backup extends Image {
 
+  private static final long serialVersionUID = 7827206749099471697L;
+
 }

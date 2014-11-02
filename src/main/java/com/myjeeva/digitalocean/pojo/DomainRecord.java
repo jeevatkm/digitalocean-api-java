@@ -30,7 +30,9 @@ import com.google.gson.annotations.Expose;
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class DomainRecord {
+public class DomainRecord extends RateLimitBase {
+
+  private static final long serialVersionUID = 5656335027984698525L;
 
   private Integer id;
 

@@ -35,6 +35,8 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Keys extends Base {
 
+  private static final long serialVersionUID = 5842563908358462580L;
+
   @SerializedName("ssh_keys")
   private List<Key> keys;
 

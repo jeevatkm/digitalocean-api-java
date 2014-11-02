@@ -20,6 +20,8 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
@@ -29,13 +31,13 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  * 
  * @since v2.0
  */
-public abstract class Base {
+public abstract class Base extends RateLimitBase implements Serializable {
+
+  private static final long serialVersionUID = -5958690969939240483L;
 
   private Meta meta;
 
   private Links links;
-
-  private RateLimit rateLimit;
 
   @Override
   public String toString() {
@@ -68,19 +70,5 @@ public abstract class Base {
    */
   public void setLinks(Links links) {
     this.links = links;
-  }
-
-  /**
-   * @return the rateLimit
-   */
-  public RateLimit getRateLimit() {
-    return rateLimit;
-  }
-
-  /**
-   * @param rateLimit the rateLimit to set
-   */
-  public void setRateLimit(RateLimit rateLimit) {
-    this.rateLimit = rateLimit;
   }
 }

@@ -25,6 +25,7 @@ import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
+import com.myjeeva.digitalocean.pojo.Delete;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
 import com.myjeeva.digitalocean.pojo.DomainRecords;
@@ -175,11 +176,12 @@ public interface DigitalOcean {
    * Method allows you to create a new droplet. See the required parameters section below for an
    * explanation of the variables that are needed to create a new droplet.
    * </p>
-   * 
    * <p>
-   * Create a instance of {@link Droplet} class and populated the droplet object appropriately.
+   * <strong>Note:</strong> Currently return object doesn't include 'action' information of create
+   * droplet.
    * </p>
    * <p>
+   * Create a instance of {@link Droplet} class and populated the droplet object appropriately.
    * Minimum required values are -
    * </p>
    * 
@@ -205,13 +207,13 @@ public interface DigitalOcean {
    * Method destroys one of your droplet; this is irreversible.
    * 
    * @param dropletId the id of the droplet
-   * @return {@link Boolean}
+   * @return {@link Delete}
    * @throws DigitalOceanException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Boolean deleteDroplet(Integer dropletId) throws DigitalOceanException,
+  Delete deleteDroplet(Integer dropletId) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
   // Droplet Action methods
@@ -556,13 +558,13 @@ public interface DigitalOcean {
    * and ensure your data is properly backed up.
    * 
    * @param imageId of the droplet/snapshot/backup images
-   * @return {@link Boolean}
+   * @return {@link Delete}
    * @throws DigitalOceanException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Boolean deleteImage(Integer imageId) throws DigitalOceanException, RequestUnsuccessfulException;
+  Delete deleteImage(Integer imageId) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to transfer an image to a specified region.
@@ -658,14 +660,13 @@ public interface DigitalOcean {
    * Method deletes the specified domain from DNS control panel
    * 
    * @param domainName the name of the domain
-   * @return {@link Boolean}
+   * @return {@link Delete}
    * @throws DigitalOceanException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.0
    */
-  Boolean deleteDomain(String domainName) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Delete deleteDomain(String domainName) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method returns all of your current domain records from DNS control panel for given domain.
@@ -731,10 +732,11 @@ public interface DigitalOcean {
    * @param recordId of the domain
    * @throws RequestUnsuccessfulException
    * @throws DigitalOceanException
+   * @return {@link Delete}
    * 
    * @since v1.1
    */
-  Boolean deleteDomainRecord(String domainName, Integer recordId) throws DigitalOceanException,
+  Delete deleteDomainRecord(String domainName, Integer recordId) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
 
@@ -823,23 +825,23 @@ public interface DigitalOcean {
    * Method will delete the SSH key from your account.
    * 
    * @param sshKeyId the SSH key Id, you would like to delete
-   * @return {@link Boolean}
+   * @return {@link Delete}
    * @throws DigitalOceanException
    * @throws RequestUnsuccessfulException
    * 
    * @since v1.2
    */
-  Boolean deleteKey(Integer sshKeyId) throws DigitalOceanException, RequestUnsuccessfulException;
+  Delete deleteKey(Integer sshKeyId) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method will delete the SSH key from your account.
    * 
    * @param fingerprint the SSH fingerprint
-   * @return {@link Boolean}
+   * @return {@link Delete}
    * @throws DigitalOceanException
    * @throws RequestUnsuccessfulException
    * 
    * @since v2.0
    */
-  Boolean deleteKey(String fingerprint) throws DigitalOceanException, RequestUnsuccessfulException;
+  Delete deleteKey(String fingerprint) throws DigitalOceanException, RequestUnsuccessfulException;
 }

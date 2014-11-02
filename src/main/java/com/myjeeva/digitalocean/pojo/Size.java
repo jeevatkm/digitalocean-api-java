@@ -33,7 +33,9 @@ import com.google.gson.annotations.SerializedName;
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class Size {
+public class Size extends RateLimitBase {
+
+  private static final long serialVersionUID = -4657640557301808868L;
 
   private String slug;
 

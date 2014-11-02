@@ -31,6 +31,8 @@ import java.util.List;
  */
 public class Backups extends Base {
 
+  private static final long serialVersionUID = 1799833528333920392L;
+
   List<Backup> backups;
 
   /**

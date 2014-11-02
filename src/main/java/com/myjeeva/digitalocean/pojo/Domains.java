@@ -33,6 +33,8 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  */
 public class Domains extends Base {
 
+  private static final long serialVersionUID = 403429426585596826L;
+
   private List<Domain> domains;
 
   @Override

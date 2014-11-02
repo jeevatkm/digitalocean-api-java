@@ -114,6 +114,10 @@ public class ApiRequest {
     this.pageNo = pageNo;
   }
 
+  public Boolean isCollectionElement() {
+    return getElementName().endsWith("s");
+  }
+
   /**
    * @return the path
    */

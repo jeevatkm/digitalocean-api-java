@@ -37,11 +37,16 @@ public interface Constants {
   String JSON_CONTENT_TYPE = "application/json";
   String FORM_URLENCODED_CONTENT_TYPE = "application/x-www-form-urlencoded";
   String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-  String RATE_LIMIT_JSON_STRUCT = "\"rateLimit\": { \"limit\": %s, \"remaining\": %s, \"reset\": \"%s\"}";
+  String RATE_LIMIT_JSON_STRUCT =
+      "\"rate_limit\": { \"limit\": %s, \"remaining\": %s, \"reset\": \"%s\"}";
+  String RATE_LIMIT_ELEMENT_NAME = "rate_limit";
 
   // HTTPS Scheme
   String HTTPS_SCHEME = "https";
 
   // HTTP Param name
   String PARAM_PAGE_NO = "page";
+
+  String NO_CONTENT_JSON_STRUCT = "{\"delete\": {\"request_status\": true, \"status_code\": %s}}";
+
 }

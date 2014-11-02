@@ -90,6 +90,16 @@ Sizes sizes = apiClient.getAvailableSizes(pageNo);</pre>
 <pre>// Fetch Available Regions supported by DigitalOcean
 Sizes sizes = apiClient.getAvailableRegions(pageNo);</pre>
 
+* Accessing <code>RateLimit</code> header values in the return object
+<pre>Droplets droplets = getAvailableDroplets(1);
+RateLimit rateLimit = droplets.getRateLimit();</pre>
+<pre>Actions actions = getAvailableActions(2);
+RateLimit rateLimit = actions.getRateLimit();</pre>
+<pre>Domain domain = getDomainInfo("myjeeva.com");
+RateLimit rateLimit = domain.getRateLimit();</pre>
+<pre>Droplet droplet = getDropletInfo(10000001);
+RateLimit rateLimit = droplet.getRateLimit();</pre>
+
 Reporting Issues
 ----------------
 DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to record bugs and feature requests. If you want to raise an issue, please follow the recommendations bellow:
@@ -115,7 +125,7 @@ Supported API's and Revision Logs
 	Backups	getAvailableBackups(Integer dropletId, Integer pageNo)
 	Droplet	getDropletInfo(Integer dropletId)
 	Droplet	createDroplet(Droplet droplet)
-	Boolean	deleteDroplet(Integer dropletId)
+	Delete deleteDroplet(Integer dropletId)
 	</pre>
 	* Droplet Actions
 	<pre>
@@ -136,6 +146,14 @@ Supported API's and Revision Logs
 	Action enableDropletPrivateNetworking(Integer dropletId)
 	Action changeDropletKernel(Integer dropletId, Integer kernelId)
 	</pre>
+	*Images
+	<pre>
+	Image getImageInfo(Integer imageId)
+	Image getImageInfo(String slug)
+	Image updateImage(Image image)
+	Delete deleteImage(Integer imageId)
+	Action transferImage(Integer imageId, String regionSlug)
+	</pre>
 	* Sizes
 	<pre>Sizes getAvailableSizes(Integer pageNo)</pre>
 	* Regions
@@ -145,7 +163,7 @@ Supported API's and Revision Logs
 	Domains	getAvailableDomains(Integer pageNo)
 	Domain getDomainInfo(String domainName)
 	Domain createDomain(Domain domain)
-	Boolean	deleteDomain(String domainName)
+	Delete deleteDomain(String domainName)
 	</pre>
 	* Domain Records
 	<pre>
@@ -153,7 +171,7 @@ Supported API's and Revision Logs
 	DomainRecord getDomainRecordInfo(String domainName, Integer recordId)
 	DomainRecord createDomainRecord(String domainName, DomainRecord domainRecord)
 	DomainRecord updateDomainRecord(String domainName, Integer recordId, String name)
-	Boolean	deleteDomainRecord(String domainName, Integer recordId)
+	Delete deleteDomainRecord(String domainName, Integer recordId)
 	</pre>
 	* Keys
 	<pre>
@@ -163,8 +181,8 @@ Supported API's and Revision Logs
 	Key	createKey(Key newKey)
 	Key	updateKey(Integer sshKeyId, String newSshKeyName)
 	Key	updateKey(String fingerprint, String newSshKeyName)
-	Boolean	deleteKey(Integer sshKeyId)
-	Boolean	deleteKey(String fingerprint)
+	Delete deleteKey(Integer sshKeyId)
+	Delete deleteKey(String fingerprint)
 	</pre>
 
 Author

@@ -34,7 +34,9 @@ import com.google.gson.annotations.SerializedName;
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class Image {
+public class Image extends RateLimitBase {
+
+  private static final long serialVersionUID = 1321111459154107563L;
 
   private Integer id;
 

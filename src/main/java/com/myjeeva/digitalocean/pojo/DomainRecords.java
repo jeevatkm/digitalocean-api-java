@@ -35,6 +35,8 @@ import com.google.gson.annotations.SerializedName;
  */
 public class DomainRecords extends Base {
 
+  private static final long serialVersionUID = -3070769129688315651L;
+
   @SerializedName("domain_records")
   private List<DomainRecord> domainRecords;
 

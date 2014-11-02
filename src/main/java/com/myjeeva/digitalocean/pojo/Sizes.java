@@ -32,7 +32,9 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  * @since v2.0
  */
 public class Sizes extends Base {
-  
+
+  private static final long serialVersionUID = 8144482770477554617L;
+
   private List<Size> sizes;
 
   @Override

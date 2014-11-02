@@ -29,4 +29,6 @@ package com.myjeeva.digitalocean.pojo;
  */
 public class Snapshot extends Image {
 
+  private static final long serialVersionUID = 5713559939273842460L;
+
 }

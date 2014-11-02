@@ -25,24 +25,39 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents DigitalOcean Network attributes
+ * Represents HTTP Method - DELETE response handling
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
  * @since v2.0
  */
-public class Network extends RateLimitBase {
+public class Delete extends RateLimitBase {
 
-  private static final long serialVersionUID = -3123221302381366269L;
+  private static final long serialVersionUID = -3552374545843268569L;
 
-  @SerializedName("ip_address")
-  private String ipAddress;
+  @SerializedName("request_status")
+  private Boolean isRequestSuccess;
 
-  private String netmask;
+  @SerializedName("status_code")
+  private int statusCode;
 
-  private String gateway;
+  /**
+   * Default Constructor
+   */
+  public Delete() {
+    // Default Constructor
+  }
 
-  private String type;
+  /**
+   * Parameterized Constructor
+   * 
+   * @param limit the number of requests that can be made per hour
+   * @param remaining the number of requests that remain before you hit your request limit
+   * @param reset this represents the time when the oldest request will expire
+   */
+  public Delete(Boolean isRequestSuccess) {
+    this.isRequestSuccess = isRequestSuccess;
+  }
 
   @Override
   public String toString() {
@@ -50,58 +65,30 @@ public class Network extends RateLimitBase {
   }
 
   /**
-   * @return the ipAddress
+   * @return the isRequestSuccess
    */
-  public String getIpAddress() {
-    return ipAddress;
+  public Boolean getIsRequestSuccess() {
+    return isRequestSuccess;
   }
 
   /**
-   * @param ipAddress the ipAddress to set
+   * @param isRequestSuccess the isRequestSuccess to set
    */
-  public void setIpAddress(String ipAddress) {
-    this.ipAddress = ipAddress;
+  public void setIsRequestSuccess(Boolean isRequestSuccess) {
+    this.isRequestSuccess = isRequestSuccess;
   }
 
   /**
-   * @return the netmask
+   * @return the statusCode
    */
-  public String getNetmask() {
-    return netmask;
+  public int getStatusCode() {
+    return statusCode;
   }
 
   /**
-   * @param netmask the netmask to set
+   * @param statusCode the statusCode to set
    */
-  public void setNetmask(String netmask) {
-    this.netmask = netmask;
-  }
-
-  /**
-   * @return the gateway
-   */
-  public String getGateway() {
-    return gateway;
-  }
-
-  /**
-   * @param gateway the gateway to set
-   */
-  public void setGateway(String gateway) {
-    this.gateway = gateway;
-  }
-
-  /**
-   * @return the type
-   */
-  public String getType() {
-    return type;
-  }
-
-  /**
-   * @param type the type to set
-   */
-  public void setType(String type) {
-    this.type = type;
+  public void setStatusCode(int statusCode) {
+    this.statusCode = statusCode;
   }
 }

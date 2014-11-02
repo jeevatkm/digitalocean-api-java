@@ -23,6 +23,7 @@ package com.myjeeva.digitalocean.common;
 import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
+import com.myjeeva.digitalocean.pojo.Delete;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
 import com.myjeeva.digitalocean.pojo.DomainRecords;
@@ -54,7 +55,7 @@ public enum ApiAction {
   GET_DROPLET_BACKUPS("/droplets/%s/backups", "backups", RequestMethod.GET, Backups.class),  
   GET_DROPLET_INFO("/droplets/%s", "droplet", RequestMethod.GET, Droplet.class),  
   CREATE_DROPLET("/droplets", "droplet", RequestMethod.POST, Droplet.class),
-  DELETE_DROPLET("/droplets/%s", RequestMethod.DELETE),
+  DELETE_DROPLET("/droplets/%s", "delete", RequestMethod.DELETE, Delete.class),
   REBOOT_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   POWER_CYCLE_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   SHUTDOWN_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
@@ -83,7 +84,7 @@ public enum ApiAction {
   AVAILABLE_IMAGES("/images", "images", RequestMethod.GET, Images.class),  
   GET_IMAGE_INFO("/images/%s", "image", RequestMethod.GET, Image.class),  
   UPDATE_IMAGE_INFO("/images/%s", "image", RequestMethod.PUT, Image.class),
-  DELETE_IMAGE("/images/%s", RequestMethod.DELETE),
+  DELETE_IMAGE("/images/%s", "delete", RequestMethod.DELETE, Delete.class),
   TRANSFER_IMAGE("/images/%s/actions", "action", RequestMethod.POST, Action.class),
   
   
@@ -99,7 +100,7 @@ public enum ApiAction {
   AVAILABLE_DOMAINS("/domains", "domains", RequestMethod.GET, Domains.class),
   GET_DOMAIN_INFO("/domains/%s", "domain", RequestMethod.GET, Domain.class),
   CREATE_DOMAIN("/domains", "domain", RequestMethod.POST, Domain.class),  
-  DELETE_DOMAIN("/domains/%s", RequestMethod.DELETE),
+  DELETE_DOMAIN("/domains/%s", "delete", RequestMethod.DELETE, Delete.class),
   
   
   // Domain Record
@@ -107,7 +108,7 @@ public enum ApiAction {
   GET_DOMAIN_RECORD_INFO("/domains/%s/records/%s", "domain_record", RequestMethod.GET, DomainRecord.class),
   CREATE_DOMAIN_RECORD("/domains/%s/records", "domain_record", RequestMethod.POST, DomainRecord.class),  
   UPDATE_DOMAIN_RECORD("/domains/%s/records/%s", "domain_record", RequestMethod.PUT, DomainRecord.class),
-  DELETE_DOMAIN_RECORD("/domains/%s/records/%s", RequestMethod.DELETE),
+  DELETE_DOMAIN_RECORD("/domains/%s/records/%s", "delete", RequestMethod.DELETE, Delete.class),
   
   
   // Key
@@ -115,7 +116,7 @@ public enum ApiAction {
   GET_KEY_INFO("/account/keys/%s", "ssh_key", RequestMethod.GET, Key.class),
   CREATE_KEY("/account/keys", "ssh_key", RequestMethod.POST, Key.class),  
   UPDATE_KEY("/account/keys/%s", "ssh_key", RequestMethod.PUT, Key.class),
-  DELETE_KEY("/account/keys/%s", RequestMethod.DELETE);
+  DELETE_KEY("/account/keys/%s", "delete", RequestMethod.DELETE, Delete.class);
    
   private String path;
 

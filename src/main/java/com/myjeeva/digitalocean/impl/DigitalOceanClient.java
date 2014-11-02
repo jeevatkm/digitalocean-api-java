@@ -28,6 +28,7 @@ import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
+import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.ParseException;
@@ -50,7 +51,6 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
@@ -64,6 +64,7 @@ import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
+import com.myjeeva.digitalocean.pojo.Delete;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
 import com.myjeeva.digitalocean.pojo.DomainRecords;
@@ -269,12 +270,12 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public Boolean deleteDroplet(Integer dropletId) throws DigitalOceanException,
+  public Delete deleteDroplet(Integer dropletId) throws DigitalOceanException,
       RequestUnsuccessfulException {
     validateDropletId(dropletId);
 
     Object[] params = {dropletId};
-    return (Boolean) perform(new ApiRequest(ApiAction.DELETE_DROPLET, params)).getData();
+    return (Delete) perform(new ApiRequest(ApiAction.DELETE_DROPLET, params)).getData();
   }
 
   // Droplet action methods
@@ -341,8 +342,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
     Object[] params = {dropletId};
     return (Action) perform(
-        new ApiRequest(ApiAction.RESET_DROPLET_PASSWORD, new DropletAction(ActionType.PASSWORD_RESET),
-            params)).getData();
+        new ApiRequest(ApiAction.RESET_DROPLET_PASSWORD, new DropletAction(
+            ActionType.PASSWORD_RESET), params)).getData();
   }
 
   @Override
@@ -537,12 +538,12 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public Boolean deleteImage(Integer imageId) throws DigitalOceanException,
+  public Delete deleteImage(Integer imageId) throws DigitalOceanException,
       RequestUnsuccessfulException {
     checkNullAndThrowError(imageId, "Missing required parameter - imageId.");
 
     Object[] params = {imageId};
-    return (Boolean) perform(new ApiRequest(ApiAction.DELETE_IMAGE, params)).getData();
+    return (Delete) perform(new ApiRequest(ApiAction.DELETE_IMAGE, params)).getData();
   }
 
   @Override
@@ -612,12 +613,12 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public Boolean deleteDomain(String domainName) throws DigitalOceanException,
+  public Delete deleteDomain(String domainName) throws DigitalOceanException,
       RequestUnsuccessfulException {
     checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
 
     Object[] params = {domainName};
-    return (Boolean) perform(new ApiRequest(ApiAction.DELETE_DOMAIN, params)).getData();
+    return (Delete) perform(new ApiRequest(ApiAction.DELETE_DOMAIN, params)).getData();
   }
 
   @Override
@@ -666,13 +667,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public Boolean deleteDomainRecord(String domainName, Integer recordId)
+  public Delete deleteDomainRecord(String domainName, Integer recordId)
       throws DigitalOceanException, RequestUnsuccessfulException {
     checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
     checkNullAndThrowError(recordId, "Missing required parameter - recordId.");
 
     Object[] params = {domainName, recordId};
-    return (Boolean) perform(new ApiRequest(ApiAction.DELETE_DOMAIN_RECORD, params)).getData();
+    return (Delete) perform(new ApiRequest(ApiAction.DELETE_DOMAIN_RECORD, params)).getData();
   }
 
   @Override
@@ -733,21 +734,21 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public Boolean deleteKey(Integer sshKeyId) throws DigitalOceanException,
+  public Delete deleteKey(Integer sshKeyId) throws DigitalOceanException,
       RequestUnsuccessfulException {
     checkNullAndThrowError(sshKeyId, "Missing required parameter - sshKeyId.");
 
     Object[] params = {sshKeyId};
-    return (Boolean) perform(new ApiRequest(ApiAction.DELETE_KEY, params)).getData();
+    return (Delete) perform(new ApiRequest(ApiAction.DELETE_KEY, params)).getData();
   }
 
   @Override
-  public Boolean deleteKey(String fingerprint) throws DigitalOceanException,
+  public Delete deleteKey(String fingerprint) throws DigitalOceanException,
       RequestUnsuccessfulException {
     checkEmptyAndThrowError(fingerprint, "Missing required parameter - fingerprint.");
 
     Object[] params = {fingerprint};
-    return (Boolean) perform(new ApiRequest(ApiAction.DELETE_KEY, params)).getData();
+    return (Delete) perform(new ApiRequest(ApiAction.DELETE_KEY, params)).getData();
   }
 
   private ApiResponse perform(ApiRequest request) throws DigitalOceanException,
@@ -769,16 +770,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     ApiResponse apiResponse = new ApiResponse(request.getApiAction(), true);
 
     try {
-      if ("true".equals(response) || "false".equals(response)) {
-        apiResponse.setData(Boolean.valueOf(response));
+      if (request.isCollectionElement()) {
+        apiResponse.setData(deserialize.fromJson(response, request.getClazz()));
       } else {
-        if (request.getElementName().endsWith("s")) {
-          apiResponse.setData(deserialize.fromJson(response, request.getClazz()));
-        } else {
-          JsonElement element =
-              jsonParser.parse(response).getAsJsonObject().get(request.getElementName());
-          apiResponse.setData(deserialize.fromJson(element, request.getClazz()));
-        }
+        JsonObject rootObject = jsonParser.parse(response).getAsJsonObject();
+        JsonObject elementObject = rootObject.get(request.getElementName()).getAsJsonObject();
+        elementObject.add(RATE_LIMIT_ELEMENT_NAME, rootObject.get(RATE_LIMIT_ELEMENT_NAME));
+        apiResponse.setData(deserialize.fromJson(elementObject, request.getClazz()));
       }
     } catch (JsonSyntaxException jse) {
       LOG.error("Error occurred while parsing response", jse);
@@ -823,7 +821,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   private String doDelete(URI uri) throws DigitalOceanException, RequestUnsuccessfulException {
     HttpDelete delete = new HttpDelete(uri);
     delete.setHeaders(getRequestHeaders());
-    delete.setHeader("Content-Type", FORM_URLENCODED_CONTENT_TYPE);
+    delete.setHeader(HttpHeaders.CONTENT_TYPE, FORM_URLENCODED_CONTENT_TYPE);
     return executeHttpRequest(delete);
   }
 
@@ -855,7 +853,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
         || HttpStatus.SC_ACCEPTED == statusCode) {
       response = httpResponseToString(httpResponse);
     } else if (HttpStatus.SC_NO_CONTENT == statusCode) {
-      response = "true";
+      // in a way its always true from client perspective if there is no exception.
+      response = String.format(NO_CONTENT_JSON_STRUCT, statusCode);
     }
 
     if (statusCode >= 400 && statusCode < 510) {

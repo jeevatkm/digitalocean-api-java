@@ -20,29 +20,25 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents DigitalOcean Network attributes
+ * Represents RateLimit header values and being extended in all POJO.
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
  * @since v2.0
  */
-public class Network extends RateLimitBase {
+public abstract class RateLimitBase implements Serializable {
 
-  private static final long serialVersionUID = -3123221302381366269L;
+  private static final long serialVersionUID = -8915669199926680313L;
 
-  @SerializedName("ip_address")
-  private String ipAddress;
-
-  private String netmask;
-
-  private String gateway;
-
-  private String type;
+  @SerializedName("rate_limit")
+  private RateLimit rateLimit;
 
   @Override
   public String toString() {
@@ -50,58 +46,16 @@ public class Network extends RateLimitBase {
   }
 
   /**
-   * @return the ipAddress
+   * @return the rateLimit
    */
-  public String getIpAddress() {
-    return ipAddress;
+  public RateLimit getRateLimit() {
+    return rateLimit;
   }
 
   /**
-   * @param ipAddress the ipAddress to set
+   * @param rateLimit the rateLimit to set
    */
-  public void setIpAddress(String ipAddress) {
-    this.ipAddress = ipAddress;
-  }
-
-  /**
-   * @return the netmask
-   */
-  public String getNetmask() {
-    return netmask;
-  }
-
-  /**
-   * @param netmask the netmask to set
-   */
-  public void setNetmask(String netmask) {
-    this.netmask = netmask;
-  }
-
-  /**
-   * @return the gateway
-   */
-  public String getGateway() {
-    return gateway;
-  }
-
-  /**
-   * @param gateway the gateway to set
-   */
-  public void setGateway(String gateway) {
-    this.gateway = gateway;
-  }
-
-  /**
-   * @return the type
-   */
-  public String getType() {
-    return type;
-  }
-
-  /**
-   * @param type the type to set
-   */
-  public void setType(String type) {
-    this.type = type;
+  public void setRateLimit(RateLimit rateLimit) {
+    this.rateLimit = rateLimit;
   }
 }
