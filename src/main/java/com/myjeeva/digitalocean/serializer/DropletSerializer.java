@@ -22,11 +22,15 @@ package com.myjeeva.digitalocean.serializer;
 
 import java.lang.reflect.Type;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.myjeeva.digitalocean.pojo.Droplet;
+import com.myjeeva.digitalocean.pojo.Key;
 
 /**
  * Serializer for droplet class
@@ -64,8 +68,16 @@ public class DropletSerializer implements JsonSerializer<Droplet> {
     }
 
     if (null != droplet.getKeys() && droplet.getKeys().size() > 0) {
-      final JsonElement jsonSshKeys = context.serialize(droplet.getKeys());
-      jsonObject.add("ssh_keys", jsonSshKeys);
+      JsonArray sshKeys = new JsonArray();
+      for (Key k : droplet.getKeys()) {
+        if (null != k.getId()) {
+          sshKeys.add(context.serialize(k.getId()));
+        }
+        if (!StringUtils.isEmpty(k.getFingerprint())) {
+          sshKeys.add(context.serialize(k.getFingerprint()));
+        }
+      }
+      jsonObject.add("ssh_keys", sshKeys);
     }
 
     // #19 - https://github.com/jeevatkm/digitalocean-api-java/issues/19

@@ -168,18 +168,16 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     // Adding SSH key info
     List<Key> keys = new ArrayList<Key>();
-    keys.add(new Key(6536653));
-    keys.add(new Key(6536654));
+    keys.add(new Key(513618));
     droplet.setKeys(keys);
 
     // Adding Metadata API - User Data
-    droplet
-        .setUserData("#!/bin/bash"
-            + "apt-get -y update"
-            + "apt-get -y install nginx"
-            + "export HOSTNAME=$(curl -s http://169.254.169.254/metadata/v1/hostname)"
-            + "export PUBLIC_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address)"
-            + "echo Droplet: $HOSTNAME, IP Address: $PUBLIC_IPV4 > /usr/share/nginx/html/index.html");
+    /*
+     * droplet .setUserData("#!/bin/bash" + "apt-get -y update" + "apt-get -y install nginx" +
+     * "export HOSTNAME=$(curl -s http://169.254.169.254/metadata/v1/hostname)" +
+     * "export PUBLIC_IPV4=$(curl -s http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address)"
+     * + "echo Droplet: $HOSTNAME, IP Address: $PUBLIC_IPV4 > /usr/share/nginx/html/index.html");
+     */
 
     Droplet d = apiClient.createDroplet(droplet);
 
@@ -194,13 +192,18 @@ public class DigitalOceanIntegrationTest extends TestCase {
       RequestUnsuccessfulException {
 
     Droplet droplet = new Droplet();
-    droplet.setName("api-client-test-host-byslug");
+    droplet.setName("api-client-test-host-byslug1");
     droplet.setSize("512mb");
     droplet.setImage(new Image("centos-5-8-x64"));
     droplet.setRegion(new Region("sgp1"));
     droplet.setEnableBackup(Boolean.TRUE);
     droplet.setEnableIpv6(Boolean.TRUE);
     droplet.setEnablePrivateNetworking(Boolean.TRUE);
+
+    // Adding SSH key info
+    List<Key> keys = new ArrayList<Key>();
+    keys.add(new Key(513618));
+    droplet.setKeys(keys);
 
     Droplet d = apiClient.createDroplet(droplet);
 
