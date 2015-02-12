@@ -71,6 +71,13 @@ public class ApiRequest {
     this(apiAction, null, null, pageNo, null);
   }
 
+  /**
+   * Constructor
+   * 
+   * @param apiAction a info about api request
+   * @param pageNo of the request pagination
+   * @param queryParams of the api request
+   */
   public ApiRequest(ApiAction apiAction, Integer pageNo, Map<String, String> queryParams) {
     this(apiAction, null, null, pageNo, queryParams);
   }
@@ -114,6 +121,7 @@ public class ApiRequest {
    * @param data a api request body data object
    * @param pathParams a api request path variable value(s)
    * @param pageNo of the request pagination
+   * @param queryParams of the api request
    */
   public ApiRequest(ApiAction apiAction, Object data, Object[] pathParams, Integer pageNo,
       Map<String, String> queryParams) {

@@ -244,7 +244,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   @Test
   public void testShutdownDroplet() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    Action action = apiClient.shutdownDroplet(2258168);
+    Action action = apiClient.shutdownDroplet(4124871); // 2258168
 
     assertNotNull(action);
     LOG.info(action.toString());
@@ -470,6 +470,19 @@ public class DigitalOceanIntegrationTest extends TestCase {
       apiClient.getAvailableImages(1, ActionType.BACKUP);
     } catch (DigitalOceanException doe) {
       LOG.info(doe.getMessage());
+    }
+  }
+
+  @Test
+  public void testGetUserImages() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Images images = apiClient.getUserImages(1);
+
+    assertNotNull(images);
+    assertTrue((images.getImages().size() > 0));
+
+    for (Image img : images.getImages()) {
+      LOG.info(img.toString());
     }
   }
 

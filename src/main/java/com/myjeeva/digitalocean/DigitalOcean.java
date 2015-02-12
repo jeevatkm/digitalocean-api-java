@@ -519,9 +519,8 @@ public interface DigitalOcean {
       RequestUnsuccessfulException;
 
   /**
-   * Method returns all the available images that can be accessed by your OAuth Token. You will have
-   * access to all public images by default, and any snapshots or backups that you have created in
-   * your own account by type {distribution or application}
+   * Method returns all the available images based on
+   * <code>type={distribution or application}</code> that can be accessed by your OAuth Token.
    * 
    * @param pageNo of request pagination
    * @param type of action
@@ -533,6 +532,16 @@ public interface DigitalOcean {
    */
   Images getAvailableImages(Integer pageNo, ActionType type) throws DigitalOceanException,
       RequestUnsuccessfulException;
+
+  /**
+   * Method retrieves only the private images of a user
+   * 
+   * @param pageNo of request pagination
+   * @return {@link Images}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   */
+  Images getUserImages(Integer pageNo) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method retrieves the attributes of an image.

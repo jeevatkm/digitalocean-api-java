@@ -511,20 +511,30 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validatePageNo(pageNo);
     return (Images) perform(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo)).getData();
   }
-  
+
   @Override
   public Images getAvailableImages(Integer pageNo, ActionType type) throws DigitalOceanException,
       RequestUnsuccessfulException {
     validatePageNo(pageNo);
-    
+
     Map<String, String> qp;
     if (type == ActionType.DISTRIBUTION || type == ActionType.APPLICATION) {
       qp = new HashMap<String, String>();
       qp.put("type", type.toString());
     } else {
-      throw new DigitalOceanException("Incorrect type value [Allowed: DISTRIBUTION or APPLICATION].");
+      throw new DigitalOceanException(
+          "Incorrect type value [Allowed: DISTRIBUTION or APPLICATION].");
     }
-    
+
+    return (Images) perform(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo, qp)).getData();
+  }
+
+  @Override
+  public Images getUserImages(Integer pageNo) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validatePageNo(pageNo);
+    Map<String, String> qp = new HashMap<String, String>();
+    qp.put("private", "true");
     return (Images) perform(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo, qp)).getData();
   }
 
