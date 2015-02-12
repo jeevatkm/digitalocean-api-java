@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.myjeeva.digitalocean.common.ActionType;
 import com.myjeeva.digitalocean.exception.DigitalOceanException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.impl.DigitalOceanClient;
@@ -431,6 +432,44 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     for (Image img : images.getImages()) {
       LOG.info(img.toString());
+    }
+  }
+
+  @Test
+  public void testGetAvailableImagesByDistribution() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Images images = apiClient.getAvailableImages(1, ActionType.DISTRIBUTION);
+
+    assertNotNull(images);
+    assertTrue((images.getImages().size() > 0));
+
+    for (Image img : images.getImages()) {
+      LOG.info(img.toString());
+    }
+  }
+
+  @Test
+  public void testGetAvailableImagesByApplication() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Images images = apiClient.getAvailableImages(1, ActionType.APPLICATION);
+
+    assertNotNull(images);
+    assertTrue((images.getImages().size() > 0));
+
+    for (Image img : images.getImages()) {
+      LOG.info(img.toString());
+    }
+  }
+
+  @Test
+  public void testGetAvailableImagesByIncorrrect() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    try {
+      apiClient.getAvailableImages(1, ActionType.BACKUP);
+    } catch (DigitalOceanException doe) {
+      LOG.info(doe.getMessage());
     }
   }
 

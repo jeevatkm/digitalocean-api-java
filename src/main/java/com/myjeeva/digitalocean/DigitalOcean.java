@@ -20,6 +20,7 @@
  */
 package com.myjeeva.digitalocean;
 
+import com.myjeeva.digitalocean.common.ActionType;
 import com.myjeeva.digitalocean.exception.DigitalOceanException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.pojo.Action;
@@ -515,6 +516,22 @@ public interface DigitalOcean {
    * @since v1.0
    */
   Images getAvailableImages(Integer pageNo) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method returns all the available images that can be accessed by your OAuth Token. You will have
+   * access to all public images by default, and any snapshots or backups that you have created in
+   * your own account by type {distribution or application}
+   * 
+   * @param pageNo of request pagination
+   * @param type of action
+   * @return {@link Images}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  Images getAvailableImages(Integer pageNo, ActionType type) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
   /**
