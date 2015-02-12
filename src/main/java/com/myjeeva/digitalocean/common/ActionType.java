@@ -33,54 +33,60 @@ public enum ActionType {
 
   @SerializedName("reboot")
   REBOOT("reboot"),
-  
+
   @SerializedName("power_cycle")
-  POWER_CYCLE("power_cycle"), 
-  
+  POWER_CYCLE("power_cycle"),
+
   @SerializedName("shutdown")
   SHUTDOWN("shutdown"),
-  
+
   @SerializedName("power_off")
   POWER_OFF("power_off"),
-  
+
   @SerializedName("power_on")
   POWER_ON("power_on"),
-  
+
   @SerializedName("password_reset")
   PASSWORD_RESET("password_reset"),
-  
+
   @SerializedName("resize")
   RESIZE("resize"),
-  
+
   @SerializedName("restore")
   RESTORE("restore"),
-  
+
   @SerializedName("rebuild")
   REBUILD("rebuild"),
-  
+
   @SerializedName("rename")
   RENAME("rename"),
-  
+
   @SerializedName("change_kernel")
   CHANGE_KERNEL("change_kernel"),
-  
+
   @SerializedName("enable_ipv6")
   ENABLE_IPV6("enable_ipv6"),
-  
+
   @SerializedName("disable_backups")
   DISABLE_BACKUPS("disable_backups"),
-  
+
   @SerializedName("enable_private_networking")
   ENABLE_PRIVATE_NETWORKING("enable_private_networking"),
-  
+
   @SerializedName("snapshot")
   SNAPSHOT("snapshot"),
-  
+
   @SerializedName("backup")
   BACKUP("backup"),
-  
+
   @SerializedName("transfer")
-  TRANSFER("transfer");
+  TRANSFER("transfer"),
+
+  @SerializedName("distribution")
+  DISTRIBUTION("distribution"),
+
+  @SerializedName("application")
+  APPLICATION("application");
 
   private String value;
 

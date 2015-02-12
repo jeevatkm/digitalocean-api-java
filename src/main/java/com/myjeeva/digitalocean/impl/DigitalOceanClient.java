@@ -25,6 +25,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
@@ -509,6 +511,22 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validatePageNo(pageNo);
     return (Images) perform(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo)).getData();
   }
+  
+  @Override
+  public Images getAvailableImages(Integer pageNo, ActionType type) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validatePageNo(pageNo);
+    
+    Map<String, String> qp;
+    if (type == ActionType.DISTRIBUTION || type == ActionType.APPLICATION) {
+      qp = new HashMap<String, String>();
+      qp.put("type", type.toString());
+    } else {
+      throw new DigitalOceanException("Incorrect type value [Allowed: DISTRIBUTION or APPLICATION].");
+    }
+    
+    return (Images) perform(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo, qp)).getData();
+  }
 
   @Override
   public Image getImageInfo(Integer imageId) throws DigitalOceanException,
@@ -897,6 +915,12 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       ub.setParameter(PARAM_PAGE_NO, request.getPageNo().toString());
     }
 
+    if (null != request.getQueryParams()) {
+      for (Map.Entry<String, String> entry : request.getQueryParams().entrySet()) {
+        ub.setParameter(entry.getKey(), entry.getValue());
+      }
+    }
+
     URI uri = null;
     try {
       uri = ub.build();
@@ -917,7 +941,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
   private String createPath(ApiRequest request) {
     String path = URL_PATH_SEPARATOR + apiVersion + request.getApiAction().getPath();
-    return (null == request.getParams() ? path : String.format(path, request.getParams()));
+    return (null == request.getPathParams() ? path : String.format(path, request.getPathParams()));
   }
 
   private StringEntity createRequestData(ApiRequest request) {

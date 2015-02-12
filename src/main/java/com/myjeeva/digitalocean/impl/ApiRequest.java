@@ -20,6 +20,8 @@
  */
 package com.myjeeva.digitalocean.impl;
 
+import java.util.Map;
+
 import com.myjeeva.digitalocean.common.ApiAction;
 import com.myjeeva.digitalocean.common.RequestMethod;
 
@@ -36,7 +38,9 @@ public class ApiRequest {
 
   private Object data;
 
-  private Object[] params;
+  private Object[] pathParams;
+
+  private Map<String, String> queryParams;
 
   private Integer pageNo;
 
@@ -51,10 +55,10 @@ public class ApiRequest {
    * Constructor
    * 
    * @param apiAction a info about api request
-   * @param params a api request path variable value(s)
+   * @param pathParams a api request path variable value(s)
    */
-  public ApiRequest(ApiAction apiAction, Object[] params) {
-    this(apiAction, null, params, null);
+  public ApiRequest(ApiAction apiAction, Object[] pathParams) {
+    this(apiAction, null, pathParams, null, null);
   }
 
   /**
@@ -64,7 +68,11 @@ public class ApiRequest {
    * @param pageNo of the request pagination
    */
   public ApiRequest(ApiAction apiAction, Integer pageNo) {
-    this(apiAction, null, null, pageNo);
+    this(apiAction, null, null, pageNo, null);
+  }
+
+  public ApiRequest(ApiAction apiAction, Integer pageNo, Map<String, String> queryParams) {
+    this(apiAction, null, null, pageNo, queryParams);
   }
 
   /**
@@ -74,18 +82,18 @@ public class ApiRequest {
    * @param data a api request body data object
    */
   public ApiRequest(ApiAction apiAction, Object data) {
-    this(apiAction, data, null, null);
+    this(apiAction, data, null, null, null);
   }
 
   /**
    * Constructor
    * 
    * @param apiAction a info about api request
-   * @param params a api request path variable value(s)
+   * @param pathParams a api request path variable value(s)
    * @param pageNo of the request pagination
    */
-  public ApiRequest(ApiAction apiAction, Object[] params, Integer pageNo) {
-    this(apiAction, null, params, pageNo);
+  public ApiRequest(ApiAction apiAction, Object[] pathParams, Integer pageNo) {
+    this(apiAction, null, pathParams, pageNo, null);
   }
 
   /**
@@ -93,10 +101,10 @@ public class ApiRequest {
    * 
    * @param apiAction a info about api request
    * @param data a api request body data object
-   * @param params a api request path variable value(s)
+   * @param pathParams a api request path variable value(s)
    */
-  public ApiRequest(ApiAction apiAction, Object data, Object[] params) {
-    this(apiAction, data, params, null);
+  public ApiRequest(ApiAction apiAction, Object data, Object[] pathParams) {
+    this(apiAction, data, pathParams, null, null);
   }
 
   /**
@@ -104,14 +112,16 @@ public class ApiRequest {
    * 
    * @param apiAction a info about api request
    * @param data a api request body data object
-   * @param params a api request path variable value(s)
+   * @param pathParams a api request path variable value(s)
    * @param pageNo of the request pagination
    */
-  public ApiRequest(ApiAction apiAction, Object data, Object[] params, Integer pageNo) {
+  public ApiRequest(ApiAction apiAction, Object data, Object[] pathParams, Integer pageNo,
+      Map<String, String> queryParams) {
     this.apiAction = apiAction;
     this.data = data;
-    this.params = params;
+    this.pathParams = pathParams;
     this.pageNo = pageNo;
+    this.queryParams = queryParams;
   }
 
   public Boolean isCollectionElement() {
@@ -175,17 +185,31 @@ public class ApiRequest {
   }
 
   /**
-   * @return the params
+   * @return the pathParams
    */
-  public Object[] getParams() {
-    return params;
+  public Object[] getPathParams() {
+    return pathParams;
   }
 
   /**
-   * @param params the params to set
+   * @param pathParams the pathParams to set
    */
-  public void setParams(Object[] params) {
-    this.params = params;
+  public void setPathParams(Object[] pathParams) {
+    this.pathParams = pathParams;
+  }
+
+  /**
+   * @return the queryParams
+   */
+  public Map<String, String> getQueryParams() {
+    return queryParams;
+  }
+
+  /**
+   * @param queryParams the queryParams to set
+   */
+  public void setQueryParams(Map<String, String> queryParams) {
+    this.queryParams = queryParams;
   }
 
   /**
