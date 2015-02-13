@@ -111,6 +111,8 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 Supported API's and Revision Logs
 ---------------------------------
 * **Released in v2.0-SNAPSHOT**
+	* Account
+	<pre>Upcoming...</pre>
 	* Actions
 	<pre>
 	Actions getAvailableActions(Integer pageNo)
@@ -126,6 +128,8 @@ Supported API's and Revision Logs
 	Droplet	getDropletInfo(Integer dropletId)
 	Droplet	createDroplet(Droplet droplet)
 	Delete deleteDroplet(Integer dropletId)
+	Droplets getDropletNeighbors(Integer dropletId, Integer pageNo)
+	Neighbors getAllDropletNeighbors(Integer pageNo)
 	</pre>
 	* Droplet Actions
 	<pre>
@@ -146,13 +150,16 @@ Supported API's and Revision Logs
 	Action enableDropletPrivateNetworking(Integer dropletId)
 	Action changeDropletKernel(Integer dropletId, Integer kernelId)
 	</pre>
-	*Images
+	* Images
 	<pre>
+	Images getAvailableImages(Integer pageNo)
+	Images getAvailableImages(Integer pageNo, ActionType type)
 	Image getImageInfo(Integer imageId)
 	Image getImageInfo(String slug)
 	Image updateImage(Image image)
 	Delete deleteImage(Integer imageId)
 	Action transferImage(Integer imageId, String regionSlug)
+	Images getUserImages(Integer pageNo)
 	</pre>
 	* Sizes
 	<pre>Sizes getAvailableSizes(Integer pageNo)</pre>

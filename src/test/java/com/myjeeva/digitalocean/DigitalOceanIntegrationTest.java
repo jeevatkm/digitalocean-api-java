@@ -51,6 +51,7 @@ import com.myjeeva.digitalocean.pojo.Kernel;
 import com.myjeeva.digitalocean.pojo.Kernels;
 import com.myjeeva.digitalocean.pojo.Key;
 import com.myjeeva.digitalocean.pojo.Keys;
+import com.myjeeva.digitalocean.pojo.Neighbors;
 import com.myjeeva.digitalocean.pojo.Region;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Size;
@@ -221,6 +222,31 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(result);
     LOG.info("Delete Request Object: " + result);
+  }
+
+  @Test
+  public void testGetDropletNeighbors() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Droplets droplets = apiClient.getDropletNeighbors(dropletIdForInfo, 1);
+
+    assertNotNull(droplets);
+
+    for (Droplet d : droplets.getDroplets()) {
+      LOG.info(d.toString());
+    }
+  }
+
+  @Test
+  public void testGetAllDropletNeighbors() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Neighbors neighbors = apiClient.getAllDropletNeighbors(1);
+
+    assertNotNull(neighbors);
+
+    for (Droplet d : neighbors.getNeighbors()) {
+      LOG.info(d.toString());
+    }
   }
 
   @Test

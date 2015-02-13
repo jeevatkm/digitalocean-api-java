@@ -35,6 +35,7 @@ import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
 import com.myjeeva.digitalocean.pojo.Key;
 import com.myjeeva.digitalocean.pojo.Keys;
+import com.myjeeva.digitalocean.pojo.Neighbors;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
@@ -52,7 +53,8 @@ public enum ApiAction {
   AVAILABLE_DROPLETS("/droplets", "droplets", RequestMethod.GET, Droplets.class),
   AVAILABLE_DROPLETS_KERNELS("/droplets/%s/kernels", "kernels", RequestMethod.GET, Kernels.class),
   GET_DROPLET_SNAPSHOTS("/droplets/%s/snapshots", "snapshots", RequestMethod.GET, Snapshots.class),
-  GET_DROPLET_BACKUPS("/droplets/%s/backups", "backups", RequestMethod.GET, Backups.class),  
+  GET_DROPLET_BACKUPS("/droplets/%s/backups", "backups", RequestMethod.GET, Backups.class),
+  GET_DROPLET_NEIGHBORS("/droplets/%s/neighbors", "droplets", RequestMethod.GET, Droplets.class),
   GET_DROPLET_INFO("/droplets/%s", "droplet", RequestMethod.GET, Droplet.class),  
   CREATE_DROPLET("/droplets", "droplet", RequestMethod.POST, Droplet.class),
   DELETE_DROPLET("/droplets/%s", "delete", RequestMethod.DELETE, Delete.class),
@@ -71,6 +73,10 @@ public enum ApiAction {
   DISABLE_DROPLET_BACKUPS("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   ENABLE_DROPLET_PRIVATE_NETWORKING("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   SNAPSHOT_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  
+  
+  // Reports
+  ALL_DROPLET_NEIGHBORS("/reports/droplet_neighbors", "neighbors", RequestMethod.GET, Neighbors.class),
   
   
   // Action

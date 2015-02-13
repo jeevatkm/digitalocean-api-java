@@ -38,6 +38,7 @@ import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
 import com.myjeeva.digitalocean.pojo.Key;
 import com.myjeeva.digitalocean.pojo.Keys;
+import com.myjeeva.digitalocean.pojo.Neighbors;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
@@ -216,6 +217,32 @@ public interface DigitalOcean {
    */
   Delete deleteDroplet(Integer dropletId) throws DigitalOceanException,
       RequestUnsuccessfulException;
+
+  /**
+   * For an individual droplet; Method retrieves a list of droplets that are running on the same
+   * physical server (any other droplets that share the same physical hardware).
+   * 
+   * @param dropletId the id of the droplet
+   * @param pageNo for pagination
+   * @return {@link Droplets}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   */
+  Droplets getDropletNeighbors(Integer dropletId, Integer pageNo) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * For an entire account; Method retrieves a list of <strong>any</strong> droplets that are
+   * running on the same physical server (any other droplets that share the same physical hardware).
+   * 
+   * @param pageNo for pagination
+   * @return {@link Neighbors}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   */
+  Neighbors getAllDropletNeighbors(Integer pageNo) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
 
   // Droplet Action methods
 
