@@ -80,6 +80,7 @@ import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
 import com.myjeeva.digitalocean.pojo.Key;
 import com.myjeeva.digitalocean.pojo.Keys;
+import com.myjeeva.digitalocean.pojo.Neighbors;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
@@ -279,6 +280,25 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {dropletId};
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_DROPLET, params)).getData();
   }
+
+  @Override
+  public Droplets getDropletNeighbors(Integer dropletId, Integer pageNo)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    validateDropletIdAndPageNo(dropletId, pageNo);
+
+    Object[] params = {dropletId};
+    return (Droplets) perform(new ApiRequest(ApiAction.GET_DROPLET_NEIGHBORS, params, pageNo))
+        .getData();
+  }
+
+  @Override
+  public Neighbors getAllDropletNeighbors(Integer pageNo) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validatePageNo(pageNo);
+
+    return (Neighbors) perform(new ApiRequest(ApiAction.ALL_DROPLET_NEIGHBORS, pageNo)).getData();
+  }
+
 
   // Droplet action methods
 
