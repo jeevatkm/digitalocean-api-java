@@ -2,7 +2,7 @@ DigitalOcean API Client in Java
 -------------------------------
 [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java)
 
-** DigitalOcean OAUTH API support coming soon **
+**DigitalOcean OAUTH API support coming soon**
 
 Welcome to DigitalOcean API Client written in Java. Created a simple and meaningful wrapper methods for [DigitalOcean RESTful APIs][1].
 
