@@ -20,6 +20,7 @@
  */
 package com.myjeeva.digitalocean.common;
 
+import com.myjeeva.digitalocean.pojo.Account;
 import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
@@ -73,6 +74,10 @@ public enum ApiAction {
   DISABLE_DROPLET_BACKUPS("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   ENABLE_DROPLET_PRIVATE_NETWORKING("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   SNAPSHOT_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  
+
+  // Account
+  GET_ACCOUNT_INFO("/account", "account", RequestMethod.GET, Account.class),
   
   
   // Reports

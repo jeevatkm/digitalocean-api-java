@@ -25,37 +25,25 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Represents HTTP Method - DELETE response handling
+ * Represents Account attributes
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
  * @since v2.0
  */
-public class Delete extends RateLimitBase {
+public class Account extends RateLimitBase {
 
-  private static final long serialVersionUID = -3552374545843268569L;
+  private static final long serialVersionUID = 5951525501167424430L;
 
-  @SerializedName("request_status")
-  private Boolean isRequestSuccess;
+  private String email;
 
-  @SerializedName("status_code")
-  private int statusCode;
+  private String uuid;
 
-  /**
-   * Default Constructor
-   */
-  public Delete() {
-    // Default Constructor
-  }
+  @SerializedName("droplet_limit")
+  private Integer dropletLimit;
 
-  /**
-   * Parameterized Constructor
-   * 
-   * @param isRequestSuccess whether delete is success or not
-   */
-  public Delete(Boolean isRequestSuccess) {
-    this.isRequestSuccess = isRequestSuccess;
-  }
+  @SerializedName("email_verified")
+  private boolean isEmailVerified;
 
   @Override
   public String toString() {
@@ -63,30 +51,58 @@ public class Delete extends RateLimitBase {
   }
 
   /**
-   * @return the isRequestSuccess
+   * @return the email
    */
-  public Boolean getIsRequestSuccess() {
-    return isRequestSuccess;
+  public String getEmail() {
+    return email;
   }
 
   /**
-   * @param isRequestSuccess the isRequestSuccess to set
+   * @param email the email to set
    */
-  public void setIsRequestSuccess(Boolean isRequestSuccess) {
-    this.isRequestSuccess = isRequestSuccess;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   /**
-   * @return the statusCode
+   * @return the uuid
    */
-  public int getStatusCode() {
-    return statusCode;
+  public String getUuid() {
+    return uuid;
   }
 
   /**
-   * @param statusCode the statusCode to set
+   * @param uuid the uuid to set
    */
-  public void setStatusCode(int statusCode) {
-    this.statusCode = statusCode;
+  public void setUuid(String uuid) {
+    this.uuid = uuid;
+  }
+
+  /**
+   * @return the dropletLimit
+   */
+  public Integer getDropletLimit() {
+    return dropletLimit;
+  }
+
+  /**
+   * @param dropletLimit the dropletLimit to set
+   */
+  public void setDropletLimit(Integer dropletLimit) {
+    this.dropletLimit = dropletLimit;
+  }
+
+  /**
+   * @return the isEmailVerified
+   */
+  public boolean isEmailVerified() {
+    return isEmailVerified;
+  }
+
+  /**
+   * @param isEmailVerified the isEmailVerified to set
+   */
+  public void setEmailVerified(boolean isEmailVerified) {
+    this.isEmailVerified = isEmailVerified;
   }
 }

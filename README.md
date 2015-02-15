@@ -2,13 +2,15 @@ DigitalOcean API Client in Java
 -------------------------------
 [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java)
 
-**Note:** Since API v2 is in Beta stage; So I'm keeping library in SNAPSHOT version.
+** DigitalOcean OAUTH API support coming soon **
 
 Welcome to DigitalOcean API Client written in Java. Created a simple and meaningful wrapper methods for [DigitalOcean RESTful APIs][1].
 
 > Simple and Lightweight Library for Enterprise Application or Utilities Integration
 
 Give your support by providing Hearts here [DigitalOcean API Client in Java](https://www.digitalocean.com/community/projects/api-client-in-java) :)
+
+**Note:** Since API v2 is in Beta stage; So I'm keeping library in SNAPSHOT version.
 
 Getting Started
 ---------------
@@ -112,7 +114,7 @@ Supported API's and Revision Logs
 ---------------------------------
 * **Released in v2.0-SNAPSHOT**
 	* Account
-	<pre>Upcoming...</pre>
+	<pre>Account getAccountInfo()</pre>
 	* Actions
 	<pre>
 	Actions getAvailableActions(Integer pageNo)

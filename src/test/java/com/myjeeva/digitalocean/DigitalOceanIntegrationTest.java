@@ -34,6 +34,7 @@ import com.myjeeva.digitalocean.common.ActionType;
 import com.myjeeva.digitalocean.exception.DigitalOceanException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.impl.DigitalOceanClient;
+import com.myjeeva.digitalocean.pojo.Account;
 import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backup;
@@ -385,6 +386,17 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(action);
     LOG.info(action.toString());
+  }
+  
+  
+  // Account Test cases
+  
+  @Test
+  public void testGetAccountInfo() throws DigitalOceanException, RequestUnsuccessfulException {
+    Account account = apiClient.getAccountInfo();
+    
+    assertNotNull(account);
+    LOG.info(account.toString());
   }
 
 

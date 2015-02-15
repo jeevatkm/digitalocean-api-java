@@ -55,6 +55,15 @@ public class ApiRequest {
    * Constructor
    * 
    * @param apiAction a info about api request
+   */
+  public ApiRequest(ApiAction apiAction) {
+    this(apiAction, null, null, null, null);
+  }
+
+  /**
+   * Constructor
+   * 
+   * @param apiAction a info about api request
    * @param pathParams a api request path variable value(s)
    */
   public ApiRequest(ApiAction apiAction, Object[] pathParams) {

@@ -23,6 +23,7 @@ package com.myjeeva.digitalocean;
 import com.myjeeva.digitalocean.common.ActionType;
 import com.myjeeva.digitalocean.exception.DigitalOceanException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
+import com.myjeeva.digitalocean.pojo.Account;
 import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
@@ -467,6 +468,19 @@ public interface DigitalOcean {
    */
   Action enableDropletPrivateNetworking(Integer dropletId) throws DigitalOceanException,
       RequestUnsuccessfulException;
+
+  // ==============================================
+  // Account manipulation/access methods
+  // ==============================================
+
+  /**
+   * Method returns account information for provided credentials
+   * 
+   * @return ${@link Account}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   */
+  Account getAccountInfo() throws DigitalOceanException, RequestUnsuccessfulException;
 
 
   // ==============================================

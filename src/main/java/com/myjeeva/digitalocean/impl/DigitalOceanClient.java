@@ -63,6 +63,7 @@ import com.myjeeva.digitalocean.common.Constants;
 import com.myjeeva.digitalocean.common.RequestMethod;
 import com.myjeeva.digitalocean.exception.DigitalOceanException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
+import com.myjeeva.digitalocean.pojo.Account;
 import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
@@ -477,6 +478,15 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (Action) perform(
         new ApiRequest(ApiAction.ENABLE_DROPLET_PRIVATE_NETWORKING, new DropletAction(
             ActionType.ENABLE_PRIVATE_NETWORKING), params)).getData();
+  }
+
+  // ==============================================
+  // Account manipulation/access methods
+  // ==============================================
+
+  @Override
+  public Account getAccountInfo() throws DigitalOceanException, RequestUnsuccessfulException {
+    return (Account) perform(new ApiRequest(ApiAction.GET_ACCOUNT_INFO)).getData();
   }
 
 
