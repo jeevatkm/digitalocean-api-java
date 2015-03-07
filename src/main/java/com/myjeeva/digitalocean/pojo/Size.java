@@ -57,6 +57,8 @@ public class Size extends RateLimitBase {
   private BigDecimal priceHourly;
 
   private List<String> regions;
+  
+  private boolean available;
 
   public Size() {
     // Default constructor
@@ -182,4 +184,18 @@ public class Size extends RateLimitBase {
   public void setRegions(List<String> regions) {
     this.regions = regions;
   }
+
+  /**
+   * @return the available
+   */
+  public boolean isAvailable() {
+    return available;
+  }
+
+  /**
+   * @param available the available to set
+   */
+  public void setAvailable(boolean available) {
+    this.available = available;
+  }  
 }
