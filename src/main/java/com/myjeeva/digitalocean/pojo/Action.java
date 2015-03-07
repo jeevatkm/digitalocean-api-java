@@ -58,7 +58,10 @@ public class Action extends RateLimitBase {
   @SerializedName("completed_at")
   private Date completedAt;
 
-  private String region;
+  private Region region;
+  
+  @SerializedName("region_slug")
+  private String regionSlug;
 
   @Override
   public String toString() {
@@ -166,14 +169,28 @@ public class Action extends RateLimitBase {
   /**
    * @return the region
    */
-  public String getRegion() {
+  public Region getRegion() {
     return region;
   }
 
   /**
    * @param region the region to set
    */
-  public void setRegion(String region) {
+  public void setRegion(Region region) {
     this.region = region;
+  }
+
+  /**
+   * @return the regionSlug
+   */
+  public String getRegionSlug() {
+    return regionSlug;
+  }
+
+  /**
+   * @param regionSlug the regionSlug to set
+   */
+  public void setRegionSlug(String regionSlug) {
+    this.regionSlug = regionSlug;
   }
 }
