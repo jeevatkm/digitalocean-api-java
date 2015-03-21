@@ -60,6 +60,9 @@ public class Action extends RateLimitBase {
 
   private Region region;
 
+  @SerializedName("region_slug")
+  private String regionSlug;
+
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
@@ -175,5 +178,19 @@ public class Action extends RateLimitBase {
    */
   public void setRegion(Region region) {
     this.region = region;
+  }
+
+  /**
+   * @return the regionSlug
+   */
+  public String getRegionSlug() {
+    return regionSlug;
+  }
+
+  /**
+   * @param regionSlug the regionSlug to set
+   */
+  public void setRegionSlug(String regionSlug) {
+    this.regionSlug = regionSlug;
   }
 }
