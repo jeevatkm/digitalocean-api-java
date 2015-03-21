@@ -97,7 +97,7 @@ public class Droplet extends RateLimitBase {
    * @return true if droplet is active
    */
   public boolean isActive() {
-    return status == DropletStatus.ACTIVE;
+    return DropletStatus.ACTIVE == status;
   }
 
   /**

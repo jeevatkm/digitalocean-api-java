@@ -27,6 +27,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.myjeeva.digitalocean.common.ImageType;
 
 /**
  * Represents Droplet Image (also public images aka Distribution) attributes of DigitalOcean
@@ -58,6 +59,8 @@ public class Image extends RateLimitBase {
   @SerializedName("min_size")
   private String minSize;
 
+  private ImageType type;
+
   public Image() {
     // Default constructor
   }
@@ -73,6 +76,27 @@ public class Image extends RateLimitBase {
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return true if image is snapshot
+   */
+  public boolean isSnapshot() {
+    return ImageType.SNAPSHOT == type;
+  }
+
+  /**
+   * @return true if image is backup
+   */
+  public boolean isBackup() {
+    return ImageType.BACKUP == type;
+  }
+
+  /**
+   * @return true if image is temporary
+   */
+  public boolean isTemporary() {
+    return ImageType.TEMPORARY == type;
   }
 
   /**
@@ -185,5 +209,19 @@ public class Image extends RateLimitBase {
    */
   public void setMinSize(String minSize) {
     this.minSize = minSize;
+  }
+
+  /**
+   * @return the type
+   */
+  public ImageType getType() {
+    return type;
+  }
+
+  /**
+   * @param type the type to set
+   */
+  public void setType(ImageType type) {
+    this.type = type;
   }
 }
