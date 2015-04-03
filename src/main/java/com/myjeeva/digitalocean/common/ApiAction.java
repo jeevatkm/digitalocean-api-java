@@ -97,6 +97,7 @@ public enum ApiAction {
   UPDATE_IMAGE_INFO("/images/%s", "image", RequestMethod.PUT, Image.class),
   DELETE_IMAGE("/images/%s", "delete", RequestMethod.DELETE, Delete.class),
   TRANSFER_IMAGE("/images/%s/actions", "action", RequestMethod.POST, Action.class),
+  CONVERT_IMAGE("/images/%s/actions", "action", RequestMethod.POST, Action.class),
   
   
   // Region

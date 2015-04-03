@@ -572,6 +572,14 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(action);
     LOG.info(action.toString());
   }
+  
+  @Test
+  public void testConvertImage() throws DigitalOceanException, RequestUnsuccessfulException {
+    Action action = apiClient.convertImage(5489522);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
 
 
   // Regions test cases

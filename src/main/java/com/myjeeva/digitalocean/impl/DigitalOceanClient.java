@@ -616,6 +616,17 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
             params)).getData();
   }
 
+  @Override
+  public Action convertImage(Integer imageId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    checkNullAndThrowError(imageId, "Missing required parameter - imageId.");
+    
+    Object[] params = {imageId};
+    return (Action) perform(
+        new ApiRequest(ApiAction.CONVERT_IMAGE, new ImageAction(ActionType.CONVERT),
+            params)).getData();
+  }
+
 
 
   // =======================================

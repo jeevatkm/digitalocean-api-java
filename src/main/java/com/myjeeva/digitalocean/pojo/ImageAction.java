@@ -41,7 +41,11 @@ public class ImageAction {
   private String region;
 
   public ImageAction() {
-    // Default Constructor
+    this(null, null);
+  }
+  
+  public ImageAction(ActionType type) {
+    this(type, null);
   }
 
   public ImageAction(ActionType type, String region) {

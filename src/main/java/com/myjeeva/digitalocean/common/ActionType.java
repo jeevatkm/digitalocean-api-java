@@ -81,6 +81,12 @@ public enum ActionType {
 
   @SerializedName("transfer")
   TRANSFER("transfer"),
+  
+  @SerializedName("convert")
+  CONVERT("convert"),
+  
+  @SerializedName("convert_to_snapshot")
+  CONVERT_TO_SNAPSHOT("convert_to_snapshot"),
 
   @SerializedName("distribution")
   DISTRIBUTION("distribution"),

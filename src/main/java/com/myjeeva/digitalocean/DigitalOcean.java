@@ -647,6 +647,18 @@ public interface DigitalOcean {
   Action transferImage(Integer imageId, String regionSlug) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
+  /**
+   * Method allows you to convert image into snapshot
+   * 
+   * @param imageId the Id of the droplet/snapshot/backup images
+   * @return {@link Action}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   * 
+   * @since v2.0
+   */
+  Action convertImage(Integer imageId) throws DigitalOceanException, RequestUnsuccessfulException;
+
 
   // ===========================================
   // Regions (aka Data Centers) methods
