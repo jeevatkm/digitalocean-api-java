@@ -10,8 +10,6 @@ Welcome to DigitalOcean API Client written in Java. Created a simple and meaning
 
 Give your support by providing Hearts here [DigitalOcean API Client in Java](https://www.digitalocean.com/community/projects/api-client-in-java) :)
 
-**Note:** Since API v2 is in Beta stage; So I'm keeping library in SNAPSHOT version.
-
 Getting Started
 ---------------
 DigitalOcean API Client library per version project dependencies:
@@ -21,16 +19,16 @@ DigitalOcean API Client library per version project dependencies:
 	<pre>&lt;dependency>
     		&lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
     		&lt;artifactId>digitalocean-api-client&lt;/artifactId>
-    		&lt;version>2.0-SNAPSHOT&lt;/version>
+    		&lt;version>2.0&lt;/version>
 		&lt;/dependency></pre>
 	* Grails dependency
-	<pre>compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.0-SNAPSHOT'</pre>
+	<pre>compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.0'</pre>
 	* Groovy Grape
 	<pre>@Grapes( 
-@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.0-SNAPSHOT') 
+@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.0') 
 )</pre>
 	* Scala SBT
-	<pre>libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.0-SNAPSHOT"</pre>
+	<pre>libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.0"</pre>
 
 * * *
 
@@ -112,7 +110,7 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 
 Supported API's and Revision Logs
 ---------------------------------
-* **Released in v2.0-SNAPSHOT**
+* **Released in v2.0**
 	* Account
 	<pre>Account getAccountInfo()</pre>
 	* Actions
@@ -161,6 +159,7 @@ Supported API's and Revision Logs
 	Image updateImage(Image image)
 	Delete deleteImage(Integer imageId)
 	Action transferImage(Integer imageId, String regionSlug)
+	Action convertImage(Integer imageId)
 	Images getUserImages(Integer pageNo)
 	</pre>
 	* Sizes
@@ -204,7 +203,7 @@ The DigitalOcean API Client is released under [MIT License][6].
 
 
 [1]: https://developers.digitalocean.com
-[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.0-SNAPSHOT/
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.0/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/com/myjeeva/digitalocean/digitalocean-api-client/
 [5]: http://myjeeva.com
