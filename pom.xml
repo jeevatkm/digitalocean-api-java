@@ -116,6 +116,12 @@
 				    	<destDir>${project.version}</destDir>
 					</configuration>
 				</plugin>
+				<plugin>
+                			<artifactId>maven-jar-plugin</artifactId>
+                			<configuration>
+                    				<classifier>${jdkclassifier}</classifier>
+                			</configuration>
+            			</plugin>
 			</plugins>
          </pluginManagement>
       </build>	
