@@ -130,6 +130,11 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
    * JSON Parser instance
    */
   private JsonParser jsonParser;
+  
+  /**
+   * API Request Header
+   */
+  private Header[] requestHeaders;
 
   public DigitalOceanClient(String authToken) {
     this("v2", authToken);
@@ -859,14 +864,14 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
   private String doGet(URI uri) throws DigitalOceanException, RequestUnsuccessfulException {
     HttpGet get = new HttpGet(uri);
-    get.setHeaders(getRequestHeaders());
+    get.setHeaders(requestHeaders);
     return executeHttpRequest(get);
   }
 
   private String doPost(URI uri, StringEntity entity) throws DigitalOceanException,
       RequestUnsuccessfulException {
     HttpPost post = new HttpPost(uri);
-    post.setHeaders(getRequestHeaders());
+    post.setHeaders(requestHeaders);
 
     if (null != entity) {
       post.setEntity(entity);
@@ -878,7 +883,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   private String doPut(URI uri, StringEntity entity) throws DigitalOceanException,
       RequestUnsuccessfulException {
     HttpPut put = new HttpPut(uri);
-    put.setHeaders(getRequestHeaders());
+    put.setHeaders(requestHeaders);
 
     if (null != entity) {
       put.setEntity(entity);
@@ -889,7 +894,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
   private String doDelete(URI uri) throws DigitalOceanException, RequestUnsuccessfulException {
     HttpDelete delete = new HttpDelete(uri);
-    delete.setHeaders(getRequestHeaders());
+    delete.setHeaders(requestHeaders);
     delete.setHeader(HttpHeaders.CONTENT_TYPE, FORM_URLENCODED_CONTENT_TYPE);
     return executeHttpRequest(delete);
   }
@@ -982,13 +987,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return uri;
   }
 
-  private Header[] getRequestHeaders() {
+  /*private Header[] getRequestHeaders() {
     Header[] headers =
-        {new BasicHeader("X-User-Agent", "DigitalOcean API Client by myjeeva.com"),
-            new BasicHeader("Content-Type", JSON_CONTENT_TYPE),
-            new BasicHeader("Authorization", "Bearer " + authToken)};
+        {new BasicHeader(HDR_USER_AGENT, USER_AGENT),
+            new BasicHeader(HDR_CONTENT_TYPE, JSON_CONTENT_TYPE),
+            new BasicHeader(HDR_AUTHORIZATION, "Bearer " + authToken)};
     return headers;
-  }
+  } */
 
   private String createPath(ApiRequest request) {
     String path = URL_PATH_SEPARATOR + apiVersion + request.getApiAction().getPath();
@@ -1012,9 +1017,12 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     }
 
     String rateLimitData =
-        String.format(RATE_LIMIT_JSON_STRUCT, httpResponse.getFirstHeader("RateLimit-Limit")
-            .getValue(), httpResponse.getFirstHeader("RateLimit-Remaining").getValue(),
-            getDateString(httpResponse.getFirstHeader("RateLimit-Reset").getValue(), DATE_FORMAT));
+        String.format(RATE_LIMIT_JSON_STRUCT,
+            getSimpleHeaderValue(HDR_RATE_LIMIT, httpResponse),
+            getSimpleHeaderValue(HDR_RATE_REMAINING, httpResponse),
+            getDateString(getSimpleHeaderValue(HDR_RATE_RESET, httpResponse), DATE_FORMAT));
+    
+    LOG.debug("RateLimitData:: " + rateLimitData);
 
     return StringUtils.substringBeforeLast(response, "}") + ", " + rateLimitData + "}";
   }
@@ -1027,6 +1035,31 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     String dateString = formatter.format(expiry);
     LOG.debug(dateString);
     return dateString;
+  }
+  
+  /**
+   * Easy method for HTTP header values (first/last)
+   */
+  private String getSimpleHeaderValue(String header, HttpResponse httpResponse, boolean first) {
+    String value = StringUtils.EMPTY;
+    if (StringUtils.isEmpty(header)) {
+      return value;
+    }
+    
+    if (first) {
+      value = httpResponse.getFirstHeader(header).getValue();
+    } else {
+      value = httpResponse.getLastHeader(header).getValue();
+    }
+    
+    return value;
+  }
+  
+  /**
+   * Easy method for HTTP header values. defaults to first one.
+   */
+  private String getSimpleHeaderValue(String header, HttpResponse httpResponse) {
+    return getSimpleHeaderValue(header, httpResponse, true);
   }
 
   // =======================================
@@ -1069,6 +1102,14 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
             .excludeFieldsWithoutExposeAnnotation().create();
 
     this.jsonParser = new JsonParser();
+    
+    Header[] headers =
+      {new BasicHeader(HDR_USER_AGENT, USER_AGENT),
+          new BasicHeader(HDR_CONTENT_TYPE, JSON_CONTENT_TYPE),
+          new BasicHeader(HDR_AUTHORIZATION, "Bearer " + authToken)};
+    LOG.debug("API Request Headers:: " + headers);
+    
+    this.requestHeaders = headers;
 
     if (null == this.httpClient) {
       this.httpClient = new DefaultHttpClient(new PoolingClientConnectionManager());
