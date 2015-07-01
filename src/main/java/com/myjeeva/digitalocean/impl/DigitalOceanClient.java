@@ -935,8 +935,18 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       String jsonStr = httpResponseToString(httpResponse);
       LOG.debug("JSON Response: " + jsonStr);
 
-      JsonObject jsonObj = jsonParser.parse(jsonStr).getAsJsonObject();
-      String id = jsonObj.get("id").getAsString();
+        JsonObject jsonObj = null;
+        try {
+            jsonObj = jsonParser.parse(jsonStr).getAsJsonObject();
+        } catch (JsonSyntaxException e) {
+            String errorMsgFull = "Digital Oceans server are on maintenance. Wait for official messages " +
+                    "from digital ocean itself. Such as 'Cloud Control Panel, API & Support Ticket System Unavailable'";
+            String errorMsg = String.format("\nHTTP Status Code: %s\nError Id: %s\nError Message: %s", statusCode, null,
+                    errorMsgFull);
+            LOG.debug(errorMsg);
+            throw new DigitalOceanException(errorMsgFull, null, httpResponse.getStatusLine().getStatusCode());
+        }
+        String id = jsonObj.get("id").getAsString();
       String errorMsg =
           String.format("\nHTTP Status Code: %s\nError Id: %s\nError Message: %s", statusCode, id,
               jsonObj.get("message").getAsString());
