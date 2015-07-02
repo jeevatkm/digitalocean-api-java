@@ -18,17 +18,18 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.myjeeva.digitalocean.pojo;
+package org.apache.http.impl.execchain;
+
+import org.apache.http.HttpResponse;
 
 /**
- * Represents backup attributes of Droplet
+ * Reference: http://stackoverflow.com/a/28204232/1343356
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
- * 
- * @since v1.4
  */
-public class Backup extends Image {
+public class PublicHttpResponseProxy extends HttpResponseProxy {
 
-  private static final long serialVersionUID = 7827206749099471697L;
-
+  public PublicHttpResponseProxy(HttpResponse original) {
+      super(original, null);
+  }
 }
