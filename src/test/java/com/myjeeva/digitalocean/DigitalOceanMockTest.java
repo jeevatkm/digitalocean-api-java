@@ -12,7 +12,8 @@ import org.apache.http.HttpVersion;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.execchain.PublicHttpResponseProxy;
 import org.apache.http.message.BasicHttpResponse;
 
 import com.myjeeva.digitalocean.impl.DigitalOceanClient;
@@ -20,7 +21,7 @@ import com.myjeeva.digitalocean.impl.DigitalOceanClient;
 @SuppressWarnings("unused")
 public class DigitalOceanMockTest extends TestCase {
 
-  private @Mocked DefaultHttpClient defaultHttpClient;
+  private @Mocked CloseableHttpClient defaultHttpClient;
 
   public void testSnapshotWithName() throws Exception {
 
@@ -42,8 +43,8 @@ public class DigitalOceanMockTest extends TestCase {
         basicHttpResponse.setHeader("RateLimit-Limit", "1200");
         basicHttpResponse.setHeader("RateLimit-Remaining", "900");
         basicHttpResponse.setHeader("RateLimit-Reset", "1415984218");
-        result = basicHttpResponse;
-
+        
+        result = new PublicHttpResponseProxy(basicHttpResponse);
       }
     };
 
@@ -51,3 +52,5 @@ public class DigitalOceanMockTest extends TestCase {
     digitalOcean.takeDropletSnapshot(1234, "snapshot-name");
   }
 }
+
+

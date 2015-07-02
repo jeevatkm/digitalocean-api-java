@@ -1,7 +1,7 @@
 /*
  * The MIT License
  * 
- * Copyright (c) 2010-2014 Jeevanandam M. (myjeeva.com)
+ * Copyright (c) 2010-2015 Jeevanandam M. (myjeeva.com)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -34,18 +34,18 @@ import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.PoolingClientConnectionManager;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
@@ -99,7 +99,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   /**
    * Http client
    */
-  protected HttpClient httpClient;
+  protected CloseableHttpClient httpClient;
 
   /**
    * OAuth Authorization Token for Accessing DigitalOcean API
@@ -155,9 +155,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
    * 
    * @param apiVersion a {@link String} object
    * @param authToken a {@link String} object
-   * @param httpClient a {@link HttpClient} object
+   * @param httpClient a {@link CloseableHttpClient} object
    */
-  public DigitalOceanClient(String apiVersion, String authToken, HttpClient httpClient) {
+  public DigitalOceanClient(String apiVersion, String authToken, CloseableHttpClient httpClient) {
 
     if (!"v2".equalsIgnoreCase(apiVersion)) {
       throw new IllegalArgumentException("Only API version 2 is supported.");
@@ -179,7 +179,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   /**
    * @param httpClient the httpClient to set
    */
-  public void setHttpClient(HttpClient httpClient) {
+  public void setHttpClient(CloseableHttpClient httpClient) {
     this.httpClient = httpClient;
   }
 
@@ -899,21 +899,30 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return executeHttpRequest(delete);
   }
 
-  private String executeHttpRequest(HttpRequestBase request) throws DigitalOceanException,
+  private String executeHttpRequest(HttpUriRequest request) throws DigitalOceanException,
       RequestUnsuccessfulException {
     String response = "";
+    CloseableHttpResponse httpResponse = null;
     try {
-      HttpResponse httpResponse = httpClient.execute(request);
+      httpResponse = httpClient.execute(request);
       LOG.debug("HTTP Response Object:: " + httpResponse);
 
       response = appendRateLimitValues(evaluateResponse(httpResponse), httpResponse);
       LOG.debug("Parsed Response:: " + response);
-    } catch (ClientProtocolException cpe) {
-      throw new RequestUnsuccessfulException(cpe.getMessage(), cpe);
     } catch (IOException ioe) {
       throw new RequestUnsuccessfulException(ioe.getMessage(), ioe);
     } finally {
-      request.releaseConnection();
+      try {
+        if (null != httpResponse) {
+          httpResponse.close();
+        }
+      } catch (IOException e) {
+        // Ignoring close exception, really no impact.
+        // Since response object is 99.999999% success rate
+        // this is nothing to do with DigitalOcean, its
+        // typical handling of HttpClient request/response
+        LOG.error("Error occurred while closing a response.", e);
+      }
     }
 
     return response;
@@ -960,7 +969,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   private String httpResponseToString(HttpResponse httpResponse) {
-    String response = "";
+    String response = StringUtils.EMPTY;
     if (null != httpResponse.getEntity()) {
       try {
         response = EntityUtils.toString(httpResponse.getEntity(), UTF_8);
@@ -1017,7 +1026,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
   private String appendRateLimitValues(String response, HttpResponse httpResponse) {
     if (StringUtils.isEmpty(response)) {
-      return "";
+      return StringUtils.EMPTY;
     }
 
     String rateLimitData =
@@ -1116,7 +1125,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     this.requestHeaders = headers;
 
     if (null == this.httpClient) {
-      this.httpClient = new DefaultHttpClient(new PoolingClientConnectionManager());
+      this.httpClient = HttpClients.createDefault();
     }
   }
 }
