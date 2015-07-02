@@ -130,7 +130,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
    * JSON Parser instance
    */
   private JsonParser jsonParser;
-  
+
   /**
    * API Request Header
    */
@@ -625,11 +625,11 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Action convertImage(Integer imageId) throws DigitalOceanException,
       RequestUnsuccessfulException {
     checkNullAndThrowError(imageId, "Missing required parameter - imageId.");
-    
+
     Object[] params = {imageId};
     return (Action) perform(
-        new ApiRequest(ApiAction.CONVERT_IMAGE, new ImageAction(ActionType.CONVERT),
-            params)).getData();
+        new ApiRequest(ApiAction.CONVERT_IMAGE, new ImageAction(ActionType.CONVERT), params))
+        .getData();
   }
 
 
@@ -935,22 +935,24 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       String jsonStr = httpResponseToString(httpResponse);
       LOG.debug("JSON Response: " + jsonStr);
 
-        JsonObject jsonObj = null;
-        try {
-            jsonObj = jsonParser.parse(jsonStr).getAsJsonObject();
-        } catch (JsonSyntaxException e) {
-            String errorMsgFull = "Digital Oceans server are on maintenance. Wait for official messages " +
-                    "from digital ocean itself. Such as 'Cloud Control Panel, API & Support Ticket System Unavailable'";
-            String errorMsg = String.format("\nHTTP Status Code: %s\nError Id: %s\nError Message: %s", statusCode, null,
-                    errorMsgFull);
-            LOG.debug(errorMsg);
-            throw new DigitalOceanException(errorMsgFull, null, httpResponse.getStatusLine().getStatusCode());
-        }
-        String id = jsonObj.get("id").getAsString();
-      String errorMsg =
+      JsonObject jsonObj = null;
+      String errorMsg = StringUtils.EMPTY;
+      String id = StringUtils.EMPTY;
+      try {
+        jsonObj = jsonParser.parse(jsonStr).getAsJsonObject();
+        id = jsonObj.get("id").getAsString();
+        errorMsg = jsonObj.get("message").getAsString();
+      } catch (JsonSyntaxException e) {
+        errorMsg =
+            "Digital Oceans server are on maintenance. Wait for official messages "
+                + "from digital ocean itself. Such as 'Cloud Control Panel, API & Support Ticket System Unavailable'";
+      }
+
+      String errorMsgFull =
           String.format("\nHTTP Status Code: %s\nError Id: %s\nError Message: %s", statusCode, id,
-              jsonObj.get("message").getAsString());
-      LOG.debug(errorMsg);
+              errorMsg);
+      LOG.debug(errorMsgFull);
+
       throw new DigitalOceanException(errorMsg, id, statusCode);
     }
 
@@ -997,14 +999,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return uri;
   }
 
-  /*private Header[] getRequestHeaders() {
-    Header[] headers =
-        {new BasicHeader(HDR_USER_AGENT, USER_AGENT),
-            new BasicHeader(HDR_CONTENT_TYPE, JSON_CONTENT_TYPE),
-            new BasicHeader(HDR_AUTHORIZATION, "Bearer " + authToken)};
-    return headers;
-  } */
-
   private String createPath(ApiRequest request) {
     String path = URL_PATH_SEPARATOR + apiVersion + request.getApiAction().getPath();
     return (null == request.getPathParams() ? path : String.format(path, request.getPathParams()));
@@ -1027,11 +1021,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     }
 
     String rateLimitData =
-        String.format(RATE_LIMIT_JSON_STRUCT,
-            getSimpleHeaderValue(HDR_RATE_LIMIT, httpResponse),
+        String.format(RATE_LIMIT_JSON_STRUCT, getSimpleHeaderValue(HDR_RATE_LIMIT, httpResponse),
             getSimpleHeaderValue(HDR_RATE_REMAINING, httpResponse),
             getDateString(getSimpleHeaderValue(HDR_RATE_RESET, httpResponse), DATE_FORMAT));
-    
+
     LOG.debug("RateLimitData:: " + rateLimitData);
 
     return StringUtils.substringBeforeLast(response, "}") + ", " + rateLimitData + "}";
@@ -1044,9 +1037,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
     String dateString = formatter.format(expiry);
     LOG.debug(dateString);
+
     return dateString;
   }
-  
+
   /**
    * Easy method for HTTP header values (first/last)
    */
@@ -1055,16 +1049,16 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     if (StringUtils.isEmpty(header)) {
       return value;
     }
-    
+
     if (first) {
       value = httpResponse.getFirstHeader(header).getValue();
     } else {
       value = httpResponse.getLastHeader(header).getValue();
     }
-    
+
     return value;
   }
-  
+
   /**
    * Easy method for HTTP header values. defaults to first one.
    */
@@ -1112,13 +1106,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
             .excludeFieldsWithoutExposeAnnotation().create();
 
     this.jsonParser = new JsonParser();
-    
+
     Header[] headers =
-      {new BasicHeader(HDR_USER_AGENT, USER_AGENT),
-          new BasicHeader(HDR_CONTENT_TYPE, JSON_CONTENT_TYPE),
-          new BasicHeader(HDR_AUTHORIZATION, "Bearer " + authToken)};
+        {new BasicHeader(HDR_USER_AGENT, USER_AGENT),
+            new BasicHeader(HDR_CONTENT_TYPE, JSON_CONTENT_TYPE),
+            new BasicHeader(HDR_AUTHORIZATION, "Bearer " + authToken)};
     LOG.debug("API Request Headers:: " + headers);
-    
+
     this.requestHeaders = headers;
 
     if (null == this.httpClient) {
