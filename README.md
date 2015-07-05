@@ -8,7 +8,7 @@ Welcome to DigitalOcean API Client written in Java. Created a simple and meaning
 
 > Simple and Lightweight Library for Enterprise Application or Utilities Integration
 
-Give your support by providing Hearts here [DigitalOcean API Client in Java](https://www.digitalocean.com/community/projects/api-client-in-java) :)
+Give your support by clicking Hearts here [DigitalOcean API Client in Java](https://www.digitalocean.com/community/projects/api-client-in-java) :)
 
 Getting Started
 ---------------
@@ -19,16 +19,16 @@ DigitalOcean API Client library per version project dependencies:
 	<pre>&lt;dependency>
     		&lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
     		&lt;artifactId>digitalocean-api-client&lt;/artifactId>
-    		&lt;version>2.0&lt;/version>
+    		&lt;version>2.1&lt;/version>
 		&lt;/dependency></pre>
 	* Grails dependency
-	<pre>compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.0'</pre>
+	<pre>compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.1'</pre>
 	* Groovy Grape
 	<pre>@Grapes( 
-@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.0') 
+@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.1') 
 )</pre>
 	* Scala SBT
-	<pre>libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.0"</pre>
+	<pre>libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.1"</pre>
 
 * * *
 
@@ -57,7 +57,7 @@ DigitalOcean apiClient = new DigitalOceanClient(authToken);</pre>
 DigitalOcean apiClient = new DigitalOceanClient("v2", authToken);</pre>
 <pre>// Way three, pass on version number, authToken & httpClient
 // Go ahead and customize httpClient attributes for requirements
-HttpClient httpclient = new DefaultHttpClient();  
+CloseableHttpClient httpClient = HttpClients.createDefault();
 DigitalOcean apiClient = new DigitalOceanClient("v2", authToken, httpClient);
 </pre>
 
@@ -90,7 +90,7 @@ Sizes sizes = apiClient.getAvailableSizes(pageNo);</pre>
 <pre>// Fetch Available Regions supported by DigitalOcean
 Sizes sizes = apiClient.getAvailableRegions(pageNo);</pre>
 
-* Accessing <code>RateLimit</code> header values in the return object
+* Accessing <code>RateLimit</code> header values from return object. Note: This is applicable for all requests.
 <pre>Droplets droplets = getAvailableDroplets(1);
 RateLimit rateLimit = droplets.getRateLimit();</pre>
 <pre>Actions actions = getAvailableActions(2);
@@ -110,6 +110,10 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 
 Supported API's and Revision Logs
 ---------------------------------
+* **Released in v2.1**
+	* Enhancements
+		* Libs version upgraded to latest
+		* Less objects generation
 * **Released in v2.0**
 	* Account
 	<pre>Account getAccountInfo()</pre>
@@ -203,7 +207,7 @@ The DigitalOcean API Client is released under [MIT License][6].
 
 
 [1]: https://developers.digitalocean.com
-[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.0/
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.1/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/com/myjeeva/digitalocean/digitalocean-api-client/
 [5]: http://myjeeva.com
@@ -211,6 +215,6 @@ The DigitalOcean API Client is released under [MIT License][6].
 [7]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanIntegrationTest.java
 [8]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/1.5/digitalocean-api-client-1.5.jar
 [9]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanMockTest.java
-[10]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.0-SNAPSHOT/com/myjeeva/digitalocean/DigitalOcean.html
+[10]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.1-SNAPSHOT/com/myjeeva/digitalocean/DigitalOcean.html
 [11]: https://github.com/jeevatkm/digitalocean-api-java
 [12]: https://github.com/jeevatkm/digitalocean-api-java/tree/api-v1
