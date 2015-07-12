@@ -2,8 +2,6 @@ DigitalOcean API Client in Java
 -------------------------------
 [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java)
 
-**DigitalOcean OAUTH API support coming soon**
-
 Welcome to DigitalOcean API Client written in Java. Created a simple and meaningful wrapper methods for [DigitalOcean RESTful APIs][1].
 
 > Simple and Lightweight Library for Enterprise Application or Utilities Integration
@@ -110,6 +108,8 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 
 Supported API's and Revision Logs
 ---------------------------------
+* **As in v2.2-SNAPSHOT** available in snapshot repo
+	* Added compatiable for Android
 * **Released in v2.1**
 	* Enhancements
 		* Libs version upgraded to latest
@@ -200,6 +200,14 @@ Supported API's and Revision Logs
 Author
 ------
 Jeevanandam M. - jeeva@myjeeva.com
+
+Contributing
+------------
+1. Fork it
+2. Create your feature branch - `git checkout -b my-new-feature`
+3. Commit your changes - `git commit -am 'Add some feature'`
+4. Push to the branch - `git push origin my-new-feature`
+5. Create new Pull Request
 
 License
 -------
