@@ -205,9 +205,10 @@ Contributing
 ------------
 1. Fork it
 2. Create your feature branch - `git checkout -b my-new-feature`
-3. Commit your changes - `git commit -am 'Add some feature'`
-4. Push to the branch - `git push origin my-new-feature`
-5. Create new Pull Request
+3. Implement your changes and apply [Google Code Formatter][13]
+4. Commit your changes - `git commit -am 'Add some feature'`
+5. Push to the branch - `git push origin my-new-feature`
+6. Create new Pull Request
 
 License
 -------
@@ -226,3 +227,4 @@ The DigitalOcean API Client is released under [MIT License][6].
 [10]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.1-SNAPSHOT/com/myjeeva/digitalocean/DigitalOcean.html
 [11]: https://github.com/jeevatkm/digitalocean-api-java
 [12]: https://github.com/jeevatkm/digitalocean-api-java/tree/api-v1
+[13]: https://raw.githubusercontent.com/darcyliu/google-styleguide/master/eclipse-java-google-style.xml

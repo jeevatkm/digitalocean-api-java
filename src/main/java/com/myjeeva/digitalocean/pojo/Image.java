@@ -56,9 +56,6 @@ public class Image extends RateLimitBase {
   @SerializedName("created_at")
   private Date createdDate;
 
-  @SerializedName("min_size")
-  private String minSize;
-
   @SerializedName("min_disk_size")
   private Integer minDiskSize;
 
@@ -198,20 +195,6 @@ public class Image extends RateLimitBase {
    */
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
-  }
-
-  /**
-   * @return the minSize
-   */
-  public String getMinSize() {
-    return minSize;
-  }
-
-  /**
-   * @param minSize the minSize to set
-   */
-  public void setMinSize(String minSize) {
-    this.minSize = minSize;
   }
 
   /**
