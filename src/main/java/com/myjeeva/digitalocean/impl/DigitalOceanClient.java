@@ -21,6 +21,7 @@
 package com.myjeeva.digitalocean.impl;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
@@ -30,6 +31,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -42,7 +44,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -868,7 +869,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return executeHttpRequest(get);
   }
 
-  private String doPost(URI uri, StringEntity entity) throws DigitalOceanException,
+  private String doPost(URI uri, HttpEntity entity) throws DigitalOceanException,
       RequestUnsuccessfulException {
     HttpPost post = new HttpPost(uri);
     post.setHeaders(requestHeaders);
@@ -880,7 +881,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return executeHttpRequest(post);
   }
 
-  private String doPut(URI uri, StringEntity entity) throws DigitalOceanException,
+  private String doPut(URI uri, HttpEntity entity) throws DigitalOceanException,
       RequestUnsuccessfulException {
     HttpPut put = new HttpPut(uri);
     put.setHeaders(requestHeaders);
@@ -1013,12 +1014,18 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (null == request.getPathParams() ? path : String.format(path, request.getPathParams()));
   }
 
-  private StringEntity createRequestData(ApiRequest request) {
+  private HttpEntity createRequestData(ApiRequest request) {
     StringEntity data = null;
 
     if (null != request.getData()) {
       String inputData = serialize.toJson(request.getData());
-      data = new StringEntity(inputData, ContentType.create(JSON_CONTENT_TYPE));
+
+      try {
+        data = new StringEntity(inputData);
+        //data.setContentType(JSON_CONTENT_TYPE);
+      } catch (UnsupportedEncodingException e) {
+        LOG.error(e.getMessage(), e);
+      }
     }
 
     return data;
