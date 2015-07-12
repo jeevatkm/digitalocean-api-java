@@ -32,7 +32,7 @@ import com.myjeeva.digitalocean.common.ImageType;
 /**
  * Represents Droplet Image (also public images aka Distribution) attributes of DigitalOcean
  * (distribution, snapshots or backups). Revised as per v2 API data structure.
- * 
+ *
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
 public class Image extends RateLimitBase {
@@ -58,6 +58,9 @@ public class Image extends RateLimitBase {
 
   @SerializedName("min_size")
   private String minSize;
+
+  @SerializedName("min_disk_size")
+  private Integer minDiskSize;
 
   private ImageType type;
 
@@ -223,5 +226,19 @@ public class Image extends RateLimitBase {
    */
   public void setType(ImageType type) {
     this.type = type;
+  }
+
+  /**
+   * @return the min Disk Size
+   */
+  public Integer getMinDiskSize() {
+    return minDiskSize;
+  }
+
+  /**
+   * @param minDiskSize the minDiskSize to set
+   */
+  public void setMinDiskSize(Integer minDiskSize) {
+    this.minDiskSize = minDiskSize;
   }
 }
