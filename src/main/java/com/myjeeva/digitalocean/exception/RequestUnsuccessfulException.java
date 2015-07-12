@@ -21,7 +21,7 @@
 package com.myjeeva.digitalocean.exception;
 
 /**
- * <code>RequestUnsuccessfulException</code> will be thrown if any RESTful request unsuccessfull
+ * <code>RequestUnsuccessfulException</code> will be thrown if any RESTful request unsuccessful
  * from wrapper method
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)

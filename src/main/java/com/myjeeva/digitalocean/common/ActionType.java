@@ -23,7 +23,7 @@ package com.myjeeva.digitalocean.common;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Enumeration of DigitalOcean Droplet & Image Action Type
+ * Enumeration of DigitalOcean Droplet &amp; Image Action Type
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 

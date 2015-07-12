@@ -22,8 +22,7 @@ package com.myjeeva.digitalocean.exception;
 
 /**
  * <code>DigitalOceanException</code> will be thrown, when request had interruption [
- * <code>HTTP status
- * code >= 400 && < 510</code>] DigitalOcean API
+ * <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>] DigitalOcean API
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */

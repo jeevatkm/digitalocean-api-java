@@ -109,7 +109,7 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 Supported API's and Revision Logs
 ---------------------------------
 * **As in v2.2-SNAPSHOT** available in snapshot repo
-	* Added compatiable for Android
+	* Added compatibility for Android
 * **Released in v2.1**
 	* Enhancements
 		* Libs version upgraded to latest

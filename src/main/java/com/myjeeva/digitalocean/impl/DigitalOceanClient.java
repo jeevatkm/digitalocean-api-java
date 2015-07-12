@@ -137,6 +137,11 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
    */
   private Header[] requestHeaders;
 
+  /**
+   * DigitalOcean Client Constructor
+   * 
+   * @param authToken a {@link String} object
+   */
   public DigitalOceanClient(String authToken) {
     this("v2", authToken);
   }
@@ -1022,7 +1027,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
       try {
         data = new StringEntity(inputData);
-        //data.setContentType(JSON_CONTENT_TYPE);
+        // data.setContentType(JSON_CONTENT_TYPE);
       } catch (UnsupportedEncodingException e) {
         LOG.error(e.getMessage(), e);
       }
