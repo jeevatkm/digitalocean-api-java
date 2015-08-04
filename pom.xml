@@ -6,8 +6,7 @@
 	@author		: <a href="jeeva@myjeeva.com">Jeevanandam M.</a>
 	@date		: Jun 28, 2013 11:20:42 PM GMT+05:30
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -19,7 +18,7 @@
 	<artifactId>digitalocean-api-client</artifactId>
 	<packaging>jar</packaging>
 	<name>DigitalOcean API Client in Java</name>
-	<version>2.2-SNAPSHOT</version>
+	<version>2.2</version>
 	<description>DigitalOcean API Client in Java</description>
 	<url>http://myjeeva.com</url>
 	<licenses>
