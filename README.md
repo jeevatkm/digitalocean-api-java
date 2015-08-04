@@ -1,5 +1,5 @@
-DigitalOcean API Client in Java
--------------------------------
+# DigitalOcean API Client in Java
+
 [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java)
 
 Welcome to DigitalOcean API Client written in Java. Created a simple and meaningful wrapper methods for [DigitalOcean RESTful APIs][1].
@@ -8,8 +8,8 @@ Welcome to DigitalOcean API Client written in Java. Created a simple and meaning
 
 Give your support by clicking Hearts here [DigitalOcean API Client in Java](https://www.digitalocean.com/community/projects/api-client-in-java) :)
 
-Getting Started
----------------
+# Getting Started
+
 DigitalOcean API Client library per version project dependencies:
 
 * **For v2:** maps to branch [master][11]
@@ -17,16 +17,16 @@ DigitalOcean API Client library per version project dependencies:
 	<pre>&lt;dependency>
     		&lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
     		&lt;artifactId>digitalocean-api-client&lt;/artifactId>
-    		&lt;version>2.1&lt;/version>
+    		&lt;version>2.2&lt;/version>
 		&lt;/dependency></pre>
-	* Grails dependency
-	<pre>compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.1'</pre>
+	* Gradle/Grails dependency
+	<pre>compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.2'</pre>
 	* Groovy Grape
 	<pre>@Grapes( 
-@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.1') 
+@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.2') 
 )</pre>
 	* Scala SBT
-	<pre>libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.1"</pre>
+	<pre>libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.2"</pre>
 
 * * *
 
@@ -36,8 +36,11 @@ DigitalOcean API Client library per version project dependencies:
 * * *
 
 
-Getting Help
-------------
+* * *
+
+
+# Getting Help
+
 For API documentation see:
 
 * [DigitalOcean API Client in Java][2]
@@ -46,8 +49,8 @@ For Example usage see:
 
 * Have a look at [DigitalOceanIntegrationTest][7]
 
-Samples
--------
+# Samples
+
 * Creating a DigitalOcean Client in three simple ways!
 <pre>// Way one, just pass on authToken
 DigitalOcean apiClient = new DigitalOceanClient(authToken);</pre>
@@ -98,18 +101,19 @@ RateLimit rateLimit = domain.getRateLimit();</pre>
 <pre>Droplet droplet = getDropletInfo(10000001);
 RateLimit rateLimit = droplet.getRateLimit();</pre>
 
-Reporting Issues
-----------------
+# Reporting Issues
+
 DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to record bugs and feature requests. If you want to raise an issue, please follow the recommendations bellow:
 
 * Before you log a bug, please search the issue tracker to see if someone has already reported the problem. If the issue doesn’t already exist, create a new issue.
 * Please provide as much information as possible with the issue report, we like to know the version of DigitalOcean API Client that you are using.
 * If you need to paste code, or include a stack trace use Markdown ``` escapes before and after your text.
 
-Supported API's and Revision Logs
----------------------------------
-* **As in v2.2-SNAPSHOT** available in snapshot repo
+# Supported API's and Revision Logs
+
+* **Released in v2.2**
 	* Added compatibility for Android
+	* Applied latest API changes from DO, [Account object][14] & [Snapshot status][15]
 * **Released in v2.1**
 	* Enhancements
 		* Libs version upgraded to latest
@@ -197,12 +201,12 @@ Supported API's and Revision Logs
 	Delete deleteKey(String fingerprint)
 	</pre>
 
-Author
-------
+# Author
+
 Jeevanandam M. - jeeva@myjeeva.com
 
-Contributing
-------------
+# Contributing
+
 1. Fork it
 2. Create your feature branch - `git checkout -b my-new-feature`
 3. Implement your changes and apply [Google Code Formatter][13]
@@ -210,13 +214,13 @@ Contributing
 5. Push to the branch - `git push origin my-new-feature`
 6. Create new Pull Request
 
-License
--------
+# License
+
 The DigitalOcean API Client is released under [MIT License][6].
 
 
 [1]: https://developers.digitalocean.com
-[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.1/
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.2/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/com/myjeeva/digitalocean/digitalocean-api-client/
 [5]: http://myjeeva.com
@@ -224,7 +228,9 @@ The DigitalOcean API Client is released under [MIT License][6].
 [7]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanIntegrationTest.java
 [8]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/1.5/digitalocean-api-client-1.5.jar
 [9]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanMockTest.java
-[10]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.1-SNAPSHOT/com/myjeeva/digitalocean/DigitalOcean.html
+[10]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.3-SNAPSHOT/com/myjeeva/digitalocean/DigitalOcean.html
 [11]: https://github.com/jeevatkm/digitalocean-api-java
 [12]: https://github.com/jeevatkm/digitalocean-api-java/tree/api-v1
 [13]: https://raw.githubusercontent.com/darcyliu/google-styleguide/master/eclipse-java-google-style.xml
+[14]: https://developers.digitalocean.com/documentation/changelog/api-v2/add-status-to-account/
+[15]: https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-snaphots/
