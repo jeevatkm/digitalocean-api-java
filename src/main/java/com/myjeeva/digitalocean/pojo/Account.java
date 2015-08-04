@@ -45,6 +45,11 @@ public class Account extends RateLimitBase {
   @SerializedName("email_verified")
   private boolean isEmailVerified;
 
+  private String status;
+
+  @SerializedName("status_message")
+  private String statusMessage;
+
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
@@ -104,5 +109,33 @@ public class Account extends RateLimitBase {
    */
   public void setEmailVerified(boolean isEmailVerified) {
     this.isEmailVerified = isEmailVerified;
+  }
+
+  /**
+   * @return the status
+   */
+  public String getStatus() {
+    return status;
+  }
+
+  /**
+   * @param status the status to set
+   */
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  /**
+   * @return the statusMessage
+   */
+  public String getStatusMessage() {
+    return statusMessage;
+  }
+
+  /**
+   * @param statusMessage the statusMessage to set
+   */
+  public void setStatusMessage(String statusMessage) {
+    this.statusMessage = statusMessage;
   }
 }

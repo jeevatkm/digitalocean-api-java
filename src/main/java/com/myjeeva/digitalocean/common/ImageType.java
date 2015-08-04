@@ -37,6 +37,11 @@ public enum ImageType {
   @SerializedName("backup")
   BACKUP("backup"),
 
+  /**
+   * More info:
+   * https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-snaphots/
+   */
+  @Deprecated
   @SerializedName("temporary")
   TEMPORARY("temporary");
 
