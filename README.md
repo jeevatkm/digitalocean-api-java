@@ -10,7 +10,7 @@ Give your support by clicking Hearts here [DigitalOcean API Client in Java](http
 
 # Getting Started
 
-DigitalOcean API Client library per version project dependencies:
+DigitalOcean API Client library project dependencies or [Download it][16]:
 
 * **For v2:** maps to branch [master][11]
 	* Maven dependency
@@ -30,14 +30,10 @@ DigitalOcean API Client library per version project dependencies:
 
 * * *
 
-* **For v1:** maps to branch [api-v1][12]
+* **For v1:** maps to branch [api-v1][12] - DO is sunsetting v1 on [Nov, 2015](https://developers.digitalocean.com/documentation/changelog/api-v1/sunsetting-api-v1/). 
 	* [Click here][12] to see detailed information
 
 * * *
-
-
-* * *
-
 
 # Getting Help
 
@@ -216,7 +212,7 @@ Jeevanandam M. - jeeva@myjeeva.com
 
 # License
 
-The DigitalOcean API Client is released under [MIT License][6].
+DigitalOcean API Client - [MIT License][6].
 
 
 [1]: https://developers.digitalocean.com
@@ -224,7 +220,7 @@ The DigitalOcean API Client is released under [MIT License][6].
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/com/myjeeva/digitalocean/digitalocean-api-client/
 [5]: http://myjeeva.com
-[6]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/LICENSE.txt
+[6]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/LICENSE
 [7]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanIntegrationTest.java
 [8]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/1.5/digitalocean-api-client-1.5.jar
 [9]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanMockTest.java
@@ -234,3 +230,4 @@ The DigitalOcean API Client is released under [MIT License][6].
 [13]: https://raw.githubusercontent.com/darcyliu/google-styleguide/master/eclipse-java-google-style.xml
 [14]: https://developers.digitalocean.com/documentation/changelog/api-v2/add-status-to-account/
 [15]: https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-snaphots/
+[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.2/digitalocean-api-client-2.2.jar
