@@ -1,6 +1,8 @@
 # [API v1 End of Life by DO](https://developers.digitalocean.com/documentation/changelog/api-v1/api-v1-end-of-life/) as on Nov 9, 2015
 
-DigitalOcean API Client in Java (for v1 only) [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=api-v1)](https://travis-ci.org/jeevatkm/digitalocean-api-java)
+**DigitalOcean API Client in Java (for v1 only)**
+
+<!-- [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=api-v1)](https://travis-ci.org/jeevatkm/digitalocean-api-java) -->
 
 Welcome to DigitalOcean's API Client written in Java. I have created a simple and meaningful wrapper methods for DigitalOcean's API. All of the RESTful that you find in [DigitalOcean API's][1] will be made available via simple java method(s).
 
