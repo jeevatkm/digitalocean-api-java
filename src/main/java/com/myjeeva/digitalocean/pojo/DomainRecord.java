@@ -61,6 +61,10 @@ public class DomainRecord extends RateLimitBase {
   public DomainRecord(String name) {
     this.name = name;
   }
+  
+  public DomainRecord(String name, String type) {
+    this(name, null, type, null, null, null);
+  }
 
   public DomainRecord(String name, String data, String type) {
     this(name, data, type, null, null, null);

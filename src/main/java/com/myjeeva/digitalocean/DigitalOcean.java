@@ -211,16 +211,16 @@ public interface DigitalOcean {
    * @since v1.0
    */
   Droplet createDroplet(Droplet droplet) throws DigitalOceanException, RequestUnsuccessfulException;
-  
+
   /**
    * <p>
-   * Method allows you to create multiple droplets simultaneously. See the required parameters section below for an
-   * explanation of the variables that are needed to create multiple droplets.
+   * Method allows you to create multiple droplets simultaneously. See the required parameters
+   * section below for an explanation of the variables that are needed to create multiple droplets.
    * </p>
    * <p>
-   * Create a instance of {@link Droplet} class and populated the droplet object appropriately. Particularly 
-   * <strong>names</strong> attribute in the Droplet class. 
-   * Minimum required values are -
+   * Create a instance of {@link Droplet} class and populated the droplet object appropriately.
+   * Particularly <strong>names</strong> attribute in the Droplet class. Minimum required values are
+   * -
    * </p>
    * 
    * <pre>
@@ -244,7 +244,8 @@ public interface DigitalOcean {
    * 
    * @since v2.3
    */
-  Droplets createDroplets(Droplet droplet) throws DigitalOceanException, RequestUnsuccessfulException;
+  Droplets createDroplets(Droplet droplet) throws DigitalOceanException,
+      RequestUnsuccessfulException;
 
   /**
    * Method destroys one of your droplet; this is irreversible.
@@ -890,7 +891,8 @@ public interface DigitalOcean {
    * 
    * @param domainName of the domain
    * @param recordId of the domain
-   * @param name of the domain record
+   * @param domainRecord the domain record values domain Id, record type, data, name, priority,
+   *        port, weight
    * @return {@link DomainRecord}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -898,7 +900,7 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    */
-  DomainRecord updateDomainRecord(String domainName, Integer recordId, String name)
+  DomainRecord updateDomainRecord(String domainName, Integer recordId, DomainRecord domainRecord)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**

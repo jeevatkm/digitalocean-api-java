@@ -767,15 +767,19 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public DomainRecord updateDomainRecord(String domainName, Integer recordId, String name)
+  public DomainRecord updateDomainRecord(String domainName, Integer recordId, DomainRecord domainRecord)
       throws DigitalOceanException, RequestUnsuccessfulException {
     checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
     checkNullAndThrowError(recordId, "Missing required parameter - recordId.");
-    checkEmptyAndThrowError(name, "Missing required parameter - name.");
+    
+    if (null == domainRecord) {
+      LOG.error("domainRecord input is required.");
+      throw new IllegalArgumentException("domainRecord input is required.");
+    }
 
     Object[] params = {domainName, recordId};
     return (DomainRecord) perform(
-        new ApiRequest(ApiAction.UPDATE_DOMAIN_RECORD, new DomainRecord(name), params)).getData();
+        new ApiRequest(ApiAction.UPDATE_DOMAIN_RECORD, domainRecord, params)).getData();
   }
 
   @Override
