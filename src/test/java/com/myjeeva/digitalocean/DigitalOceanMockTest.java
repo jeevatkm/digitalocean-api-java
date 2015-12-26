@@ -31,7 +31,7 @@ public class DigitalOceanMockTest extends TestCase {
 
           void validate(HttpUriRequest httpUriRequest) throws MalformedURLException,
               URISyntaxException {
-            assertEquals(new URL("https://api.digitalocean.com/v2/droplets/1234/actions").toURI(),
+            assertEquals(new URL("https://api.digitalocean.com/v2/droplets/1234/actions?per_page=25").toURI(),
                 httpUriRequest.getURI());
           }
         }));

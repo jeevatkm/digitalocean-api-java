@@ -21,6 +21,7 @@
 package com.myjeeva.digitalocean;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -96,26 +97,28 @@ public class DigitalOceanIntegrationTest extends TestCase {
   @Test
   public void testGetAvailableDroplets() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    Droplets droplets = apiClient.getAvailableDroplets(1);
+    Droplets droplets = apiClient.getAvailableDroplets(1, null);
 
     assertNotNull(droplets);
     assertTrue((droplets.getDroplets().size() > 0));
 
+    int i = 1;
     for (Droplet droplet : droplets.getDroplets()) {
-      LOG.info(droplet.toString());
+      LOG.info(i++ + " -> " + droplet.toString());
     }
   }
 
   @Test
   public void testGetAvailableKernels() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    Kernels kernels = apiClient.getAvailableKernels(dropletIdForInfo, 1);
+    Kernels kernels = apiClient.getAvailableKernels(dropletIdForInfo, 1, 20);
 
     assertNotNull(kernels);
     assertTrue((kernels.getKernels().size() > 0));
 
+    int i = 1;
     for (Kernel k : kernels.getKernels()) {
-      LOG.info(k.toString());
+      LOG.info(i++ + " -> " + k.toString());
     }
   }
 
@@ -123,7 +126,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testGetAvailableSnapshots() throws DigitalOceanException,
       RequestUnsuccessfulException {
 
-    Snapshots snapshots = apiClient.getAvailableSnapshots(dropletIdForInfo, 1);
+    Snapshots snapshots = apiClient.getAvailableSnapshots(dropletIdForInfo, 1, 20);
 
     assertNotNull(snapshots);
     assertTrue((snapshots.getSnapshots().size() > 0));
@@ -214,6 +217,27 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(d.getId());
 
     LOG.info(d.toString());
+  }
+
+  @Test
+  public void testCreateDropletsByImageSlug() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Droplet droplet = new Droplet();
+    droplet.setNames(Arrays.asList("sub-01.example.com", "sub-02.example.com"));
+    droplet.setName("not allowed");
+    droplet.setSize("512mb");
+    droplet.setImage(new Image("ubuntu-14-04-x64"));
+    droplet.setRegion(new Region("sgp1"));
+
+    Droplets droplets = apiClient.createDroplets(droplet);
+
+    assertNotNull(droplets);
+    assertTrue((droplets.getDroplets().size() > 0));
+
+    for (Droplet d : droplets.getDroplets()) {
+      LOG.info(d.toString());
+    }
   }
 
   @Test
@@ -342,6 +366,15 @@ public class DigitalOceanIntegrationTest extends TestCase {
   }
 
   @Test
+  public void testEnableDropletBackups() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Action action = apiClient.enableDropletBackups(9662284);
+
+    assertNotNull(action);
+    LOG.info(action.toString());
+  }
+
+  @Test
   public void testDisableDropletBackups() throws DigitalOceanException,
       RequestUnsuccessfulException {
 
@@ -387,14 +420,14 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(action);
     LOG.info(action.toString());
   }
-  
-  
+
+
   // Account Test cases
-  
+
   @Test
   public void testGetAccountInfo() throws DigitalOceanException, RequestUnsuccessfulException {
     Account account = apiClient.getAccountInfo();
-    
+
     assertNotNull(account);
     LOG.info(account.toString());
   }
@@ -405,13 +438,16 @@ public class DigitalOceanIntegrationTest extends TestCase {
   @Test
   public void testGetAvailableActions() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    Actions actions = apiClient.getAvailableActions(1);
+    Actions actions = apiClient.getAvailableActions(2, 30);
 
     assertNotNull(actions);
     assertTrue((actions.getActions().size() > 0));
 
+    LOG.info(actions.getLinks().toString());
+
+    int i = 1;
     for (Action a : actions.getActions()) {
-      LOG.info(a.toString());
+      LOG.info(i++ + " -> " + a.toString());
     }
   }
 
@@ -428,8 +464,8 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testGetAvailableDropletActions() throws DigitalOceanException,
       RequestUnsuccessfulException {
 
-    Actions actions = apiClient.getAvailableDropletActions(dropletIdForInfo, 1);
-    Actions actions3 = apiClient.getAvailableDropletActions(dropletIdForInfo, 3);
+    Actions actions = apiClient.getAvailableDropletActions(dropletIdForInfo, 1, 20);
+    Actions actions3 = apiClient.getAvailableDropletActions(dropletIdForInfo, 3, 20);
 
     assertNotNull(actions);
     assertTrue((actions.getActions().size() > 0));
@@ -446,7 +482,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testGetAvailableImageActions() throws DigitalOceanException,
       RequestUnsuccessfulException {
 
-    Actions actions = apiClient.getAvailableImageActions(3794738, 1);
+    Actions actions = apiClient.getAvailableImageActions(3794738, 1, 20);
 
     assertNotNull(actions);
     assertTrue((actions.getActions().size() > 0));
@@ -463,7 +499,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   @Test
   public void testGetAvailableImages() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    Images images = apiClient.getAvailableImages(1);
+    Images images = apiClient.getAvailableImages(1, 20);
 
     assertNotNull(images);
     assertTrue((images.getImages().size() > 0));
@@ -477,7 +513,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testGetAvailableImagesByDistribution() throws DigitalOceanException,
       RequestUnsuccessfulException {
 
-    Images images = apiClient.getAvailableImages(1, ActionType.DISTRIBUTION);
+    Images images = apiClient.getAvailableImages(1, 20, ActionType.DISTRIBUTION);
 
     assertNotNull(images);
     assertTrue((images.getImages().size() > 0));
@@ -491,7 +527,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testGetAvailableImagesByApplication() throws DigitalOceanException,
       RequestUnsuccessfulException {
 
-    Images images = apiClient.getAvailableImages(1, ActionType.APPLICATION);
+    Images images = apiClient.getAvailableImages(1, 20, ActionType.APPLICATION);
 
     assertNotNull(images);
     assertTrue((images.getImages().size() > 0));
@@ -505,7 +541,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testGetAvailableImagesByIncorrrect() throws DigitalOceanException,
       RequestUnsuccessfulException {
     try {
-      apiClient.getAvailableImages(1, ActionType.BACKUP);
+      apiClient.getAvailableImages(1, 20, ActionType.BACKUP);
     } catch (DigitalOceanException doe) {
       LOG.info(doe.getMessage());
     }
@@ -514,7 +550,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   @Test
   public void testGetUserImages() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    Images images = apiClient.getUserImages(1);
+    Images images = apiClient.getUserImages(1, 20);
 
     assertNotNull(images);
     assertTrue((images.getImages().size() > 0));
@@ -572,7 +608,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(action);
     LOG.info(action.toString());
   }
-  
+
   @Test
   public void testConvertImage() throws DigitalOceanException, RequestUnsuccessfulException {
     Action action = apiClient.convertImage(5489522);
@@ -690,7 +726,9 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
   @Test
   public void testUpdateDomainRecord() throws DigitalOceanException, RequestUnsuccessfulException {
-    DomainRecord domainRecord = apiClient.updateDomainRecord("jeeutil.com", 2596063, "testjs");
+
+    DomainRecord record = new DomainRecord("testjs", "@", "CNAME");
+    DomainRecord domainRecord = apiClient.updateDomainRecord("example.me", 10989796, record);
 
     assertNotNull(domainRecord);
     LOG.info(domainRecord.toString());
