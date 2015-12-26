@@ -141,6 +141,15 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 	* Added `floating_ip_limit` attribute into `Account` class
 	* `updateDomainRecord()` method accepts `DomainRecord` as an input parameter
 	* `per_page` parameter added to all the supported APIs
+	* Floating IPs
+	<pre>
+	FloatingIPs getAvailableFloatingIPs(Integer pageNo, Integer perPage)
+	FloatingIP createFloatingIP(Integer dropletId)
+	FloatingIP createFloatingIP(String region)
+	FloatingIP getFloatingIPInfo(String ipAddress)
+	Delete deleteFloatingIP(String ipAddress)
+	</pre>
+	* Floating IPs Actions - in-progress
 	* v2.3 libray release version is work-in-progress...
 * **Released in v2.2**
 	* Added compatibility for Android
@@ -154,15 +163,15 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 	<pre>Account getAccountInfo()</pre>
 	* Actions
 	<pre>
-	Actions getAvailableActions(Integer pageNo)
-	Actions	getAvailableDropletActions(Integer dropletId, Integer pageNo)
-	Actions	getAvailableImageActions(Integer imageId, Integer pageNo)
+	Actions getAvailableActions(Integer pageNo, Integer perPage)
+	Actions getAvailableDropletActions(Integer dropletId, Integer pageNo, Integer perPage)
+	Actions getAvailableImageActions(Integer imageId, Integer pageNo, Integer perPage)
 	Action getActionInfo(Integer actionId)</pre>
 	* Droplets
 	<pre>
-	Droplets getAvailableDroplets(Integer pageNo)
-	Kernels	getAvailableKernels(Integer dropletId, Integer pageNo)
-	Snapshots getAvailableSnapshots(Integer dropletId, Integer pageNo)
+	Droplets getAvailableDroplets(Integer pageNo, Integer perPage)
+	Kernels getAvailableKernels(Integer dropletId, Integer pageNo, Integer perPage)
+	Snapshots getAvailableSnapshots(Integer dropletId, Integer pageNo, Integer perPage)
 	Backups	getAvailableBackups(Integer dropletId, Integer pageNo)
 	Droplet	getDropletInfo(Integer dropletId)
 	Droplet	createDroplet(Droplet droplet)
@@ -191,15 +200,15 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 	</pre>
 	* Images
 	<pre>
-	Images getAvailableImages(Integer pageNo)
-	Images getAvailableImages(Integer pageNo, ActionType type)
+	Images getAvailableImages(Integer pageNo, Integer perPage)
+	Images getAvailableImages(Integer pageNo, Integer perPage, ActionType type)
 	Image getImageInfo(Integer imageId)
 	Image getImageInfo(String slug)
 	Image updateImage(Image image)
 	Delete deleteImage(Integer imageId)
 	Action transferImage(Integer imageId, String regionSlug)
 	Action convertImage(Integer imageId)
-	Images getUserImages(Integer pageNo)
+	Images getUserImages(Integer pageNo, Integer perPage)
 	</pre>
 	* Sizes
 	<pre>Sizes getAvailableSizes(Integer pageNo)</pre>
