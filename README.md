@@ -1,8 +1,6 @@
-# DigitalOcean API Client in Java
+# DigitalOcean API Client  [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-[![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java)
-
-Welcome to DigitalOcean API Client written in Java. Created a simple and meaningful wrapper methods for [DigitalOcean RESTful APIs][1].
+Welcome to DigitalOcean API Client written in Java. Simple and meaningful wrapper methods for [DigitalOcean RESTful APIs][1]. Can be used with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.
 
 > Simple and Lightweight Library for Enterprise Application or Utilities Integration
 
@@ -10,28 +8,32 @@ Give your support by clicking Hearts here [DigitalOcean API Client in Java](http
 
 # Getting Started
 
-DigitalOcean API Client library project dependencies or [Download it][16]:
+DigitalOcean API Client library's few project dependency definition mentioned below or [Download it][16], [master][11] branch maps to V2 APIs since [v1 is no longer active](https://developers.digitalocean.com/documentation/changelog/api-v1/sunsetting-api-v1/).
 
-* **For v2:** maps to branch [master][11]
-	* Maven dependency
-	<pre>&lt;dependency>
-    		&lt;groupId>com.myjeeva.digitalocean&lt;/groupId>
-    		&lt;artifactId>digitalocean-api-client&lt;/artifactId>
-    		&lt;version>2.2&lt;/version>
-		&lt;/dependency></pre>
-	* Gradle/Grails dependency
-	<pre>compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.2'</pre>
-	* Groovy Grape
-	<pre>@Grapes( 
+**Maven dependency**
+```xml
+<dependency>
+    <groupId>com.myjeeva.digitalocean</groupId>
+    <artifactId>digitalocean-api-client</artifactId>
+    <version>2.2</version>
+</dependency>
+```
+**Gradle/Grails dependency**
+```
+compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.2'
+```
+**Groovy Grape**
+```groovy
+@Grapes( 
 @Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.2') 
-)</pre>
-	* Scala SBT
-	<pre>libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.2"</pre>
+)
+```
+**Scala SBT**
+```
+libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.2"
+```
 
-* * *
-
-* **For v1:** maps to branch [api-v1][12] - DO is sunsetting v1 on [Nov, 2015](https://developers.digitalocean.com/documentation/changelog/api-v1/sunsetting-api-v1/). 
-	* [Click here][12] to see detailed information
+***Note:*** For Android projects, kindly indlude the `httpclient-android` library explicitly in your project dependencies.
 
 * * *
 
