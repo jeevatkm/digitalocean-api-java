@@ -66,6 +66,9 @@ public enum ActionType {
 
   @SerializedName("enable_ipv6")
   ENABLE_IPV6("enable_ipv6"),
+  
+  @SerializedName("enable_backups")
+  ENABLE_BACKUPS("enable_backups"),
 
   @SerializedName("disable_backups")
   DISABLE_BACKUPS("disable_backups"),

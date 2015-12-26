@@ -413,13 +413,27 @@ public interface DigitalOcean {
    * @param dropletId the id of the droplet
    * @param imageId the id of the DigitalOcean public image or your private image
    * @return {@link Action}
-   *@throws DigitalOceanException if request had interruption [
+   * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    * 
    * @since v1.0
    */
   Action rebuildDroplet(Integer dropletId, Integer imageId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method enables automatic backups for your droplet's data.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link Action}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.3
+   */
+  Action enableDropletBackups(Integer dropletId) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
   /**

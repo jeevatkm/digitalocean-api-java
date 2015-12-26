@@ -434,6 +434,17 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     action.setImage(imageId);
     return (Action) perform(new ApiRequest(ApiAction.REBUILD_DROPLET, action, params)).getData();
   }
+  
+  @Override
+  public Action enableDropletBackups(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    return (Action) perform(
+        new ApiRequest(ApiAction.ENABLE_DROPLET_BACKUPS, new DropletAction(
+            ActionType.ENABLE_BACKUPS), params)).getData();
+  }
 
   @Override
   public Action disableDropletBackups(Integer dropletId) throws DigitalOceanException,
