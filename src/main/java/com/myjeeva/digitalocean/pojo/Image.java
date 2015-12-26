@@ -94,7 +94,9 @@ public class Image extends RateLimitBase {
 
   /**
    * @return true if image is temporary
+   * Deprecated Info: https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-snaphots/
    */
+  @Deprecated
   public boolean isTemporary() {
     return ImageType.TEMPORARY == type;
   }

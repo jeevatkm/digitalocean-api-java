@@ -50,6 +50,9 @@ public class Account extends RateLimitBase {
   @SerializedName("status_message")
   private String statusMessage;
 
+  @SerializedName("floating_ip_limit")
+  private Integer floatingIPLimit;
+
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
@@ -137,5 +140,19 @@ public class Account extends RateLimitBase {
    */
   public void setStatusMessage(String statusMessage) {
     this.statusMessage = statusMessage;
+  }
+
+  /**
+   * @return the floatingIPLimit
+   */
+  public Integer getFloatingIPLimit() {
+    return floatingIPLimit;
+  }
+
+  /**
+   * @param floatingIPLimit the floatingIPLimit to set
+   */
+  public void setFloatingIPLimit(Integer floatingIPLimit) {
+    this.floatingIPLimit = floatingIPLimit;
   }
 }
