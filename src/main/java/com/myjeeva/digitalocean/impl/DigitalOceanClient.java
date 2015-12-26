@@ -272,7 +272,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Droplet createDroplet(Droplet droplet) throws DigitalOceanException,
       RequestUnsuccessfulException {
     if (null == droplet
-        || null == droplet.getName()
+        || StringUtils.isEmpty(droplet.getName())
         || null == droplet.getRegion()
         || null == droplet.getSize()
         || (null == droplet.getImage() || (null == droplet.getImage().getId() && null == droplet
@@ -282,6 +282,27 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     }
 
     return (Droplet) perform(new ApiRequest(ApiAction.CREATE_DROPLET, droplet)).getData();
+  }
+
+  @Override
+  public Droplets createDroplets(Droplet droplet) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    if (null == droplet
+        || (null == droplet.getNames() || droplet.getNames().size() == 0)
+        || null == droplet.getRegion()
+        || null == droplet.getSize()
+        || (null == droplet.getImage() || (null == droplet.getImage().getId() && null == droplet
+            .getImage().getSlug()))) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Names, Region Slug, Size Slug, Image Id/Slug] for creating multiple droplets.");
+    }
+
+    if (StringUtils.isNotEmpty(droplet.getName())) {
+      throw new IllegalArgumentException(
+          "Name parameter is not allowed, while creating multiple droplet instead use 'names' attributes.");
+    }
+
+    return (Droplets) perform(new ApiRequest(ApiAction.CREATE_DROPLETS, droplet)).getData();
   }
 
   @Override
@@ -434,7 +455,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     action.setImage(imageId);
     return (Action) perform(new ApiRequest(ApiAction.REBUILD_DROPLET, action, params)).getData();
   }
-  
+
   @Override
   public Action enableDropletBackups(Integer dropletId) throws DigitalOceanException,
       RequestUnsuccessfulException {
@@ -1038,7 +1059,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
       try {
         data = new StringEntity(inputData);
-        // data.setContentType(JSON_CONTENT_TYPE);
       } catch (UnsupportedEncodingException e) {
         LOG.error(e.getMessage(), e);
       }

@@ -43,9 +43,18 @@ public class DropletSerializer implements JsonSerializer<Droplet> {
 
   @Override
   public JsonElement serialize(Droplet droplet, Type paramType, JsonSerializationContext context) {
-
     final JsonObject jsonObject = new JsonObject();
+
     jsonObject.addProperty("name", droplet.getName());
+
+    if (null != droplet.getNames() && droplet.getNames().size() > 0) {
+      JsonArray names = new JsonArray();
+      for (String name : droplet.getNames()) {
+        names.add(context.serialize(name));
+      }
+      jsonObject.add("names", names);
+    }
+
     jsonObject.addProperty("region", droplet.getRegion().getSlug());
     jsonObject.addProperty("size", droplet.getSize());
 

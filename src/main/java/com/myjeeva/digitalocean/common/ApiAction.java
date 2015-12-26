@@ -58,6 +58,7 @@ public enum ApiAction {
   GET_DROPLET_NEIGHBORS("/droplets/%s/neighbors", "droplets", RequestMethod.GET, Droplets.class),
   GET_DROPLET_INFO("/droplets/%s", "droplet", RequestMethod.GET, Droplet.class),  
   CREATE_DROPLET("/droplets", "droplet", RequestMethod.POST, Droplet.class),
+  CREATE_DROPLETS("/droplets", "droplets", RequestMethod.POST, Droplets.class),
   DELETE_DROPLET("/droplets/%s", "delete", RequestMethod.DELETE, Delete.class),
   REBOOT_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   POWER_CYCLE_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),

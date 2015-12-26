@@ -197,11 +197,12 @@ public interface DigitalOcean {
    *   "name": "example-droplet-name",
    *   "region": "nyc1",
    *   "size": "512mb",
-   *   "image": 3445812
+   *   "image": "ubuntu-14-04-x64",
+   *   "backups": false
    * }
    * </pre>
    * 
-   * @param droplet the id of the droplet
+   * @param droplet the instance of the droplet class
    * @return {@link Droplet}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -210,6 +211,40 @@ public interface DigitalOcean {
    * @since v1.0
    */
   Droplet createDroplet(Droplet droplet) throws DigitalOceanException, RequestUnsuccessfulException;
+  
+  /**
+   * <p>
+   * Method allows you to create multiple droplets simultaneously. See the required parameters section below for an
+   * explanation of the variables that are needed to create multiple droplets.
+   * </p>
+   * <p>
+   * Create a instance of {@link Droplet} class and populated the droplet object appropriately. Particularly 
+   * <strong>names</strong> attribute in the Droplet class. 
+   * Minimum required values are -
+   * </p>
+   * 
+   * <pre>
+   * {
+   *   "names": [
+   *       "sub-01.example.com",
+   *       "sub-02.example.com"
+   *   ],
+   *   "region": "nyc1",
+   *   "size": "512mb",
+   *   "image": "ubuntu-14-04-x64",
+   *   "backups": false
+   * }
+   * </pre>
+   * 
+   * @param droplet the instance of the droplet class
+   * @return {@link Droplet}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.3
+   */
+  Droplets createDroplets(Droplet droplet) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method destroys one of your droplet; this is irreversible.

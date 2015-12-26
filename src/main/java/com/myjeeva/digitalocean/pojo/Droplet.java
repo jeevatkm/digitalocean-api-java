@@ -40,6 +40,8 @@ public class Droplet extends RateLimitBase {
   private Integer id;
 
   private String name;
+  
+  private List<String> names;
 
   @SerializedName("memory")
   private Integer memorySizeInMb;
@@ -147,6 +149,20 @@ public class Droplet extends RateLimitBase {
    */
   public void setName(String name) {
     this.name = name;
+  }
+
+  /**
+   * @return the names
+   */
+  public List<String> getNames() {
+    return names;
+  }
+
+  /**
+   * @param names the names to set
+   */
+  public void setNames(List<String> names) {
+    this.names = names;
   }
 
   /**
