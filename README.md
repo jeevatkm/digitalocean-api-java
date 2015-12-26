@@ -49,23 +49,29 @@ For Example usage see:
 
 # Samples
 
-* Creating a DigitalOcean Client in three simple ways!
-<pre>// Way one, just pass on authToken
-DigitalOcean apiClient = new DigitalOceanClient(authToken);</pre>
-<pre>// Way two, pass on version number & authToken
-DigitalOcean apiClient = new DigitalOceanClient("v2", authToken);</pre>
-<pre>// Way three, pass on version number, authToken & httpClient
+**Creating a DigitalOcean Client in three simple ways!**
+```java
+// Way one, just pass on authToken
+DigitalOcean apiClient = new DigitalOceanClient(authToken);
+
+// Way two, pass on version number & authToken
+DigitalOcean apiClient = new DigitalOceanClient("v2", authToken);
+
+// Way three, pass on version number, authToken & httpClient
 // Go ahead and customize httpClient attributes for requirements
 CloseableHttpClient httpClient = HttpClients.createDefault();
 DigitalOcean apiClient = new DigitalOceanClient("v2", authToken, httpClient);
-</pre>
+```
 
-* Let's invoke the method(s) as per need via <code>apiClient</code>
-<pre>// Fetching all the available droplets from control panel 
-Droplets droplets = apiClient.getAvailableDroplets(pageNo);</pre>
-<pre>// Fetching all the available kernels for droplet
-Kernels kernels = apiClient.getAvailableKernels(dropletId, pageNo);</pre>
-<pre>// Create a new droplet
+**Let's invoke the method(s) as per need via apiClient**
+```java
+// Fetching all the available droplets from control panel 
+Droplets droplets = apiClient.getAvailableDroplets(pageNo, perPage);
+
+// Fetching all the available kernels for droplet
+Kernels kernels = apiClient.getAvailableKernels(dropletId, pageNo, perPage);
+
+// Create a new droplet
 Droplet newDroplet = new Droplet();
 newDroplet.setName("api-client-test-host");
 newDroplet.setSize(new Size("512mb")); // setting size by slug value
@@ -74,30 +80,50 @@ newDroplet.setImage(new Image(1601)); // setting by Image Id 1601 => centos-5-8-
 newDroplet.setEnableBackup(Boolean.TRUE);
 newDroplet.setEnableIpv6(Boolean.TRUE);
 newDroplet.setEnablePrivateNetworking(Boolean.TRUE);
+
 // Adding SSH key info
-List&lt;Key> keys = new ArrayList&lt;Key>();
+List<Key> keys = new ArrayList<Key>();
 keys.add(new Key(6536653));
 keys.add(new Key(6536654));
 newDroplet.setKeys(keys);
-// Adding Metadata API - User Data
-newDroplet.setUserData(" &lt; YAML Content > "); // Follow DigitalOcean documentation to prepare user_data value
-Droplet droplet = apiClient.createDroplet(newDroplet);</pre> 
-<pre>// Fetch droplet information 
-Droplet droplet = apiClient.getDropletInfo(dropletId);</pre> 
-<pre>// Fetch Available Plans/Sizes supported by DigitalOcean
-Sizes sizes = apiClient.getAvailableSizes(pageNo);</pre> 
-<pre>// Fetch Available Regions supported by DigitalOcean
-Sizes sizes = apiClient.getAvailableRegions(pageNo);</pre>
 
-* Accessing <code>RateLimit</code> header values from return object. Note: This is applicable for all requests.
-<pre>Droplets droplets = getAvailableDroplets(1);
-RateLimit rateLimit = droplets.getRateLimit();</pre>
-<pre>Actions actions = getAvailableActions(2);
-RateLimit rateLimit = actions.getRateLimit();</pre>
-<pre>Domain domain = getDomainInfo("myjeeva.com");
-RateLimit rateLimit = domain.getRateLimit();</pre>
-<pre>Droplet droplet = getDropletInfo(10000001);
-RateLimit rateLimit = droplet.getRateLimit();</pre>
+// Adding Metadata API - User Data
+newDroplet.setUserData(" < YAML Content > "); // Follow DigitalOcean documentation to prepare user_data value
+Droplet droplet = apiClient.createDroplet(newDroplet);
+
+
+// Creating multiple droplets
+Droplet droplet = new Droplet();
+droplet.setNames(Arrays.asList("sub-01.example.com", "sub-02.example.com"));
+droplet.setSize("512mb");
+droplet.setImage(new Image("ubuntu-14-04-x64"));
+droplet.setRegion(new Region("nyc1"));
+Droplets droplets = apiClient.createDroplets(droplet);
+
+// Fetch droplet information 
+Droplet droplet = apiClient.getDropletInfo(dropletId);
+
+// Fetch Available Plans/Sizes supported by DigitalOcean
+Sizes sizes = apiClient.getAvailableSizes(pageNo);
+
+// Fetch Available Regions supported by DigitalOcean
+Regions regions = apiClient.getAvailableRegions(pageNo);
+```
+
+* Accessing `RateLimit` header values from return object. *Note: This is applicable for all requests.*
+```java
+Droplets droplets = getAvailableDroplets(1, 20);
+RateLimit rateLimit = droplets.getRateLimit();
+
+Actions actions = getAvailableActions(2, 40);
+RateLimit rateLimit = actions.getRateLimit();
+
+Domain domain = getDomainInfo("myjeeva.com");
+RateLimit rateLimit = domain.getRateLimit();
+
+Droplet droplet = getDropletInfo(10000001);
+RateLimit rateLimit = droplet.getRateLimit();
+```
 
 # Reporting Issues
 
@@ -109,6 +135,13 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 
 # Supported API's and Revision Logs
 
+* **Depolyed in v2.3-SNAPSHOT** - pushed to maven repo
+	* `Action enableDropletBackups(Integer dropletId)`
+	* `Droplets createDroplets(Droplet droplet)`
+	* Added `floating_ip_limit` attribute into `Account` class
+	* `updateDomainRecord()` method accepts `DomainRecord` as an input parameter
+	* `per_page` parameter added to all the supported APIs
+	* v2.3 libray release version is work-in-progress...
 * **Released in v2.2**
 	* Added compatibility for Android
 	* Applied latest API changes from DO, [Account object][14] & [Snapshot status][15]
