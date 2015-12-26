@@ -222,31 +222,32 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   // =======================================
 
   @Override
-  public Droplets getAvailableDroplets(Integer pageNo) throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public Droplets getAvailableDroplets(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
 
-    return (Droplets) perform(new ApiRequest(ApiAction.AVAILABLE_DROPLETS, pageNo)).getData();
-  }
-
-  @Override
-  public Kernels getAvailableKernels(Integer dropletId, Integer pageNo)
-      throws DigitalOceanException, RequestUnsuccessfulException {
-    validateDropletIdAndPageNo(dropletId, pageNo);
-
-    Object[] params = {dropletId};
-    return (Kernels) perform(new ApiRequest(ApiAction.AVAILABLE_DROPLETS_KERNELS, params, pageNo))
+    return (Droplets) perform(new ApiRequest(ApiAction.AVAILABLE_DROPLETS, pageNo, perPage))
         .getData();
   }
 
   @Override
-  public Snapshots getAvailableSnapshots(Integer dropletId, Integer pageNo)
+  public Kernels getAvailableKernels(Integer dropletId, Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException {
     validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
-    return (Snapshots) perform(new ApiRequest(ApiAction.GET_DROPLET_SNAPSHOTS, params, pageNo))
-        .getData();
+    return (Kernels) perform(
+        new ApiRequest(ApiAction.AVAILABLE_DROPLETS_KERNELS, params, pageNo, perPage)).getData();
+  }
+
+  @Override
+  public Snapshots getAvailableSnapshots(Integer dropletId, Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    validateDropletIdAndPageNo(dropletId, pageNo);
+
+    Object[] params = {dropletId};
+    return (Snapshots) perform(
+        new ApiRequest(ApiAction.GET_DROPLET_SNAPSHOTS, params, pageNo, perPage)).getData();
   }
 
   @Override
@@ -255,7 +256,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
-    return (Backups) perform(new ApiRequest(ApiAction.GET_DROPLET_BACKUPS, params, pageNo))
+    return (Backups) perform(new ApiRequest(ApiAction.GET_DROPLET_BACKUPS, params, pageNo, null))
         .getData();
   }
 
@@ -320,7 +321,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
-    return (Droplets) perform(new ApiRequest(ApiAction.GET_DROPLET_NEIGHBORS, params, pageNo))
+    return (Droplets) perform(new ApiRequest(ApiAction.GET_DROPLET_NEIGHBORS, params, pageNo, null))
         .getData();
   }
 
@@ -538,10 +539,11 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   // ==============================================
 
   @Override
-  public Actions getAvailableActions(Integer pageNo) throws DigitalOceanException,
+  public Actions getAvailableActions(Integer pageNo, Integer perPage) throws DigitalOceanException,
       RequestUnsuccessfulException {
     validatePageNo(pageNo);
-    return (Actions) perform(new ApiRequest(ApiAction.AVAILABLE_ACTIONS, pageNo)).getData();
+    return (Actions) perform(new ApiRequest(ApiAction.AVAILABLE_ACTIONS, pageNo, perPage))
+        .getData();
   }
 
   @Override
@@ -554,23 +556,24 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public Actions getAvailableDropletActions(Integer dropletId, Integer pageNo)
+  public Actions getAvailableDropletActions(Integer dropletId, Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException {
     validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
-    return (Actions) perform(new ApiRequest(ApiAction.GET_DROPLET_ACTIONS, params, pageNo))
+    return (Actions) perform(new ApiRequest(ApiAction.GET_DROPLET_ACTIONS, params, pageNo, perPage))
         .getData();
   }
 
   @Override
-  public Actions getAvailableImageActions(Integer imageId, Integer pageNo)
+  public Actions getAvailableImageActions(Integer imageId, Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException {
     checkNullAndThrowError(imageId, "Missing required parameter - imageId.");
     validatePageNo(pageNo);
 
     Object[] params = {imageId};
-    return (Actions) perform(new ApiRequest(ApiAction.GET_IMAGE_ACTIONS, params, pageNo)).getData();
+    return (Actions) perform(new ApiRequest(ApiAction.GET_IMAGE_ACTIONS, params, pageNo, perPage))
+        .getData();
   }
 
 
@@ -579,15 +582,15 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   // =======================================
 
   @Override
-  public Images getAvailableImages(Integer pageNo) throws DigitalOceanException,
+  public Images getAvailableImages(Integer pageNo, Integer perPage) throws DigitalOceanException,
       RequestUnsuccessfulException {
     validatePageNo(pageNo);
-    return (Images) perform(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo)).getData();
+    return (Images) perform(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo, perPage)).getData();
   }
 
   @Override
-  public Images getAvailableImages(Integer pageNo, ActionType type) throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public Images getAvailableImages(Integer pageNo, Integer perPage, ActionType type)
+      throws DigitalOceanException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
 
     Map<String, String> qp;
@@ -599,16 +602,18 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
           "Incorrect type value [Allowed: DISTRIBUTION or APPLICATION].");
     }
 
-    return (Images) perform(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo, qp)).getData();
+    return (Images) perform(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo, qp, perPage))
+        .getData();
   }
 
   @Override
-  public Images getUserImages(Integer pageNo) throws DigitalOceanException,
+  public Images getUserImages(Integer pageNo, Integer perPage) throws DigitalOceanException,
       RequestUnsuccessfulException {
     validatePageNo(pageNo);
     Map<String, String> qp = new HashMap<String, String>();
     qp.put("private", "true");
-    return (Images) perform(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo, qp)).getData();
+    return (Images) perform(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo, qp, perPage))
+        .getData();
   }
 
   @Override
@@ -767,11 +772,11 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public DomainRecord updateDomainRecord(String domainName, Integer recordId, DomainRecord domainRecord)
-      throws DigitalOceanException, RequestUnsuccessfulException {
+  public DomainRecord updateDomainRecord(String domainName, Integer recordId,
+      DomainRecord domainRecord) throws DigitalOceanException, RequestUnsuccessfulException {
     checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
     checkNullAndThrowError(recordId, "Missing required parameter - recordId.");
-    
+
     if (null == domainRecord) {
       LOG.error("domainRecord input is required.");
       throw new IllegalArgumentException("domainRecord input is required.");
@@ -1032,6 +1037,12 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
     if (null != request.getPageNo()) {
       ub.setParameter(PARAM_PAGE_NO, request.getPageNo().toString());
+    }
+
+    if (null == request.getPerPage()) {
+      ub.setParameter(PARAM_PER_PAGE, "25"); // As per DO documentation
+    } else {
+      ub.setParameter(PARAM_PER_PAGE, request.getPerPage().toString());
     }
 
     if (null != request.getQueryParams()) {

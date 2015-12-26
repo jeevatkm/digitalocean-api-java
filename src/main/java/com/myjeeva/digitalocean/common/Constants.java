@@ -49,6 +49,7 @@ public interface Constants {
 
   // HTTP Param name
   String PARAM_PAGE_NO = "page";
+  String PARAM_PER_PAGE = "per_page";
 
   String NO_CONTENT_JSON_STRUCT = "{\"delete\": {\"request_status\": true, \"status_code\": %s}}";
 

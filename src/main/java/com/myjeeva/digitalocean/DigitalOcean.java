@@ -109,6 +109,7 @@ public interface DigitalOcean {
    * API information is presented for each droplet.
    * 
    * @param pageNo for pagination
+   * @param perPage no. of items per page
    * @return {@link Droplets}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -116,7 +117,7 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    **/
-  Droplets getAvailableDroplets(Integer pageNo) throws DigitalOceanException,
+  Droplets getAvailableDroplets(Integer pageNo, Integer perPage) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
   /**
@@ -124,6 +125,7 @@ public interface DigitalOcean {
    * 
    * @param dropletId for kernel info
    * @param pageNo for pagination
+   * @param perPage no. of items per page
    * @return {@link Kernels}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -131,14 +133,15 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    */
-  Kernels getAvailableKernels(Integer dropletId, Integer pageNo) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Kernels getAvailableKernels(Integer dropletId, Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method returns all available snapshots for given droplet ID
    * 
    * @param dropletId for snapshot info
    * @param pageNo for pagination
+   * @param perPage no. of items per page
    * @return {@link Snapshots}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -146,8 +149,8 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    */
-  Snapshots getAvailableSnapshots(Integer dropletId, Integer pageNo) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Snapshots getAvailableSnapshots(Integer dropletId, Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method returns all available snapshots for given droplet ID
@@ -566,6 +569,7 @@ public interface DigitalOcean {
    * Method return all the action informations, regardless of categories.
    * 
    * @param pageNo for pagination
+   * @param perPage no. of items per page
    * @return {@link Actions}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -573,7 +577,7 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    */
-  Actions getAvailableActions(Integer pageNo) throws DigitalOceanException,
+  Actions getAvailableActions(Integer pageNo, Integer perPage) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
   /**
@@ -594,6 +598,7 @@ public interface DigitalOcean {
    * 
    * @param dropletId the id of the droplet
    * @param pageNo for pagination
+   * @param perPage no. of items per page
    * @return {@link Actions}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -601,7 +606,7 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    */
-  Actions getAvailableDropletActions(Integer dropletId, Integer pageNo)
+  Actions getAvailableDropletActions(Integer dropletId, Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
@@ -609,6 +614,7 @@ public interface DigitalOcean {
    * 
    * @param imageId the id of the Image
    * @param pageNo for pagination
+   * @param perPage no. of items per page
    * @return {@link Actions}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -616,8 +622,8 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    */
-  Actions getAvailableImageActions(Integer imageId, Integer pageNo) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Actions getAvailableImageActions(Integer imageId, Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
 
   // ==============================================
@@ -629,6 +635,7 @@ public interface DigitalOcean {
    * your own account.
    * 
    * @param pageNo of request pagination
+   * @param perPage no. of items per page
    * @return {@link Images}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -636,7 +643,7 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Images getAvailableImages(Integer pageNo) throws DigitalOceanException,
+  Images getAvailableImages(Integer pageNo, Integer perPage) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
   /**
@@ -644,6 +651,7 @@ public interface DigitalOcean {
    * <code>type={distribution or application}</code> that can be accessed by your OAuth Token.
    * 
    * @param pageNo of request pagination
+   * @param perPage no. of items per page
    * @param type of action
    * @return {@link Images}
    * @throws DigitalOceanException if request had interruption [
@@ -652,19 +660,21 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    */
-  Images getAvailableImages(Integer pageNo, ActionType type) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Images getAvailableImages(Integer pageNo, Integer perPage, ActionType type)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method retrieves only the private images of a user
    * 
    * @param pageNo of request pagination
+   * @param perPage no. of items per page
    * @return {@link Images}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    */
-  Images getUserImages(Integer pageNo) throws DigitalOceanException, RequestUnsuccessfulException;
+  Images getUserImages(Integer pageNo, Integer perPage) throws DigitalOceanException,
+      RequestUnsuccessfulException;
 
   /**
    * Method retrieves the attributes of an image.

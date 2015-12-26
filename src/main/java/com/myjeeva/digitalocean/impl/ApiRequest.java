@@ -44,6 +44,8 @@ public class ApiRequest {
 
   private Integer pageNo;
 
+  private Integer perPage;
+
   /**
    * Default Constructor
    */
@@ -57,7 +59,7 @@ public class ApiRequest {
    * @param apiAction a info about api request
    */
   public ApiRequest(ApiAction apiAction) {
-    this(apiAction, null, null, null, null);
+    this(apiAction, null, null, null, null, null);
   }
 
   /**
@@ -67,7 +69,7 @@ public class ApiRequest {
    * @param pathParams a api request path variable value(s)
    */
   public ApiRequest(ApiAction apiAction, Object[] pathParams) {
-    this(apiAction, null, pathParams, null, null);
+    this(apiAction, null, pathParams, null, null, null);
   }
 
   /**
@@ -75,9 +77,10 @@ public class ApiRequest {
    * 
    * @param apiAction a info about api request
    * @param pageNo of the request pagination
+   * @param perPage no. of items per page
    */
-  public ApiRequest(ApiAction apiAction, Integer pageNo) {
-    this(apiAction, null, null, pageNo, null);
+  public ApiRequest(ApiAction apiAction, Integer pageNo, Integer perPage) {
+    this(apiAction, null, null, pageNo, null, perPage);
   }
 
   /**
@@ -87,8 +90,9 @@ public class ApiRequest {
    * @param pageNo of the request pagination
    * @param queryParams of the api request
    */
-  public ApiRequest(ApiAction apiAction, Integer pageNo, Map<String, String> queryParams) {
-    this(apiAction, null, null, pageNo, queryParams);
+  public ApiRequest(ApiAction apiAction, Integer pageNo, Map<String, String> queryParams,
+      Integer perPage) {
+    this(apiAction, null, null, pageNo, queryParams, perPage);
   }
 
   /**
@@ -98,7 +102,7 @@ public class ApiRequest {
    * @param data a api request body data object
    */
   public ApiRequest(ApiAction apiAction, Object data) {
-    this(apiAction, data, null, null, null);
+    this(apiAction, data, null, null, null, null);
   }
 
   /**
@@ -107,9 +111,10 @@ public class ApiRequest {
    * @param apiAction a info about api request
    * @param pathParams a api request path variable value(s)
    * @param pageNo of the request pagination
+   * @param perPage no. of items per page
    */
-  public ApiRequest(ApiAction apiAction, Object[] pathParams, Integer pageNo) {
-    this(apiAction, null, pathParams, pageNo, null);
+  public ApiRequest(ApiAction apiAction, Object[] pathParams, Integer pageNo, Integer perPage) {
+    this(apiAction, null, pathParams, pageNo, null, perPage);
   }
 
   /**
@@ -120,7 +125,7 @@ public class ApiRequest {
    * @param pathParams a api request path variable value(s)
    */
   public ApiRequest(ApiAction apiAction, Object data, Object[] pathParams) {
-    this(apiAction, data, pathParams, null, null);
+    this(apiAction, data, pathParams, null, null, null);
   }
 
   /**
@@ -133,12 +138,13 @@ public class ApiRequest {
    * @param queryParams of the api request
    */
   public ApiRequest(ApiAction apiAction, Object data, Object[] pathParams, Integer pageNo,
-      Map<String, String> queryParams) {
+      Map<String, String> queryParams, Integer perPage) {
     this.apiAction = apiAction;
     this.data = data;
     this.pathParams = pathParams;
     this.pageNo = pageNo;
     this.queryParams = queryParams;
+    this.perPage = perPage;
   }
 
   public Boolean isCollectionElement() {
@@ -241,5 +247,19 @@ public class ApiRequest {
    */
   public void setPageNo(Integer pageNo) {
     this.pageNo = pageNo;
+  }
+
+  /**
+   * @return the perPage
+   */
+  public Integer getPerPage() {
+    return perPage;
+  }
+
+  /**
+   * @param perPage the perPage to set
+   */
+  public void setPerPage(Integer perPage) {
+    this.perPage = perPage;
   }
 }

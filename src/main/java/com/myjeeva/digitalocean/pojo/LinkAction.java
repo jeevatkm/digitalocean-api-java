@@ -20,22 +20,22 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
-import java.util.List;
-
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
- * Represents Links attributes
+ * Represents Action attributes in the Links Actions section
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v2.0
+ * @since v2.3
  */
-public class Links {
+public class LinkAction {
 
-  private Pages pages;
+  private Integer id;
 
-  private List<LinkAction> actions;
+  private String rel;
+
+  private String href;
 
   @Override
   public String toString() {
@@ -43,30 +43,44 @@ public class Links {
   }
 
   /**
-   * @return the pages
+   * @return the id
    */
-  public Pages getPages() {
-    return pages;
+  public Integer getId() {
+    return id;
   }
 
   /**
-   * @param pages the pages to set
+   * @param id the id to set
    */
-  public void setPages(Pages pages) {
-    this.pages = pages;
+  public void setId(Integer id) {
+    this.id = id;
   }
 
   /**
-   * @return the actions
+   * @return the rel
    */
-  public List<LinkAction> getActions() {
-    return actions;
+  public String getRel() {
+    return rel;
   }
 
   /**
-   * @param actions the actions to set
+   * @param rel the rel to set
    */
-  public void setActions(List<LinkAction> actions) {
-    this.actions = actions;
+  public void setRel(String rel) {
+    this.rel = rel;
+  }
+
+  /**
+   * @return the href
+   */
+  public String getHref() {
+    return href;
+  }
+
+  /**
+   * @param href the href to set
+   */
+  public void setHref(String href) {
+    this.href = href;
   }
 }
