@@ -31,6 +31,8 @@ import com.myjeeva.digitalocean.pojo.DomainRecords;
 import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
+import com.myjeeva.digitalocean.pojo.FloatingIP;
+import com.myjeeva.digitalocean.pojo.FloatingIPs;
 import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
@@ -130,7 +132,19 @@ public enum ApiAction {
   GET_KEY_INFO("/account/keys/%s", "ssh_key", RequestMethod.GET, Key.class),
   CREATE_KEY("/account/keys", "ssh_key", RequestMethod.POST, Key.class),  
   UPDATE_KEY("/account/keys/%s", "ssh_key", RequestMethod.PUT, Key.class),
-  DELETE_KEY("/account/keys/%s", "delete", RequestMethod.DELETE, Delete.class);
+  DELETE_KEY("/account/keys/%s", "delete", RequestMethod.DELETE, Delete.class),
+  
+  
+  // Floating IP
+  FLOATING_IPS("/floating_ips", "floating_ips", RequestMethod.GET, FloatingIPs.class),
+  CREATE_FLOATING_IP("/floating_ips", "floating_ip", RequestMethod.POST, FloatingIP.class),
+  GET_FLOATING_IP_INFO("/floating_ips/%s", "floating_ip", RequestMethod.GET, FloatingIP.class),
+  DELETE_FLOATING_IP("/floating_ips/%s", "delete", RequestMethod.DELETE, Delete.class);
+  // /floating_ips/$FLOATING_IP_ADDR GET
+  // /floating_ips/$FLOATING_IP_ADDR DELETE
+  
+  // /floating_ips/$FLOATING_IP_ADDR/actions POST
+  // 
    
   private String path;
 

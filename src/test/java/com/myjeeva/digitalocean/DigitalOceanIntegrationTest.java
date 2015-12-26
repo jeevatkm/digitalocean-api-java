@@ -47,6 +47,8 @@ import com.myjeeva.digitalocean.pojo.DomainRecords;
 import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
+import com.myjeeva.digitalocean.pojo.FloatingIP;
+import com.myjeeva.digitalocean.pojo.FloatingIPs;
 import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernel;
@@ -827,5 +829,64 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(result);
     LOG.info("Delete Key Request Object: " + result);
+  }
+
+  // Floating IPs test cases
+  @Test
+  public void testGetAvailableFloatingIPs() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    FloatingIPs floatingIPs = apiClient.getAvailableFloatingIPs(1, 10);
+
+    LOG.info(floatingIPs.toString());
+
+    assertNotNull(floatingIPs);
+    // assertTrue((floatingIPs.getFloatingIPs().size() > 0));
+
+    int i = 1;
+    for (FloatingIP floatingIP : floatingIPs.getFloatingIPs()) {
+      LOG.info(i++ + " -> " + floatingIP.toString());
+    }
+  }
+
+  @Test
+  public void testCreateFloatingIPForDroplet() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    FloatingIP floatingIP = apiClient.createFloatingIP(9674996);
+
+    assertNotNull(floatingIP);
+
+    LOG.info(floatingIP.toString());
+  }
+
+  @Test
+  public void testCreateFloatingIPForRegion() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    FloatingIP floatingIP = apiClient.createFloatingIP("nyc3");
+
+    assertNotNull(floatingIP);
+
+    LOG.info(floatingIP.toString());
+  }
+
+  @Test
+  public void testGetFloatingIPInfo(String ipAddress) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    FloatingIP floatingIP = apiClient.getFloatingIPInfo("159.203.146.100");
+
+    assertNotNull(floatingIP);
+
+    LOG.info(floatingIP.toString());
+  }
+
+  @Test
+  public void testDeleteFloatingIP() throws DigitalOceanException, RequestUnsuccessfulException {
+    Delete result = apiClient.deleteFloatingIP("159.203.146.109");
+
+    assertNotNull(result);
+    LOG.info("Delete Floating IP Request Object: " + result);
   }
 }

@@ -76,6 +76,9 @@ import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.DropletAction;
 import com.myjeeva.digitalocean.pojo.Droplets;
+import com.myjeeva.digitalocean.pojo.FloatingIP;
+import com.myjeeva.digitalocean.pojo.FloatingIPAction;
+import com.myjeeva.digitalocean.pojo.FloatingIPs;
 import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.ImageAction;
 import com.myjeeva.digitalocean.pojo.Images;
@@ -872,6 +875,61 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_KEY, params)).getData();
   }
 
+
+  // =======================================
+  // Floating IPs methods
+  // =======================================
+
+  @Override
+  public FloatingIPs getAvailableFloatingIPs(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    validatePageNo(pageNo);
+
+    return (FloatingIPs) perform(new ApiRequest(ApiAction.FLOATING_IPS, pageNo, perPage)).getData();
+  }
+
+  @Override
+  public FloatingIP createFloatingIP(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    return (FloatingIP) perform(
+        new ApiRequest(ApiAction.CREATE_FLOATING_IP, new FloatingIPAction(dropletId))).getData();
+  }
+
+  @Override
+  public FloatingIP createFloatingIP(String region) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    checkEmptyAndThrowError(region, "Missing required parameter - region.");
+
+    return (FloatingIP) perform(
+        new ApiRequest(ApiAction.CREATE_FLOATING_IP, new FloatingIPAction(region))).getData();
+  }
+
+  @Override
+  public FloatingIP getFloatingIPInfo(String ipAddress) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    checkEmptyAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
+
+    Object[] params = {ipAddress};
+    return (FloatingIP) perform(new ApiRequest(ApiAction.GET_FLOATING_IP_INFO, params)).getData();
+  }
+
+  @Override
+  public Delete deleteFloatingIP(String ipAddress) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    checkEmptyAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
+
+    Object[] params = {ipAddress};
+    return (Delete) perform(new ApiRequest(ApiAction.DELETE_FLOATING_IP, params)).getData();
+  }
+
+
+
+  //
+  // Private methods
+  //
+
   private ApiResponse perform(ApiRequest request) throws DigitalOceanException,
       RequestUnsuccessfulException {
 
@@ -1039,10 +1097,12 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       ub.setParameter(PARAM_PAGE_NO, request.getPageNo().toString());
     }
 
-    if (null == request.getPerPage()) {
-      ub.setParameter(PARAM_PER_PAGE, "25"); // As per DO documentation
-    } else {
-      ub.setParameter(PARAM_PER_PAGE, request.getPerPage().toString());
+    if (RequestMethod.GET == request.getMethod()) {
+      if (null == request.getPerPage()) {
+        ub.setParameter(PARAM_PER_PAGE, "25"); // As per DO documentation
+      } else {
+        ub.setParameter(PARAM_PER_PAGE, request.getPerPage().toString());
+      }
     }
 
     if (null != request.getQueryParams()) {

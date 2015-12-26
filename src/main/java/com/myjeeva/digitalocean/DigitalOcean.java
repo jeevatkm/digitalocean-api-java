@@ -34,6 +34,8 @@ import com.myjeeva.digitalocean.pojo.DomainRecords;
 import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
+import com.myjeeva.digitalocean.pojo.FloatingIP;
+import com.myjeeva.digitalocean.pojo.FloatingIPs;
 import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
@@ -1041,4 +1043,69 @@ public interface DigitalOcean {
    * @since v2.0
    */
   Delete deleteKey(String fingerprint) throws DigitalOceanException, RequestUnsuccessfulException;
+
+
+  // ===========================================
+  // Floating IP manipulation methods
+  // ===========================================
+  /**
+   * Method will list all of the Floating IPs available from your account.
+   * 
+   * @param pageNo for pagination
+   * @param perPage no. of items per page
+   * @return {@link FloatingIPs}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   */
+  FloatingIPs getAvailableFloatingIPs(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method creates a new Floating IP and assigns to the Droplet.
+   * 
+   * @param dropletId the id of the droplet
+   * @return {@link FloatingIP}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   */
+  FloatingIP createFloatingIP(Integer dropletId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method creates a new Floating IP and its reserved to a Region
+   * 
+   * @param region name of the DigitalOcean region
+   * @return {@link FloatingIP}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   */
+  FloatingIP createFloatingIP(String region) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method retrives the information about given Floating IP
+   * 
+   * @param ipAddress Floating IP address
+   * @return {@link FloatingIP}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   */
+  FloatingIP getFloatingIPInfo(String ipAddress) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method deletes the Floating IP and removes it from your account.
+   * 
+   * @param ipAddress Floating IP address
+   * @return {@link Delete}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   */
+  Delete deleteFloatingIP(String ipAddress) throws DigitalOceanException,
+      RequestUnsuccessfulException;
 }
