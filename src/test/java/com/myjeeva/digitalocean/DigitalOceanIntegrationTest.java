@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.myjeeva.digitalocean.common.ActionType;
+import com.myjeeva.digitalocean.common.ResourceType;
 import com.myjeeva.digitalocean.exception.DigitalOceanException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.impl.DigitalOceanClient;
@@ -495,6 +496,32 @@ public class DigitalOceanIntegrationTest extends TestCase {
   }
 
 
+  @Test
+  public void testGetAvailableFloatingIPActions() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    Actions actions = apiClient.getAvailableFloatingIPActions("159.203.146.100", 1, 10);
+
+    LOG.info(actions.toString());
+
+    assertNotNull(actions);
+
+    int i = 1;
+    for (Action action : actions.getActions()) {
+      LOG.info(i++ + " -> " + action.toString());
+    }
+  }
+
+  @Test
+  public void testGetFloatingIPActionInfo() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    Action action = apiClient.getFloatingIPActionInfo("159.203.146.100", 76697074);
+
+    LOG.info(action.toString());
+
+    assertNotNull(action);
+  }
+
+
 
   // Image test cases
 
@@ -889,4 +916,27 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(result);
     LOG.info("Delete Floating IP Request Object: " + result);
   }
+
+  @Test
+  public void testAssignFloatingIP() throws DigitalOceanException, RequestUnsuccessfulException {
+    Action action = apiClient.assignFloatingIP(9674996, "159.203.146.100");
+
+    LOG.info(action.toString());
+
+    assertNotNull(action);
+    assertEquals(ActionType.ASSIGN_FLOATING_IP, action.getType());
+    assertEquals(ResourceType.FLOATING_IP, action.getResourceType());
+  }
+
+  @Test
+  public void testUnassignFloatingIP() throws DigitalOceanException, RequestUnsuccessfulException {
+    Action action = apiClient.unassignFloatingIP("159.203.146.100");
+
+    LOG.info(action.toString());
+
+    assertNotNull(action);
+    assertEquals(ActionType.UNASSIGN_FLOATING_IP, action.getType());
+    assertEquals(ResourceType.FLOATING_IP, action.getResourceType());
+  }
+
 }
