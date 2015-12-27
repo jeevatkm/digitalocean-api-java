@@ -1,6 +1,6 @@
 # DigitalOcean API Client  [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Welcome to DigitalOcean API Client written in Java. Simple and meaningful wrapper methods for [DigitalOcean RESTful APIs][1]. Can be used with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.
+Welcome to DigitalOcean API Client written in Java. Simple and meaningful wrapper methods for [DigitalOcean RESTful APIs][1]. You can use this library with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.
 
 > Simple and Lightweight Library for Enterprise Application or Utilities Integration
 
@@ -135,7 +135,7 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 
 # Supported API's and Revision Logs
 
-* **Depolyed in v2.3-SNAPSHOT** - pushed to maven repo
+* **Depolyed in v2.3-SNAPSHOT** - pushed to maven snapshot repo
 	* `Action enableDropletBackups(Integer dropletId)`
 	* `Droplets createDroplets(Droplet droplet)`
 	* Added `floating_ip_limit` attribute into `Account` class
@@ -149,8 +149,13 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 	FloatingIP getFloatingIPInfo(String ipAddress)
 	Delete deleteFloatingIP(String ipAddress)
 	</pre>
-	* Floating IPs Actions - in-progress
-	* v2.3 libray release version is work-in-progress...
+	* Floating IPs Actions
+	<pre>
+	Action assignFloatingIP(Integer dropletId, String ipAddress)
+	Action unassignFloatingIP(String ipAddress)
+	Actions getAvailableFloatingIPActions(String ipAddress, Integer pageNo, Integer perPage)
+	Action getFloatingIPActionInfo(String ipAddress, Integer actionId)
+	</pre>
 * **Released in v2.2**
 	* Added compatibility for Android
 	* Applied latest API changes from DO, [Account object][14] & [Snapshot status][15]
