@@ -10,6 +10,8 @@ Give your support by clicking Hearts here [DigitalOcean API Client in Java](http
 
 DigitalOcean API Client library's few project dependency definition mentioned below or [Download it][16], [master][11] branch maps to V2 APIs since [v1 is no longer active](https://developers.digitalocean.com/documentation/changelog/api-v1/sunsetting-api-v1/).
 
+***v2.3-SNAPSHOT is available in maven snapshot repo*** and its [javadoc](http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.3-SNAPSHOT/)
+
 **Maven dependency**
 ```xml
 <dependency>
@@ -135,7 +137,7 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 
 # Supported API's and Revision Logs
 
-* **Depolyed in v2.3-SNAPSHOT** - pushed to maven snapshot repo
+* **Depolyed in v2.3-SNAPSHOT** - pushed to maven snapshot repo and its [javadoc](http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.3-SNAPSHOT/)
 	* `Action enableDropletBackups(Integer dropletId)`
 	* `Droplets createDroplets(Droplet droplet)`
 	* Added `floating_ip_limit` attribute into `Account` class
@@ -254,7 +256,7 @@ Jeevanandam M. - jeeva@myjeeva.com
 
 1. Fork it
 2. Create your feature branch - `git checkout -b my-new-feature`
-3. Implement your changes and apply [Google Code Formatter][13]
+3. Implement your changes and apply [Google Java Code Formatter][13]
 4. Commit your changes - `git commit -am 'Add some feature'`
 5. Push to the branch - `git push origin my-new-feature`
 6. Create new Pull Request

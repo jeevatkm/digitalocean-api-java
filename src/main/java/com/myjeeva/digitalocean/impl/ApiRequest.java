@@ -89,6 +89,7 @@ public class ApiRequest {
    * @param apiAction a info about api request
    * @param pageNo of the request pagination
    * @param queryParams of the api request
+   * @param perPage no. of items per page
    */
   public ApiRequest(ApiAction apiAction, Integer pageNo, Map<String, String> queryParams,
       Integer perPage) {
@@ -136,6 +137,7 @@ public class ApiRequest {
    * @param pathParams a api request path variable value(s)
    * @param pageNo of the request pagination
    * @param queryParams of the api request
+   * @param perPage no. of items per page
    */
   public ApiRequest(ApiAction apiAction, Object data, Object[] pathParams, Integer pageNo,
       Map<String, String> queryParams, Integer perPage) {
