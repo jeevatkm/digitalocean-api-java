@@ -38,7 +38,10 @@ public enum ResourceType {
   IMAGE("image"),
   
   @SerializedName("backend")
-  BACKEND("backend");
+  BACKEND("backend"),
+  
+  @SerializedName("floating_ip")
+  FLOATING_IP("floating_ip");
 
   private String value;
 

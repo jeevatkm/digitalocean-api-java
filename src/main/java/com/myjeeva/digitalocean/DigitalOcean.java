@@ -627,6 +627,37 @@ public interface DigitalOcean {
   Actions getAvailableImageActions(Integer imageId, Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
+  /**
+   * Method retrives all actions that have been executed on a Floating IP address.
+   * 
+   * @param ipAddress Floating IP address
+   * @param pageNo for pagination
+   * @param perPage no. of items per page
+   * @return {@link Actions}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.3
+   */
+  Actions getAvailableFloatingIPActions(String ipAddress, Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method to retrieve the status of a Floating IP action.
+   * 
+   * @param ipAddress Floating IP address
+   * @param actionId the id of action
+   * @return {@link Action}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.3
+   */
+  Action getFloatingIPActionInfo(String ipAddress, Integer actionId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
 
   // ==============================================
   // Images manipulation (aka Distribution) methods
@@ -1057,6 +1088,8 @@ public interface DigitalOcean {
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.3
    */
   FloatingIPs getAvailableFloatingIPs(Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException;
@@ -1069,6 +1102,8 @@ public interface DigitalOcean {
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.3
    */
   FloatingIP createFloatingIP(Integer dropletId) throws DigitalOceanException,
       RequestUnsuccessfulException;
@@ -1081,6 +1116,8 @@ public interface DigitalOcean {
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.3
    */
   FloatingIP createFloatingIP(String region) throws DigitalOceanException,
       RequestUnsuccessfulException;
@@ -1093,6 +1130,8 @@ public interface DigitalOcean {
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.3
    */
   FloatingIP getFloatingIPInfo(String ipAddress) throws DigitalOceanException,
       RequestUnsuccessfulException;
@@ -1105,7 +1144,39 @@ public interface DigitalOcean {
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.3
    */
   Delete deleteFloatingIP(String ipAddress) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method will assign Floating IP to a Droplet.
+   * 
+   * @param dropletId the id of the droplet
+   * @param ipAddress Floating IP address
+   * @return {@link Action}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.3
+   */
+  Action assignFloatingIP(Integer dropletId, String ipAddress) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method will unassign Floating IP from a Droplet. The Floating IP will be reserved in the region
+   * but not assigned to a Droplet.
+   * 
+   * @param ipAddress Floating IP address
+   * @return {@link Action}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.3
+   */
+  Action unassignFloatingIP(String ipAddress) throws DigitalOceanException,
       RequestUnsuccessfulException;
 }

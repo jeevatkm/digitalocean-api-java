@@ -95,7 +95,16 @@ public enum ActionType {
   DISTRIBUTION("distribution"),
 
   @SerializedName("application")
-  APPLICATION("application");
+  APPLICATION("application"),
+  
+  @SerializedName("assign_ip")
+  ASSIGN_FLOATING_IP("assign_ip"),
+  
+  @SerializedName("unassign_ip")
+  UNASSIGN_FLOATING_IP("unassign_ip"),
+  
+  @SerializedName("reserve_ip")
+  RESERVE_FLOATING_IP("reserve_ip");
 
   private String value;
 

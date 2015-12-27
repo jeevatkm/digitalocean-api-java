@@ -43,16 +43,29 @@ public class FloatingIPAction extends RateLimitBase {
   @Expose
   private String region;
 
+  @Expose
+  private String type;
+
   public FloatingIPAction() {
     // default constructor
   }
 
   public FloatingIPAction(Integer dropletId) {
-    this.dropletId = dropletId;
+    this(dropletId, null, null);
   }
 
   public FloatingIPAction(String region) {
+    this(null, region, null);
+  }
+
+  public FloatingIPAction(Integer dropletId, String type) {
+    this(dropletId, null, type);
+  }
+
+  public FloatingIPAction(Integer dropletId, String region, String type) {
+    this.dropletId = dropletId;
     this.region = region;
+    this.type = type;
   }
 
   @Override
@@ -86,5 +99,19 @@ public class FloatingIPAction extends RateLimitBase {
    */
   public void setRegion(String region) {
     this.region = region;
+  }
+
+  /**
+   * @return the type
+   */
+  public String getType() {
+    return type;
+  }
+
+  /**
+   * @param type the type to set
+   */
+  public void setType(String type) {
+    this.type = type;
   }
 }

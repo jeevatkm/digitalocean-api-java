@@ -93,6 +93,8 @@ public enum ApiAction {
   GET_ACTION_INFO("/actions/%s", "action", RequestMethod.GET, Action.class),
   GET_DROPLET_ACTIONS("/droplets/%s/actions", "actions", RequestMethod.GET, Actions.class),
   GET_IMAGE_ACTIONS("/images/%s/actions", "actions", RequestMethod.GET, Actions.class),
+  GET_FLOATING_IP_ACTIONS("/floating_ips/%s/actions", "actions", RequestMethod.GET, Actions.class),
+  GET_FLOATING_IP_ACTION_INFO("/floating_ips/%s/actions/%s", "action", RequestMethod.GET, Action.class),
   
   
   // Image
@@ -139,12 +141,10 @@ public enum ApiAction {
   FLOATING_IPS("/floating_ips", "floating_ips", RequestMethod.GET, FloatingIPs.class),
   CREATE_FLOATING_IP("/floating_ips", "floating_ip", RequestMethod.POST, FloatingIP.class),
   GET_FLOATING_IP_INFO("/floating_ips/%s", "floating_ip", RequestMethod.GET, FloatingIP.class),
-  DELETE_FLOATING_IP("/floating_ips/%s", "delete", RequestMethod.DELETE, Delete.class);
-  // /floating_ips/$FLOATING_IP_ADDR GET
-  // /floating_ips/$FLOATING_IP_ADDR DELETE
-  
-  // /floating_ips/$FLOATING_IP_ADDR/actions POST
-  // 
+  DELETE_FLOATING_IP("/floating_ips/%s", "delete", RequestMethod.DELETE, Delete.class),
+  ASSIGN_FLOATING_IP("/floating_ips/%s/actions", "action", RequestMethod.POST, Action.class),
+  UNASSIGN_FLOATING_IP("/floating_ips/%s/actions", "action", RequestMethod.POST, Action.class);
+   
    
   private String path;
 

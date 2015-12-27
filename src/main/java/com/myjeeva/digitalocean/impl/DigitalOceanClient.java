@@ -579,6 +579,28 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
         .getData();
   }
 
+  @Override
+  public Actions getAvailableFloatingIPActions(String ipAddress, Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    checkEmptyAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
+    validatePageNo(pageNo);
+
+    Object[] params = {ipAddress};
+    return (Actions) perform(
+        new ApiRequest(ApiAction.GET_FLOATING_IP_ACTIONS, params, pageNo, perPage)).getData();
+  }
+
+  @Override
+  public Action getFloatingIPActionInfo(String ipAddress, Integer actionId)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    checkEmptyAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
+    checkNullAndThrowError(actionId, "Missing required parameter - actionId.");
+
+    Object[] params = {ipAddress, actionId};
+    return (Action) perform(new ApiRequest(ApiAction.GET_FLOATING_IP_ACTION_INFO, params))
+        .getData();
+  }
+
 
   // =======================================
   // Images access/manipulation methods
@@ -922,6 +944,29 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
     Object[] params = {ipAddress};
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_FLOATING_IP, params)).getData();
+  }
+
+  @Override
+  public Action assignFloatingIP(Integer dropletId, String ipAddress) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+    checkEmptyAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
+
+    Object[] params = {ipAddress};
+    return (Action) perform(
+        new ApiRequest(ApiAction.ASSIGN_FLOATING_IP, new FloatingIPAction(dropletId, "assign"),
+            params)).getData();
+  }
+
+  @Override
+  public Action unassignFloatingIP(String ipAddress) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    checkEmptyAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
+
+    Object[] params = {ipAddress};
+    return (Action) perform(
+        new ApiRequest(ApiAction.UNASSIGN_FLOATING_IP, new FloatingIPAction(null, "unassign"),
+            params)).getData();
   }
 
 

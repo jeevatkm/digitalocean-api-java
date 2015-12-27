@@ -43,7 +43,7 @@ public class Action extends RateLimitBase {
   private Integer id;
 
   @SerializedName("resource_id")
-  private Integer resourceId;
+  private Long resourceId;
 
   private ActionStatus status;
 
@@ -85,14 +85,14 @@ public class Action extends RateLimitBase {
   /**
    * @return the resourceId
    */
-  public Integer getResourceId() {
+  public Long getResourceId() {
     return resourceId;
   }
 
   /**
    * @param resourceId the resourceId to set
    */
-  public void setResourceId(Integer resourceId) {
+  public void setResourceId(Long resourceId) {
     this.resourceId = resourceId;
   }
 
