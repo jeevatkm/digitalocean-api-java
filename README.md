@@ -10,29 +10,27 @@ Give your support by clicking Hearts here [DigitalOcean API Client in Java](http
 
 DigitalOcean API Client library's few project dependency definition mentioned below or [Download it][16], [master][11] branch maps to V2 APIs since [v1 is no longer active](https://developers.digitalocean.com/documentation/changelog/api-v1/sunsetting-api-v1/).
 
-***v2.3-SNAPSHOT is available in maven snapshot repo*** and its [javadoc](http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.3-SNAPSHOT/)
-
 **Maven dependency**
 ```xml
 <dependency>
     <groupId>com.myjeeva.digitalocean</groupId>
     <artifactId>digitalocean-api-client</artifactId>
-    <version>2.2</version>
+    <version>2.3</version>
 </dependency>
 ```
 **Gradle/Grails dependency**
 ```
-compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.2'
+compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.3'
 ```
 **Groovy Grape**
 ```groovy
 @Grapes( 
-@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.2') 
+@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.3') 
 )
 ```
 **Scala SBT**
 ```
-libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.2"
+libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.3"
 ```
 
 ***Note:*** For Android projects, kindly indlude the `httpclient-android` library explicitly in your project dependencies.
@@ -137,7 +135,7 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 
 # Supported API's and Revision Logs
 
-* **Depolyed in v2.3-SNAPSHOT** - pushed to maven snapshot repo and its [javadoc](http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.3-SNAPSHOT/)
+* **Released in v2.3**
 	* `Action enableDropletBackups(Integer dropletId)`
 	* `Droplets createDroplets(Droplet droplet)`
 	* Added `floating_ip_limit` attribute into `Account` class
