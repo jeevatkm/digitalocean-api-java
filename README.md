@@ -265,7 +265,7 @@ DigitalOcean API Client - [MIT License][6].
 
 
 [1]: https://developers.digitalocean.com
-[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.2/
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.3/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/com/myjeeva/digitalocean/digitalocean-api-client/
 [5]: http://myjeeva.com
@@ -273,10 +273,10 @@ DigitalOcean API Client - [MIT License][6].
 [7]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanIntegrationTest.java
 [8]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/1.5/digitalocean-api-client-1.5.jar
 [9]: https://github.com/jeevatkm/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanMockTest.java
-[10]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.3-SNAPSHOT/com/myjeeva/digitalocean/DigitalOcean.html
+[10]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.4-SNAPSHOT/com/myjeeva/digitalocean/DigitalOcean.html
 [11]: https://github.com/jeevatkm/digitalocean-api-java
 [12]: https://github.com/jeevatkm/digitalocean-api-java/tree/api-v1
 [13]: https://raw.githubusercontent.com/darcyliu/google-styleguide/master/eclipse-java-google-style.xml
 [14]: https://developers.digitalocean.com/documentation/changelog/api-v2/add-status-to-account/
 [15]: https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-snaphots/
-[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.2/digitalocean-api-client-2.2.jar
+[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.3/digitalocean-api-client-2.3.jar
