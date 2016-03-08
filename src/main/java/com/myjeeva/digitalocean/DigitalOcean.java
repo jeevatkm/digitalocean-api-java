@@ -888,6 +888,8 @@ public interface DigitalOcean {
    * Method returns all of your current domain records from DNS control panel for given domain.
    * 
    * @param domainName of the domain
+   * @param pageNo of request pagination
+   * @param perPage no. of items per page
    * @return {@link DomainRecords}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -895,7 +897,7 @@ public interface DigitalOcean {
    * 
    * @since v1.1
    */
-  DomainRecords getDomainRecords(String domainName) throws DigitalOceanException,
+  DomainRecords getDomainRecords(String domainName, Integer pageNo, Integer perPage) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
   /**
