@@ -764,12 +764,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public DomainRecords getDomainRecords(String domainName, Integer pageNo, Integer perPage) throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public DomainRecords getDomainRecords(String domainName, Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException {
     checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
 
     Object[] params = {domainName};
-    return (DomainRecords) perform(new ApiRequest(ApiAction.GET_DOMAIN_RECORDS, params, pageNo, perPage)).getData();
+    return (DomainRecords) perform(
+        new ApiRequest(ApiAction.GET_DOMAIN_RECORDS, params, pageNo, perPage)).getData();
   }
 
   @Override

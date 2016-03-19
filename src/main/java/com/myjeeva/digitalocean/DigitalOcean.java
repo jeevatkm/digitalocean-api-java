@@ -897,8 +897,8 @@ public interface DigitalOcean {
    * 
    * @since v1.1
    */
-  DomainRecords getDomainRecords(String domainName, Integer pageNo, Integer perPage) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  DomainRecords getDomainRecords(String domainName, Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method creates a new domain record name with an given domain record values
