@@ -108,7 +108,7 @@
 						<detectLinks>true</detectLinks>
 						<charset>UTF-8</charset>
 						<header>${project.name}</header>
-						<bottom><![CDATA[<div style="font-size: 14px;">Copyright &#169; <script>document.write(new Date().getFullYear())</script> <a href="http://myjeeva.com" target="_blank" title="myjeeva blog">myjeeva blog</a>, All rights reserved. <br /><br /><span style="font-size:11px; font-style:italic;">The copyright of the pages and contents on this website is with myjeeva.com and the content is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons – Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)</a>. Libraries and code snippets on myjeeva blog has license information.</span></div>]]></bottom>
+						<bottom><![CDATA[<div style="font-size: 14px;"><br/><br/>Copyright &#169; <script>document.write(new Date().getFullYear())</script> <a href="http://myjeeva.com" target="_blank" title="myjeeva blog">myjeeva blog</a>, All rights reserved. <br /><br /><span style="font-size:11px; font-style:italic;">The copyright of the pages and contents on this website is with myjeeva.com and the content is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons – Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)</a>. Libraries and code snippets on myjeeva blog has license information.</span></div>]]></bottom>
 						<footer>${project.name}</footer>
 						<docfilessubdirs>true</docfilessubdirs>
 						<verbose>true</verbose>
