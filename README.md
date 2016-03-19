@@ -1,39 +1,39 @@
 # DigitalOcean API Client  [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Welcome to DigitalOcean API Client written in Java. Simple and meaningful wrapper methods for [DigitalOcean RESTful APIs][1]. You can use this library with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.
+Simple & Lightweight API client library for Enterprise Application or Utilities Integration around [DigitalOcean RESTful APIs][1]. You can use this library with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.
 
-> Simple and Lightweight Library for Enterprise Application or Utilities Integration
-
-Give your support by clicking Hearts here [DigitalOcean API Client in Java](https://www.digitalocean.com/community/projects/api-client-in-java) :)
+Give your support by clicking Hearts on [DigitalOcean Developers Community](https://www.digitalocean.com/community/projects/api-client-in-java) :)
 
 # Getting Started
 
-DigitalOcean API Client library's few project dependency definition mentioned below or [Download it][16], [master][11] branch maps to V2 APIs since [v1 is no longer active](https://developers.digitalocean.com/documentation/changelog/api-v1/sunsetting-api-v1/).
+For handy use, DigitalOcean API Client library project dependency definition provided below or you wanna jar [Download it][16] from Maven central repo.
+
+*Note: [master][11] branch maps to v2 APIs and digitalocean turned off [v1 APIs](https://developers.digitalocean.com/documentation/changelog/api-v1/sunsetting-api-v1/) as on Nov 9, 2015 .*
 
 **Maven dependency**
 ```xml
 <dependency>
     <groupId>com.myjeeva.digitalocean</groupId>
     <artifactId>digitalocean-api-client</artifactId>
-    <version>2.3</version>
+    <version>2.4</version>
 </dependency>
 ```
 **Gradle/Grails dependency**
-```
-compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.3'
+```shell
+compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.4'
 ```
 **Groovy Grape**
 ```groovy
-@Grapes( 
-@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.3') 
+@Grapes(
+@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.4')
 )
 ```
 **Scala SBT**
-```
-libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.3"
+```shell
+libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.4"
 ```
 
-***Note:*** For Android projects, kindly indlude the `httpclient-android` library explicitly in your project dependencies.
+**Note:** For Android projects, kindly include the `httpclient-android` library explicitly in your project dependencies.
 
 * * *
 
@@ -65,7 +65,7 @@ DigitalOcean apiClient = new DigitalOceanClient("v2", authToken, httpClient);
 
 **Let's invoke the method(s) as per need via apiClient**
 ```java
-// Fetching all the available droplets from control panel 
+// Fetching all the available droplets from control panel
 Droplets droplets = apiClient.getAvailableDroplets(pageNo, perPage);
 
 // Fetching all the available kernels for droplet
@@ -100,7 +100,7 @@ droplet.setImage(new Image("ubuntu-14-04-x64"));
 droplet.setRegion(new Region("nyc1"));
 Droplets droplets = apiClient.createDroplets(droplet);
 
-// Fetch droplet information 
+// Fetch droplet information
 Droplet droplet = apiClient.getDropletInfo(dropletId);
 
 // Fetch Available Plans/Sizes supported by DigitalOcean
@@ -110,7 +110,7 @@ Sizes sizes = apiClient.getAvailableSizes(pageNo);
 Regions regions = apiClient.getAvailableRegions(pageNo);
 ```
 
-* Accessing `RateLimit` header values from return object. *Note: This is applicable for all requests.*
+**Accessing `RateLimit` header values from return object. This is applicable for all requests**.
 ```java
 Droplets droplets = getAvailableDroplets(1, 20);
 RateLimit rateLimit = droplets.getRateLimit();
@@ -134,7 +134,8 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 * If you need to paste code, or include a stack trace use Markdown ``` escapes before and after your text.
 
 # Supported API's and Revision Logs
-
+* **Released in v2.4**
+  * `getDomainRecords` supports pagination params via PR #46
 * **Released in v2.3**
 	* `Action enableDropletBackups(Integer dropletId)`
 	* `Droplets createDroplets(Droplet droplet)`
@@ -265,7 +266,7 @@ DigitalOcean API Client - [MIT License][6].
 
 
 [1]: https://developers.digitalocean.com
-[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.3/
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.4/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/com/myjeeva/digitalocean/digitalocean-api-client/
 [5]: http://myjeeva.com
@@ -279,4 +280,4 @@ DigitalOcean API Client - [MIT License][6].
 [13]: https://raw.githubusercontent.com/darcyliu/google-styleguide/master/eclipse-java-google-style.xml
 [14]: https://developers.digitalocean.com/documentation/changelog/api-v2/add-status-to-account/
 [15]: https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-snaphots/
-[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.3/digitalocean-api-client-2.3.jar
+[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.4/digitalocean-api-client-2.4.jar
