@@ -725,7 +725,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   @Test
   public void testGetDomainRecords() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    DomainRecords domainRecords = apiClient.getDomainRecords("jeeutil.com");
+    DomainRecords domainRecords = apiClient.getDomainRecords("jeeutil.com", 1, null);
 
     assertNotNull(domainRecords);
     assertTrue((domainRecords.getDomainRecords().size() > 0));
