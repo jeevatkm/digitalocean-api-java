@@ -993,7 +993,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   @Test
   public void testTagResources() throws DigitalOceanException, RequestUnsuccessfulException {
     List<Resource> resources = new ArrayList<Resource>();
-    resources.add(new Resource("188913", ResourceType.DROPLET));
+    resources.add(new Resource("3794738", ResourceType.DROPLET));
     
     
     Response result = apiClient.tagResources("lab", resources);
@@ -1005,7 +1005,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   @Test
   public void testUntagResources() throws DigitalOceanException, RequestUnsuccessfulException {
     List<Resource> resources = new ArrayList<Resource>();
-    resources.add(new Resource("188913", ResourceType.DROPLET));
+    resources.add(new Resource("3794738", ResourceType.DROPLET));
     
     
     Response result = apiClient.untagResources("lab", resources);
