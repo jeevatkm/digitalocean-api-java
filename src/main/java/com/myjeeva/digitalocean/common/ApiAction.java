@@ -1,7 +1,7 @@
-/*
+/**
  * The MIT License
  * 
- * Copyright (c) 2010-2015 Jeevanandam M. (myjeeva.com)
+ * Copyright (c) 2013-2016 Jeevanandam M. (myjeeva.com)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -18,6 +18,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package com.myjeeva.digitalocean.common;
 
 import com.myjeeva.digitalocean.pojo.Account;
@@ -40,8 +41,11 @@ import com.myjeeva.digitalocean.pojo.Key;
 import com.myjeeva.digitalocean.pojo.Keys;
 import com.myjeeva.digitalocean.pojo.Neighbors;
 import com.myjeeva.digitalocean.pojo.Regions;
+import com.myjeeva.digitalocean.pojo.Response;
 import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
+import com.myjeeva.digitalocean.pojo.Tag;
+import com.myjeeva.digitalocean.pojo.Tags;
 
 /**
  * Enumeration of DigitalOcean RESTful resource information.
@@ -118,7 +122,7 @@ public enum ApiAction {
   AVAILABLE_DOMAINS("/domains", "domains", RequestMethod.GET, Domains.class),
   GET_DOMAIN_INFO("/domains/%s", "domain", RequestMethod.GET, Domain.class),
   CREATE_DOMAIN("/domains", "domain", RequestMethod.POST, Domain.class),  
-  DELETE_DOMAIN("/domains/%s", "delete", RequestMethod.DELETE, Delete.class),
+  DELETE_DOMAIN("/domains/%s", "response", RequestMethod.DELETE, Delete.class),
   
   
   // Domain Record
@@ -126,7 +130,7 @@ public enum ApiAction {
   GET_DOMAIN_RECORD_INFO("/domains/%s/records/%s", "domain_record", RequestMethod.GET, DomainRecord.class),
   CREATE_DOMAIN_RECORD("/domains/%s/records", "domain_record", RequestMethod.POST, DomainRecord.class),  
   UPDATE_DOMAIN_RECORD("/domains/%s/records/%s", "domain_record", RequestMethod.PUT, DomainRecord.class),
-  DELETE_DOMAIN_RECORD("/domains/%s/records/%s", "delete", RequestMethod.DELETE, Delete.class),
+  DELETE_DOMAIN_RECORD("/domains/%s/records/%s", "response", RequestMethod.DELETE, Delete.class),
   
   
   // Key
@@ -134,16 +138,26 @@ public enum ApiAction {
   GET_KEY_INFO("/account/keys/%s", "ssh_key", RequestMethod.GET, Key.class),
   CREATE_KEY("/account/keys", "ssh_key", RequestMethod.POST, Key.class),  
   UPDATE_KEY("/account/keys/%s", "ssh_key", RequestMethod.PUT, Key.class),
-  DELETE_KEY("/account/keys/%s", "delete", RequestMethod.DELETE, Delete.class),
+  DELETE_KEY("/account/keys/%s", "response", RequestMethod.DELETE, Delete.class),
   
   
   // Floating IP
   FLOATING_IPS("/floating_ips", "floating_ips", RequestMethod.GET, FloatingIPs.class),
   CREATE_FLOATING_IP("/floating_ips", "floating_ip", RequestMethod.POST, FloatingIP.class),
   GET_FLOATING_IP_INFO("/floating_ips/%s", "floating_ip", RequestMethod.GET, FloatingIP.class),
-  DELETE_FLOATING_IP("/floating_ips/%s", "delete", RequestMethod.DELETE, Delete.class),
+  DELETE_FLOATING_IP("/floating_ips/%s", "response", RequestMethod.DELETE, Delete.class),
   ASSIGN_FLOATING_IP("/floating_ips/%s/actions", "action", RequestMethod.POST, Action.class),
-  UNASSIGN_FLOATING_IP("/floating_ips/%s/actions", "action", RequestMethod.POST, Action.class);
+  UNASSIGN_FLOATING_IP("/floating_ips/%s/actions", "action", RequestMethod.POST, Action.class),
+  
+  
+  // Tags
+  AVAILABLE_TAGS("/tags", "tags", RequestMethod.GET, Tags.class),
+  CREATE_TAG("/tags", "tag", RequestMethod.POST, Tag.class),
+  GET_TAG("/tags/%s", "tag", RequestMethod.GET, Tag.class),
+  UPDATE_TAG("/tags/%s", "tag", RequestMethod.PUT, Tag.class),
+  DELETE_TAG("/tags/%s", "response", RequestMethod.DELETE, Delete.class),
+  TAG_RESOURCE("/tags/%s/resources", "response", RequestMethod.POST, Response.class),
+  UNTAG_RESOURCE("/tags/%s/resources", "response", RequestMethod.DELETE, Response.class);
    
    
   private String path;

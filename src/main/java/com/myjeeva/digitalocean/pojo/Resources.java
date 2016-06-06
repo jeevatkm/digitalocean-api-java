@@ -21,38 +21,49 @@
 
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
+import com.google.gson.annotations.Expose;
+
 /**
- * Represents HTTP Method - DELETE response handling
+ * Resource represent a array of resources for associating/disassociating with tag on DigitalOcean.
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v2.0
+ * @since v2.5
  */
-public class Delete extends Response {
-
-  private static final long serialVersionUID = -3552374545843268569L;
-
-  /**
-   * Default Constructor
-   */
-  public Delete() {
+public class Resources {
+  
+  @Expose
+  private List<Resource> resources;
+  
+  public Resources() {
     // Default Constructor
   }
-
-  /**
-   * Parameterized Constructor
-   * 
-   * @param isRequestSuccess whether delete is success or not
-   */
-  public Delete(Boolean isRequestSuccess) {
-    super(isRequestSuccess);
+  
+  public Resources(List<Resource> resources) {
+    this.resources = resources;
   }
 
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return the resources
+   */
+  public List<Resource> getResources() {
+    return resources;
+  }
+
+  /**
+   * @param resources the resources to set
+   */
+  public void setResources(List<Resource> resources) {
+    this.resources = resources;
   }
 
 }

@@ -1,7 +1,7 @@
-/*
+/**
  * The MIT License
  * 
- * Copyright (c) 2010-2015 Jeevanandam M. (myjeeva.com)
+ * Copyright (c) 2013-2016 Jeevanandam M. (myjeeva.com)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -59,10 +59,14 @@ import com.myjeeva.digitalocean.pojo.Keys;
 import com.myjeeva.digitalocean.pojo.Neighbors;
 import com.myjeeva.digitalocean.pojo.Region;
 import com.myjeeva.digitalocean.pojo.Regions;
+import com.myjeeva.digitalocean.pojo.Resource;
+import com.myjeeva.digitalocean.pojo.Response;
 import com.myjeeva.digitalocean.pojo.Size;
 import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshot;
 import com.myjeeva.digitalocean.pojo.Snapshots;
+import com.myjeeva.digitalocean.pojo.Tag;
+import com.myjeeva.digitalocean.pojo.Tags;
 
 /**
  * <p>
@@ -937,6 +941,77 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(action);
     assertEquals(ActionType.UNASSIGN_FLOATING_IP, action.getType());
     assertEquals(ResourceType.FLOATING_IP, action.getResourceType());
+  }
+  
+  @Test
+  public void testGetAvailableTags() throws DigitalOceanException, RequestUnsuccessfulException {
+    Tags tags = apiClient.getAvailableTags(1, 10);
+    
+    LOG.info(tags.toString());
+    
+    assertNotNull(tags);
+  }
+  
+  @Test
+  public void testCreateTag() throws DigitalOceanException, RequestUnsuccessfulException {
+    Tag tag = apiClient.createTag("blr");
+    
+    LOG.info(tag.toString());
+    
+    assertNotNull(tag);
+    assertEquals("blr", tag.getName());    
+  }
+  
+  @Test
+  public void testGetTag() throws DigitalOceanException, RequestUnsuccessfulException {
+    Tag tag = apiClient.getTag("blog");
+    
+    LOG.info(tag.toString());
+    
+    assertNotNull(tag);
+    assertEquals("blog", tag.getName());    
+  }
+  
+  @Test
+  public void testUpdateTag() throws DigitalOceanException, RequestUnsuccessfulException {
+    Tag tag = apiClient.updateTag("blog", "nice-blog");
+    
+    LOG.info(tag.toString());
+    
+    assertNotNull(tag);
+    assertEquals("nice-blog", tag.getName());    
+  }
+  
+  @Test
+  public void testDeleteTag() throws DigitalOceanException, RequestUnsuccessfulException {
+    Delete result = apiClient.deleteTag("blr");
+
+    assertNotNull(result);
+    LOG.info("Delete Tag Object: " + result);
+  }  
+  
+  @Test
+  public void testTagResources() throws DigitalOceanException, RequestUnsuccessfulException {
+    List<Resource> resources = new ArrayList<Resource>();
+    resources.add(new Resource("16435723", ResourceType.DROPLET));
+    
+    
+    Response result = apiClient.tagResources("lab", resources);
+
+    assertNotNull(result);
+    LOG.info("Response of Tag resources: " + result);
+  }
+  
+  @Test
+  public void testUntagResources() throws DigitalOceanException, RequestUnsuccessfulException {
+    List<Resource> resources = new ArrayList<Resource>();
+    resources.add(new Resource("188913", ResourceType.DROPLET));
+    
+    
+    Response result = apiClient.untagResources("lab", resources);
+
+    assertNotNull(result);
+    LOG.info("Response of Tag resources: " + result);
   }
 
 }

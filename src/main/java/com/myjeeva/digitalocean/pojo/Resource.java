@@ -23,36 +23,67 @@ package com.myjeeva.digitalocean.pojo;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.myjeeva.digitalocean.common.ResourceType;
+
 /**
- * Represents HTTP Method - DELETE response handling
+ * Resource represent a single resource for associating/disassociating with tag on DigitalOcean.
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v2.0
+ * @since v2.5
  */
-public class Delete extends Response {
+public class Resource {
 
-  private static final long serialVersionUID = -3552374545843268569L;
+  @Expose
+  @SerializedName("resource_id")
+  private String id;
 
-  /**
-   * Default Constructor
-   */
-  public Delete() {
-    // Default Constructor
+  @Expose
+  @SerializedName("resource_type")
+  private ResourceType type;
+
+  public Resource() {
+    // Default constructor
   }
 
-  /**
-   * Parameterized Constructor
-   * 
-   * @param isRequestSuccess whether delete is success or not
-   */
-  public Delete(Boolean isRequestSuccess) {
-    super(isRequestSuccess);
+  public Resource(String id, ResourceType type) {
+    this.id = id;
+    this.type = type;
   }
 
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return the id
+   */
+  public String getId() {
+    return id;
+  }
+
+  /**
+   * @param id the id to set
+   */
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  /**
+   * @return the type
+   */
+  public ResourceType getType() {
+    return type;
+  }
+
+  /**
+   * @param type the type to set
+   */
+  public void setType(ResourceType type) {
+    this.type = type;
   }
 
 }

@@ -1,7 +1,7 @@
-/*
+/**
  * The MIT License
  * 
- * Copyright (c) 2010-2015 Jeevanandam M. (myjeeva.com)
+ * Copyright (c) 2013-2016 Jeevanandam M. (myjeeva.com)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -18,7 +18,10 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package com.myjeeva.digitalocean;
+
+import java.util.List;
 
 import com.myjeeva.digitalocean.common.ActionType;
 import com.myjeeva.digitalocean.exception.DigitalOceanException;
@@ -43,8 +46,12 @@ import com.myjeeva.digitalocean.pojo.Key;
 import com.myjeeva.digitalocean.pojo.Keys;
 import com.myjeeva.digitalocean.pojo.Neighbors;
 import com.myjeeva.digitalocean.pojo.Regions;
+import com.myjeeva.digitalocean.pojo.Resource;
+import com.myjeeva.digitalocean.pojo.Response;
 import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
+import com.myjeeva.digitalocean.pojo.Tag;
+import com.myjeeva.digitalocean.pojo.Tags;
 
 /**
  * <p>
@@ -119,8 +126,8 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    **/
-  Droplets getAvailableDroplets(Integer pageNo, Integer perPage) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Droplets getAvailableDroplets(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method returns all available kernels for given droplet ID
@@ -166,8 +173,8 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    */
-  Backups getAvailableBackups(Integer dropletId, Integer pageNo) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Backups getAvailableBackups(Integer dropletId, Integer pageNo)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method returns complete information for given droplet ID
@@ -180,8 +187,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Droplet getDropletInfo(Integer dropletId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Droplet getDropletInfo(Integer dropletId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * <p>
@@ -249,8 +256,8 @@ public interface DigitalOcean {
    * 
    * @since v2.3
    */
-  Droplets createDroplets(Droplet droplet) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Droplets createDroplets(Droplet droplet)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method destroys one of your droplet; this is irreversible.
@@ -263,8 +270,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Delete deleteDroplet(Integer dropletId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Delete deleteDroplet(Integer dropletId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * For an individual droplet; Method retrieves a list of droplets that are running on the same
@@ -277,8 +284,8 @@ public interface DigitalOcean {
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    */
-  Droplets getDropletNeighbors(Integer dropletId, Integer pageNo) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Droplets getDropletNeighbors(Integer dropletId, Integer pageNo)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * For an entire account; Method retrieves a list of <strong>any</strong> droplets that are
@@ -290,8 +297,8 @@ public interface DigitalOcean {
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    */
-  Neighbors getAllDropletNeighbors(Integer pageNo) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Neighbors getAllDropletNeighbors(Integer pageNo)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
 
   // Droplet Action methods
@@ -308,8 +315,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Action rebootDroplet(Integer dropletId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action rebootDroplet(Integer dropletId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to power cycle a droplet. This will turn off the droplet and then turn it
@@ -323,8 +330,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Action powerCycleDroplet(Integer dropletId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action powerCycleDroplet(Integer dropletId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to shutdown a running droplet.
@@ -337,8 +344,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Action shutdownDroplet(Integer dropletId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action shutdownDroplet(Integer dropletId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to poweroff a running droplet.
@@ -351,8 +358,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Action powerOffDroplet(Integer dropletId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action powerOffDroplet(Integer dropletId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to poweron a powered off droplet.
@@ -365,8 +372,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Action powerOnDroplet(Integer dropletId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action powerOnDroplet(Integer dropletId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method will reset the root password for a droplet. Please be aware that this will reboot the
@@ -380,8 +387,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Action resetDropletPassword(Integer dropletId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action resetDropletPassword(Integer dropletId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to resize a specific droplet to a different size. This will affect the number
@@ -396,8 +403,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Action resizeDroplet(Integer dropletId, String size) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action resizeDroplet(Integer dropletId, String size)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to take a snapshot of the running droplet, which can later be restored or
@@ -411,8 +418,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Action takeDropletSnapshot(Integer dropletId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action takeDropletSnapshot(Integer dropletId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to take a snapshot of the running droplet, which can later be restored or
@@ -427,8 +434,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Action takeDropletSnapshot(Integer dropletId, String snapshotName) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action takeDropletSnapshot(Integer dropletId, String snapshotName)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to restore a droplet with a previous image or snapshot. This will be a mirror
@@ -444,8 +451,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Action restoreDroplet(Integer dropletId, Integer imageId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action restoreDroplet(Integer dropletId, Integer imageId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to reinstall a droplet with a default image. This is useful if you want to
@@ -460,8 +467,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Action rebuildDroplet(Integer dropletId, Integer imageId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action rebuildDroplet(Integer dropletId, Integer imageId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method enables automatic backups for your droplet's data.
@@ -474,8 +481,8 @@ public interface DigitalOcean {
    * 
    * @since v2.3
    */
-  Action enableDropletBackups(Integer dropletId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action enableDropletBackups(Integer dropletId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method disables automatic backups from running to backup your droplet's data.
@@ -488,8 +495,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Action disableDropletBackups(Integer dropletId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action disableDropletBackups(Integer dropletId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method renames the droplet to the specified name.
@@ -503,8 +510,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Action renameDroplet(Integer dropletId, String name) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action renameDroplet(Integer dropletId, String name)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method changes a OS kernel for given droplet
@@ -518,8 +525,8 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    */
-  Action changeDropletKernel(Integer dropletId, Integer kernelId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action changeDropletKernel(Integer dropletId, Integer kernelId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Enabling IP v6 networking capability for droplet. It may be dependent on Data Center Features.
@@ -530,8 +537,8 @@ public interface DigitalOcean {
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    */
-  Action enableDropletIpv6(Integer dropletId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action enableDropletIpv6(Integer dropletId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Enabling private networking capability for droplet. It may be dependent on Data Center
@@ -545,8 +552,8 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    */
-  Action enableDropletPrivateNetworking(Integer dropletId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action enableDropletPrivateNetworking(Integer dropletId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   // ==============================================
   // Account manipulation/access methods
@@ -579,8 +586,8 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    */
-  Actions getAvailableActions(Integer pageNo, Integer perPage) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Actions getAvailableActions(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * To retrieve a specific action information by action ID
@@ -655,8 +662,8 @@ public interface DigitalOcean {
    * 
    * @since v2.3
    */
-  Action getFloatingIPActionInfo(String ipAddress, Integer actionId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action getFloatingIPActionInfo(String ipAddress, Integer actionId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
 
   // ==============================================
@@ -676,8 +683,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Images getAvailableImages(Integer pageNo, Integer perPage) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Images getAvailableImages(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method returns all the available images based on
@@ -706,8 +713,8 @@ public interface DigitalOcean {
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    */
-  Images getUserImages(Integer pageNo, Integer perPage) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Images getUserImages(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method retrieves the attributes of an image.
@@ -774,8 +781,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Action transferImage(Integer imageId, String regionSlug) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action transferImage(Integer imageId, String regionSlug)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to convert image into snapshot
@@ -805,8 +812,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Regions getAvailableRegions(Integer pageNo) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Regions getAvailableRegions(Integer pageNo)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
 
   // ===========================================
@@ -823,8 +830,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Sizes getAvailableSizes(Integer pageNo) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Sizes getAvailableSizes(Integer pageNo)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
 
   // ===========================================
@@ -841,8 +848,8 @@ public interface DigitalOcean {
    * 
    * @since v1.0
    */
-  Domains getAvailableDomains(Integer pageNo) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Domains getAvailableDomains(Integer pageNo)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method returns the specified domain attributes and zone file info.
@@ -855,8 +862,8 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    */
-  Domain getDomainInfo(String domainName) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Domain getDomainInfo(String domainName)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method creates a new domain name with an A record for the specified [ip_address].
@@ -960,8 +967,8 @@ public interface DigitalOcean {
    * 
    * @since v1.1
    */
-  Delete deleteDomainRecord(String domainName, Integer recordId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Delete deleteDomainRecord(String domainName, Integer recordId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
 
   // ===========================================
@@ -1033,8 +1040,8 @@ public interface DigitalOcean {
    * 
    * @since v1.2
    */
-  Key updateKey(Integer sshKeyId, String newSshKeyName) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Key updateKey(Integer sshKeyId, String newSshKeyName)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to modify an existing SSH key in your account.
@@ -1048,8 +1055,8 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    */
-  Key updateKey(String fingerprint, String newSshKeyName) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Key updateKey(String fingerprint, String newSshKeyName)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method will delete the SSH key from your account.
@@ -1107,8 +1114,8 @@ public interface DigitalOcean {
    * 
    * @since v2.3
    */
-  FloatingIP createFloatingIP(Integer dropletId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  FloatingIP createFloatingIP(Integer dropletId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method creates a new Floating IP and its reserved to a Region
@@ -1121,11 +1128,11 @@ public interface DigitalOcean {
    * 
    * @since v2.3
    */
-  FloatingIP createFloatingIP(String region) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  FloatingIP createFloatingIP(String region)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
-   * Method retrives the information about given Floating IP
+   * Method retrieves the information about given Floating IP
    * 
    * @param ipAddress Floating IP address
    * @return {@link FloatingIP}
@@ -1135,8 +1142,8 @@ public interface DigitalOcean {
    * 
    * @since v2.3
    */
-  FloatingIP getFloatingIPInfo(String ipAddress) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  FloatingIP getFloatingIPInfo(String ipAddress)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method deletes the Floating IP and removes it from your account.
@@ -1149,8 +1156,8 @@ public interface DigitalOcean {
    * 
    * @since v2.3
    */
-  Delete deleteFloatingIP(String ipAddress) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Delete deleteFloatingIP(String ipAddress)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method will assign Floating IP to a Droplet.
@@ -1164,8 +1171,8 @@ public interface DigitalOcean {
    * 
    * @since v2.3
    */
-  Action assignFloatingIP(Integer dropletId, String ipAddress) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action assignFloatingIP(Integer dropletId, String ipAddress)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method will unassign Floating IP from a Droplet. The Floating IP will be reserved in the region
@@ -1179,6 +1186,110 @@ public interface DigitalOcean {
    * 
    * @since v2.3
    */
-  Action unassignFloatingIP(String ipAddress) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Action unassignFloatingIP(String ipAddress)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+
+  // ===========================================
+  // Tags manipulation methods
+  // ===========================================
+  /**
+   * Method will list all of the Tags available from your account.
+   * 
+   * @param pageNo for pagination
+   * @param perPage no. of items per page
+   * @return {@link Tags}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.5
+   */
+  Tags getAvailableTags(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method will create a Tag on DigitalOcean aacount.
+   * 
+   * @param name Tag Name
+   * @return {@link Tag}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.5
+   */
+  Tag createTag(String name) throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method retrieves the Tag from DigitalOcean account.
+   * 
+   * @param name Tag Name
+   * @return {@link Tag}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.5
+   */
+  Tag getTag(String name) throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method updates the existing Tag on DigitalOcean account.
+   * 
+   * @param currentName existing Tag Name
+   * @param newName new Tag Name
+   * @return {@link Tag}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.5
+   */
+  Tag updateTag(String currentName, String newName)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method deletes the existing Tag from DigitalOcean account.
+   * 
+   * @param name Tag Name
+   * @return {@link Delete}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.5
+   */
+  Delete deleteTag(String name) throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method tags a tag to given list of resources on DigitalOcean account.
+   * 
+   * @param name Tag Name
+   * @param resources list of resource by {@link Resource} objects
+   * @return {@link Response}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.5
+   */
+  Response tagResources(String name, List<Resource> resources)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method untags a tag from given list of resources on DigitalOcean account.
+   * 
+   * @param name Tag Name
+   * @param resources list of resource by {@link Resource} objects
+   * @return {@link Response}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.5
+   */
+  Response untagResources(String name, List<Resource> resources)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
 }

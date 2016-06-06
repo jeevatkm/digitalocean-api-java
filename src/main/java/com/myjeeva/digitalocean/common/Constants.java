@@ -1,7 +1,7 @@
-/*
+/**
  * The MIT License
  * 
- * Copyright (c) 2010-2015 Jeevanandam M. (myjeeva.com)
+ * Copyright (c) 2013-2016 Jeevanandam M. (myjeeva.com)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -18,6 +18,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package com.myjeeva.digitalocean.common;
 
 import org.apache.http.HttpHeaders;
@@ -51,7 +52,7 @@ public interface Constants {
   String PARAM_PAGE_NO = "page";
   String PARAM_PER_PAGE = "per_page";
 
-  String NO_CONTENT_JSON_STRUCT = "{\"delete\": {\"request_status\": true, \"status_code\": %s}}";
+  String NO_CONTENT_JSON_STRUCT = "{\"response\": {\"request_status\": true, \"status_code\": %s}}";
 
   // HTTP Headers
   String HDR_USER_AGENT = "X-User-Agent";

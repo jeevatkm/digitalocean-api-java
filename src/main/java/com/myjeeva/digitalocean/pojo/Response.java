@@ -23,21 +23,29 @@ package com.myjeeva.digitalocean.pojo;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
- * Represents HTTP Method - DELETE response handling
+ * Represents generic basic response handling for HTTP Method
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v2.0
+ * @since v2.5
  */
-public class Delete extends Response {
+public class Response extends RateLimitBase {
 
-  private static final long serialVersionUID = -3552374545843268569L;
+  private static final long serialVersionUID = 6912100335316878813L;
+
+  @SerializedName("request_status")
+  private Boolean isRequestSuccess;
+
+  @SerializedName("status_code")
+  private int statusCode;
 
   /**
    * Default Constructor
    */
-  public Delete() {
+  public Response() {
     // Default Constructor
   }
 
@@ -46,8 +54,8 @@ public class Delete extends Response {
    * 
    * @param isRequestSuccess whether delete is success or not
    */
-  public Delete(Boolean isRequestSuccess) {
-    super(isRequestSuccess);
+  public Response(Boolean isRequestSuccess) {
+    this.isRequestSuccess = isRequestSuccess;
   }
 
   @Override
@@ -55,4 +63,31 @@ public class Delete extends Response {
     return ReflectionToStringBuilder.toString(this);
   }
 
+  /**
+   * @return the isRequestSuccess
+   */
+  public Boolean getIsRequestSuccess() {
+    return isRequestSuccess;
+  }
+
+  /**
+   * @param isRequestSuccess the isRequestSuccess to set
+   */
+  public void setIsRequestSuccess(Boolean isRequestSuccess) {
+    this.isRequestSuccess = isRequestSuccess;
+  }
+
+  /**
+   * @return the statusCode
+   */
+  public int getStatusCode() {
+    return statusCode;
+  }
+
+  /**
+   * @param statusCode the statusCode to set
+   */
+  public void setStatusCode(int statusCode) {
+    this.statusCode = statusCode;
+  }
 }

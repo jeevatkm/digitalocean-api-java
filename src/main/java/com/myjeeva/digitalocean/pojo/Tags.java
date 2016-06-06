@@ -21,38 +21,40 @@
 
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
- * Represents HTTP Method - DELETE response handling
+ * Represents Tag attributes of DigitalOcean.
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v2.0
+ * @since v2.5
  */
-public class Delete extends Response {
+public class Tags extends Base {
 
-  private static final long serialVersionUID = -3552374545843268569L;
+  private static final long serialVersionUID = -5828623466026614221L;
 
-  /**
-   * Default Constructor
-   */
-  public Delete() {
-    // Default Constructor
-  }
-
-  /**
-   * Parameterized Constructor
-   * 
-   * @param isRequestSuccess whether delete is success or not
-   */
-  public Delete(Boolean isRequestSuccess) {
-    super(isRequestSuccess);
-  }
+  private List<Tag> tags;
 
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return the tags
+   */
+  public List<Tag> getTags() {
+    return tags;
+  }
+
+  /**
+   * @param tags the tags to set
+   */
+  public void setTags(List<Tag> tags) {
+    this.tags = tags;
   }
 
 }

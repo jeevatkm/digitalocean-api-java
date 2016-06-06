@@ -1,7 +1,7 @@
-/*
+/**
  * The MIT License
  * 
- * Copyright (c) 2010-2015 Jeevanandam M. (myjeeva.com)
+ * Copyright (c) 2013-2016 Jeevanandam M. (myjeeva.com)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -18,6 +18,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package com.myjeeva.digitalocean.impl;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -87,8 +89,13 @@ import com.myjeeva.digitalocean.pojo.Key;
 import com.myjeeva.digitalocean.pojo.Keys;
 import com.myjeeva.digitalocean.pojo.Neighbors;
 import com.myjeeva.digitalocean.pojo.Regions;
+import com.myjeeva.digitalocean.pojo.Resource;
+import com.myjeeva.digitalocean.pojo.Resources;
+import com.myjeeva.digitalocean.pojo.Response;
 import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
+import com.myjeeva.digitalocean.pojo.Tag;
+import com.myjeeva.digitalocean.pojo.Tags;
 import com.myjeeva.digitalocean.serializer.DropletSerializer;
 
 /**
@@ -347,7 +354,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {dropletId};
     return (Action) perform(
         new ApiRequest(ApiAction.REBOOT_DROPLET, new DropletAction(ActionType.REBOOT), params))
-        .getData();
+            .getData();
   }
 
   @Override
@@ -369,7 +376,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {dropletId};
     return (Action) perform(
         new ApiRequest(ApiAction.SHUTDOWN_DROPLET, new DropletAction(ActionType.SHUTDOWN), params))
-        .getData();
+            .getData();
   }
 
   @Override
@@ -379,8 +386,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
     Object[] params = {dropletId};
     return (Action) perform(
-        new ApiRequest(ApiAction.POWER_OFF_DROPLET, new DropletAction(ActionType.POWER_OFF), params))
-        .getData();
+        new ApiRequest(ApiAction.POWER_OFF_DROPLET, new DropletAction(ActionType.POWER_OFF),
+            params))
+                .getData();
   }
 
   @Override
@@ -391,7 +399,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {dropletId};
     return (Action) perform(
         new ApiRequest(ApiAction.POWER_ON_DROPLET, new DropletAction(ActionType.POWER_ON), params))
-        .getData();
+            .getData();
   }
 
   @Override
@@ -424,7 +432,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {dropletId};
     return (Action) perform(
         new ApiRequest(ApiAction.SNAPSHOT_DROPLET, new DropletAction(ActionType.SNAPSHOT), params))
-        .getData();
+            .getData();
   }
 
   @Override
@@ -651,7 +659,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public Image getImageInfo(String slug) throws DigitalOceanException, RequestUnsuccessfulException {
+  public Image getImageInfo(String slug)
+      throws DigitalOceanException, RequestUnsuccessfulException {
     checkEmptyAndThrowError(slug, "Missing required parameter - slug.");
 
     Object[] params = {slug};
@@ -697,7 +706,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {imageId};
     return (Action) perform(
         new ApiRequest(ApiAction.CONVERT_IMAGE, new ImageAction(ActionType.CONVERT), params))
-        .getData();
+            .getData();
   }
 
 
@@ -970,6 +979,82 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
             params)).getData();
   }
 
+  // =======================================
+  // Tags methods
+  // =======================================
+
+  @Override
+  public Tags getAvailableTags(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    validatePageNo(pageNo);
+
+    return (Tags) perform(new ApiRequest(ApiAction.AVAILABLE_TAGS, pageNo, perPage)).getData();
+  }
+
+  @Override
+  public Tag createTag(String name) throws DigitalOceanException, RequestUnsuccessfulException {
+    checkEmptyAndThrowError(name, "Missing required parameter - tag name");
+
+    return (Tag) perform(
+        new ApiRequest(ApiAction.CREATE_TAG, new Tag(name))).getData();
+  }
+
+  @Override
+  public Tag getTag(String name) throws DigitalOceanException, RequestUnsuccessfulException {
+    checkEmptyAndThrowError(name, "Missing required parameter - tag name");
+
+    Object[] params = {name};
+    return (Tag) perform(new ApiRequest(ApiAction.GET_TAG, params)).getData();
+  }
+
+  @Override
+  public Tag updateTag(String currentName, String newName)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    checkEmptyAndThrowError(currentName, "Missing required parameter - current tag name");
+    checkEmptyAndThrowError(newName, "Missing required parameter - new tag name");
+
+    Object[] params = {currentName};
+    return (Tag) perform(new ApiRequest(ApiAction.UPDATE_TAG, new Tag(newName), params)).getData();
+  }
+
+  @Override
+  public Delete deleteTag(String name) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    checkEmptyAndThrowError(name, "Missing required parameter - tag name");
+
+    Object[] params = {name};
+    return (Delete) perform(new ApiRequest(ApiAction.DELETE_TAG, params)).getData();
+  }
+
+
+  @Override
+  public Response tagResources(String name, List<Resource> resources)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    checkEmptyAndThrowError(name, "Missing required parameter - tag name");
+    if (null == resources || resources.size() == 0) {
+      throw new IllegalArgumentException(
+          "Missing required parameter - list of resources for tag");
+    }
+
+    Object[] params = {name};
+    return (Response) perform(
+        new ApiRequest(ApiAction.TAG_RESOURCE, new Resources(resources), params)).getData();
+  }
+
+
+  @Override
+  public Response untagResources(String name, List<Resource> resources)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    checkEmptyAndThrowError(name, "Missing required parameter - tag name");
+    if (null == resources || resources.size() == 0) {
+      throw new IllegalArgumentException(
+          "Missing required parameter - list of resources for untag");
+    }
+
+    Object[] params = {name};
+    return (Response) perform(
+        new ApiRequest(ApiAction.UNTAG_RESOURCE, new Resources(resources), params)).getData();
+  }
 
 
   //
@@ -1292,4 +1377,5 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       this.httpClient = HttpClients.createDefault();
     }
   }
+
 }

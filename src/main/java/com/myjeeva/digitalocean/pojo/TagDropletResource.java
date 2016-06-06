@@ -23,36 +23,53 @@ package com.myjeeva.digitalocean.pojo;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
- * Represents HTTP Method - DELETE response handling
+ * Represents the droplet resource a tag is attached on DigitalOcean.
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v2.0
+ * @since v2.5
  */
-public class Delete extends Response {
+public class TagDropletResource {
 
-  private static final long serialVersionUID = -3552374545843268569L;
+  private int count;
 
-  /**
-   * Default Constructor
-   */
-  public Delete() {
-    // Default Constructor
-  }
-
-  /**
-   * Parameterized Constructor
-   * 
-   * @param isRequestSuccess whether delete is success or not
-   */
-  public Delete(Boolean isRequestSuccess) {
-    super(isRequestSuccess);
-  }
+  @SerializedName("last_tagged")
+  private Droplet lastTagged;
 
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return the count
+   */
+  public int getCount() {
+    return count;
+  }
+
+  /**
+   * @param count the count to set
+   */
+  public void setCount(int count) {
+    this.count = count;
+  }
+
+  /**
+   * @return the lastTagged
+   */
+  public Droplet getLastTagged() {
+    return lastTagged;
+  }
+
+  /**
+   * @param lastTagged the lastTagged to set
+   */
+  public void setLastTagged(Droplet lastTagged) {
+    this.lastTagged = lastTagged;
   }
 
 }

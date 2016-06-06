@@ -24,35 +24,33 @@ package com.myjeeva.digitalocean.pojo;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
- * Represents HTTP Method - DELETE response handling
+ * TagResource represent the set of resources a tag is attached on DigitalOcean.
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v2.0
+ * @since v2.5
  */
-public class Delete extends Response {
+public class TagResource {
 
-  private static final long serialVersionUID = -3552374545843268569L;
-
-  /**
-   * Default Constructor
-   */
-  public Delete() {
-    // Default Constructor
-  }
-
-  /**
-   * Parameterized Constructor
-   * 
-   * @param isRequestSuccess whether delete is success or not
-   */
-  public Delete(Boolean isRequestSuccess) {
-    super(isRequestSuccess);
-  }
+  private TagDropletResource droplets;
 
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
+  }
+
+  /**
+   * @return the droplets
+   */
+  public TagDropletResource getDroplets() {
+    return droplets;
+  }
+
+  /**
+   * @param droplets the droplets to set
+   */
+  public void setDroplets(TagDropletResource droplets) {
+    this.droplets = droplets;
   }
 
 }
