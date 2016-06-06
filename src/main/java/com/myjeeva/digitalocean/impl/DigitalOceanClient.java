@@ -66,6 +66,7 @@ import com.myjeeva.digitalocean.common.Constants;
 import com.myjeeva.digitalocean.common.RequestMethod;
 import com.myjeeva.digitalocean.exception.DigitalOceanException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
+import com.myjeeva.digitalocean.http.client.methods.CustomHttpDelete;
 import com.myjeeva.digitalocean.pojo.Account;
 import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
@@ -1074,7 +1075,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     } else if (RequestMethod.PUT == request.getMethod()) {
       response = doPut(uri, createRequestData(request));
     } else if (RequestMethod.DELETE == request.getMethod()) {
-      response = doDelete(uri);
+      response = doDelete(uri, createRequestData(request));
     }
 
     ApiResponse apiResponse = new ApiResponse(request.getApiAction(), true);
@@ -1128,10 +1129,18 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return executeHttpRequest(put);
   }
 
-  private String doDelete(URI uri) throws DigitalOceanException, RequestUnsuccessfulException {
-    HttpDelete delete = new HttpDelete(uri);
+  private String doDelete(URI uri, HttpEntity entity)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    if (null == entity) {
+      HttpDelete delete = new HttpDelete(uri);
+      delete.setHeaders(requestHeaders);
+      delete.setHeader(HttpHeaders.CONTENT_TYPE, FORM_URLENCODED_CONTENT_TYPE);
+      return executeHttpRequest(delete);
+    }
+
+    CustomHttpDelete delete = new CustomHttpDelete(uri);
     delete.setHeaders(requestHeaders);
-    delete.setHeader(HttpHeaders.CONTENT_TYPE, FORM_URLENCODED_CONTENT_TYPE);
+    delete.setEntity(entity);
     return executeHttpRequest(delete);
   }
 
