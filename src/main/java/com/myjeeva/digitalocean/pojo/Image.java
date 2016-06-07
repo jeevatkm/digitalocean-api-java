@@ -60,7 +60,7 @@ public class Image extends RateLimitBase {
   private Integer minDiskSize;
   
   @SerializedName("size_gigabytes")
-  private Integer size;
+  private Double size;
 
   private ImageType type;
 
