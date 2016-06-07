@@ -40,7 +40,7 @@ public interface Constants {
   String USER_AGENT = "DigitalOcean API Client by myjeeva.com";
   String JSON_CONTENT_TYPE = "application/json";
   String FORM_URLENCODED_CONTENT_TYPE = "application/x-www-form-urlencoded";
-  String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+  String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssX";
   String RATE_LIMIT_JSON_STRUCT =
       "\"rate_limit\": { \"limit\": %s, \"remaining\": %s, \"reset\": \"%s\"}";
   String RATE_LIMIT_ELEMENT_NAME = "rate_limit";
