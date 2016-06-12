@@ -15,22 +15,22 @@ For handy use, DigitalOcean API Client library project dependency definition pro
 <dependency>
     <groupId>com.myjeeva.digitalocean</groupId>
     <artifactId>digitalocean-api-client</artifactId>
-    <version>2.4</version>
+    <version>2.5</version>
 </dependency>
 ```
 **Gradle/Grails dependency**
 ```shell
-compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.4'
+compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.5'
 ```
 **Groovy Grape**
 ```groovy
 @Grapes(
-@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.4')
+@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.5')
 )
 ```
 **Scala SBT**
 ```shell
-libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.4"
+libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.5"
 ```
 
 **Note:** For Android projects, kindly include the `httpclient-android` library explicitly in your project dependencies.
@@ -134,8 +134,12 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 * If you need to paste code, or include a stack trace use Markdown ``` escapes before and after your text.
 
 # Supported API's and Revision Logs
+* **Released in v2.5**
+  * Add new endpoint support /v2/tags/* [#48](https://github.com/jeevatkm/digitalocean-api-java/issues/48)
+  * Add new Attribute to the Image [#49](https://github.com/jeevatkm/digitalocean-api-java/issues/49)
+  * Fix for incorrect time zone returned from getActionInfo [#47](https://github.com/jeevatkm/digitalocean-api-java/issues/47)
 * **Released in v2.4**
-  * `getDomainRecords` supports pagination params via PR #46
+  * `getDomainRecords` supports pagination params via PR [#46](https://github.com/jeevatkm/digitalocean-api-java/issues/46)
 * **Released in v2.3**
 	* `Action enableDropletBackups(Integer dropletId)`
 	* `Droplets createDroplets(Droplet droplet)`
@@ -229,7 +233,7 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 	</pre>
 	* Domain Records
 	<pre>
-	DomainRecords getDomainRecords(String domainName)
+	DomainRecords getDomainRecords(String domainName, Integer pageNo, Integer perPage)
 	DomainRecord getDomainRecordInfo(String domainName, Integer recordId)
 	DomainRecord createDomainRecord(String domainName, DomainRecord domainRecord)
 	DomainRecord updateDomainRecord(String domainName, Integer recordId, String name)
@@ -245,6 +249,15 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 	Key	updateKey(String fingerprint, String newSshKeyName)
 	Delete deleteKey(Integer sshKeyId)
 	Delete deleteKey(String fingerprint)
+	</pre>
+	* Tags
+	<pre>
+	Tags getAvailableTags(Integer pageNo, Integer perPage)
+	Tag getTag(String name)
+	Tag updateTag(String currentName, String newName)
+	Delete deleteTag(String name)
+	Response tagResources(String name, List<Resource> resources)
+	Response untagResources(String name, List<Resource> resources)
 	</pre>
 
 # Author
@@ -266,7 +279,7 @@ DigitalOcean API Client - [MIT License][6].
 
 
 [1]: https://developers.digitalocean.com
-[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.4/
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.5/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/com/myjeeva/digitalocean/digitalocean-api-client/
 [5]: http://myjeeva.com
@@ -280,4 +293,4 @@ DigitalOcean API Client - [MIT License][6].
 [13]: https://raw.githubusercontent.com/darcyliu/google-styleguide/master/eclipse-java-google-style.xml
 [14]: https://developers.digitalocean.com/documentation/changelog/api-v2/add-status-to-account/
 [15]: https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-snaphots/
-[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.4/digitalocean-api-client-2.4.jar
+[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.5/digitalocean-api-client-2.5.jar
