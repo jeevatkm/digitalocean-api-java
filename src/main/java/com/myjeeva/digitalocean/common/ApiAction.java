@@ -65,7 +65,7 @@ public enum ApiAction {
   GET_DROPLET_INFO("/droplets/%s", "droplet", RequestMethod.GET, Droplet.class),  
   CREATE_DROPLET("/droplets", "droplet", RequestMethod.POST, Droplet.class),
   CREATE_DROPLETS("/droplets", "droplets", RequestMethod.POST, Droplets.class),
-  DELETE_DROPLET("/droplets/%s", "delete", RequestMethod.DELETE, Delete.class),
+  DELETE_DROPLET("/droplets/%s", "response", RequestMethod.DELETE, Delete.class),
   REBOOT_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   POWER_CYCLE_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   SHUTDOWN_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
@@ -105,7 +105,7 @@ public enum ApiAction {
   AVAILABLE_IMAGES("/images", "images", RequestMethod.GET, Images.class),  
   GET_IMAGE_INFO("/images/%s", "image", RequestMethod.GET, Image.class),  
   UPDATE_IMAGE_INFO("/images/%s", "image", RequestMethod.PUT, Image.class),
-  DELETE_IMAGE("/images/%s", "delete", RequestMethod.DELETE, Delete.class),
+  DELETE_IMAGE("/images/%s", "response", RequestMethod.DELETE, Delete.class),
   TRANSFER_IMAGE("/images/%s/actions", "action", RequestMethod.POST, Action.class),
   CONVERT_IMAGE("/images/%s/actions", "action", RequestMethod.POST, Action.class),
   
