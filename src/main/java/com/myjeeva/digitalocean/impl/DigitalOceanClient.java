@@ -97,7 +97,10 @@ import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
 import com.myjeeva.digitalocean.pojo.Tag;
 import com.myjeeva.digitalocean.pojo.Tags;
+import com.myjeeva.digitalocean.pojo.Volume;
+import com.myjeeva.digitalocean.pojo.Volumes;
 import com.myjeeva.digitalocean.serializer.DropletSerializer;
+import com.myjeeva.digitalocean.serializer.VolumeSerializer;
 
 /**
  * DigitalOcean API client wrapper methods Implementation
@@ -1056,8 +1059,73 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (Response) perform(
         new ApiRequest(ApiAction.UNTAG_RESOURCE, new Resources(resources), params)).getData();
   }
+  
+  //=======================================
+  // Volume access/manipulation methods
+  // =======================================
 
+	@Override
+	public Volumes getAvailableVolumes(String regionSlug) throws DigitalOceanException, RequestUnsuccessfulException {
+		checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+		  
+		Map<String, String> qp = new HashMap<String, String>();
+		qp.put("region", regionSlug);
+		return (Volumes) perform(new ApiRequest(ApiAction.AVAILABLE_VOLUMES, qp)).getData();
+	}
+	
+	@Override
+	public Volume createVolume(Volume volume) throws DigitalOceanException, RequestUnsuccessfulException {
+	    if (null == volume
+	        || StringUtils.isEmpty(volume.getName())
+	        || null == volume.getRegion()
+	        || null == volume.getSizeGigabytes()
+	        ) {
+	      throw new IllegalArgumentException(
+	          "Missing required parameters [Name, Region Slug, Size] for create volume.");
+	    }
 
+	    return (Volume) perform(new ApiRequest(ApiAction.CREATE_VOLUME, volume)).getData();
+	}
+	
+	@Override
+	public Volume getVolumeInfo(String volumeId) throws DigitalOceanException, RequestUnsuccessfulException {
+		checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
+
+	    Object[] params = {volumeId};
+	    return (Volume) perform(new ApiRequest(ApiAction.GET_VOLUME_INFO, params)).getData();
+	}
+	
+	@Override
+	public Volumes getVolumeInfo(String volumeName, String regionSlug) throws DigitalOceanException, RequestUnsuccessfulException {
+		checkEmptyAndThrowError(volumeName, "Missing required parameter - volumeName.");
+		checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+
+		Map<String, String> qp = new HashMap<String, String>();
+		qp.put("region", regionSlug);
+		qp.put("name", volumeName);
+	    return (Volumes) perform(new ApiRequest(ApiAction.GET_VOLUME_INFO_BY_NAME, qp)).getData();
+	}
+	
+	@Override
+	public Delete deleteVolume(String volumeId) throws DigitalOceanException, RequestUnsuccessfulException {
+		checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
+
+	    Object[] params = {volumeId};
+	    return (Delete) perform(new ApiRequest(ApiAction.DELETE_VOLUME, params)).getData();
+	}
+	
+	@Override
+	public Delete deleteVolume(String volumeName, String regionSlug) throws DigitalOceanException, RequestUnsuccessfulException {
+		checkEmptyAndThrowError(volumeName, "Missing required parameter - volumeName.");
+		checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+
+		Map<String, String> qp = new HashMap<String, String>();
+		qp.put("region", regionSlug);
+		qp.put("name", volumeName);
+	    return (Delete) perform(new ApiRequest(ApiAction.DELETE_VOLUME_BY_NAME, qp)).getData();
+	}
+
+  
   //
   // Private methods
   //
@@ -1370,6 +1438,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     this.serialize =
         new GsonBuilder().setDateFormat(DATE_FORMAT)
             .registerTypeAdapter(Droplet.class, new DropletSerializer())
+            .registerTypeAdapter(Volume.class, new VolumeSerializer())
             .excludeFieldsWithoutExposeAnnotation().create();
 
     this.jsonParser = new JsonParser();

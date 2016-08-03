@@ -46,6 +46,8 @@ import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
 import com.myjeeva.digitalocean.pojo.Tag;
 import com.myjeeva.digitalocean.pojo.Tags;
+import com.myjeeva.digitalocean.pojo.Volume;
+import com.myjeeva.digitalocean.pojo.Volumes;
 
 /**
  * Enumeration of DigitalOcean RESTful resource information.
@@ -157,9 +159,16 @@ public enum ApiAction {
   UPDATE_TAG("/tags/%s", "tag", RequestMethod.PUT, Tag.class),
   DELETE_TAG("/tags/%s", "response", RequestMethod.DELETE, Delete.class),
   TAG_RESOURCE("/tags/%s/resources", "response", RequestMethod.POST, Response.class),
-  UNTAG_RESOURCE("/tags/%s/resources", "response", RequestMethod.DELETE, Response.class);
+  UNTAG_RESOURCE("/tags/%s/resources", "response", RequestMethod.DELETE, Response.class),
    
-   
+  // Volumes
+  AVAILABLE_VOLUMES("/volumes", "volumes", RequestMethod.GET, Volumes.class),
+  CREATE_VOLUME("/volumes", "volume", RequestMethod.POST, Volume.class),
+  GET_VOLUME_INFO("/volumes/%s", "volume", RequestMethod.GET, Volume.class),
+  GET_VOLUME_INFO_BY_NAME("/volumes", "volumes", RequestMethod.GET, Volumes.class),
+  DELETE_VOLUME("/volumes/%s", "response", RequestMethod.DELETE, Delete.class),
+  DELETE_VOLUME_BY_NAME("/volumes", "response", RequestMethod.DELETE, Delete.class);
+	
   private String path;
 
   private String elementName;

@@ -52,6 +52,8 @@ import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshots;
 import com.myjeeva.digitalocean.pojo.Tag;
 import com.myjeeva.digitalocean.pojo.Tags;
+import com.myjeeva.digitalocean.pojo.Volume;
+import com.myjeeva.digitalocean.pojo.Volumes;
 
 /**
  * <p>
@@ -1291,5 +1293,26 @@ public interface DigitalOcean {
    */
   Response untagResources(String name, List<Resource> resources)
       throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method finds available volumes.
+   * 
+   * @param regionSlug is code name of the region aka DigitalOcean data centers
+   * @return {@link Volumes}
+   * @throws DigitalOceanException
+   * @throws RequestUnsuccessfulException
+   */
+  Volumes getAvailableVolumes(String regionSlug) 
+	  throws DigitalOceanException, RequestUnsuccessfulException;
+
+  Volume createVolume(Volume volume) throws DigitalOceanException, RequestUnsuccessfulException;
+
+  Volume getVolumeInfo(String volumeId) throws DigitalOceanException, RequestUnsuccessfulException;
+  
+  Volumes getVolumeInfo(String volumeName, String regionSlug) throws DigitalOceanException, RequestUnsuccessfulException;
+  
+  Delete deleteVolume(String volumeId) throws DigitalOceanException, RequestUnsuccessfulException;
+  
+  Delete deleteVolume(String volumeName, String regionSlug) throws DigitalOceanException, RequestUnsuccessfulException;
 
 }
