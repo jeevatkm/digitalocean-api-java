@@ -25,7 +25,7 @@ public class VolumeAction {
 	
 	@Expose
 	@SerializedName("size_gigabytes")
-	private Integer sizeGigabytes;
+	private Double sizeGigabytes;
 
 	public VolumeAction(ActionType type, Integer dropletId, String regionSlug, String volumeName) {
 		this.type = type;
@@ -40,7 +40,7 @@ public class VolumeAction {
 		this.regionSlug = regionSlug;
 	}
 	
-	public VolumeAction(ActionType type, String regionSlug, Integer sizeGigabytes) {
+	public VolumeAction(ActionType type, String regionSlug, Double sizeGigabytes) {
 		this.type = type;
 		this.regionSlug = regionSlug;
 		this.sizeGigabytes = sizeGigabytes;
@@ -78,11 +78,11 @@ public class VolumeAction {
 		this.volumeName = volumeName;
 	}
 
-	public Integer getSizeGigabytes() {
+	public Double getSizeGigabytes() {
 		return sizeGigabytes;
 	}
 
-	public void setSizeGigabytes(Integer sizeGigabytes) {
+	public void setSizeGigabytes(Double sizeGigabytes) {
 		this.sizeGigabytes = sizeGigabytes;
 	}
 

@@ -1326,7 +1326,7 @@ public interface DigitalOcean {
   Action detachVolumeByName(Integer dropletId, String volumeName, String regionSlug)
 		throws DigitalOceanException, RequestUnsuccessfulException;
 
-  Action resizeVolume(String volumeId, String regionSlug, Integer sizeGigabytes)
+  Action resizeVolume(String volumeId, String regionSlug, Double sizeGigabytes)
 		throws DigitalOceanException, RequestUnsuccessfulException;
 
   Actions getAvailableVolumeActions(String volumeId)

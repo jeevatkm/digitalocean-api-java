@@ -1098,7 +1098,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	@Override
 	public Volume createVolume(Volume volume) throws DigitalOceanException, RequestUnsuccessfulException {
 	    if (null == volume
-	        || StringUtils.isEmpty(volume.getName())
+	        || StringUtils.isBlank(volume.getName())
 	        || null == volume.getRegion()
 	        || null == volume.getSizeGigabytes()
 	        ) {
@@ -1194,11 +1194,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	}
 	
 	@Override
-	public Action resizeVolume(String volumeId, String regionSlug, Integer sizeGigabytes) throws DigitalOceanException,
+	public Action resizeVolume(String volumeId, String regionSlug, Double sizeGigabytes) throws DigitalOceanException,
 	      RequestUnsuccessfulException {
 	    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
 		checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
-		checkNullAndThrowError(sizeGigabytes, "Missing required parameter - sizeGigabytes.");
+		if(sizeGigabytes == null){
+			throw new IllegalArgumentException("Missing required parameter - sizeGigabytes.");
+		}
 
 	    Object[] params = {volumeId};
 	    return (Action) perform(

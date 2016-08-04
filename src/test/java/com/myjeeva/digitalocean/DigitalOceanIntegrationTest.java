@@ -67,6 +67,8 @@ import com.myjeeva.digitalocean.pojo.Snapshot;
 import com.myjeeva.digitalocean.pojo.Snapshots;
 import com.myjeeva.digitalocean.pojo.Tag;
 import com.myjeeva.digitalocean.pojo.Tags;
+import com.myjeeva.digitalocean.pojo.Volume;
+import com.myjeeva.digitalocean.pojo.Volumes;
 
 /**
  * <p>
@@ -92,6 +94,8 @@ public class DigitalOceanIntegrationTest extends TestCase {
    */
   private String authTokenRW = "";
   private Integer dropletIdForInfo = 10001; // to be placed before use
+  private String volumeIdForInfo = "10001"; // to be placed before use
+  private String volumeNameForInfo = "test-volume"; // to be placed before use, should have different ID from volumeIdForInfo and created in nyc1 region
   private Integer imageId = 3445812; // Debian 7.0 x64 image id
   private String imageSlug = "ubuntu-12-04-x64";
   private String domainName = "";
@@ -1013,5 +1017,135 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(result);
     LOG.info("Response of Tag resources: " + result);
   }
+  
+  @Test
+  public void testGetAvailableVolumes() throws DigitalOceanException, RequestUnsuccessfulException{
+	  Volumes volumes = apiClient.getAvailableVolumes("nyc1");
 
+	  assertNotNull(volumes);
+	  assertTrue((volumes.getVolumes().size() > 0));
+
+	  int i = 1;
+	  for (Volume volume : volumes.getVolumes()) {
+	    LOG.info(i++ + " -> " + volume.toString());
+	  }
+  }
+  
+  @Test
+  public void testCreateVolume() throws DigitalOceanException, RequestUnsuccessfulException{
+	  Volume volume = new Volume();
+	  volume.setName("api-client-test-host-volume");
+	  volume.setDescription("Test Volume Description");
+	  volume.setRegion(new Region("nyc1"));
+	  volume.setSizeGigabytes(1D);
+	  
+	  Volume v = apiClient.createVolume(volume);
+
+	  assertNotNull(v);
+	  assertNotNull(v.getId());
+	
+	  LOG.info(v.toString());
+  }
+  
+  @Test
+  public void testGetVolumeInfo() throws DigitalOceanException, RequestUnsuccessfulException{
+	  Volume volume = apiClient.getVolumeInfo(volumeIdForInfo);
+	  
+	  assertNotNull(volume);
+
+	  LOG.info(volume.toString());
+  }
+  
+  @Test
+  public void testGetVolumeInfoByName() throws DigitalOceanException, RequestUnsuccessfulException{
+	  Volumes volumes = apiClient.getVolumeInfo(volumeNameForInfo, "nyc1");
+	  
+	  assertNotNull(volumes);
+	  assertTrue((volumes.getVolumes().size() > 0));
+
+	  int i = 1;
+	  for (Volume volume : volumes.getVolumes()) {
+	    LOG.info(i++ + " -> " + volume.toString());
+	  }
+  }
+  
+  @Test
+  public void testAtachVolume() throws DigitalOceanException, RequestUnsuccessfulException{
+	  Action action = apiClient.attachVolume(dropletIdForInfo, volumeIdForInfo, "nyc1");
+	  assertNotNull(action);
+	  LOG.info(action.toString());
+  }
+  
+  @Test
+  public void testAttachVolumeByName() throws DigitalOceanException, RequestUnsuccessfulException{
+	  Action action = apiClient.attachVolumeByName(dropletIdForInfo, volumeNameForInfo, "nyc1");
+	  assertNotNull(action);
+	  LOG.info(action.toString());
+  }
+  
+  @Test
+  public void testResizeVolume() throws DigitalOceanException, RequestUnsuccessfulException{
+	  Action action = apiClient.resizeVolume(volumeIdForInfo, "nyc1", 3D);
+	  assertNotNull(action);
+	  LOG.info(action.toString());
+  }
+  
+  @Test
+  public void testDeachVolume() throws DigitalOceanException, RequestUnsuccessfulException{
+	  Action action = apiClient.detachVolume(dropletIdForInfo, volumeIdForInfo, "nyc1");
+	  assertNotNull(action);
+	  LOG.info(action.toString());
+  }
+  
+  @Test
+  public void testDetachVolumeByName() throws DigitalOceanException, RequestUnsuccessfulException{
+	  Action action = apiClient.detachVolumeByName(dropletIdForInfo, volumeNameForInfo, "nyc1");
+	  assertNotNull(action);
+	  LOG.info(action.toString());
+  }
+  
+  @Test
+  public void testAvailableVolumeActions() throws DigitalOceanException, RequestUnsuccessfulException{
+	  Actions actions = apiClient.getAvailableVolumeActions(volumeIdForInfo);
+	  
+	  assertNotNull(actions);
+	  assertTrue((actions.getActions().size() > 0));
+
+	  LOG.info(actions.getLinks().toString());
+
+	  int i = 1;
+	  for (Action a : actions.getActions()) {
+	    LOG.info(i++ + " -> " + a.toString());
+	  }
+  }
+  
+  @Test
+  public void testAvailableVolumeAction() throws DigitalOceanException, RequestUnsuccessfulException{
+	  Actions actions = apiClient.getAvailableVolumeActions(volumeIdForInfo);
+	  
+	  assertNotNull(actions);
+	  assertTrue((actions.getActions().size() > 0));
+	  
+	  Action action = actions.getActions().get(0);
+	  
+	  apiClient.getAvailableVolumeAction(volumeIdForInfo, action.getId());
+	  assertNotNull(action);
+	  LOG.info(action.toString());
+  }
+  
+  @Test
+  public void testDeleteVolume() throws DigitalOceanException, RequestUnsuccessfulException{
+	  Delete result = apiClient.deleteVolume(volumeIdForInfo);
+
+	  assertNotNull(result);
+	  LOG.info("Delete Request Object: " + result);
+  }
+  
+  @Test
+  public void testDeleteVolumeByName() throws DigitalOceanException, RequestUnsuccessfulException{
+	  Delete result = apiClient.deleteVolume(volumeNameForInfo, "nyc1");
+
+	  assertNotNull(result);
+	  LOG.info("Delete Request Object: " + result);
+  }
 }
