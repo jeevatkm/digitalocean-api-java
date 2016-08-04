@@ -167,7 +167,9 @@ public enum ApiAction {
   GET_VOLUME_INFO("/volumes/%s", "volume", RequestMethod.GET, Volume.class),
   GET_VOLUME_INFO_BY_NAME("/volumes", "volumes", RequestMethod.GET, Volumes.class),
   DELETE_VOLUME("/volumes/%s", "response", RequestMethod.DELETE, Delete.class),
-  DELETE_VOLUME_BY_NAME("/volumes", "response", RequestMethod.DELETE, Delete.class);
+  DELETE_VOLUME_BY_NAME("/volumes", "response", RequestMethod.DELETE, Delete.class),
+  ACTIONS_VOLUME("/volumes/%s/actions", "action", RequestMethod.POST, Action.class),
+  ACTIONS_VOLUME_BY_NAME("/volumes/actions", "action", RequestMethod.POST, Action.class);
 	
   private String path;
 

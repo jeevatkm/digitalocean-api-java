@@ -1315,4 +1315,18 @@ public interface DigitalOcean {
   
   Delete deleteVolume(String volumeName, String regionSlug) throws DigitalOceanException, RequestUnsuccessfulException;
 
+  Action attachVolume(Integer dropletId, String volumeId, String regionSlug) throws DigitalOceanException, RequestUnsuccessfulException;
+
+  Action attachVolumeByName(Integer dropletId, String volumeName, String regionSlug)
+		throws DigitalOceanException, RequestUnsuccessfulException;
+
+  Action detachVolume(Integer dropletId, String volumeId, String regionSlug)
+		throws DigitalOceanException, RequestUnsuccessfulException;
+
+  Action detachVolumeByName(Integer dropletId, String volumeName, String regionSlug)
+		throws DigitalOceanException, RequestUnsuccessfulException;
+
+  Action resizeVolume(String volumeId, String regionSlug, Integer sizeGigabytes)
+		throws DigitalOceanException, RequestUnsuccessfulException;
+
 }

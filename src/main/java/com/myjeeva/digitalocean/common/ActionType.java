@@ -105,8 +105,14 @@ public enum ActionType {
   UNASSIGN_FLOATING_IP("unassign_ip"),
   
   @SerializedName("reserve_ip")
-  RESERVE_FLOATING_IP("reserve_ip");
-
+  RESERVE_FLOATING_IP("reserve_ip"),
+  
+  @SerializedName("attach")
+  ATTACH("attach"),
+  
+  @SerializedName("detach")
+  DETACH("detach");
+  
   private String value;
 
   ActionType(String value) {

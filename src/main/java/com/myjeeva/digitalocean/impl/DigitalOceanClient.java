@@ -98,6 +98,7 @@ import com.myjeeva.digitalocean.pojo.Snapshots;
 import com.myjeeva.digitalocean.pojo.Tag;
 import com.myjeeva.digitalocean.pojo.Tags;
 import com.myjeeva.digitalocean.pojo.Volume;
+import com.myjeeva.digitalocean.pojo.VolumeAction;
 import com.myjeeva.digitalocean.pojo.Volumes;
 import com.myjeeva.digitalocean.serializer.DropletSerializer;
 import com.myjeeva.digitalocean.serializer.VolumeSerializer;
@@ -1125,7 +1126,64 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 	    return (Delete) perform(new ApiRequest(ApiAction.DELETE_VOLUME_BY_NAME, qp)).getData();
 	}
 
-  
+	@Override
+	public Action attachVolume(Integer dropletId, String volumeId, String regionSlug) throws DigitalOceanException,
+	      RequestUnsuccessfulException {
+	    validateDropletId(dropletId);
+	    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
+		checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+
+	    Object[] params = {volumeId};
+	    return (Action) perform(
+	        new ApiRequest(ApiAction.ACTIONS_VOLUME, new VolumeAction(ActionType.ATTACH, dropletId, regionSlug), params)).getData();
+	}
+	
+	@Override
+	public Action attachVolumeByName(Integer dropletId, String volumeName, String regionSlug) throws DigitalOceanException,
+	      RequestUnsuccessfulException {
+	    validateDropletId(dropletId);
+	    checkEmptyAndThrowError(volumeName, "Missing required parameter - volumeName.");
+		checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+
+	    return (Action) perform(
+	        new ApiRequest(ApiAction.ACTIONS_VOLUME_BY_NAME, new VolumeAction(ActionType.ATTACH, dropletId, regionSlug, volumeName))).getData();
+	}
+	
+	@Override
+	public Action detachVolume(Integer dropletId, String volumeId, String regionSlug) throws DigitalOceanException,
+	      RequestUnsuccessfulException {
+	    validateDropletId(dropletId);
+	    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
+		checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+
+	    Object[] params = {volumeId};
+	    return (Action) perform(
+	        new ApiRequest(ApiAction.ACTIONS_VOLUME, new VolumeAction(ActionType.DETACH, dropletId, regionSlug), params)).getData();
+	}
+	
+	@Override
+	public Action detachVolumeByName(Integer dropletId, String volumeName, String regionSlug) throws DigitalOceanException,
+	      RequestUnsuccessfulException {
+	    validateDropletId(dropletId);
+	    checkEmptyAndThrowError(volumeName, "Missing required parameter - volumeName.");
+		checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+
+	    return (Action) perform(
+	        new ApiRequest(ApiAction.ACTIONS_VOLUME_BY_NAME, new VolumeAction(ActionType.DETACH, dropletId, regionSlug, volumeName))).getData();
+	}
+	
+	@Override
+	public Action resizeVolume(String volumeId, String regionSlug, Integer sizeGigabytes) throws DigitalOceanException,
+	      RequestUnsuccessfulException {
+	    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
+		checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+		checkNullAndThrowError(sizeGigabytes, "Missing required parameter - sizeGigabytes.");
+
+	    Object[] params = {volumeId};
+	    return (Action) perform(
+	        new ApiRequest(ApiAction.ACTIONS_VOLUME, new VolumeAction(ActionType.RESIZE, regionSlug, sizeGigabytes), params)).getData();
+	}
+	
   //
   // Private methods
   //
