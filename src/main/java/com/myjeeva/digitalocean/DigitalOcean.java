@@ -1329,4 +1329,10 @@ public interface DigitalOcean {
   Action resizeVolume(String volumeId, String regionSlug, Integer sizeGigabytes)
 		throws DigitalOceanException, RequestUnsuccessfulException;
 
+  Actions getAvailableVolumeActions(String volumeId)
+		throws DigitalOceanException, RequestUnsuccessfulException;
+
+  Action getAvailableVolumeAction(String volumeId, Integer actionId)
+		throws DigitalOceanException, RequestUnsuccessfulException;
+
 }

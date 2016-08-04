@@ -613,6 +613,27 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (Action) perform(new ApiRequest(ApiAction.GET_FLOATING_IP_ACTION_INFO, params))
         .getData();
   }
+  
+  @Override
+  public Actions getAvailableVolumeActions(String volumeId)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+	  checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
+
+    Object[] params = {volumeId};
+    return (Actions) perform(new ApiRequest(ApiAction.GET_VOLUME_ACTIONS, params))
+        .getData();
+  }
+  
+  @Override
+  public Action getAvailableVolumeAction(String volumeId, Integer actionId)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+	  checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
+	  checkNullAndThrowError(actionId, "Missing required parameter - actionId.");
+
+    Object[] params = {volumeId, actionId};
+    return (Action) perform(new ApiRequest(ApiAction.GET_VOLUME_ACTION, params))
+        .getData();
+  }
 
 
   // =======================================

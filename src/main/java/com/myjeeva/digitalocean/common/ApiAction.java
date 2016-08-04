@@ -101,6 +101,8 @@ public enum ApiAction {
   GET_IMAGE_ACTIONS("/images/%s/actions", "actions", RequestMethod.GET, Actions.class),
   GET_FLOATING_IP_ACTIONS("/floating_ips/%s/actions", "actions", RequestMethod.GET, Actions.class),
   GET_FLOATING_IP_ACTION_INFO("/floating_ips/%s/actions/%s", "action", RequestMethod.GET, Action.class),
+  GET_VOLUME_ACTIONS("/volumes/%s/actions", "actions", RequestMethod.GET, Actions.class),
+  GET_VOLUME_ACTION("/volumes/%s/actions/%s", "action", RequestMethod.GET, Action.class),
   
   
   // Image
