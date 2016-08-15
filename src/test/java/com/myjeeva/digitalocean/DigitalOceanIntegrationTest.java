@@ -1128,7 +1128,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 	  
 	  Action action = actions.getActions().get(0);
 	  
-	  apiClient.getAvailableVolumeAction(volumeIdForInfo, action.getId());
+	  apiClient.getVolumeAction(volumeIdForInfo, action.getId());
 	  assertNotNull(action);
 	  LOG.info(action.toString());
   }

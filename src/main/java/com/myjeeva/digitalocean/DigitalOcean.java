@@ -302,7 +302,6 @@ public interface DigitalOcean {
   Neighbors getAllDropletNeighbors(Integer pageNo)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
-
   // Droplet Action methods
 
   /**
@@ -571,7 +570,6 @@ public interface DigitalOcean {
    */
   Account getAccountInfo() throws DigitalOceanException, RequestUnsuccessfulException;
 
-
   // ==============================================
   // Actions manipulation/access methods
   // ==============================================
@@ -666,7 +664,6 @@ public interface DigitalOcean {
    */
   Action getFloatingIPActionInfo(String ipAddress, Integer actionId)
       throws DigitalOceanException, RequestUnsuccessfulException;
-
 
   // ==============================================
   // Images manipulation (aka Distribution) methods
@@ -799,7 +796,6 @@ public interface DigitalOcean {
    */
   Action convertImage(Integer imageId) throws DigitalOceanException, RequestUnsuccessfulException;
 
-
   // ===========================================
   // Regions (aka Data Centers) methods
   // ===========================================
@@ -817,7 +813,6 @@ public interface DigitalOcean {
   Regions getAvailableRegions(Integer pageNo)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
-
   // ===========================================
   // Sizes (aka Available Droplet Plans) methods
   // ===========================================
@@ -834,7 +829,6 @@ public interface DigitalOcean {
    */
   Sizes getAvailableSizes(Integer pageNo)
       throws DigitalOceanException, RequestUnsuccessfulException;
-
 
   // ===========================================
   // Domain manipulation methods
@@ -972,7 +966,6 @@ public interface DigitalOcean {
   Delete deleteDomainRecord(String domainName, Integer recordId)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
-
   // ===========================================
   // SSH Key manipulation methods
   // ===========================================
@@ -1086,7 +1079,6 @@ public interface DigitalOcean {
    */
   Delete deleteKey(String fingerprint) throws DigitalOceanException, RequestUnsuccessfulException;
 
-
   // ===========================================
   // Floating IP manipulation methods
   // ===========================================
@@ -1191,7 +1183,6 @@ public interface DigitalOcean {
   Action unassignFloatingIP(String ipAddress)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
-
   // ===========================================
   // Tags manipulation methods
   // ===========================================
@@ -1294,45 +1285,197 @@ public interface DigitalOcean {
   Response untagResources(String name, List<Resource> resources)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
+  // ===========================================
+  // Tags manipulation methods
+  // ===========================================
+
   /**
-   * Method finds available volumes.
+   * Method will list all of the Volumes available from your account.
    * 
    * @param regionSlug is code name of the region aka DigitalOcean data centers
    * @return {@link Volumes}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.7
+   */
+  Volumes getAvailableVolumes(String regionSlug)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method creates new volume with given details
+   * 
+   * @param volume details to create new volume
+   * @return {@link Volume}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.7
+   */
+  Volume createVolume(Volume volume) throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method shows specific volume information by identifier
+   * 
+   * @param volumeId volume identifier
+   * @return {@link Volume}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.7
+   */
+  Volume getVolumeInfo(String volumeId) throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method shows volume information by name and region slug
+   * 
+   * @param volumeName name of the volume
+   * @param regionSlug is code name of the region aka DigitalOcean data centers
+   * @return {@link Volumes}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.7
+   */
+  Volumes getVolumeInfo(String volumeName, String regionSlug)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method deletes volume by identifier
+   * 
+   * @param volumeId volume identifier
+   * @return {@link Delete}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.7
+   */
+  Delete deleteVolume(String volumeId) throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method deletes volume by name and region slug
+   * 
+   * @param volumeName
+   * @param regionSlug is code name of the region aka DigitalOcean data centers
+   * @return {@link Delete}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.7
+   */
+  Delete deleteVolume(String volumeName, String regionSlug)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method attaches the given volume into droplet by identifier
+   * 
+   * @param dropletId droplet identifier
+   * @param volumeId volume identifier
+   * @param regionSlug is code name of the region aka DigitalOcean data centers
+   * @return {@link Action}
    * @throws DigitalOceanException
    * @throws RequestUnsuccessfulException
    */
-  Volumes getAvailableVolumes(String regionSlug) 
-	  throws DigitalOceanException, RequestUnsuccessfulException;
+  Action attachVolume(Integer dropletId, String volumeId, String regionSlug)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
-  Volume createVolume(Volume volume) throws DigitalOceanException, RequestUnsuccessfulException;
-
-  Volume getVolumeInfo(String volumeId) throws DigitalOceanException, RequestUnsuccessfulException;
-  
-  Volumes getVolumeInfo(String volumeName, String regionSlug) throws DigitalOceanException, RequestUnsuccessfulException;
-  
-  Delete deleteVolume(String volumeId) throws DigitalOceanException, RequestUnsuccessfulException;
-  
-  Delete deleteVolume(String volumeName, String regionSlug) throws DigitalOceanException, RequestUnsuccessfulException;
-
-  Action attachVolume(Integer dropletId, String volumeId, String regionSlug) throws DigitalOceanException, RequestUnsuccessfulException;
-
+  /**
+   * Method attaches the given volume into droplet by name
+   * 
+   * @param dropletId droplet identifier
+   * @param volumeName
+   * @param regionSlug is code name of the region aka DigitalOcean data centers
+   * @return {@link Action}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.7
+   */
   Action attachVolumeByName(Integer dropletId, String volumeName, String regionSlug)
-		throws DigitalOceanException, RequestUnsuccessfulException;
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
+  /**
+   * Method detaches volume from the droplet by identifier
+   * 
+   * @param dropletId droplet identifier
+   * @param volumeId volume identifier
+   * @param regionSlug is code name of the region aka DigitalOcean data centers
+   * @return {@link Action}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.7
+   */
   Action detachVolume(Integer dropletId, String volumeId, String regionSlug)
-		throws DigitalOceanException, RequestUnsuccessfulException;
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
+  /**
+   * Method detaches volume from the droplet by volume name
+   * 
+   * @param dropletId droplet identifier
+   * @param volumeName
+   * @param regionSlug is code name of the region aka DigitalOcean data centers
+   * @return {@link Action}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.7
+   */
   Action detachVolumeByName(Integer dropletId, String volumeName, String regionSlug)
-		throws DigitalOceanException, RequestUnsuccessfulException;
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
+  /**
+   * Method resizes volume by identifier
+   * 
+   * @param volumeId volume identifier
+   * @param regionSlug is code name of the region aka DigitalOcean data centers
+   * @param sizeGigabytes size value in GB
+   * @return {@link Action}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.7
+   */
   Action resizeVolume(String volumeId, String regionSlug, Double sizeGigabytes)
-		throws DigitalOceanException, RequestUnsuccessfulException;
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
+  /**
+   * Method will get all the available volume action by volume identifier
+   * 
+   * @param volumeId volume identifier
+   * @return {@link Actions}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.7
+   */
   Actions getAvailableVolumeActions(String volumeId)
-		throws DigitalOceanException, RequestUnsuccessfulException;
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
-  Action getAvailableVolumeAction(String volumeId, Integer actionId)
-		throws DigitalOceanException, RequestUnsuccessfulException;
+  /**
+   * Method returns specific volume action by action & volume identifier
+   * 
+   * @param volumeId
+   * @param actionId
+   * @return {@link Action}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.7
+   */
+  Action getVolumeAction(String volumeId, Integer actionId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
 }

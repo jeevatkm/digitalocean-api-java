@@ -625,7 +625,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
   
   @Override
-  public Action getAvailableVolumeAction(String volumeId, Integer actionId)
+  public Action getVolumeAction(String volumeId, Integer actionId)
       throws DigitalOceanException, RequestUnsuccessfulException {
 	  checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
 	  checkNullAndThrowError(actionId, "Missing required parameter - actionId.");

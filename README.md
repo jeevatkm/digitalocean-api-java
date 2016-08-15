@@ -15,22 +15,22 @@ For handy use, DigitalOcean API Client library project dependency definition pro
 <dependency>
     <groupId>com.myjeeva.digitalocean</groupId>
     <artifactId>digitalocean-api-client</artifactId>
-    <version>2.6</version>
+    <version>2.7</version>
 </dependency>
 ```
 **Gradle/Grails dependency**
 ```shell
-compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.6'
+compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.7'
 ```
 **Groovy Grape**
 ```groovy
 @Grapes(
-@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.6')
+@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.7')
 )
 ```
 **Scala SBT**
 ```shell
-libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.6"
+libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.7"
 ```
 
 **Note:** For Android projects, kindly include the `httpclient-android` library explicitly in your project dependencies.
@@ -134,6 +134,28 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 * If you need to paste code, or include a stack trace use Markdown ``` escapes before and after your text.
 
 # Supported API's and Revision Logs
+* **Released in v2.7**
+  * Add new endpoint support /v2/volumes/* [#54](https://github.com/jeevatkm/digitalocean-api-java/issues/54), PR [#55](https://github.com/jeevatkm/digitalocean-api-java/issues/55) (@strokine)
+      * Volumes
+        <pre>
+        Volumes getAvailableVolumes(String regionSlug)
+        Volume createVolume(Volume volume)
+        Volume getVolumeInfo(String volumeId)
+        Volumes getVolumeInfo(String volumeName, String regionSlug)
+        Delete deleteVolume(String volumeId)
+        Delete deleteVolume(String volumeName, String regionSlug)
+        </pre>
+      * Volumes Actions
+        <pre>
+        Action attachVolume(Integer dropletId, String volumeId, String regionSlug)
+        Action attachVolumeByName(Integer dropletId, String volumeName, String regionSlug)
+        Action detachVolume(Integer dropletId, String volumeId, String regionSlug)
+        Action detachVolumeByName(Integer dropletId, String volumeName, String regionSlug)
+        Action resizeVolume(String volumeId, String regionSlug, Double sizeGigabytes)
+        Actions getAvailableVolumeActions(String volumeId)
+        Action getVolumeAction(String volumeId, Integer actionId)        
+        </pre>
+  * Gson library updated to v2.7
 * **Released in v2.6**
   * Fix for delete droplet error [#52](https://github.com/jeevatkm/digitalocean-api-java/issues/52)
 * **Released in v2.5**
@@ -282,7 +304,7 @@ DigitalOcean API Client - [MIT License][6].
 
 
 [1]: https://developers.digitalocean.com
-[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.6/
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.7/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/com/myjeeva/digitalocean/digitalocean-api-client/
 [5]: http://myjeeva.com
@@ -296,4 +318,4 @@ DigitalOcean API Client - [MIT License][6].
 [13]: https://raw.githubusercontent.com/darcyliu/google-styleguide/master/eclipse-java-google-style.xml
 [14]: https://developers.digitalocean.com/documentation/changelog/api-v2/add-status-to-account/
 [15]: https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-snaphots/
-[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.6/digitalocean-api-client-2.6.jar
+[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.7/digitalocean-api-client-2.7.jar
