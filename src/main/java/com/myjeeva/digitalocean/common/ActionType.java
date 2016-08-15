@@ -31,6 +31,9 @@ import com.google.gson.annotations.SerializedName;
  * @since v2.0
  */
 public enum ActionType {
+  
+  @SerializedName("create")
+  CREATE("create"),
 
   @SerializedName("reboot")
   REBOOT("reboot"),
@@ -107,10 +110,10 @@ public enum ActionType {
   @SerializedName("reserve_ip")
   RESERVE_FLOATING_IP("reserve_ip"),
   
-  @SerializedName("attach")
+  @SerializedName(value = "attach", alternate = {"attach_volume"}) 
   ATTACH("attach"),
   
-  @SerializedName("detach")
+  @SerializedName(value = "detach", alternate = {"detach_volume"})
   DETACH("detach");
   
   private String value;

@@ -1037,7 +1037,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 	  volume.setName("api-client-test-host-volume");
 	  volume.setDescription("Test Volume Description");
 	  volume.setRegion(new Region("nyc1"));
-	  volume.setSizeGigabytes(1D);
+	  volume.setSize(1D);
 	  
 	  Volume v = apiClient.createVolume(volume);
 

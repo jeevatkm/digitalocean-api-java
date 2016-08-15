@@ -35,6 +35,9 @@ public enum ResourceType {
   @SerializedName("droplet")
   DROPLET("droplet"),
   
+  @SerializedName("volume")
+  VOLUME("volume"),
+  
   @SerializedName("image")
   IMAGE("image"),
   

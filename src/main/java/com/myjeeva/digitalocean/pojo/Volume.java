@@ -1,86 +1,152 @@
+/**
+ * Copyright (c) Jeevanandam M. (https://github.com/jeevatkm)
+ * 
+ * digitalocean-api-client source code and usage is governed by a MIT style license that can be
+ * found in the LICENSE file
+ */
+
 package com.myjeeva.digitalocean.pojo;
 
 import java.util.Date;
 import java.util.Set;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Represents Block Storage attributes of DigitalOcean.
+ * 
+ * <p>
+ * Block Storage volumes provide expanded storage capacity for your Droplets.
+ * </p>
+ * 
+ * @author Eugene Strokin (https://github.com/strokine)
+ * 
+ * @since v2.7
+ */
 public class Volume extends RateLimitBase {
 
-	private static final long serialVersionUID = 3274091633535612517L;
+  private static final long serialVersionUID = 3274091633535612517L;
 
-	private String id;
-	
-	private Region region;
-	
-	@SerializedName("droplet_ids")
-	private Set<Integer> dropletIds;
-	
-	private String name;
-	
-	private String description;
-	
-	@SerializedName("size_gigabytes")
-	private Double sizeGigabytes;
-	
-	@SerializedName("created_at")
-	private Date createdDate;
-	
+  private String id;
 
-	public String getId() {
-		return id;
-	}
+  private Region region;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+  @SerializedName("droplet_ids")
+  private Set<Integer> dropletIds;
 
-	public Region getRegion() {
-		return region;
-	}
+  private String name;
 
-	public void setRegion(Region region) {
-		this.region = region;
-	}
+  private String description;
 
-	public Set<Integer> getDropletIds() {
-		return dropletIds;
-	}
+  @SerializedName("size_gigabytes")
+  private Double size;
 
-	public void setDropletIds(Set<Integer> dropletIds) {
-		this.dropletIds = dropletIds;
-	}
+  @SerializedName("created_at")
+  private Date createdDate;
 
-	public String getName() {
-		return name;
-	}
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  /**
+   * @return the id
+   */
+  public String getId() {
+    return id;
+  }
 
-	public String getDescription() {
-		return description;
-	}
+  /**
+   * @param id the id to set
+   */
+  public void setId(String id) {
+    this.id = id;
+  }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+  /**
+   * @return the region
+   */
+  public Region getRegion() {
+    return region;
+  }
 
-	public Double getSizeGigabytes() {
-		return sizeGigabytes;
-	}
+  /**
+   * @param region the region to set
+   */
+  public void setRegion(Region region) {
+    this.region = region;
+  }
 
-	public void setSizeGigabytes(Double sizeGigabytes) {
-		this.sizeGigabytes = sizeGigabytes;
-	}
+  /**
+   * @return the dropletIds
+   */
+  public Set<Integer> getDropletIds() {
+    return dropletIds;
+  }
 
-	public Date getCreatedDate() {
-		return createdDate;
-	}
+  /**
+   * @param dropletIds the dropletIds to set
+   */
+  public void setDropletIds(Set<Integer> dropletIds) {
+    this.dropletIds = dropletIds;
+  }
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
+  /**
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * @param name the name to set
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  /**
+   * @return the description
+   */
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * @param description the description to set
+   */
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  /**
+   * @return the size in Gigabytes
+   */
+  public Double getSize() {
+    return size;
+  }
+
+  /**
+   * @param size the size to set
+   */
+  public void setSize(Double size) {
+    this.size = size;
+  }
+
+  /**
+   * @return the createdDate
+   */
+  public Date getCreatedDate() {
+    return createdDate;
+  }
+
+  /**
+   * @param createdDate the createdDate to set
+   */
+  public void setCreatedDate(Date createdDate) {
+    this.createdDate = createdDate;
+  }
 
 }
