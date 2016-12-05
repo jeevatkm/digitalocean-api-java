@@ -1477,5 +1477,35 @@ public interface DigitalOcean {
    */
   Action getVolumeAction(String volumeId, Integer actionId)
       throws DigitalOceanException, RequestUnsuccessfulException;
+  
+  // ===========================================
+  // Snapshot manipulation methods
+  // ===========================================
+  /**
+   * Method return all of the snapshots available on your account
+   * 
+   * @param pageNo for pagination
+   * @param perPage no. of items per page
+   * @return {@link Snapshots}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   */
+  Snapshots getAllSnapshots(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method deletes snapshot by identifier
+   * 
+   * @param dropletId for snapshot
+   * @return {@link Delete}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   */
+  Delete deleteSnapshot(Integer dropletId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
 }

@@ -84,6 +84,8 @@ public enum ApiAction {
   DISABLE_DROPLET_BACKUPS("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   ENABLE_DROPLET_PRIVATE_NETWORKING("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   SNAPSHOT_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
+  GET_ALL_SNAPSHOTS("/snapshots", "snapshots", RequestMethod.GET, Snapshots.class),
+  DELETE_SNAPSHOTS("/snapshots/%s", "response", RequestMethod.DELETE, Delete.class),
   
 
   // Account
