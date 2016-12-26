@@ -246,7 +246,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public Kernels getAvailableKernels(Integer dropletId, Integer pageNo, Integer perPage)
+  public Kernels getDropletKernels(Integer dropletId, Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException {
     validateDropletIdAndPageNo(dropletId, pageNo);
 
@@ -256,7 +256,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public Snapshots getAvailableSnapshots(Integer dropletId, Integer pageNo, Integer perPage)
+  public Snapshots getDropletSnapshots(Integer dropletId, Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException {
     validateDropletIdAndPageNo(dropletId, pageNo);
 
@@ -266,12 +266,12 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public Backups getAvailableBackups(Integer dropletId, Integer pageNo)
+  public Backups getDropletBackups(Integer dropletId, Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException {
     validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
-    return (Backups) perform(new ApiRequest(ApiAction.GET_DROPLET_BACKUPS, params, pageNo, null))
+    return (Backups) perform(new ApiRequest(ApiAction.GET_DROPLET_BACKUPS, params, pageNo, perPage))
         .getData();
   }
 

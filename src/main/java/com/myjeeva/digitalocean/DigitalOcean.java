@@ -144,7 +144,7 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    */
-  Kernels getAvailableKernels(Integer dropletId, Integer pageNo, Integer perPage)
+  Kernels getDropletKernels(Integer dropletId, Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
@@ -160,7 +160,7 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    */
-  Snapshots getAvailableSnapshots(Integer dropletId, Integer pageNo, Integer perPage)
+  Snapshots getDropletSnapshots(Integer dropletId, Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
@@ -175,7 +175,7 @@ public interface DigitalOcean {
    * 
    * @since v2.0
    */
-  Backups getAvailableBackups(Integer dropletId, Integer pageNo)
+  Backups getDropletBackups(Integer dropletId, Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
@@ -1286,7 +1286,7 @@ public interface DigitalOcean {
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   // ===========================================
-  // Tags manipulation methods
+  // Volumes manipulation methods
   // ===========================================
 
   /**

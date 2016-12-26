@@ -120,9 +120,9 @@ public class DigitalOceanIntegrationTest extends TestCase {
   }
 
   @Test
-  public void testGetAvailableKernels() throws DigitalOceanException, RequestUnsuccessfulException {
+  public void testGetDropletKernels() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    Kernels kernels = apiClient.getAvailableKernels(dropletIdForInfo, 1, 20);
+    Kernels kernels = apiClient.getDropletKernels(dropletIdForInfo, 1, 20);
 
     assertNotNull(kernels);
     assertTrue((kernels.getKernels().size() > 0));
@@ -134,10 +134,10 @@ public class DigitalOceanIntegrationTest extends TestCase {
   }
 
   @Test
-  public void testGetAvailableSnapshots() throws DigitalOceanException,
+  public void testGetDropletSnapshots() throws DigitalOceanException,
       RequestUnsuccessfulException {
 
-    Snapshots snapshots = apiClient.getAvailableSnapshots(dropletIdForInfo, 1, 20);
+    Snapshots snapshots = apiClient.getDropletSnapshots(dropletIdForInfo, 1, 20);
 
     assertNotNull(snapshots);
     assertTrue((snapshots.getSnapshots().size() > 0));
@@ -148,9 +148,9 @@ public class DigitalOceanIntegrationTest extends TestCase {
   }
 
   @Test
-  public void testGetAvailableBackups() throws DigitalOceanException, RequestUnsuccessfulException {
+  public void testGetDropletBackups() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    Backups backups = apiClient.getAvailableBackups(dropletIdForInfo, 1);
+    Backups backups = apiClient.getDropletBackups(dropletIdForInfo, 1, 10);
 
     assertNotNull(backups);
     assertTrue((backups.getBackups().size() > 0));
