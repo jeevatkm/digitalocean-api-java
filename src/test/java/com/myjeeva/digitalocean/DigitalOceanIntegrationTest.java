@@ -1149,6 +1149,31 @@ public class DigitalOceanIntegrationTest extends TestCase {
   }
 
   @Test
+  public void testGetVolumeSnapshots() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Snapshots snapshots =
+        apiClient.getVolumeSnapshots("82a48a18-873f-11e6-96bf-000f53315a41", 1, 10);
+
+    assertNotNull(snapshots);
+    assertTrue((snapshots.getSnapshots().size() > 0));
+
+    for (Snapshot s : snapshots.getSnapshots()) {
+      LOG.info(s.toString());
+    }
+  }
+
+  @Test
+  public void testTakeVolumeSnapshot() throws DigitalOceanException, RequestUnsuccessfulException {
+    Snapshot snapshot = apiClient.takeVolumeSnapshot("fbe805e8-866b-11e6-96bf-000f53315a41",
+        "api-test-volume-snapshot");
+
+    assertNotNull(snapshot);
+
+    LOG.info(snapshot.toString());
+  }
+
+  @Test
   public void testGetAvailableSnapshots() throws DigitalOceanException,
       RequestUnsuccessfulException {
 

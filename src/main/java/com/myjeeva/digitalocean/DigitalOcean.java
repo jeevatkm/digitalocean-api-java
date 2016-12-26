@@ -1479,6 +1479,37 @@ public interface DigitalOcean {
   Action getVolumeAction(String volumeId, Integer actionId)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
+  /**
+   * Method return all of the snapshots for given volume Id
+   * 
+   * @param volumeId
+   * @param pageNo for pagination
+   * @param perPage no. of items per page
+   * @return {@link Snapshots}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.8
+   */
+  Snapshots getVolumeSnapshots(String volumeId, Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method take snapshot of given volume Id
+   * 
+   * @param volumeId
+   * @param snapshotName
+   * @return {@link Snapshot}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.8
+   */
+  Snapshot takeVolumeSnapshot(String volumeId, String snapshotName)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
   // ===========================================
   // Snapshots manipulation methods
   // ===========================================

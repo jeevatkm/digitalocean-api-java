@@ -349,7 +349,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (Neighbors) perform(new ApiRequest(ApiAction.ALL_DROPLET_NEIGHBORS, pageNo)).getData();
   }
 
-
   // Droplet action methods
 
   @Override
@@ -550,7 +549,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (Account) perform(new ApiRequest(ApiAction.GET_ACCOUNT_INFO)).getData();
   }
 
-
   // ==============================================
   // Actions manipulation/access methods
   // ==============================================
@@ -614,28 +612,27 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (Action) perform(new ApiRequest(ApiAction.GET_FLOATING_IP_ACTION_INFO, params))
         .getData();
   }
-  
+
   @Override
   public Actions getAvailableVolumeActions(String volumeId)
       throws DigitalOceanException, RequestUnsuccessfulException {
-	  checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
+    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
 
     Object[] params = {volumeId};
     return (Actions) perform(new ApiRequest(ApiAction.GET_VOLUME_ACTIONS, params))
         .getData();
   }
-  
+
   @Override
   public Action getVolumeAction(String volumeId, Integer actionId)
       throws DigitalOceanException, RequestUnsuccessfulException {
-	  checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
-	  checkNullAndThrowError(actionId, "Missing required parameter - actionId.");
+    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
+    checkNullAndThrowError(actionId, "Missing required parameter - actionId.");
 
     Object[] params = {volumeId, actionId};
     return (Action) perform(new ApiRequest(ApiAction.GET_VOLUME_ACTION, params))
         .getData();
   }
-
 
   // =======================================
   // Images access/manipulation methods
@@ -736,8 +733,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
             .getData();
   }
 
-
-
   // =======================================
   // Regions methods
   // =======================================
@@ -749,7 +744,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (Regions) perform(new ApiRequest(ApiAction.AVAILABLE_REGIONS, pageNo)).getData();
   }
 
-
   // =======================================
   // Sizes methods
   // =======================================
@@ -760,7 +754,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validatePageNo(pageNo);
     return (Sizes) perform(new ApiRequest(ApiAction.AVAILABLE_SIZES, pageNo)).getData();
   }
-
 
   // =======================================
   // Domain methods
@@ -934,7 +927,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_KEY, params)).getData();
   }
 
-
   // =======================================
   // Floating IPs methods
   // =======================================
@@ -1053,7 +1045,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_TAG, params)).getData();
   }
 
-
   @Override
   public Response tagResources(String name, List<Resource> resources)
       throws DigitalOceanException, RequestUnsuccessfulException {
@@ -1068,7 +1059,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
         new ApiRequest(ApiAction.TAG_RESOURCE, new Resources(resources), params)).getData();
   }
 
-
   @Override
   public Response untagResources(String name, List<Resource> resources)
       throws DigitalOceanException, RequestUnsuccessfulException {
@@ -1082,8 +1072,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (Response) perform(
         new ApiRequest(ApiAction.UNTAG_RESOURCE, new Resources(resources), params)).getData();
   }
-  
-  //=======================================
+
+  // =======================================
   // Volume access/manipulation methods
   // =======================================
 
@@ -1215,7 +1205,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       RequestUnsuccessfulException {
     checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
     checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
-    
+
     if (null == sizeGigabytes) {
       throw new IllegalArgumentException("Missing required parameter - sizeGigabytes.");
     }
@@ -1225,11 +1215,36 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
         new ApiRequest(ApiAction.ACTIONS_VOLUME,
             new VolumeAction(ActionType.RESIZE, regionSlug, sizeGigabytes), params)).getData();
   }
-  
+
+  @Override
+  public Snapshots getVolumeSnapshots(String volumeId, Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    validatePageNo(pageNo);
+    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
+
+    Object[] params = {volumeId};
+    return (Snapshots) perform(
+        new ApiRequest(ApiAction.GET_VOLUME_SNAPSHOTS, params, pageNo, perPage))
+            .getData();
+  }
+
+  @Override
+  public Snapshot takeVolumeSnapshot(String volumeId, String snapshotName)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
+    checkEmptyAndThrowError(snapshotName, "Missing required parameter - snapshotName.");
+
+    Map<String, String> data = new HashMap<String, String>();
+    data.put("name", snapshotName);
+
+    Object[] params = {volumeId};
+    return (Snapshot) perform(new ApiRequest(ApiAction.SNAPSHOT_VOLUME, data, params)).getData();
+  }
+
   // ===========================================
   // Snapshots manipulation methods
   // ===========================================
-  
+
   @Override
   public Snapshots getAvailableSnapshots(Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException {
@@ -1243,10 +1258,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Snapshots getAllDropletSnapshots(Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
-    
+
     Map<String, String> qp = new HashMap<String, String>();
     qp.put("resource_type", "droplet");
-    
+
     return (Snapshots) perform(new ApiRequest(ApiAction.ALL_DROPLET_SNAPSHOTS, pageNo, qp, perPage))
         .getData();
   }
@@ -1255,10 +1270,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Snapshots getAllVolumeSnapshots(Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
-    
+
     Map<String, String> qp = new HashMap<String, String>();
     qp.put("resource_type", "volume");
-    
+
     return (Snapshots) perform(new ApiRequest(ApiAction.ALL_VOLUME_SNAPSHOTS, pageNo, qp, perPage))
         .getData();
   }
@@ -1267,11 +1282,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Snapshot getSnaphotInfo(String snapshotId)
       throws DigitalOceanException, RequestUnsuccessfulException {
     validateSnapshotId(snapshotId);
-    
+
     Object[] params = {snapshotId};
     return (Snapshot) perform(new ApiRequest(ApiAction.GET_SNAPSHOT_INFO, params)).getData();
   }
-
 
   @Override
   public Delete deleteSnapshot(String snapshotId)
@@ -1282,7 +1296,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_SNAPSHOT, params)).getData();
   }
 
-	
   //
   // Private methods
   //
@@ -1570,7 +1583,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   private void validateSnapshotId(String snapshotId) {
     checkEmptyAndThrowError(snapshotId, "Missing required parameter - snapshotId.");
   }
-  
+
   private void validateDropletId(Integer dropletId) {
     checkNullAndThrowError(dropletId, "Missing required parameter - dropletId.");
   }

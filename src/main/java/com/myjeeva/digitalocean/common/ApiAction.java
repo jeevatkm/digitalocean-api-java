@@ -173,6 +173,8 @@ public enum ApiAction {
   DELETE_VOLUME_BY_NAME("/volumes", "response", RequestMethod.DELETE, Delete.class),
   ACTIONS_VOLUME("/volumes/%s/actions", "action", RequestMethod.POST, Action.class),
   ACTIONS_VOLUME_BY_NAME("/volumes/actions", "action", RequestMethod.POST, Action.class),
+  GET_VOLUME_SNAPSHOTS("/volumes/%s/snapshots", "snapshots", RequestMethod.GET, Snapshots.class),
+  SNAPSHOT_VOLUME("/volumes/%s/snapshots", "snapshot", RequestMethod.POST, Snapshot.class),
 
 
   // Snapshots
