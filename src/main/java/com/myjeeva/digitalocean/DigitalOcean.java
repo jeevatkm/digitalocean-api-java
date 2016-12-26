@@ -49,6 +49,7 @@ import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Resource;
 import com.myjeeva.digitalocean.pojo.Response;
 import com.myjeeva.digitalocean.pojo.Sizes;
+import com.myjeeva.digitalocean.pojo.Snapshot;
 import com.myjeeva.digitalocean.pojo.Snapshots;
 import com.myjeeva.digitalocean.pojo.Tag;
 import com.myjeeva.digitalocean.pojo.Tags;
@@ -1477,10 +1478,11 @@ public interface DigitalOcean {
    */
   Action getVolumeAction(String volumeId, Integer actionId)
       throws DigitalOceanException, RequestUnsuccessfulException;
-  
+
   // ===========================================
-  // Snapshot manipulation methods
+  // Snapshots manipulation methods
   // ===========================================
+
   /**
    * Method return all of the snapshots available on your account
    * 
@@ -1491,21 +1493,67 @@ public interface DigitalOcean {
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    * 
+   * @since v2.8
    */
-  Snapshots getAllSnapshots(Integer pageNo, Integer perPage)
+  Snapshots getAvailableSnapshots(Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
-   * Method deletes snapshot by identifier
+   * Method return all of the droplet snapshots available on your account
    * 
-   * @param dropletId for snapshot
+   * @param pageNo for pagination
+   * @param perPage no. of items per page
+   * @return {@link Snapshots}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.8
+   */
+  Snapshots getAllDropletSnapshots(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method return all of the volume snapshots available on your account
+   * 
+   * @param pageNo for pagination
+   * @param perPage no. of items per page
+   * @return {@link Snapshots}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.8
+   */
+  Snapshots getAllVolumeSnapshots(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method returns specific snapshot info by id
+   * 
+   * @param snapshotId
+   * @return {@link Snapshot}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.8
+   */
+  Snapshot getSnaphotInfo(String snapshotId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method deletes snapshot by id
+   * 
+   * @param snapshotId for snapshot
    * @return {@link Delete}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    * 
+   * @since v2.8
    */
-  Delete deleteSnapshot(Integer dropletId)
+  Delete deleteSnapshot(String snapshotId)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
 }

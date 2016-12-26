@@ -43,6 +43,7 @@ import com.myjeeva.digitalocean.pojo.Neighbors;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Response;
 import com.myjeeva.digitalocean.pojo.Sizes;
+import com.myjeeva.digitalocean.pojo.Snapshot;
 import com.myjeeva.digitalocean.pojo.Snapshots;
 import com.myjeeva.digitalocean.pojo.Tag;
 import com.myjeeva.digitalocean.pojo.Tags;
@@ -60,7 +61,7 @@ public enum ApiAction {
 
   // Droplet
   AVAILABLE_DROPLETS("/droplets", "droplets", RequestMethod.GET, Droplets.class),
-  AVAILABLE_DROPLETS_KERNELS("/droplets/%s/kernels", "kernels", RequestMethod.GET, Kernels.class),
+  GET_DROPLETS_KERNELS("/droplets/%s/kernels", "kernels", RequestMethod.GET, Kernels.class),
   GET_DROPLET_SNAPSHOTS("/droplets/%s/snapshots", "snapshots", RequestMethod.GET, Snapshots.class),
   GET_DROPLET_BACKUPS("/droplets/%s/backups", "backups", RequestMethod.GET, Backups.class),
   GET_DROPLET_NEIGHBORS("/droplets/%s/neighbors", "droplets", RequestMethod.GET, Droplets.class),
@@ -84,9 +85,6 @@ public enum ApiAction {
   DISABLE_DROPLET_BACKUPS("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   ENABLE_DROPLET_PRIVATE_NETWORKING("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   SNAPSHOT_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
-  GET_ALL_SNAPSHOTS("/snapshots", "snapshots", RequestMethod.GET, Snapshots.class),
-  DELETE_SNAPSHOTS("/snapshots/%s", "response", RequestMethod.DELETE, Delete.class),
-  
 
   // Account
   GET_ACCOUNT_INFO("/account", "account", RequestMethod.GET, Account.class),
@@ -164,7 +162,8 @@ public enum ApiAction {
   DELETE_TAG("/tags/%s", "response", RequestMethod.DELETE, Delete.class),
   TAG_RESOURCE("/tags/%s/resources", "response", RequestMethod.POST, Response.class),
   UNTAG_RESOURCE("/tags/%s/resources", "response", RequestMethod.DELETE, Response.class),
-   
+
+  
   // Volumes
   AVAILABLE_VOLUMES("/volumes", "volumes", RequestMethod.GET, Volumes.class),
   CREATE_VOLUME("/volumes", "volume", RequestMethod.POST, Volume.class),
@@ -173,7 +172,16 @@ public enum ApiAction {
   DELETE_VOLUME("/volumes/%s", "response", RequestMethod.DELETE, Delete.class),
   DELETE_VOLUME_BY_NAME("/volumes", "response", RequestMethod.DELETE, Delete.class),
   ACTIONS_VOLUME("/volumes/%s/actions", "action", RequestMethod.POST, Action.class),
-  ACTIONS_VOLUME_BY_NAME("/volumes/actions", "action", RequestMethod.POST, Action.class);
+  ACTIONS_VOLUME_BY_NAME("/volumes/actions", "action", RequestMethod.POST, Action.class),
+
+
+  // Snapshots
+  AVAILABLE_SNAPSHOTS("/snapshots", "snapshots", RequestMethod.GET, Snapshots.class),
+  ALL_DROPLET_SNAPSHOTS("/snapshots", "snapshots", RequestMethod.GET, Snapshots.class),
+  ALL_VOLUME_SNAPSHOTS("/snapshots", "snapshots", RequestMethod.GET, Snapshots.class),
+  GET_SNAPSHOT_INFO("/snapshots/%s", "snapshot", RequestMethod.GET, Snapshot.class),
+  DELETE_SNAPSHOT("/snapshots/%s", "response", RequestMethod.DELETE, Delete.class);
+  
 	
   private String path;
 
