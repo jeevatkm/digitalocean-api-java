@@ -1224,6 +1224,28 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
         new ApiRequest(ApiAction.ACTIONS_VOLUME,
             new VolumeAction(ActionType.RESIZE, regionSlug, sizeGigabytes), params)).getData();
   }
+  
+  // ===========================================
+  // Snapshot manipulation methods
+  // ===========================================
+  @Override
+  public Snapshots getAllSnapshots(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    validatePageNo(pageNo);
+
+    return (Snapshots) perform(new ApiRequest(ApiAction.GET_ALL_SNAPSHOTS, pageNo, perPage))
+        .getData();
+  }
+
+  @Override
+  public Delete deleteSnapshot(Integer snapshotId)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    validateSnapshotId(snapshotId);
+
+    Object[] params = {snapshotId};
+    return (Delete) perform(new ApiRequest(ApiAction.DELETE_SNAPSHOTS, params)).getData();
+  }
+
 	
   //
   // Private methods
@@ -1509,6 +1531,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validatePageNo(pageNo);
   }
 
+  private void validateSnapshotId(Integer snapshotId) {
+    checkNullAndThrowError(snapshotId, "Missing required parameter - snapshotId.");
+  }
+  
   private void validateDropletId(Integer dropletId) {
     checkNullAndThrowError(dropletId, "Missing required parameter - dropletId.");
   }

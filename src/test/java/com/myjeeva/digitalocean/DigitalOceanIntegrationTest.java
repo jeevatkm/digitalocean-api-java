@@ -1148,4 +1148,18 @@ public class DigitalOceanIntegrationTest extends TestCase {
 	  assertNotNull(result);
 	  LOG.info("Delete Request Object: " + result);
   }
+  
+  @Test
+  public void testGetAllSnapshots() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Snapshots snapshots = apiClient.getAllSnapshots(1, 100);
+
+    assertNotNull(snapshots);
+    assertTrue((snapshots.getSnapshots().size() > 0));
+
+    for (Snapshot s : snapshots.getSnapshots()) {
+      LOG.info(s.toString());
+    }
+  }
 }
