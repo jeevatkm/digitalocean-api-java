@@ -90,9 +90,27 @@ public class DropletSerializer implements JsonSerializer<Droplet> {
       jsonObject.add("ssh_keys", sshKeys);
     }
 
-    // #19 - https://github.com/jeevatkm/digitalocean-api-java/issues/19
+    // #19
     if (null != droplet.getUserData()) {
       jsonObject.addProperty("user_data", droplet.getUserData());
+    }
+
+    // #56
+    if (null != droplet.getVolumeIds() && !droplet.getVolumeIds().isEmpty()) {
+      JsonArray volumes = new JsonArray();
+      for (String volume : droplet.getVolumeIds()) {
+        volumes.add(context.serialize(volume));
+      }
+      jsonObject.add("volumes", volumes);
+    }
+
+    // #56
+    if (null != droplet.getTags() && !droplet.getTags().isEmpty()) {
+      JsonArray tags = new JsonArray();
+      for (String tag : droplet.getTags()) {
+        tags.add(context.serialize(tag));
+      }
+      jsonObject.add("tags", tags);
     }
 
     return jsonObject;

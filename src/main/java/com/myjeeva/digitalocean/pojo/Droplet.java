@@ -90,6 +90,11 @@ public class Droplet extends RateLimitBase {
 
   @SerializedName("user_data")
   private String userData;
+  
+  @SerializedName("volume_ids")
+  private List<String> volumeIds;
+  
+  private List<String> tags;
 
   @Override
   public String toString() {
@@ -430,6 +435,34 @@ public class Droplet extends RateLimitBase {
    */
   public void setUserData(String userData) {
     this.userData = userData;
+  }
+
+  /**
+   * @return the volumeIds
+   */
+  public List<String> getVolumeIds() {
+    return volumeIds;
+  }
+
+  /**
+   * @param volumeIds the volumeIds to set
+   */
+  public void setVolumeIds(List<String> volumeIds) {
+    this.volumeIds = volumeIds;
+  }
+
+  /**
+   * @return the tags
+   */
+  public List<String> getTags() {
+    return tags;
+  }
+
+  /**
+   * @param tags the tags to set
+   */
+  public void setTags(List<String> tags) {
+    this.tags = tags;
   }
 
 }
