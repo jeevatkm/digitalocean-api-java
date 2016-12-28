@@ -1,5 +1,7 @@
 # DigitalOcean API Client  [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+***v2.8 released and tagged on Dec 27, 2016***
+
 Simple & Lightweight API client library for Enterprise Application or Utilities Integration around [DigitalOcean RESTful APIs][1]. You can use this library with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.
 
 Give your support by clicking Hearts on [DigitalOcean Developers Community](https://www.digitalocean.com/community/projects/api-client-in-java) :)
@@ -15,22 +17,22 @@ For handy use, DigitalOcean API Client library project dependency definition pro
 <dependency>
     <groupId>com.myjeeva.digitalocean</groupId>
     <artifactId>digitalocean-api-client</artifactId>
-    <version>2.7</version>
+    <version>2.8</version>
 </dependency>
 ```
 **Gradle/Grails dependency**
 ```shell
-compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.7'
+compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.8'
 ```
 **Groovy Grape**
 ```groovy
 @Grapes(
-@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.7')
+@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.8')
 )
 ```
 **Scala SBT**
 ```shell
-libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.7"
+libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.8"
 ```
 
 **Note:** For Android projects, kindly include the `httpclient-android` library explicitly in your project dependencies.
@@ -134,8 +136,25 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 * If you need to paste code, or include a stack trace use Markdown ``` escapes before and after your text.
 
 # Supported API's and Revision Logs
+* **Released in v2.8**
+  * Added new endpoint support `/v2/snapshots/*` [#58](https://github.com/jeevatkm/digitalocean-api-java/issues/58), PR [#57](https://github.com/jeevatkm/digitalocean-api-java/pull/57) (@samuelfac)
+      * Snapshots
+        <pre>
+        Snapshots getAvailableSnapshots(Integer pageNo, Integer perPage)
+        Snapshots getAllDropletSnapshots(Integer pageNo, Integer perPage)
+        Snapshots getAllVolumeSnapshots(Integer pageNo, Integer perPage)
+        Snapshot getSnaphotInfo(String snapshotId)
+        Delete deleteSnapshot(String snapshotId)
+        </pre>
+      * Due to new endpoint `/v2/snapshots/*` introduced by DO, I had to refactor following methods to make it clean and meaningful
+        <pre>
+        getAvailableSnapshots(Integer dropletId, Integer pageNo, Integer perPage) ==> getDropletSnapshots(Integer dropletId, Integer pageNo, Integer perPage)
+        getAvailableKernels(Integer dropletId, Integer pageNo, Integer perPage) ==> getDropletKernels(Integer dropletId, Integer pageNo, Integer perPage)
+        getAvailableBackups(Integer dropletId, Integer pageNo) ==> getDropletBackups(Integer dropletId, Integer pageNo, Integer perPage)
+        </pre>
+  * Added `volumes` and `tags` attribute for create droplet [#56](https://github.com/jeevatkm/digitalocean-api-java/issues/56)
 * **Released in v2.7**
-  * Add new endpoint support /v2/volumes/* [#54](https://github.com/jeevatkm/digitalocean-api-java/issues/54), PR [#55](https://github.com/jeevatkm/digitalocean-api-java/issues/55) (@strokine)
+  * Added new endpoint support `/v2/volumes/*` [#54](https://github.com/jeevatkm/digitalocean-api-java/issues/54), PR [#55](https://github.com/jeevatkm/digitalocean-api-java/pull/55) (@strokine)
       * Volumes
         <pre>
         Volumes getAvailableVolumes(String regionSlug)
@@ -159,7 +178,7 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 * **Released in v2.6**
   * Fix for delete droplet error [#52](https://github.com/jeevatkm/digitalocean-api-java/issues/52)
 * **Released in v2.5**
-  * Add new endpoint support /v2/tags/* [#48](https://github.com/jeevatkm/digitalocean-api-java/issues/48)
+  * Added new endpoint support `/v2/tags/*` [#48](https://github.com/jeevatkm/digitalocean-api-java/issues/48)
       * Tags
         <pre>
         Tags getAvailableTags(Integer pageNo, Integer perPage)
@@ -169,7 +188,7 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
         Response tagResources(String name, List<Resource> resources)
         Response untagResources(String name, List<Resource> resources)
         </pre>
-  * Add new Attribute to the Image [#49](https://github.com/jeevatkm/digitalocean-api-java/issues/49)
+  * Added new Attribute to the Image [#49](https://github.com/jeevatkm/digitalocean-api-java/issues/49)
   * Fix for incorrect time zone returned from getActionInfo [#47](https://github.com/jeevatkm/digitalocean-api-java/issues/47)
 * **Released in v2.4**
   * `getDomainRecords` supports pagination params via PR [#46](https://github.com/jeevatkm/digitalocean-api-java/issues/46)
@@ -283,7 +302,7 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 	Delete deleteKey(Integer sshKeyId)
 	Delete deleteKey(String fingerprint)
 	</pre>
-	
+
 
 # Author
 
@@ -304,7 +323,7 @@ DigitalOcean API Client - [MIT License][6].
 
 
 [1]: https://developers.digitalocean.com
-[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.7/
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.8/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/com/myjeeva/digitalocean/digitalocean-api-client/
 [5]: http://myjeeva.com
@@ -318,4 +337,4 @@ DigitalOcean API Client - [MIT License][6].
 [13]: https://raw.githubusercontent.com/darcyliu/google-styleguide/master/eclipse-java-google-style.xml
 [14]: https://developers.digitalocean.com/documentation/changelog/api-v2/add-status-to-account/
 [15]: https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-snaphots/
-[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.7/digitalocean-api-client-2.7.jar
+[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.8/digitalocean-api-client-2.8.jar
