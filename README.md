@@ -1,6 +1,7 @@
-# DigitalOcean API Client  [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+# DigitalOcean API Client  
+[![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java) [![Version](https://img.shields.io/badge/version-2.9-blue.svg)](https://github.com/jeevatkm/digitalocean-api-java/releases/latest) [![License](https://img.shields.io/github/license/jeevatkm/digitalocean-api-java.svg)](LICENSE)
 
-***v2.8 released and tagged on Dec 27, 2016***
+***v2.9 released and tagged on Mar 31, 2017***
 
 Simple & Lightweight API client library for Enterprise Application or Utilities Integration around [DigitalOcean RESTful APIs][1]. You can use this library with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.
 
@@ -17,22 +18,22 @@ For handy use, DigitalOcean API Client library project dependency definition pro
 <dependency>
     <groupId>com.myjeeva.digitalocean</groupId>
     <artifactId>digitalocean-api-client</artifactId>
-    <version>2.8</version>
+    <version>2.9</version>
 </dependency>
 ```
 **Gradle/Grails dependency**
 ```shell
-compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.8'
+compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.9'
 ```
 **Groovy Grape**
 ```groovy
 @Grapes(
-@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.8')
+@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.9')
 )
 ```
 **Scala SBT**
 ```shell
-libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.8"
+libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.9"
 ```
 
 **Note:** For Android projects, kindly include the `httpclient-android` library explicitly in your project dependencies.
@@ -136,6 +137,12 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 * If you need to paste code, or include a stack trace use Markdown ``` escapes before and after your text.
 
 # Supported API's and Revision Logs
+* **Released in v2.9**
+  * Added new API support delete droplet by tag name [#61](https://github.com/jeevatkm/digitalocean-api-java/issues/61)
+    * Droplet
+      <pre>
+      Delete deleteDropletByTagName(String tagName)
+      </pre>
 * **Released in v2.8**
   * Added new endpoint support `/v2/snapshots/*` [#58](https://github.com/jeevatkm/digitalocean-api-java/issues/58), PR [#57](https://github.com/jeevatkm/digitalocean-api-java/pull/57) (@samuelfac)
       * Snapshots
@@ -323,7 +330,7 @@ DigitalOcean API Client - [MIT License][6].
 
 
 [1]: https://developers.digitalocean.com
-[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.8/
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.9/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/com/myjeeva/digitalocean/digitalocean-api-client/
 [5]: http://myjeeva.com
@@ -337,4 +344,4 @@ DigitalOcean API Client - [MIT License][6].
 [13]: https://raw.githubusercontent.com/darcyliu/google-styleguide/master/eclipse-java-google-style.xml
 [14]: https://developers.digitalocean.com/documentation/changelog/api-v2/add-status-to-account/
 [15]: https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-snaphots/
-[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.8/digitalocean-api-client-2.8.jar
+[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.9/digitalocean-api-client-2.9.jar
