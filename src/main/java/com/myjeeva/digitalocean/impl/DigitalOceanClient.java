@@ -332,6 +332,16 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
+  public Delete deleteDropletByTagName(String tagName)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    checkEmptyAndThrowError(tagName, "Missing required parameter - tagName.");
+
+    Map<String, String> queryParams = new HashMap<String, String>();
+    queryParams.put("tag_name", tagName);
+    return (Delete) perform(new ApiRequest(ApiAction.DELETE_DROPLET_BY_TAG_NAME, null, queryParams, null)).getData();
+  }
+
+  @Override
   public Droplets getDropletNeighbors(Integer dropletId, Integer pageNo)
       throws DigitalOceanException, RequestUnsuccessfulException {
     validateDropletIdAndPageNo(dropletId, pageNo);

@@ -69,6 +69,7 @@ public enum ApiAction {
   CREATE_DROPLET("/droplets", "droplet", RequestMethod.POST, Droplet.class),
   CREATE_DROPLETS("/droplets", "droplets", RequestMethod.POST, Droplets.class),
   DELETE_DROPLET("/droplets/%s", "response", RequestMethod.DELETE, Delete.class),
+  DELETE_DROPLET_BY_TAG_NAME("/droplets", "response", RequestMethod.DELETE, Delete.class),
   REBOOT_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   POWER_CYCLE_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),
   SHUTDOWN_DROPLET("/droplets/%s/actions", "action", RequestMethod.POST, Action.class),

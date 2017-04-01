@@ -277,6 +277,20 @@ public interface DigitalOcean {
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
+   * Method destroys one or more of your droplet by given tag name; this is irreversible.
+   * 
+   * @param tagName the associated tag name with droplet
+   * @return {@link Delete}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.9
+   */
+  Delete deleteDropletByTagName(String tagName)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
    * For an individual droplet; Method retrieves a list of droplets that are running on the same
    * physical server (any other droplets that share the same physical hardware).
    * 

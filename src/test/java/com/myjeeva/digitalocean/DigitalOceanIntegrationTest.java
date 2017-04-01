@@ -264,6 +264,16 @@ public class DigitalOceanIntegrationTest extends TestCase {
   }
 
   @Test
+  public void testDeleteDropletByTagName()
+      throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Delete result = apiClient.deleteDropletByTagName("delete-me");
+
+    assertNotNull(result);
+    LOG.info("Delete by tag name Request Object: " + result);
+  }
+
+  @Test
   public void testGetDropletNeighbors() throws DigitalOceanException, RequestUnsuccessfulException {
 
     Droplets droplets = apiClient.getDropletNeighbors(dropletIdForInfo, 1);
