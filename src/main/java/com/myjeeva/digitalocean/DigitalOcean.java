@@ -1243,21 +1243,6 @@ public interface DigitalOcean {
   Tag getTag(String name) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
-   * Method updates the existing Tag on DigitalOcean account.
-   * 
-   * @param currentName existing Tag Name
-   * @param newName new Tag Name
-   * @return {@link Tag}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
-   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
-   * @since v2.5
-   */
-  Tag updateTag(String currentName, String newName)
-      throws DigitalOceanException, RequestUnsuccessfulException;
-
-  /**
    * Method deletes the existing Tag from DigitalOcean account.
    * 
    * @param name Tag Name

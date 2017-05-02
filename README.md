@@ -1,7 +1,7 @@
 # DigitalOcean API Client  
-[![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java) [![Version](https://img.shields.io/badge/version-2.9-blue.svg)](https://github.com/jeevatkm/digitalocean-api-java/releases/latest) [![License](https://img.shields.io/github/license/jeevatkm/digitalocean-api-java.svg)](LICENSE)
+[![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java) [![Version](https://img.shields.io/badge/version-2.10-blue.svg)](https://github.com/jeevatkm/digitalocean-api-java/releases/latest) [![License](https://img.shields.io/github/license/jeevatkm/digitalocean-api-java.svg)](LICENSE)
 
-***v2.9 released and tagged on Mar 31, 2017***
+***v2.10 released and tagged on May 02, 2017***
 
 Simple & Lightweight API client library for Enterprise Application or Utilities Integration around [DigitalOcean RESTful APIs][1]. You can use this library with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.
 
@@ -18,22 +18,22 @@ For handy use, DigitalOcean API Client library project dependency definition pro
 <dependency>
     <groupId>com.myjeeva.digitalocean</groupId>
     <artifactId>digitalocean-api-client</artifactId>
-    <version>2.9</version>
+    <version>2.10</version>
 </dependency>
 ```
 **Gradle/Grails dependency**
 ```shell
-compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.9'
+compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.10'
 ```
 **Groovy Grape**
 ```groovy
 @Grapes(
-@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.9')
+@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.10')
 )
 ```
 **Scala SBT**
 ```shell
-libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.9"
+libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.10"
 ```
 
 **Note:** For Android projects, kindly include the `httpclient-android` library explicitly in your project dependencies.
@@ -330,7 +330,7 @@ DigitalOcean API Client - [MIT License][6].
 
 
 [1]: https://developers.digitalocean.com
-[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.9/
+[2]: http://docs.myjeeva.com/javadoc/digitalocean-api-client/2.10/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/com/myjeeva/digitalocean/digitalocean-api-client/
 [5]: http://myjeeva.com
@@ -344,4 +344,4 @@ DigitalOcean API Client - [MIT License][6].
 [13]: https://raw.githubusercontent.com/darcyliu/google-styleguide/master/eclipse-java-google-style.xml
 [14]: https://developers.digitalocean.com/documentation/changelog/api-v2/add-status-to-account/
 [15]: https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-snaphots/
-[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.9/digitalocean-api-client-2.9.jar
+[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.10/digitalocean-api-client-2.10.jar

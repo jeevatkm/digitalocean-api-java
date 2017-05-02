@@ -986,16 +986,6 @@ public class DigitalOceanIntegrationTest extends TestCase {
   }
 
   @Test
-  public void testUpdateTag() throws DigitalOceanException, RequestUnsuccessfulException {
-    Tag tag = apiClient.updateTag("blog", "nice-blog");
-
-    LOG.info(tag.toString());
-
-    assertNotNull(tag);
-    assertEquals("nice-blog", tag.getName());
-  }
-
-  @Test
   public void testDeleteTag() throws DigitalOceanException, RequestUnsuccessfulException {
     Delete result = apiClient.deleteTag("blr");
 

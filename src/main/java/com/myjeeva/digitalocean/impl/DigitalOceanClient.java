@@ -1037,16 +1037,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public Tag updateTag(String currentName, String newName)
-      throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(currentName, "Missing required parameter - current tag name");
-    checkEmptyAndThrowError(newName, "Missing required parameter - new tag name");
-
-    Object[] params = {currentName};
-    return (Tag) perform(new ApiRequest(ApiAction.UPDATE_TAG, new Tag(newName), params)).getData();
-  }
-
-  @Override
   public Delete deleteTag(String name) throws DigitalOceanException,
       RequestUnsuccessfulException {
     checkEmptyAndThrowError(name, "Missing required parameter - tag name");

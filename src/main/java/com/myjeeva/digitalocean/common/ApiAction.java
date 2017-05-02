@@ -159,7 +159,6 @@ public enum ApiAction {
   AVAILABLE_TAGS("/tags", "tags", RequestMethod.GET, Tags.class),
   CREATE_TAG("/tags", "tag", RequestMethod.POST, Tag.class),
   GET_TAG("/tags/%s", "tag", RequestMethod.GET, Tag.class),
-  UPDATE_TAG("/tags/%s", "tag", RequestMethod.PUT, Tag.class),
   DELETE_TAG("/tags/%s", "response", RequestMethod.DELETE, Delete.class),
   TAG_RESOURCE("/tags/%s/resources", "response", RequestMethod.POST, Response.class),
   UNTAG_RESOURCE("/tags/%s/resources", "response", RequestMethod.DELETE, Response.class),
