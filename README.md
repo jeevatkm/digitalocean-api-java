@@ -137,6 +137,8 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 * If you need to paste code, or include a stack trace use Markdown ``` escapes before and after your text.
 
 # Supported API's and Revision Logs
+* **Released in v2.10**
+  * Removed unsupported API `/v2/tags/$TAG_NAME` refer [DO changelog](https://developers.digitalocean.com/documentation/changelog/api-v2/deprecating-update-tag/)
 * **Released in v2.9**
   * Added new API support delete droplet by tag name [#61](https://github.com/jeevatkm/digitalocean-api-java/issues/61)
     * Droplet
