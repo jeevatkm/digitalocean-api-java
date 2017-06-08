@@ -1,17 +1,17 @@
 /**
  * The MIT License
- * 
+ *
  * Copyright (c) 2013-2016 Jeevanandam M. (myjeeva.com)
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -24,55 +24,42 @@ package com.myjeeva.digitalocean.common;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Enumeration of DigitalOcean Resource Types
- * 
- * @author Jeevanandam M. (jeeva@myjeeva.com)
- * 
- * @since v2.0
+ * Enumeration of sticky session types .
+ *
+ * @author Thomas Lehoux (https://github.com/tlehoux)
+ *
+ * @since v2.11
  */
-public enum ResourceType {
+public enum StickySessionType {
 
-  @SerializedName("droplet")
-  DROPLET("droplet"),
-  
-  @SerializedName("volume")
-  VOLUME("volume"),
-  
-  @SerializedName("image")
-  IMAGE("image"),
-  
-  @SerializedName("backend")
-  BACKEND("backend"),
-  
-  @SerializedName("floating_ip")
-  FLOATING_IP("floating_ip"),
+    @SerializedName("cookies")
+    Cookies("cookies"),
 
-  @SerializedName("load_balancer")
-  LOAD_BALANCER("load_balancer");
+    @SerializedName("none")
+    None("none");
 
+    private String value;
 
-  private String value;
-
-  ResourceType(String value) {
-    this.value = value;
-  }
-
-  @Override
-  public String toString() {
-    return this.value;
-  }
-
-  public static ResourceType fromValue(String value) {
-    if (null == value || "".equals(value)) {
-      throw new IllegalArgumentException("Value cannot be null or empty!");
+    private StickySessionType(String value) {
+        this.value = value;
     }
 
-    for (ResourceType rt : ResourceType.values()) {
-      if (value.equalsIgnoreCase(rt.value)) {
-        return rt;
-      }
+    public static StickySessionType fromValue(String value) {
+        if (null == value || "".equals(value)) {
+            throw new IllegalArgumentException("Value cannot be null or empty!");
+        }
+
+        for (StickySessionType ds : StickySessionType.values()) {
+            if (value.equalsIgnoreCase(ds.value)) {
+                return ds;
+            }
+        }
+
+        throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
     }
 
-    throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
-  }
+    @Override
+    public String toString() {
+        return this.value;
+    }
 }

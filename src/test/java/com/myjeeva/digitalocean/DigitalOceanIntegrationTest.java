@@ -67,6 +67,14 @@ import com.myjeeva.digitalocean.pojo.Tag;
 import com.myjeeva.digitalocean.pojo.Tags;
 import com.myjeeva.digitalocean.pojo.Volume;
 import com.myjeeva.digitalocean.pojo.Volumes;
+import com.myjeeva.digitalocean.common.LoadBalancingAlgorithm;
+import com.myjeeva.digitalocean.common.Protocol;
+import com.myjeeva.digitalocean.common.StickySessionType;
+import com.myjeeva.digitalocean.pojo.LoadBalancer;
+import com.myjeeva.digitalocean.pojo.LoadBalancers;
+import com.myjeeva.digitalocean.pojo.ForwardingRules;
+import com.myjeeva.digitalocean.pojo.HealthCheck;
+import com.myjeeva.digitalocean.pojo.StickySessions;
 
 import junit.framework.TestCase;
 
@@ -98,6 +106,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   private String volumeNameForInfo = "test-volume"; // to be placed before use, should have
                                                     // different ID from volumeIdForInfo and created
                                                     // in nyc1 region
+  private String loadBalancerIdForInfo = "155fa6cd-3e74-406d-90bd-5671488c7157"; // to be placed before use
   private Integer imageId = 3445812; // Debian 7.0 x64 image id
   private String imageSlug = "ubuntu-12-04-x64";
   private String domainName = "";
@@ -1231,4 +1240,135 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(result);
     LOG.info("Delete Request Object: " + result);
   }
+
+  @Test
+  public void testCreateLoadBalancer() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    LoadBalancer loadBalancer = new LoadBalancer();
+    loadBalancer.setName("api-client-test-loadbalancer");
+    loadBalancer.setRegion(new Region("ams3"));
+
+    ForwardingRules rule = new ForwardingRules();
+    rule.setEntryProtocol(Protocol.HTTP);
+    rule.setTargetProtocol(Protocol.HTTP);
+    rule.setEntryPort(80);
+    rule.setTargetPort(80);
+    loadBalancer.setForwardingRules(Arrays.asList(rule));
+
+    HealthCheck healthCheck = new HealthCheck();
+    healthCheck.setProtocol(Protocol.HTTP);
+    healthCheck.setPort(80);
+    loadBalancer.setHealthCheck(healthCheck);
+
+    StickySessions stickySessions = new StickySessions();
+    stickySessions.setType(StickySessionType.Cookies);
+    stickySessions.setCookieName("mycookie");
+    stickySessions.setCookieTtlInSeconds(20);
+    loadBalancer.setStickySessions(stickySessions);
+
+    LoadBalancer lb = apiClient.createLoadBalancer(loadBalancer);
+
+    assertNotNull(lb);
+    assertNotNull(lb.getId());
+
+    LOG.info(lb.toString());
+  }
+
+
+  @Test
+  public void testUpdateLoadBalancer() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    LoadBalancer lb = apiClient.getLoadBalancerInfo(loadBalancerIdForInfo);
+    lb.setAlgorithm(LoadBalancingAlgorithm.LEAST_CONNECTIONS);
+    lb.setDropletIds(Arrays.asList("5428878"));
+
+    LoadBalancer loadBalancer = apiClient.updateLoadBalancer(lb);
+
+    assertNotNull(loadBalancer);
+    assertEquals(loadBalancerIdForInfo, loadBalancer.getId());
+    assertEquals(LoadBalancingAlgorithm.LEAST_CONNECTIONS, loadBalancer.getAlgorithm());
+
+    LOG.info(lb.toString());
+  }
+
+
+  @Test
+  public void testGetLoadBalancerInfo() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    LoadBalancer lb = apiClient.getLoadBalancerInfo(loadBalancerIdForInfo);
+    assertNotNull(lb);
+    LOG.info(lb.toString());
+  }
+
+  @Test
+  public void testGetAvailableLoadBalancers()
+      throws DigitalOceanException, RequestUnsuccessfulException {
+
+    LoadBalancers lbs = apiClient.getAvailableLoadBalancers(1, null);
+    assertNotNull(lbs);
+
+    assertTrue((lbs.getLoadBalancers().size() > 0));
+
+    int i = 0;
+    for (LoadBalancer lb : lbs.getLoadBalancers()) {
+      LOG.info(i++ + " -> " + lb.toString());
+    }
+  }
+
+  @Test
+  public void testAddDropletsToLoadBalancer()
+      throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Response result = apiClient.addDropletsToLoadBalancer(loadBalancerIdForInfo, Arrays.asList(dropletIdForInfo));
+    assertNotNull(result);
+  }
+
+  @Test
+  public void testRemoveDropletsFromLoadBalancer()
+      throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Delete result = apiClient.removeDropletsFromLoadBalancer(loadBalancerIdForInfo, Arrays.asList(dropletIdForInfo));
+    assertNotNull(result);
+  }
+
+  @Test
+  public void testAddForwardingRulesToLoadBalancer()
+      throws DigitalOceanException, RequestUnsuccessfulException {
+
+    ForwardingRules rule = new ForwardingRules();
+    rule.setEntryProtocol(Protocol.HTTP);
+    rule.setTargetProtocol(Protocol.HTTP);
+    rule.setEntryPort(8080);
+    rule.setTargetPort(8080);
+
+    Response result = apiClient.addForwardingRulesToLoadBalancer(loadBalancerIdForInfo, Arrays.asList(rule));
+    assertNotNull(result);
+
+  }
+
+  @Test
+  public void testRemoveForwardingRulesFromLoadBalancer()
+      throws DigitalOceanException, RequestUnsuccessfulException {
+
+    ForwardingRules rule = new ForwardingRules();
+    rule.setEntryProtocol(Protocol.HTTP);
+    rule.setTargetProtocol(Protocol.HTTP);
+    rule.setEntryPort(8080);
+    rule.setTargetPort(8080);
+
+    Response result = apiClient.removeForwardingRulesFromLoadBalancer(loadBalancerIdForInfo, Arrays.asList(rule));
+    assertNotNull(result);
+
+  }
+
+  @Test
+  public void testDeleteLoadBalancer()
+      throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Delete result = apiClient.deleteLoadBalancer(loadBalancerIdForInfo);
+    assertNotNull(result);
+  }
+
 }

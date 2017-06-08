@@ -39,6 +39,8 @@ import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
 import com.myjeeva.digitalocean.pojo.Key;
 import com.myjeeva.digitalocean.pojo.Keys;
+import com.myjeeva.digitalocean.pojo.LoadBalancer;
+import com.myjeeva.digitalocean.pojo.LoadBalancers;
 import com.myjeeva.digitalocean.pojo.Neighbors;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Response;
@@ -182,9 +184,20 @@ public enum ApiAction {
   ALL_DROPLET_SNAPSHOTS("/snapshots", "snapshots", RequestMethod.GET, Snapshots.class),
   ALL_VOLUME_SNAPSHOTS("/snapshots", "snapshots", RequestMethod.GET, Snapshots.class),
   GET_SNAPSHOT_INFO("/snapshots/%s", "snapshot", RequestMethod.GET, Snapshot.class),
-  DELETE_SNAPSHOT("/snapshots/%s", "response", RequestMethod.DELETE, Delete.class);
-  
-	
+  DELETE_SNAPSHOT("/snapshots/%s", "response", RequestMethod.DELETE, Delete.class),
+
+  // Load Balancers
+  CREATE_LOAD_BALANCER("/load_balancers", "load_balancer", RequestMethod.POST, LoadBalancer.class),
+  GET_LOAD_BALANCER_INFO("/load_balancers/%s", "load_balancer", RequestMethod.GET, LoadBalancer.class),
+  AVAILABLE_LOAD_BALANCERS("/load_balancers", "load_balancers", RequestMethod.GET, LoadBalancers.class),
+  UPDATE_LOAD_BALANCER("/load_balancers/%s", "load_balancer", RequestMethod.PUT, LoadBalancer.class),
+  ADD_DROPLET_TO_LOAD_BALANCER("/load_balancers/%s/droplets", "response", RequestMethod.POST, Response.class),
+  REMOVE_DROPLET_FROM_LOAD_BALANCER("/load_balancers/%s/droplets", "response", RequestMethod.DELETE, Delete.class),
+  ADD_FORWARDING_RULES_TO_LOAD_BALANCER("/load_balancers/%s/forwarding_rules", "response", RequestMethod.POST, Response.class),
+  REMOVE_FORWARDING_RULES_FROM_LOAD_BALANCER("/load_balancers/%s/forwarding_rules", "response", RequestMethod.DELETE, Delete.class),
+  DELETE_LOAD_BALANCER("/load_balancers/%s", "response", RequestMethod.DELETE, Delete.class);
+
+
   private String path;
 
   private String elementName;
