@@ -1,7 +1,7 @@
 /**
  * The MIT License
  * 
- * Copyright (c) 2013-2016 Jeevanandam M. (myjeeva.com)
+ * Copyright (c) 2013-2017 Jeevanandam M. (myjeeva.com)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -31,6 +31,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.myjeeva.digitalocean.pojo.LoadBalancer;
+import com.myjeeva.digitalocean.pojo.LoadBalancers;
+import com.myjeeva.digitalocean.pojo.ForwardingRules;
+import com.myjeeva.digitalocean.pojo.HealthCheck;
+import com.myjeeva.digitalocean.serializer.LoadBalancerSerializer;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -289,7 +294,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Droplet createDroplet(Droplet droplet) throws DigitalOceanException,
       RequestUnsuccessfulException {
     if (null == droplet
-        || StringUtils.isEmpty(droplet.getName())
+        || StringUtils.isBlank(droplet.getName())
         || null == droplet.getRegion()
         || null == droplet.getSize()
         || (null == droplet.getImage() || (null == droplet.getImage().getId() && null == droplet
@@ -305,7 +310,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Droplets createDroplets(Droplet droplet) throws DigitalOceanException,
       RequestUnsuccessfulException {
     if (null == droplet
-        || (null == droplet.getNames() || droplet.getNames().size() == 0)
+        || (null == droplet.getNames() || droplet.getNames().isEmpty())
         || null == droplet.getRegion()
         || null == droplet.getSize()
         || (null == droplet.getImage() || (null == droplet.getImage().getId() && null == droplet
@@ -1049,7 +1054,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Response tagResources(String name, List<Resource> resources)
       throws DigitalOceanException, RequestUnsuccessfulException {
     checkEmptyAndThrowError(name, "Missing required parameter - tag name");
-    if (null == resources || resources.size() == 0) {
+    if (null == resources || resources.isEmpty()) {
       throw new IllegalArgumentException(
           "Missing required parameter - list of resources for tag");
     }
@@ -1063,7 +1068,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Response untagResources(String name, List<Resource> resources)
       throws DigitalOceanException, RequestUnsuccessfulException {
     checkEmptyAndThrowError(name, "Missing required parameter - tag name");
-    if (null == resources || resources.size() == 0) {
+    if (null == resources || resources.isEmpty()) {
       throw new IllegalArgumentException(
           "Missing required parameter - list of resources for untag");
     }
@@ -1296,6 +1301,140 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_SNAPSHOT, params)).getData();
   }
 
+
+  // ===========================================
+  // Load balancers manipulation methods
+  // ===========================================
+
+  @Override
+  public LoadBalancer createLoadBalancer(LoadBalancer loadBalancer) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    if (null == loadBalancer
+        || StringUtils.isBlank(loadBalancer.getName())
+        || null == loadBalancer.getRegion()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Name, Region Slug] for create loadBalancer.");
+    }
+    validateForwardingRules(loadBalancer.getForwardingRules());
+    validateHealthCheck(loadBalancer.getHealthCheck());
+
+    return (LoadBalancer) perform(new ApiRequest(ApiAction.CREATE_LOAD_BALANCER, loadBalancer)).getData();
+  }
+
+
+  @Override
+  public LoadBalancer getLoadBalancerInfo(String loadBalancerId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateLoadBalancerId(loadBalancerId);
+
+    Object[] params = {loadBalancerId};
+    return (LoadBalancer) perform(new ApiRequest(ApiAction.GET_LOAD_BALANCER_INFO, params)).getData();
+  }
+
+  @Override
+  public LoadBalancers getAvailableLoadBalancers(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    validatePageNo(pageNo);
+
+    return (LoadBalancers) perform(new ApiRequest(ApiAction.AVAILABLE_LOAD_BALANCERS, pageNo, perPage))
+        .getData();
+  }
+
+
+  @Override
+  public LoadBalancer updateLoadBalancer(LoadBalancer loadBalancer) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    if (null == loadBalancer
+        || StringUtils.isBlank(loadBalancer.getId())
+        || StringUtils.isBlank(loadBalancer.getName())
+        || null == loadBalancer.getRegion()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Id, Name, Region Slug] for update loadBalancer.");
+    }
+    validateForwardingRules(loadBalancer.getForwardingRules());
+    validateHealthCheck(loadBalancer.getHealthCheck());
+
+    Object[] params = {loadBalancer.getId()};
+
+    return (LoadBalancer) perform(new ApiRequest(ApiAction.UPDATE_LOAD_BALANCER, loadBalancer, params)).getData();
+  }
+
+
+  @Override
+  public Response addDropletsToLoadBalancer(String loadBalancerId, List<Integer> dropletIds) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateLoadBalancerId(loadBalancerId);
+
+    if (null == dropletIds || dropletIds.isEmpty()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [dropletIds].");
+    }
+
+    Object[] params = {loadBalancerId};
+    Map<String, List<Integer>> data = new HashMap<>();
+    data.put("droplet_ids", dropletIds);
+    return (Response) perform(new ApiRequest(ApiAction.ADD_DROPLET_TO_LOAD_BALANCER, data, params)).getData();
+  }
+
+  @Override
+  public Delete removeDropletsFromLoadBalancer(String loadBalancerId, List<Integer> dropletIds) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateLoadBalancerId(loadBalancerId);
+
+    if (null == dropletIds || dropletIds.isEmpty()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [dropletIds].");
+    }
+
+    Object[] params = {loadBalancerId};
+    Map<String, List<Integer>> data = new HashMap<>();
+    data.put("droplet_ids", dropletIds);
+    return (Delete) perform(new ApiRequest(ApiAction.REMOVE_DROPLET_FROM_LOAD_BALANCER, data, params)).getData();
+  }
+
+
+  @Override
+  public Response addForwardingRulesToLoadBalancer(String loadBalancerId, List<ForwardingRules> forwardingRules) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateLoadBalancerId(loadBalancerId);
+
+    if (null == forwardingRules || forwardingRules.isEmpty()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [forwardingRules].");
+    }
+
+    Object[] params = {loadBalancerId};
+    Map<String, List<ForwardingRules>> data = new HashMap<>();
+    data.put("forwarding_rules", forwardingRules);
+    return (Response) perform(new ApiRequest(ApiAction.ADD_FORWARDING_RULES_TO_LOAD_BALANCER, data, params)).getData();
+  }
+
+
+  @Override
+  public Delete removeForwardingRulesFromLoadBalancer(String loadBalancerId, List<ForwardingRules> forwardingRules) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateLoadBalancerId(loadBalancerId);
+
+    if (null == forwardingRules || forwardingRules.isEmpty()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [forwardingRules].");
+    }
+
+    Object[] params = {loadBalancerId};
+    Map<String, List<ForwardingRules>> data = new HashMap<>();
+    data.put("forwarding_rules", forwardingRules);
+    return (Delete) perform(new ApiRequest(ApiAction.REMOVE_FORWARDING_RULES_FROM_LOAD_BALANCER, data, params)).getData();
+  }
+
+  @Override
+  public Delete deleteLoadBalancer(String loadBalancerId) throws DigitalOceanException,
+      RequestUnsuccessfulException {
+    validateLoadBalancerId(loadBalancerId);
+
+    Object[] params = {loadBalancerId};
+    return (Delete) perform(new ApiRequest(ApiAction.DELETE_LOAD_BALANCER, params)).getData();
+  }
+
   //
   // Private methods
   //
@@ -1387,6 +1526,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     LOG.debug("HTTP Execute:: " + request.getMethod() + " " + request.getURI());
     String response = "";
     CloseableHttpResponse httpResponse = null;
+
     try {
       httpResponse = httpClient.execute(request);
       LOG.debug("HTTP Response Object:: " + httpResponse);
@@ -1510,7 +1650,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
     if (null != request.getData()) {
       String inputData = serialize.toJson(request.getData());
-
       try {
         data = new StringEntity(inputData);
       } catch (UnsupportedEncodingException e) {
@@ -1522,7 +1661,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   private String appendRateLimitValues(String response, HttpResponse httpResponse) {
-    if (StringUtils.isEmpty(response)) {
+    if (StringUtils.isBlank(response)) {
       return StringUtils.EMPTY;
     }
 
@@ -1552,7 +1691,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
    */
   private String getSimpleHeaderValue(String header, HttpResponse httpResponse, boolean first) {
     String value = StringUtils.EMPTY;
-    if (StringUtils.isEmpty(header)) {
+    if (StringUtils.isBlank(header)) {
       return value;
     }
 
@@ -1589,6 +1728,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     checkNullAndThrowError(dropletId, "Missing required parameter - dropletId.");
   }
 
+  private void validateLoadBalancerId(String loadBalancerId) {
+    checkNullAndThrowError(loadBalancerId, "Missing required parameter - loadBalancerId.");
+  }
+
   private void validatePageNo(Integer pageNo) {
     checkNullAndThrowError(pageNo, "Missing required parameter - pageNo.");
   }
@@ -1600,12 +1743,51 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     }
   }
 
-  private void checkEmptyAndThrowError(String str, String msg) {
-    if (StringUtils.isEmpty(str)) {
+  private void checkNullAndThrowError(String string, String msg) {
+    if (null == string) {
       LOG.error(msg);
       throw new IllegalArgumentException(msg);
     }
   }
+
+  private void checkEmptyAndThrowError(String str, String msg) {
+    if (StringUtils.isBlank(str)) {
+      LOG.error(msg);
+      throw new IllegalArgumentException(msg);
+    }
+  }
+
+  private void validateForwardingRules(List<ForwardingRules> rules) {
+    if (null == rules
+      || rules.isEmpty()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [ForwardingRules]");
+    }
+
+    for (ForwardingRules rule:rules)
+      validateForwardingRule(rule);
+  }
+
+  private void validateForwardingRule(ForwardingRules rule) {
+    if (null == rule.getEntryProtocol()
+        || null == rule.getEntryPort()
+        || null == rule.getTargetProtocol()
+        || null == rule.getTargetPort()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Entry Protocol, Entry Port, Target Protocol, Target Port] for forwarding rules.");
+    }
+  }
+
+  private void validateHealthCheck(HealthCheck healthCheck) {
+    if (null != healthCheck
+        && (null == healthCheck.getProtocol() || null == healthCheck.getPort()))
+
+      throw new IllegalArgumentException(
+          "Missing required parameters [Protocol, Port] for health check");
+
+  }
+
+
 
   private void initialize() {
     this.deserialize = new GsonBuilder().setDateFormat(DATE_FORMAT).create();
@@ -1614,6 +1796,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
         new GsonBuilder().setDateFormat(DATE_FORMAT)
             .registerTypeAdapter(Droplet.class, new DropletSerializer())
             .registerTypeAdapter(Volume.class, new VolumeSerializer())
+            .registerTypeAdapter(LoadBalancer.class, new LoadBalancerSerializer())
             .excludeFieldsWithoutExposeAnnotation().create();
 
     this.jsonParser = new JsonParser();

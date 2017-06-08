@@ -1,7 +1,7 @@
 /**
  * The MIT License
  * 
- * Copyright (c) 2013-2016 Jeevanandam M. (myjeeva.com)
+ * Copyright (c) 2013-2017 Jeevanandam M. (myjeeva.com)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -48,7 +48,7 @@ public class DropletSerializer implements JsonSerializer<Droplet> {
 
     jsonObject.addProperty("name", droplet.getName());
 
-    if (null != droplet.getNames() && droplet.getNames().size() > 0) {
+    if (null != droplet.getNames() && !droplet.getNames().isEmpty()) {
       JsonArray names = new JsonArray();
       for (String name : droplet.getNames()) {
         names.add(context.serialize(name));
@@ -77,13 +77,13 @@ public class DropletSerializer implements JsonSerializer<Droplet> {
       jsonObject.addProperty("private_networking", droplet.getEnablePrivateNetworking());
     }
 
-    if (null != droplet.getKeys() && droplet.getKeys().size() > 0) {
+    if (null != droplet.getKeys() && !droplet.getKeys().isEmpty()) {
       JsonArray sshKeys = new JsonArray();
       for (Key k : droplet.getKeys()) {
         if (null != k.getId()) {
           sshKeys.add(context.serialize(k.getId()));
         }
-        if (!StringUtils.isEmpty(k.getFingerprint())) {
+        if (!StringUtils.isBlank(k.getFingerprint())) {
           sshKeys.add(context.serialize(k.getFingerprint()));
         }
       }

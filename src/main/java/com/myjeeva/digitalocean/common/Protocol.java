@@ -1,17 +1,17 @@
 /**
  * The MIT License
- * 
+ *
  * Copyright (c) 2013-2017 Jeevanandam M. (myjeeva.com)
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -24,45 +24,45 @@ package com.myjeeva.digitalocean.common;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Enumeration of DigitalOcean Action Status
- * 
- * @author Jeevanandam M. (jeeva@myjeeva.com)
- * 
- * @since v2.0
+ * Enumeration of protocol used in forwarding rules .
+ *
+ * @author Thomas Lehoux (https://github.com/tlehoux)
+ *
+ * @since v2.11
  */
-public enum ActionStatus {
+public enum Protocol {
 
-  @SerializedName("completed")
-  COMPLETED("completed"),
-  
-  @SerializedName("in-progress")
-  IN_PROGRESS("in-progress"),
-  
-  @SerializedName("errored")
-  ERRORED("errored");
+    @SerializedName("http")
+    HTTP("http"),
 
-  private String value;
+    @SerializedName("https")
+    HTTPS("https"),
 
-  ActionStatus(String value) {
-    this.value = value;
-  }
+    @SerializedName("tcp")
+    TCP("tcp");
 
-  @Override
-  public String toString() {
-    return this.value;
-  }
+    private String value;
 
-  public static ActionStatus fromValue(String value) {
-    if (null == value || "".equals(value)) {
-      throw new IllegalArgumentException("Value cannot be null or empty!");
+    private Protocol(String value) {
+        this.value = value;
     }
 
-    for (ActionStatus as : ActionStatus.values()) {
-      if (value.equalsIgnoreCase(as.value)) {
-        return as;
-      }
+    public static Protocol fromValue(String value) {
+        if (null == value || "".equals(value)) {
+            throw new IllegalArgumentException("Value cannot be null or empty!");
+        }
+
+        for (Protocol ds : Protocol.values()) {
+            if (value.equalsIgnoreCase(ds.value)) {
+                return ds;
+            }
+        }
+
+        throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
     }
 
-    throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
-  }
+    @Override
+    public String toString() {
+        return this.value;
+    }
 }
