@@ -48,7 +48,7 @@ public class DropletSerializer implements JsonSerializer<Droplet> {
 
     jsonObject.addProperty("name", droplet.getName());
 
-    if (null != droplet.getNames() && droplet.getNames().size() > 0) {
+    if (null != droplet.getNames() && !droplet.getNames().isEmpty()) {
       JsonArray names = new JsonArray();
       for (String name : droplet.getNames()) {
         names.add(context.serialize(name));
@@ -77,7 +77,7 @@ public class DropletSerializer implements JsonSerializer<Droplet> {
       jsonObject.addProperty("private_networking", droplet.getEnablePrivateNetworking());
     }
 
-    if (null != droplet.getKeys() && droplet.getKeys().size() > 0) {
+    if (null != droplet.getKeys() && !droplet.getKeys().isEmpty()) {
       JsonArray sshKeys = new JsonArray();
       for (Key k : droplet.getKeys()) {
         if (null != k.getId()) {

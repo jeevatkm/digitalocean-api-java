@@ -310,7 +310,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Droplets createDroplets(Droplet droplet) throws DigitalOceanException,
       RequestUnsuccessfulException {
     if (null == droplet
-        || (null == droplet.getNames() || droplet.getNames().size() == 0)
+        || (null == droplet.getNames() || droplet.getNames().isEmpty())
         || null == droplet.getRegion()
         || null == droplet.getSize()
         || (null == droplet.getImage() || (null == droplet.getImage().getId() && null == droplet
@@ -1054,7 +1054,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Response tagResources(String name, List<Resource> resources)
       throws DigitalOceanException, RequestUnsuccessfulException {
     checkEmptyAndThrowError(name, "Missing required parameter - tag name");
-    if (null == resources || resources.size() == 0) {
+    if (null == resources || resources.isEmpty()) {
       throw new IllegalArgumentException(
           "Missing required parameter - list of resources for tag");
     }
@@ -1068,7 +1068,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Response untagResources(String name, List<Resource> resources)
       throws DigitalOceanException, RequestUnsuccessfulException {
     checkEmptyAndThrowError(name, "Missing required parameter - tag name");
-    if (null == resources || resources.size() == 0) {
+    if (null == resources || resources.isEmpty()) {
       throw new IllegalArgumentException(
           "Missing required parameter - list of resources for untag");
     }
@@ -1365,7 +1365,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       RequestUnsuccessfulException {
     validateLoadBalancerId(loadBalancerId);
 
-    if (null == dropletIds || dropletIds.size() == 0) {
+    if (null == dropletIds || dropletIds.isEmpty()) {
       throw new IllegalArgumentException(
           "Missing required parameters [dropletIds].");
     }
@@ -1381,7 +1381,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       RequestUnsuccessfulException {
     validateLoadBalancerId(loadBalancerId);
 
-    if (null == dropletIds || dropletIds.size() == 0) {
+    if (null == dropletIds || dropletIds.isEmpty()) {
       throw new IllegalArgumentException(
           "Missing required parameters [dropletIds].");
     }
@@ -1415,7 +1415,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       RequestUnsuccessfulException {
     validateLoadBalancerId(loadBalancerId);
 
-    if (null == forwardingRules || forwardingRules.size() == 0) {
+    if (null == forwardingRules || forwardingRules.isEmpty()) {
       throw new IllegalArgumentException(
           "Missing required parameters [forwardingRules].");
     }

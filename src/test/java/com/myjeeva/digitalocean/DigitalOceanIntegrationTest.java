@@ -123,7 +123,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Droplets droplets = apiClient.getAvailableDroplets(1, null);
 
     assertNotNull(droplets);
-    assertTrue((droplets.getDroplets().size() > 0));
+    assertFalse((droplets.getDroplets().isEmpty()));
 
     int i = 1;
     for (Droplet droplet : droplets.getDroplets()) {
@@ -137,7 +137,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Kernels kernels = apiClient.getDropletKernels(dropletIdForInfo, 1, 20);
 
     assertNotNull(kernels);
-    assertTrue((kernels.getKernels().size() > 0));
+    assertFalse((kernels.getKernels().isEmpty()));
 
     int i = 1;
     for (Kernel k : kernels.getKernels()) {
@@ -152,7 +152,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Snapshots snapshots = apiClient.getDropletSnapshots(dropletIdForInfo, 1, 20);
 
     assertNotNull(snapshots);
-    assertTrue((snapshots.getSnapshots().size() > 0));
+    assertFalse((snapshots.getSnapshots().isEmpty()));
 
     for (Snapshot s : snapshots.getSnapshots()) {
       LOG.info(s.toString());
@@ -165,7 +165,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Backups backups = apiClient.getDropletBackups(dropletIdForInfo, 1, 10);
 
     assertNotNull(backups);
-    assertTrue((backups.getBackups().size() > 0));
+    assertFalse((backups.getBackups().isEmpty()));
 
     for (Backup b : backups.getBackups()) {
       LOG.info(b.toString());
@@ -256,7 +256,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Droplets droplets = apiClient.createDroplets(droplet);
 
     assertNotNull(droplets);
-    assertTrue((droplets.getDroplets().size() > 0));
+    assertFalse((droplets.getDroplets().isEmpty()));
 
     for (Droplet d : droplets.getDroplets()) {
       LOG.info(d.toString());
@@ -474,7 +474,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Actions actions = apiClient.getAvailableActions(2, 30);
 
     assertNotNull(actions);
-    assertTrue((actions.getActions().size() > 0));
+    assertFalse((actions.getActions().isEmpty()));
 
     LOG.info(actions.getLinks().toString());
 
@@ -501,10 +501,10 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Actions actions3 = apiClient.getAvailableDropletActions(dropletIdForInfo, 3, 20);
 
     assertNotNull(actions);
-    assertTrue((actions.getActions().size() > 0));
+    assertFalse((actions.getActions().isEmpty()));
 
     assertNotNull(actions3);
-    assertTrue((actions3.getActions().size() > 0));
+    assertFalse((actions3.getActions().isEmpty()));
 
     for (Action a : actions.getActions()) {
       LOG.info(a.toString());
@@ -518,7 +518,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Actions actions = apiClient.getAvailableImageActions(3794738, 1, 20);
 
     assertNotNull(actions);
-    assertTrue((actions.getActions().size() > 0));
+    assertFalse((actions.getActions().isEmpty()));
 
     for (Action a : actions.getActions()) {
       LOG.info(a.toString());
@@ -558,7 +558,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Images images = apiClient.getAvailableImages(1, 20);
 
     assertNotNull(images);
-    assertTrue((images.getImages().size() > 0));
+    assertFalse((images.getImages().isEmpty()));
 
     for (Image img : images.getImages()) {
       LOG.info(img.toString());
@@ -572,7 +572,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Images images = apiClient.getAvailableImages(1, 20, ActionType.DISTRIBUTION);
 
     assertNotNull(images);
-    assertTrue((images.getImages().size() > 0));
+    assertFalse((images.getImages().isEmpty()));
 
     for (Image img : images.getImages()) {
       LOG.info(img.toString());
@@ -586,7 +586,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Images images = apiClient.getAvailableImages(1, 20, ActionType.APPLICATION);
 
     assertNotNull(images);
-    assertTrue((images.getImages().size() > 0));
+    assertFalse((images.getImages().isEmpty()));
 
     for (Image img : images.getImages()) {
       LOG.info(img.toString());
@@ -609,7 +609,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Images images = apiClient.getUserImages(1, 20);
 
     assertNotNull(images);
-    assertTrue((images.getImages().size() > 0));
+    assertFalse((images.getImages().isEmpty()));
 
     for (Image img : images.getImages()) {
       LOG.info(img.toString());
@@ -681,7 +681,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Regions regions = apiClient.getAvailableRegions(1);
 
     assertNotNull(regions);
-    assertTrue((regions.getRegions().size() > 0));
+    assertFalse((regions.getRegions().isEmpty()));
 
     for (Region region : regions.getRegions()) {
       LOG.info(region.toString());
@@ -696,7 +696,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Sizes sizes = apiClient.getAvailableSizes(1);
 
     assertNotNull(sizes);
-    assertTrue((sizes.getSizes().size() > 0));
+    assertFalse((sizes.getSizes().isEmpty()));
 
     for (Size size : sizes.getSizes()) {
       LOG.info(size.toString());
@@ -711,7 +711,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Domains domains = apiClient.getAvailableDomains(1);
 
     assertNotNull(domains);
-    assertTrue((domains.getDomains().size() > 0));
+    assertFalse((domains.getDomains().isEmpty()));
 
     for (Domain d : domains.getDomains()) {
       LOG.info(d.toString());
@@ -752,7 +752,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     DomainRecords domainRecords = apiClient.getDomainRecords("jeeutil.com", 1, null);
 
     assertNotNull(domainRecords);
-    assertTrue((domainRecords.getDomainRecords().size() > 0));
+    assertFalse((domainRecords.getDomainRecords().isEmpty()));
 
     for (DomainRecord dr : domainRecords.getDomainRecords()) {
       LOG.info(dr.toString());
@@ -803,7 +803,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Keys keys = apiClient.getAvailableKeys(1);
 
     assertNotNull(keys);
-    assertTrue((keys.getKeys().size() > 0));
+    assertFalse((keys.getKeys().isEmpty()));
 
     for (Key k : keys.getKeys()) {
       LOG.info(k.toString());
@@ -894,7 +894,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     LOG.info(floatingIPs.toString());
 
     assertNotNull(floatingIPs);
-    // assertTrue((floatingIPs.getFloatingIPs().size() > 0));
+    // assertFalse((floatingIPs.getFloatingIPs().isEmpty()));
 
     int i = 1;
     for (FloatingIP floatingIP : floatingIPs.getFloatingIPs()) {
@@ -1029,7 +1029,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Volumes volumes = apiClient.getAvailableVolumes("nyc1");
 
     assertNotNull(volumes);
-    assertTrue((volumes.getVolumes().size() > 0));
+    assertFalse((volumes.getVolumes().isEmpty()));
 
     int i = 1;
     for (Volume volume : volumes.getVolumes()) {
@@ -1067,7 +1067,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Volumes volumes = apiClient.getVolumeInfo(volumeNameForInfo, "nyc1");
 
     assertNotNull(volumes);
-    assertTrue((volumes.getVolumes().size() > 0));
+    assertFalse((volumes.getVolumes().isEmpty()));
 
     int i = 1;
     for (Volume volume : volumes.getVolumes()) {
@@ -1116,7 +1116,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Actions actions = apiClient.getAvailableVolumeActions(volumeIdForInfo);
 
     assertNotNull(actions);
-    assertTrue((actions.getActions().size() > 0));
+    assertFalse((actions.getActions().isEmpty()));
 
     LOG.info(actions.getLinks().toString());
 
@@ -1132,7 +1132,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Actions actions = apiClient.getAvailableVolumeActions(volumeIdForInfo);
 
     assertNotNull(actions);
-    assertTrue((actions.getActions().size() > 0));
+    assertFalse((actions.getActions().isEmpty()));
 
     Action action = actions.getActions().get(0);
 
@@ -1165,7 +1165,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
         apiClient.getVolumeSnapshots("82a48a18-873f-11e6-96bf-000f53315a41", 1, 10);
 
     assertNotNull(snapshots);
-    assertTrue((snapshots.getSnapshots().size() > 0));
+    assertFalse((snapshots.getSnapshots().isEmpty()));
 
     for (Snapshot s : snapshots.getSnapshots()) {
       LOG.info(s.toString());
@@ -1189,7 +1189,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Snapshots snapshots = apiClient.getAvailableSnapshots(1, 10);
 
     assertNotNull(snapshots);
-    assertTrue((snapshots.getSnapshots().size() > 0));
+    assertFalse((snapshots.getSnapshots().isEmpty()));
 
     for (Snapshot s : snapshots.getSnapshots()) {
       LOG.info(s.toString());
@@ -1203,7 +1203,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Snapshots snapshots = apiClient.getAllDropletSnapshots(1, 10);
 
     assertNotNull(snapshots);
-    assertTrue((snapshots.getSnapshots().size() > 0));
+    assertFalse((snapshots.getSnapshots().isEmpty()));
 
     for (Snapshot s : snapshots.getSnapshots()) {
       LOG.info(s.toString());
@@ -1217,7 +1217,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Snapshots snapshots = apiClient.getAllVolumeSnapshots(1, 10);
 
     assertNotNull(snapshots);
-    assertTrue((snapshots.getSnapshots().size() > 0));
+    assertFalse((snapshots.getSnapshots().isEmpty()));
 
     for (Snapshot s : snapshots.getSnapshots()) {
       LOG.info(s.toString());
@@ -1309,7 +1309,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     LoadBalancers lbs = apiClient.getAvailableLoadBalancers(1, null);
     assertNotNull(lbs);
 
-    assertTrue((lbs.getLoadBalancers().size() > 0));
+    assertTrue((lbs.getLoadBalancers().isEmpty()));
 
     int i = 0;
     for (LoadBalancer lb : lbs.getLoadBalancers()) {

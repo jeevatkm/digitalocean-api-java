@@ -38,7 +38,7 @@ public class LoadBalancerSerializer implements JsonSerializer<LoadBalancer> {
       jsonObject.addProperty("algorithm", loadBalancer.getAlgorithm().toString());
     }
 
-    if (null != loadBalancer.getForwardingRules() && loadBalancer.getForwardingRules().size() > 0) {
+    if (null != loadBalancer.getForwardingRules() && !loadBalancer.getForwardingRules().isEmpty()) {
       JsonArray rules = new JsonArray();
       for (ForwardingRules rule : loadBalancer.getForwardingRules()) {
         rules.add(context.serialize(rule));
@@ -54,7 +54,7 @@ public class LoadBalancerSerializer implements JsonSerializer<LoadBalancer> {
       jsonObject.add("sticky_sessions", context.serialize(loadBalancer.getStickySessions()));
     }
 
-    if (null != loadBalancer.getDropletIds() && loadBalancer.getDropletIds().size() > 0) {
+    if (null != loadBalancer.getDropletIds() && !loadBalancer.getDropletIds().isEmpty()) {
       JsonArray dropletIds = new JsonArray();
       for (String dropletId : loadBalancer.getDropletIds()) {
         dropletIds.add(context.serialize(dropletId));
