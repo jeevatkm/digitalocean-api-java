@@ -83,7 +83,7 @@ public class DropletSerializer implements JsonSerializer<Droplet> {
         if (null != k.getId()) {
           sshKeys.add(context.serialize(k.getId()));
         }
-        if (!StringUtils.isEmpty(k.getFingerprint())) {
+        if (!StringUtils.isBlank(k.getFingerprint())) {
           sshKeys.add(context.serialize(k.getFingerprint()));
         }
       }

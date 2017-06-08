@@ -294,7 +294,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Droplet createDroplet(Droplet droplet) throws DigitalOceanException,
       RequestUnsuccessfulException {
     if (null == droplet
-        || StringUtils.isEmpty(droplet.getName())
+        || StringUtils.isBlank(droplet.getName())
         || null == droplet.getRegion()
         || null == droplet.getSize()
         || (null == droplet.getImage() || (null == droplet.getImage().getId() && null == droplet
@@ -1310,7 +1310,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public LoadBalancer createLoadBalancer(LoadBalancer loadBalancer) throws DigitalOceanException,
       RequestUnsuccessfulException {
     if (null == loadBalancer
-        || StringUtils.isEmpty(loadBalancer.getName())
+        || StringUtils.isBlank(loadBalancer.getName())
         || null == loadBalancer.getRegion()) {
       throw new IllegalArgumentException(
           "Missing required parameters [Name, Region Slug] for create loadBalancer.");
@@ -1345,8 +1345,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public LoadBalancer updateLoadBalancer(LoadBalancer loadBalancer) throws DigitalOceanException,
       RequestUnsuccessfulException {
     if (null == loadBalancer
-        || StringUtils.isEmpty(loadBalancer.getId())
-        || StringUtils.isEmpty(loadBalancer.getName())
+        || StringUtils.isBlank(loadBalancer.getId())
+        || StringUtils.isBlank(loadBalancer.getName())
         || null == loadBalancer.getRegion()) {
       throw new IllegalArgumentException(
           "Missing required parameters [Id, Name, Region Slug] for update loadBalancer.");
@@ -1398,7 +1398,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       RequestUnsuccessfulException {
     validateLoadBalancerId(loadBalancerId);
 
-    if (null == forwardingRules || forwardingRules.size() == 0) {
+    if (null == forwardingRules || forwardingRules.isEmpty()) {
       throw new IllegalArgumentException(
           "Missing required parameters [forwardingRules].");
     }
@@ -1660,7 +1660,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   private String appendRateLimitValues(String response, HttpResponse httpResponse) {
-    if (StringUtils.isEmpty(response)) {
+    if (StringUtils.isBlank(response)) {
       return StringUtils.EMPTY;
     }
 
@@ -1690,7 +1690,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
    */
   private String getSimpleHeaderValue(String header, HttpResponse httpResponse, boolean first) {
     String value = StringUtils.EMPTY;
-    if (StringUtils.isEmpty(header)) {
+    if (StringUtils.isBlank(header)) {
       return value;
     }
 
@@ -1750,7 +1750,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   private void checkEmptyAndThrowError(String str, String msg) {
-    if (StringUtils.isEmpty(str)) {
+    if (StringUtils.isBlank(str)) {
       LOG.error(msg);
       throw new IllegalArgumentException(msg);
     }
@@ -1758,10 +1758,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
   private void validateForwardingRules(List<ForwardingRules> rules) {
     if (null == rules
-      || rules.size() == 0)
-
+      || rules.isEmpty()) {
       throw new IllegalArgumentException(
           "Missing required parameters [ForwardingRules]");
+    }
 
     for (ForwardingRules rule:rules)
       validateForwardingRule(rule);
