@@ -1384,6 +1384,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
   private String executeHttpRequest(HttpUriRequest request) throws DigitalOceanException,
       RequestUnsuccessfulException {
+    LOG.debug("HTTP Execute:: " + request.getMethod() + " " + request.getURI());
     String response = "";
     CloseableHttpResponse httpResponse = null;
     try {
