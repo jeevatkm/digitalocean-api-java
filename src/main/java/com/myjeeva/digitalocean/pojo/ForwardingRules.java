@@ -35,117 +35,116 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  */
 public class ForwardingRules extends Base {
 
-    private static final long serialVersionUID = -442836096026412279L;
+  private static final long serialVersionUID = -442836096026412279L;
 
-    @Expose
-    @SerializedName("entry_protocol")
-    private Protocol entryProtocol;
+  @Expose
+  @SerializedName("entry_protocol")
+  private Protocol entryProtocol;
 
-    @Expose
-    @SerializedName("entry_port")
-    private Integer entryPort;
+  @Expose
+  @SerializedName("entry_port")
+  private Integer entryPort;
 
-    @Expose
-    @SerializedName("target_protocol")
-    private Protocol targetProtocol;
+  @Expose
+  @SerializedName("target_protocol")
+  private Protocol targetProtocol;
 
-    @Expose
-    @SerializedName("target_port")
-    private Integer targetPort;
+  @Expose
+  @SerializedName("target_port")
+  private Integer targetPort;
 
-    @Expose
-    @SerializedName("certificate_id")
-    private String certificateId;
+  @Expose
+  @SerializedName("certificate_id")
+  private String certificateId;
 
-    @Expose
-    @SerializedName("tls_passthrough")
-    private boolean tlsPassthrough;
+  @Expose
+  @SerializedName("tls_passthrough")
+  private boolean tlsPassthrough;
 
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this);
-    }
+  /**
+   * @return the entry protocol
+   */
+  public Protocol getEntryProtocol() {
+    return entryProtocol;
+  }
 
-    /**
-     * @return the entry protocol
-     */
-    public Protocol getEntryProtocol() {
-        return entryProtocol;
-    }
+  public void setEntryProtocol(Protocol entryProtocol) {
+    this.entryProtocol = entryProtocol;
+  }
 
-    public void setEntryProtocol(Protocol entryProtocol) {
-        this.entryProtocol = entryProtocol;
-    }
+  /**
+   * @return the entry port
+   */
+  public Integer getEntryPort() {
+    return entryPort;
+  }
 
-    /**
-     * @return the entry port
-     */
-    public Integer getEntryPort() {
-        return entryPort;
-    }
+  /**
+   * @param entryPort the entry port to set
+   */
+  public void setEntryPort(Integer entryPort) {
+    this.entryPort = entryPort;
+  }
 
-    /**
-     * @param entryPort the entry port to set
-     */
-    public void setEntryPort(Integer entryPort) {
-        this.entryPort = entryPort;
-    }
+  /**
+   * @return the target protocol
+   */
+  public Protocol getTargetProtocol() {
+    return targetProtocol;
+  }
 
-    /**
-     * @return the target protocol
-     */
-    public Protocol getTargetProtocol() {
-        return targetProtocol;
-    }
+  /**
+   * @param targetProtocol the target protocol to set
+   */
+  public void setTargetProtocol(Protocol targetProtocol) {
+    this.targetProtocol = targetProtocol;
+  }
 
-    /**
-     * @param targetProtocol the target protocol to set
-     */
-    public void setTargetProtocol(Protocol targetProtocol) {
-        this.targetProtocol = targetProtocol;
-    }
+  /**
+   * @return the target port
+   */
+  public Integer getTargetPort() {
+    return targetPort;
+  }
 
-    /**
-     * @return the target port
-     */
-    public Integer getTargetPort() {
-        return targetPort;
-    }
+  /**
+   * @param targetPort the target port to set
+   */
+  public void setTargetPort(Integer targetPort) {
+    this.targetPort = targetPort;
+  }
 
-    /**
-     * @param targetPort the target port to set
-     */
-    public void setTargetPort(Integer targetPort) {
-        this.targetPort = targetPort;
-    }
+  /**
+   * @return the certificateId
+   */
+  public String getCertificateId() {
+    return certificateId;
+  }
 
-    /**
-     * @return the certificateId
-     */
-    public String getCertificateId() {
-        return certificateId;
-    }
+  /**
+   * @param certificateId the certificateId to set
+   */
+  public void setCertificateId(String certificateId) {
+    this.certificateId = certificateId;
+  }
 
-    /**
-     * @param certificateId the certificateId to set
-     */
-    public void setCertificateId(String certificateId) {
-        this.certificateId = certificateId;
-    }
+  /**
+   * @return true if SSL encrypted traffic will be passed through to the backend Droplets
+   */
+  public boolean isTlsPassthrough() {
+    return tlsPassthrough;
+  }
 
-    /**
-     * @return true if SSL encrypted traffic will be passed through to the backend Droplets
-     */
-    public boolean isTlsPassthrough() {
-        return tlsPassthrough;
-    }
-
-    /**
-     * @param tlsPassthrough the tlsPassthrough to set
-     */
-    public void setTlsPassthrough(boolean tlsPassthrough) {
-        this.tlsPassthrough = tlsPassthrough;
-    }
+  /**
+   * @param tlsPassthrough the tlsPassthrough to set
+   */
+  public void setTlsPassthrough(boolean tlsPassthrough) {
+    this.tlsPassthrough = tlsPassthrough;
+  }
 
 }

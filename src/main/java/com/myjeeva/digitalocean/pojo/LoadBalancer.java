@@ -31,7 +31,7 @@ import com.myjeeva.digitalocean.common.LoadBalancingAlgorithm;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
- * Represents Load Balancer  object
+ * Represents Load Balancer object
  *
  * @author Thomas Lehoux (https://github.com/tlehoux)
  *
@@ -39,230 +39,229 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  */
 public class LoadBalancer extends RateLimitBase {
 
-    private static final long serialVersionUID = -442836096026412279L;
+  private static final long serialVersionUID = -442836096026412279L;
 
-    private String id;
+  private String id;
 
-    @Expose
-    private String name;
+  @Expose
+  private String name;
 
-    private String ip;
+  private String ip;
 
-    @Expose
-    private LoadBalancingAlgorithm algorithm;
+  @Expose
+  private LoadBalancingAlgorithm algorithm;
 
-    private Region region;
+  private Region region;
 
-    private LoadBalancerStatus status;
+  private LoadBalancerStatus status;
 
-    @SerializedName("created_at")
-    private Date createdDate;
+  @SerializedName("created_at")
+  private Date createdDate;
 
-    @SerializedName("forwarding_rules")
-    private List<ForwardingRules> forwardingRules;
+  @SerializedName("forwarding_rules")
+  private List<ForwardingRules> forwardingRules;
 
-    @SerializedName("health_check")
-    private HealthCheck healthCheck;
+  @SerializedName("health_check")
+  private HealthCheck healthCheck;
 
-    @SerializedName("sticky_sessions")
-    private StickySessions stickySessions;
+  @SerializedName("sticky_sessions")
+  private StickySessions stickySessions;
 
-    @SerializedName("redirect_http_to_https")
-    private boolean redirectHttpToHttps;
+  @SerializedName("redirect_http_to_https")
+  private boolean redirectHttpToHttps;
 
-    @SerializedName("droplet_ids")
-    private List<String> dropletIds;
+  @SerializedName("droplet_ids")
+  private List<String> dropletIds;
 
-    @Expose
-    private String tag;
+  @Expose
+  private String tag;
 
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this);
-    }
+  /**
+   * @return the ip
+   */
+  public String getIp() {
+    return ip;
+  }
 
-    /**
-     * @return the ip
-     */
-    public String getIp() {
-        return ip;
-    }
+  /**
+   * @param ip the ip to set
+   */
+  public void setIp(String ip) {
+    this.ip = ip;
+  }
 
-    /**
-     * @param ip the ip to set
-     */
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
+  /**
+   * @return the id
+   */
+  public String getId() {
+    return id;
+  }
 
-    /**
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
+  /**
+   * @param id the id to set
+   */
+  public void setId(String id) {
+    this.id = id;
+  }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+  /**
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
+  /**
+   * @param name the name to set
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+  /**
+   * @return the algorithm
+   */
+  public LoadBalancingAlgorithm getAlgorithm() {
+    return algorithm;
+  }
 
-    /**
-     * @return the algorithm
-     */
-    public LoadBalancingAlgorithm getAlgorithm() {
-        return algorithm;
-    }
+  /**
+   * @param algorithm the algorithm to set
+   */
+  public void setAlgorithm(LoadBalancingAlgorithm algorithm) {
+    this.algorithm = algorithm;
+  }
 
-    /**
-     * @param algorithm the algorithm to set
-     */
-    public void setAlgorithm(LoadBalancingAlgorithm algorithm) {
-        this.algorithm = algorithm;
-    }
+  /**
+   * @return the region
+   */
+  public Region getRegion() {
+    return region;
+  }
 
-    /**
-     * @return the region
-     */
-    public Region getRegion() {
-        return region;
-    }
+  /**
+   * @param region the region to set
+   */
+  public void setRegion(Region region) {
+    this.region = region;
+  }
 
-    /**
-     * @param region the region to set
-     */
-    public void setRegion(Region region) {
-        this.region = region;
-    }
+  /**
+   * @return the status
+   */
+  public LoadBalancerStatus getStatus() {
+    return status;
+  }
 
+  /**
+   * @param status the status to set
+   */
+  public void setStatus(LoadBalancerStatus status) {
+    this.status = status;
+  }
 
-    /**
-     * @return the status
-     */
-    public LoadBalancerStatus getStatus() {
-        return status;
-    }
+  /**
+   * @return the created date
+   */
+  public Date getCreatedDate() {
+    return createdDate;
+  }
 
-    /**
-     * @param status the status to set
-     */
-    public void setStatus(LoadBalancerStatus status) {
-        this.status = status;
-    }
+  /**
+   * @param createdDate the createdDate to set
+   */
+  public void setCreatedDate(Date createdDate) {
+    this.createdDate = createdDate;
+  }
 
-    /**
-     * @return the created date
-     */
-    public Date getCreatedDate() {
-        return createdDate;
-    }
+  /**
+   * @return the forwarding rules
+   */
+  public List<ForwardingRules> getForwardingRules() {
+    return forwardingRules;
+  }
 
-    /**
-     * @param createdDate the createdDate to set
-     */
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
+  /**
+   * @param forwardingRules the forwardingRules to set
+   */
+  public void setForwardingRules(List<ForwardingRules> forwardingRules) {
+    this.forwardingRules = forwardingRules;
+  }
 
-    /**
-     * @return the forwarding rules
-     */
-    public List<ForwardingRules> getForwardingRules() {
-        return forwardingRules;
-    }
+  /**
+   * @return the healthcheck
+   */
+  public HealthCheck getHealthCheck() {
+    return healthCheck;
+  }
 
-    /**
-     * @param forwardingRules the forwardingRules to set
-     */
-    public void setForwardingRules(List<ForwardingRules> forwardingRules) {
-        this.forwardingRules = forwardingRules;
-    }
+  /**
+   * @param healthCheck the healthCheck to set
+   */
+  public void setHealthCheck(HealthCheck healthCheck) {
+    this.healthCheck = healthCheck;
+  }
 
-    /**
-     * @return the healthcheck
-     */
-    public HealthCheck getHealthCheck() {
-        return healthCheck;
-    }
+  /**
+   * @return the sticky sessions
+   */
+  public StickySessions getStickySessions() {
+    return stickySessions;
+  }
 
-    /**
-     * @param healthCheck the healthCheck to set
-     */
-    public void setHealthCheck(HealthCheck healthCheck) {
-        this.healthCheck = healthCheck;
-    }
+  /**
+   * @param stickySessions the stickySessions to set
+   */
+  public void setStickySessions(StickySessions stickySessions) {
+    this.stickySessions = stickySessions;
+  }
 
-    /**
-     * @return the sticky sessions
-     */
-    public StickySessions getStickySessions() {
-        return stickySessions;
-    }
+  /**
+   * @return true if the HTTP requests to the Load Balancer on port 80 will be redirected to HTTPS
+   *         on port 443.
+   */
+  public boolean isRedirectHttpToHttps() {
+    return redirectHttpToHttps;
+  }
 
-    /**
-     * @param stickySessions the stickySessions to set
-     */
-    public void setStickySessions(StickySessions stickySessions) {
-        this.stickySessions = stickySessions;
-    }
+  /**
+   * @param redirectHttpToHttps the redirectHttpToHttps to set
+   */
+  public void setRedirectHttpToHttps(boolean redirectHttpToHttps) {
+    this.redirectHttpToHttps = redirectHttpToHttps;
+  }
 
-    /**
-     * @return true if the HTTP requests to the Load Balancer on port 80 will be redirected to HTTPS on port 443.
-     */
-    public boolean isRedirectHttpToHttps() {
-        return redirectHttpToHttps;
-    }
+  /**
+   * @return the list of dropletId
+   */
+  public List<String> getDropletIds() {
+    return dropletIds;
+  }
 
-    /**
-     * @param redirectHttpToHttps the redirectHttpToHttps to set
-     */
-    public void setRedirectHttpToHttps(boolean redirectHttpToHttps) {
-        this.redirectHttpToHttps = redirectHttpToHttps;
-    }
+  /**
+   * @param dropletIds the dropletIds to set
+   */
+  public void setDropletIds(List<String> dropletIds) {
+    this.dropletIds = dropletIds;
+  }
 
-    /**
-     * @return the list of dropletId
-     */
-    public List<String> getDropletIds() {
-        return dropletIds;
-    }
+  /**
+   * @return the tag
+   */
+  public String getTag() {
+    return tag;
+  }
 
-    /**
-     * @param dropletIds the dropletIds to set
-     */
-    public void setDropletIds(List<String> dropletIds) {
-        this.dropletIds = dropletIds;
-    }
-
-    /**
-     * @return the tag
-     */
-    public String getTag() {
-        return tag;
-    }
-
-    /**
-     * @param tag the tag to set
-     */
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
+  /**
+   * @param tag the tag to set
+   */
+  public void setTag(String tag) {
+    this.tag = tag;
+  }
 
 }

@@ -21,6 +21,8 @@
 
 package com.myjeeva.digitalocean.common;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -118,7 +120,7 @@ public enum ActionType {
   
   private String value;
 
-  ActionType(String value) {
+  private ActionType(String value) {
     this.value = value;
   }
 
@@ -128,7 +130,7 @@ public enum ActionType {
   }
 
   public static ActionType fromValue(String value) {
-    if (null == value || "".equals(value)) {
+    if (StringUtils.isBlank(value)) {
       throw new IllegalArgumentException("Value cannot be null or empty!");
     }
 

@@ -35,70 +35,67 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  */
 public class StickySessions extends Base {
 
-    private static final long serialVersionUID = -2697068548366505704L;
+  private static final long serialVersionUID = -2697068548366505704L;
 
-    @Expose
-    private StickySessionType type = StickySessionType.None;
+  @Expose
+  private StickySessionType type = StickySessionType.None;
 
-    @Expose
-    private Integer port;
+  @Expose
+  private Integer port;
 
-    @Expose
-    @SerializedName("cookie_name")
-    private String cookieName;
+  @Expose
+  @SerializedName("cookie_name")
+  private String cookieName;
 
-    @Expose
-    @SerializedName("cookie_ttl_seconds")
-    private Integer cookieTtlInSeconds;
+  @Expose
+  @SerializedName("cookie_ttl_seconds")
+  private Integer cookieTtlInSeconds;
 
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this);
-    }
+  /**
+   * @return the type
+   */
+  public StickySessionType getType() {
+    return type;
+  }
 
+  /**
+   * @param type the type to set
+   */
+  public void setType(StickySessionType type) {
+    this.type = type;
+  }
 
-    /**
-     * @return the type
-     */
-    public StickySessionType getType() {
-        return type;
-    }
+  /**
+   * @return the cookie name
+   */
+  public String getCookieName() {
+    return cookieName;
+  }
 
-    /**
-     * @param type the type to set
-     */
-    public void setType(StickySessionType type) {
-        this.type = type;
-    }
+  /**
+   * @param cookieName the cookie name to set
+   */
+  public void setCookieName(String cookieName) {
+    this.cookieName = cookieName;
+  }
 
-    /**
-     * @return the cookie name
-     */
-    public String getCookieName() {
-        return cookieName;
-    }
+  /**
+   * @return the cookie TTL in seconds
+   */
+  public Integer getCookieTtlInSeconds() {
+    return cookieTtlInSeconds;
+  }
 
-    /**
-     * @param cookieName the cookie name to set
-     */
-    public void setCookieName(String cookieName) {
-        this.cookieName = cookieName;
-    }
-
-    /**
-     * @return the cookie TTL in seconds
-     */
-    public Integer getCookieTtlInSeconds() {
-        return cookieTtlInSeconds;
-    }
-
-    /**
-     * @param cookieTtlInSeconds the cookie TTL in seconds to set
-     */
-    public void setCookieTtlInSeconds(Integer cookieTtlInSeconds) {
-        this.cookieTtlInSeconds = cookieTtlInSeconds;
-    }
-
+  /**
+   * @param cookieTtlInSeconds the cookie TTL in seconds to set
+   */
+  public void setCookieTtlInSeconds(Integer cookieTtlInSeconds) {
+    this.cookieTtlInSeconds = cookieTtlInSeconds;
+  }
 
 }

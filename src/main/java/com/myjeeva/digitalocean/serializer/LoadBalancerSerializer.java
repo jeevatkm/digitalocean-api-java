@@ -14,8 +14,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import com.myjeeva.digitalocean.pojo.LoadBalancer;
 import com.myjeeva.digitalocean.pojo.ForwardingRules;
+import com.myjeeva.digitalocean.pojo.LoadBalancer;
 
 /**
  * Serialize the load balancer info for POST request.
@@ -27,14 +27,15 @@ import com.myjeeva.digitalocean.pojo.ForwardingRules;
 public class LoadBalancerSerializer implements JsonSerializer<LoadBalancer> {
 
   @Override
-  public JsonElement serialize(LoadBalancer loadBalancer, Type paramType, JsonSerializationContext context) {
+  public JsonElement serialize(LoadBalancer loadBalancer, Type paramType,
+      JsonSerializationContext context) {
     final JsonObject jsonObject = new JsonObject();
 
     jsonObject.addProperty("name", loadBalancer.getName());
 
     jsonObject.addProperty("region", loadBalancer.getRegion().getSlug());
 
-    if (loadBalancer.getAlgorithm() != null) {
+    if (null != loadBalancer.getAlgorithm()) {
       jsonObject.addProperty("algorithm", loadBalancer.getAlgorithm().toString());
     }
 

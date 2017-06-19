@@ -31,11 +31,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.myjeeva.digitalocean.pojo.LoadBalancer;
-import com.myjeeva.digitalocean.pojo.LoadBalancers;
-import com.myjeeva.digitalocean.pojo.ForwardingRules;
-import com.myjeeva.digitalocean.pojo.HealthCheck;
-import com.myjeeva.digitalocean.serializer.LoadBalancerSerializer;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -87,12 +82,16 @@ import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.FloatingIP;
 import com.myjeeva.digitalocean.pojo.FloatingIPAction;
 import com.myjeeva.digitalocean.pojo.FloatingIPs;
+import com.myjeeva.digitalocean.pojo.ForwardingRules;
+import com.myjeeva.digitalocean.pojo.HealthCheck;
 import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.ImageAction;
 import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
 import com.myjeeva.digitalocean.pojo.Key;
 import com.myjeeva.digitalocean.pojo.Keys;
+import com.myjeeva.digitalocean.pojo.LoadBalancer;
+import com.myjeeva.digitalocean.pojo.LoadBalancers;
 import com.myjeeva.digitalocean.pojo.Neighbors;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Resource;
@@ -107,6 +106,7 @@ import com.myjeeva.digitalocean.pojo.Volume;
 import com.myjeeva.digitalocean.pojo.VolumeAction;
 import com.myjeeva.digitalocean.pojo.Volumes;
 import com.myjeeva.digitalocean.serializer.DropletSerializer;
+import com.myjeeva.digitalocean.serializer.LoadBalancerSerializer;
 import com.myjeeva.digitalocean.serializer.VolumeSerializer;
 
 /**
@@ -116,7 +116,7 @@ import com.myjeeva.digitalocean.serializer.VolumeSerializer;
  */
 public class DigitalOceanClient implements DigitalOcean, Constants {
 
-  private final Logger LOG = LoggerFactory.getLogger(DigitalOceanClient.class);
+  private static final Logger log = LoggerFactory.getLogger(DigitalOceanClient.class);
 
   /**
    * Http client
@@ -319,7 +319,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
           "Missing required parameters [Names, Region Slug, Size Slug, Image Id/Slug] for creating multiple droplets.");
     }
 
-    if (StringUtils.isNotEmpty(droplet.getName())) {
+    if (StringUtils.isNotBlank(droplet.getName())) {
       throw new IllegalArgumentException(
           "Name parameter is not allowed, while creating multiple droplet instead use 'names' attributes.");
     }
@@ -339,11 +339,12 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Delete deleteDropletByTagName(String tagName)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(tagName, "Missing required parameter - tagName.");
+    checkBlankAndThrowError(tagName, "Missing required parameter - tagName.");
 
     Map<String, String> queryParams = new HashMap<String, String>();
     queryParams.put("tag_name", tagName);
-    return (Delete) perform(new ApiRequest(ApiAction.DELETE_DROPLET_BY_TAG_NAME, null, queryParams, null)).getData();
+    return (Delete) perform(
+        new ApiRequest(ApiAction.DELETE_DROPLET_BY_TAG_NAME, null, queryParams, null)).getData();
   }
 
   @Override
@@ -609,7 +610,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Actions getAvailableFloatingIPActions(String ipAddress, Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
+    checkBlankAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
     validatePageNo(pageNo);
 
     Object[] params = {ipAddress};
@@ -620,7 +621,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Action getFloatingIPActionInfo(String ipAddress, Integer actionId)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
+    checkBlankAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
     checkNullAndThrowError(actionId, "Missing required parameter - actionId.");
 
     Object[] params = {ipAddress, actionId};
@@ -631,7 +632,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Actions getAvailableVolumeActions(String volumeId)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
+    checkBlankAndThrowError(volumeId, "Missing required parameter - volumeId.");
 
     Object[] params = {volumeId};
     return (Actions) perform(new ApiRequest(ApiAction.GET_VOLUME_ACTIONS, params))
@@ -641,7 +642,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Action getVolumeAction(String volumeId, Integer actionId)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
+    checkBlankAndThrowError(volumeId, "Missing required parameter - volumeId.");
     checkNullAndThrowError(actionId, "Missing required parameter - actionId.");
 
     Object[] params = {volumeId, actionId};
@@ -666,7 +667,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validatePageNo(pageNo);
 
     Map<String, String> qp;
-    if (type == ActionType.DISTRIBUTION || type == ActionType.APPLICATION) {
+    if (ActionType.DISTRIBUTION.equals(type) || ActionType.APPLICATION.equals(type)) {
       qp = new HashMap<String, String>();
       qp.put("type", type.toString());
     } else {
@@ -700,7 +701,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Image getImageInfo(String slug)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(slug, "Missing required parameter - slug.");
+    checkBlankAndThrowError(slug, "Missing required parameter - slug.");
 
     Object[] params = {slug};
     return (Image) perform(new ApiRequest(ApiAction.GET_IMAGE_INFO, params)).getData();
@@ -729,7 +730,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Action transferImage(Integer imageId, String regionSlug) throws DigitalOceanException,
       RequestUnsuccessfulException {
     checkNullAndThrowError(imageId, "Missing required parameter - imageId.");
-    checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+    checkBlankAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
 
     Object[] params = {imageId};
     return (Action) perform(
@@ -783,7 +784,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Domain getDomainInfo(String domainName) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
+    checkBlankAndThrowError(domainName, "Missing required parameter - domainName.");
 
     Object[] params = {domainName};
     return (Domain) perform(new ApiRequest(ApiAction.GET_DOMAIN_INFO, params)).getData();
@@ -792,8 +793,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Domain createDomain(Domain domain) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    checkEmptyAndThrowError(domain.getName(), "Missing required parameter - domainName.");
-    checkEmptyAndThrowError(domain.getIpAddress(), "Missing required parameter - ipAddress.");
+    checkBlankAndThrowError(domain.getName(), "Missing required parameter - domainName.");
+    checkBlankAndThrowError(domain.getIpAddress(), "Missing required parameter - ipAddress.");
 
     return (Domain) perform(new ApiRequest(ApiAction.CREATE_DOMAIN, domain)).getData();
   }
@@ -801,7 +802,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Delete deleteDomain(String domainName) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
+    checkBlankAndThrowError(domainName, "Missing required parameter - domainName.");
 
     Object[] params = {domainName};
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_DOMAIN, params)).getData();
@@ -810,7 +811,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public DomainRecords getDomainRecords(String domainName, Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
+    checkBlankAndThrowError(domainName, "Missing required parameter - domainName.");
 
     Object[] params = {domainName};
     return (DomainRecords) perform(
@@ -820,7 +821,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public DomainRecord getDomainRecordInfo(String domainName, Integer recordId)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
+    checkBlankAndThrowError(domainName, "Missing required parameter - domainName.");
     checkNullAndThrowError(recordId, "Missing required parameter - recordId.");
 
     Object[] params = {domainName, recordId};
@@ -831,10 +832,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public DomainRecord createDomainRecord(String domainName, DomainRecord domainRecord)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
-    if (null == domainRecord) {
-      throw new IllegalArgumentException("Missing required parameter - domainRecord");
-    }
+    checkBlankAndThrowError(domainName, "Missing required parameter - domainName.");
+    checkNullAndThrowError(domainRecord, "Missing required parameter - domainRecord");
 
     Object[] params = {domainName};
     return (DomainRecord) perform(
@@ -844,13 +843,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public DomainRecord updateDomainRecord(String domainName, Integer recordId,
       DomainRecord domainRecord) throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
+    checkBlankAndThrowError(domainName, "Missing required parameter - domainName.");
     checkNullAndThrowError(recordId, "Missing required parameter - recordId.");
-
-    if (null == domainRecord) {
-      LOG.error("domainRecord input is required.");
-      throw new IllegalArgumentException("domainRecord input is required.");
-    }
+    checkNullAndThrowError(domainRecord, "Missing required parameter - domainRecord");
 
     Object[] params = {domainName, recordId};
     return (DomainRecord) perform(
@@ -860,7 +855,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Delete deleteDomainRecord(String domainName, Integer recordId)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(domainName, "Missing required parameter - domainName.");
+    checkBlankAndThrowError(domainName, "Missing required parameter - domainName.");
     checkNullAndThrowError(recordId, "Missing required parameter - recordId.");
 
     Object[] params = {domainName, recordId};
@@ -885,7 +880,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Key getKeyInfo(String fingerprint) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    checkEmptyAndThrowError(fingerprint, "Missing required parameter - fingerprint.");
+    checkBlankAndThrowError(fingerprint, "Missing required parameter - fingerprint.");
 
     Object[] params = {fingerprint};
     return (Key) perform(new ApiRequest(ApiAction.GET_KEY_INFO, params)).getData();
@@ -893,11 +888,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
   @Override
   public Key createKey(Key newKey) throws DigitalOceanException, RequestUnsuccessfulException {
-    if (null == newKey) {
-      throw new IllegalArgumentException("Missing required parameter - newKey");
-    }
-    checkEmptyAndThrowError(newKey.getName(), "Missing required parameter - name.");
-    checkEmptyAndThrowError(newKey.getPublicKey(), "Missing required parameter - publicKey.");
+    checkNullAndThrowError(newKey, "Missing required parameter - newKey");
+    checkBlankAndThrowError(newKey.getName(), "Missing required parameter - name.");
+    checkBlankAndThrowError(newKey.getPublicKey(), "Missing required parameter - publicKey.");
 
     return (Key) perform(new ApiRequest(ApiAction.CREATE_KEY, newKey)).getData();
   }
@@ -906,7 +899,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Key updateKey(Integer sshKeyId, String newSshKeyName) throws DigitalOceanException,
       RequestUnsuccessfulException {
     checkNullAndThrowError(sshKeyId, "Missing required parameter - sshKeyId.");
-    checkEmptyAndThrowError(newSshKeyName, "Missing required parameter - newSshKeyName.");
+    checkBlankAndThrowError(newSshKeyName, "Missing required parameter - newSshKeyName.");
 
     Object[] params = {sshKeyId};
     return (Key) perform(new ApiRequest(ApiAction.UPDATE_KEY, new Key(newSshKeyName), params))
@@ -916,8 +909,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Key updateKey(String fingerprint, String newSshKeyName) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    checkEmptyAndThrowError(fingerprint, "Missing required parameter - fingerprint.");
-    checkEmptyAndThrowError(newSshKeyName, "Missing required parameter - newSshKeyName.");
+    checkBlankAndThrowError(fingerprint, "Missing required parameter - fingerprint.");
+    checkBlankAndThrowError(newSshKeyName, "Missing required parameter - newSshKeyName.");
 
     Object[] params = {fingerprint};
     return (Key) perform(new ApiRequest(ApiAction.UPDATE_KEY, new Key(newSshKeyName), params))
@@ -936,7 +929,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Delete deleteKey(String fingerprint) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    checkEmptyAndThrowError(fingerprint, "Missing required parameter - fingerprint.");
+    checkBlankAndThrowError(fingerprint, "Missing required parameter - fingerprint.");
 
     Object[] params = {fingerprint};
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_KEY, params)).getData();
@@ -966,7 +959,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public FloatingIP createFloatingIP(String region) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    checkEmptyAndThrowError(region, "Missing required parameter - region.");
+    checkBlankAndThrowError(region, "Missing required parameter - region.");
 
     return (FloatingIP) perform(
         new ApiRequest(ApiAction.CREATE_FLOATING_IP, new FloatingIPAction(region))).getData();
@@ -975,7 +968,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public FloatingIP getFloatingIPInfo(String ipAddress) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    checkEmptyAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
+    checkBlankAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
 
     Object[] params = {ipAddress};
     return (FloatingIP) perform(new ApiRequest(ApiAction.GET_FLOATING_IP_INFO, params)).getData();
@@ -984,7 +977,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Delete deleteFloatingIP(String ipAddress) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    checkEmptyAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
+    checkBlankAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
 
     Object[] params = {ipAddress};
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_FLOATING_IP, params)).getData();
@@ -994,7 +987,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Action assignFloatingIP(Integer dropletId, String ipAddress) throws DigitalOceanException,
       RequestUnsuccessfulException {
     validateDropletId(dropletId);
-    checkEmptyAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
+    checkBlankAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
 
     Object[] params = {ipAddress};
     return (Action) perform(
@@ -1005,7 +998,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Action unassignFloatingIP(String ipAddress) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    checkEmptyAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
+    checkBlankAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
 
     Object[] params = {ipAddress};
     return (Action) perform(
@@ -1027,7 +1020,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
   @Override
   public Tag createTag(String name) throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(name, "Missing required parameter - tag name");
+    checkBlankAndThrowError(name, "Missing required parameter - tag name");
 
     return (Tag) perform(
         new ApiRequest(ApiAction.CREATE_TAG, new Tag(name))).getData();
@@ -1035,7 +1028,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
   @Override
   public Tag getTag(String name) throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(name, "Missing required parameter - tag name");
+    checkBlankAndThrowError(name, "Missing required parameter - tag name");
 
     Object[] params = {name};
     return (Tag) perform(new ApiRequest(ApiAction.GET_TAG, params)).getData();
@@ -1044,7 +1037,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Delete deleteTag(String name) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    checkEmptyAndThrowError(name, "Missing required parameter - tag name");
+    checkBlankAndThrowError(name, "Missing required parameter - tag name");
 
     Object[] params = {name};
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_TAG, params)).getData();
@@ -1053,7 +1046,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Response tagResources(String name, List<Resource> resources)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(name, "Missing required parameter - tag name");
+    checkBlankAndThrowError(name, "Missing required parameter - tag name");
     if (null == resources || resources.isEmpty()) {
       throw new IllegalArgumentException(
           "Missing required parameter - list of resources for tag");
@@ -1067,7 +1060,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Response untagResources(String name, List<Resource> resources)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(name, "Missing required parameter - tag name");
+    checkBlankAndThrowError(name, "Missing required parameter - tag name");
     if (null == resources || resources.isEmpty()) {
       throw new IllegalArgumentException(
           "Missing required parameter - list of resources for untag");
@@ -1085,7 +1078,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Volumes getAvailableVolumes(String regionSlug)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+    checkBlankAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
 
     Map<String, String> data = new HashMap<String, String>();
     data.put("region", regionSlug);
@@ -1109,7 +1102,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Volume getVolumeInfo(String volumeId)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
+    checkBlankAndThrowError(volumeId, "Missing required parameter - volumeId.");
 
     Object[] params = {volumeId};
     return (Volume) perform(new ApiRequest(ApiAction.GET_VOLUME_INFO, params)).getData();
@@ -1118,8 +1111,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Volumes getVolumeInfo(String volumeName, String regionSlug)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(volumeName, "Missing required parameter - volumeName.");
-    checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+    checkBlankAndThrowError(volumeName, "Missing required parameter - volumeName.");
+    checkBlankAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
 
     Map<String, String> data = new HashMap<String, String>();
     data.put("region", regionSlug);
@@ -1130,7 +1123,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Delete deleteVolume(String volumeId)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
+    checkBlankAndThrowError(volumeId, "Missing required parameter - volumeId.");
 
     Object[] params = {volumeId};
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_VOLUME, params)).getData();
@@ -1139,8 +1132,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Delete deleteVolume(String volumeName, String regionSlug)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(volumeName, "Missing required parameter - volumeName.");
-    checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+    checkBlankAndThrowError(volumeName, "Missing required parameter - volumeName.");
+    checkBlankAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
 
     Map<String, String> data = new HashMap<String, String>();
     data.put("region", regionSlug);
@@ -1153,8 +1146,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       throws DigitalOceanException,
       RequestUnsuccessfulException {
     validateDropletId(dropletId);
-    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
-    checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+    checkBlankAndThrowError(volumeId, "Missing required parameter - volumeId.");
+    checkBlankAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
 
     Object[] params = {volumeId};
     return (Action) perform(
@@ -1167,8 +1160,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       throws DigitalOceanException,
       RequestUnsuccessfulException {
     validateDropletId(dropletId);
-    checkEmptyAndThrowError(volumeName, "Missing required parameter - volumeName.");
-    checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+    checkBlankAndThrowError(volumeName, "Missing required parameter - volumeName.");
+    checkBlankAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
 
     return (Action) perform(
         new ApiRequest(ApiAction.ACTIONS_VOLUME_BY_NAME,
@@ -1181,8 +1174,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       throws DigitalOceanException,
       RequestUnsuccessfulException {
     validateDropletId(dropletId);
-    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
-    checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+    checkBlankAndThrowError(volumeId, "Missing required parameter - volumeId.");
+    checkBlankAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
 
     Object[] params = {volumeId};
     return (Action) perform(
@@ -1195,8 +1188,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       throws DigitalOceanException,
       RequestUnsuccessfulException {
     validateDropletId(dropletId);
-    checkEmptyAndThrowError(volumeName, "Missing required parameter - volumeName.");
-    checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+    checkBlankAndThrowError(volumeName, "Missing required parameter - volumeName.");
+    checkBlankAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
 
     return (Action) perform(
         new ApiRequest(ApiAction.ACTIONS_VOLUME_BY_NAME,
@@ -1208,8 +1201,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Action resizeVolume(String volumeId, String regionSlug, Double sizeGigabytes)
       throws DigitalOceanException,
       RequestUnsuccessfulException {
-    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
-    checkEmptyAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
+    checkBlankAndThrowError(volumeId, "Missing required parameter - volumeId.");
+    checkBlankAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
 
     if (null == sizeGigabytes) {
       throw new IllegalArgumentException("Missing required parameter - sizeGigabytes.");
@@ -1225,7 +1218,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Snapshots getVolumeSnapshots(String volumeId, Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
-    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
+    checkBlankAndThrowError(volumeId, "Missing required parameter - volumeId.");
 
     Object[] params = {volumeId};
     return (Snapshots) perform(
@@ -1236,8 +1229,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Snapshot takeVolumeSnapshot(String volumeId, String snapshotName)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkEmptyAndThrowError(volumeId, "Missing required parameter - volumeId.");
-    checkEmptyAndThrowError(snapshotName, "Missing required parameter - snapshotName.");
+    checkBlankAndThrowError(volumeId, "Missing required parameter - volumeId.");
+    checkBlankAndThrowError(snapshotName, "Missing required parameter - snapshotName.");
 
     Map<String, String> data = new HashMap<String, String>();
     data.put("name", snapshotName);
@@ -1301,7 +1294,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_SNAPSHOT, params)).getData();
   }
 
-
   // ===========================================
   // Load balancers manipulation methods
   // ===========================================
@@ -1318,9 +1310,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateForwardingRules(loadBalancer.getForwardingRules());
     validateHealthCheck(loadBalancer.getHealthCheck());
 
-    return (LoadBalancer) perform(new ApiRequest(ApiAction.CREATE_LOAD_BALANCER, loadBalancer)).getData();
+    return (LoadBalancer) perform(new ApiRequest(ApiAction.CREATE_LOAD_BALANCER, loadBalancer))
+        .getData();
   }
-
 
   @Override
   public LoadBalancer getLoadBalancerInfo(String loadBalancerId) throws DigitalOceanException,
@@ -1328,7 +1320,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateLoadBalancerId(loadBalancerId);
 
     Object[] params = {loadBalancerId};
-    return (LoadBalancer) perform(new ApiRequest(ApiAction.GET_LOAD_BALANCER_INFO, params)).getData();
+    return (LoadBalancer) perform(new ApiRequest(ApiAction.GET_LOAD_BALANCER_INFO, params))
+        .getData();
   }
 
   @Override
@@ -1336,10 +1329,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       throws DigitalOceanException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
 
-    return (LoadBalancers) perform(new ApiRequest(ApiAction.AVAILABLE_LOAD_BALANCERS, pageNo, perPage))
-        .getData();
+    return (LoadBalancers) perform(
+        new ApiRequest(ApiAction.AVAILABLE_LOAD_BALANCERS, pageNo, perPage))
+            .getData();
   }
-
 
   @Override
   public LoadBalancer updateLoadBalancer(LoadBalancer loadBalancer) throws DigitalOceanException,
@@ -1356,12 +1349,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
     Object[] params = {loadBalancer.getId()};
 
-    return (LoadBalancer) perform(new ApiRequest(ApiAction.UPDATE_LOAD_BALANCER, loadBalancer, params)).getData();
+    return (LoadBalancer) perform(
+        new ApiRequest(ApiAction.UPDATE_LOAD_BALANCER, loadBalancer, params)).getData();
   }
 
-
   @Override
-  public Response addDropletsToLoadBalancer(String loadBalancerId, List<Integer> dropletIds) throws DigitalOceanException,
+  public Response addDropletsToLoadBalancer(String loadBalancerId, List<Integer> dropletIds)
+      throws DigitalOceanException,
       RequestUnsuccessfulException {
     validateLoadBalancerId(loadBalancerId);
 
@@ -1373,11 +1367,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {loadBalancerId};
     Map<String, List<Integer>> data = new HashMap<>();
     data.put("droplet_ids", dropletIds);
-    return (Response) perform(new ApiRequest(ApiAction.ADD_DROPLET_TO_LOAD_BALANCER, data, params)).getData();
+    return (Response) perform(new ApiRequest(ApiAction.ADD_DROPLET_TO_LOAD_BALANCER, data, params))
+        .getData();
   }
 
   @Override
-  public Delete removeDropletsFromLoadBalancer(String loadBalancerId, List<Integer> dropletIds) throws DigitalOceanException,
+  public Delete removeDropletsFromLoadBalancer(String loadBalancerId, List<Integer> dropletIds)
+      throws DigitalOceanException,
       RequestUnsuccessfulException {
     validateLoadBalancerId(loadBalancerId);
 
@@ -1389,12 +1385,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {loadBalancerId};
     Map<String, List<Integer>> data = new HashMap<>();
     data.put("droplet_ids", dropletIds);
-    return (Delete) perform(new ApiRequest(ApiAction.REMOVE_DROPLET_FROM_LOAD_BALANCER, data, params)).getData();
+    return (Delete) perform(
+        new ApiRequest(ApiAction.REMOVE_DROPLET_FROM_LOAD_BALANCER, data, params)).getData();
   }
 
-
   @Override
-  public Response addForwardingRulesToLoadBalancer(String loadBalancerId, List<ForwardingRules> forwardingRules) throws DigitalOceanException,
+  public Response addForwardingRulesToLoadBalancer(String loadBalancerId,
+      List<ForwardingRules> forwardingRules) throws DigitalOceanException,
       RequestUnsuccessfulException {
     validateLoadBalancerId(loadBalancerId);
 
@@ -1406,12 +1403,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {loadBalancerId};
     Map<String, List<ForwardingRules>> data = new HashMap<>();
     data.put("forwarding_rules", forwardingRules);
-    return (Response) perform(new ApiRequest(ApiAction.ADD_FORWARDING_RULES_TO_LOAD_BALANCER, data, params)).getData();
+    return (Response) perform(
+        new ApiRequest(ApiAction.ADD_FORWARDING_RULES_TO_LOAD_BALANCER, data, params)).getData();
   }
 
-
   @Override
-  public Delete removeForwardingRulesFromLoadBalancer(String loadBalancerId, List<ForwardingRules> forwardingRules) throws DigitalOceanException,
+  public Delete removeForwardingRulesFromLoadBalancer(String loadBalancerId,
+      List<ForwardingRules> forwardingRules) throws DigitalOceanException,
       RequestUnsuccessfulException {
     validateLoadBalancerId(loadBalancerId);
 
@@ -1423,7 +1421,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {loadBalancerId};
     Map<String, List<ForwardingRules>> data = new HashMap<>();
     data.put("forwarding_rules", forwardingRules);
-    return (Delete) perform(new ApiRequest(ApiAction.REMOVE_FORWARDING_RULES_FROM_LOAD_BALANCER, data, params)).getData();
+    return (Delete) perform(
+        new ApiRequest(ApiAction.REMOVE_FORWARDING_RULES_FROM_LOAD_BALANCER, data, params))
+            .getData();
   }
 
   @Override
@@ -1467,11 +1467,11 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
         apiResponse.setData(deserialize.fromJson(elementObject, request.getClazz()));
       }
     } catch (JsonSyntaxException jse) {
-      LOG.error("Error occurred while parsing response", jse);
+      log.error("Error occurred while parsing response", jse);
       apiResponse.setRequestSuccess(false);
     }
 
-    LOG.debug("API Response:: " + apiResponse.toString());
+    log.debug("API Response:: " + apiResponse.toString());
 
     return apiResponse;
   }
@@ -1523,16 +1523,16 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
   private String executeHttpRequest(HttpUriRequest request) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    LOG.debug("HTTP Execute:: " + request.getMethod() + " " + request.getURI());
+    log.debug("HTTP Request:: {} {}", request.getMethod(), request.getURI());
     String response = "";
     CloseableHttpResponse httpResponse = null;
 
     try {
       httpResponse = httpClient.execute(request);
-      LOG.debug("HTTP Response Object:: " + httpResponse);
+      log.debug("HTTP Response Object:: {}", httpResponse);
 
       response = appendRateLimitValues(evaluateResponse(httpResponse), httpResponse);
-      LOG.debug("Parsed Response:: " + response);
+      log.debug("Parsed Response:: {}", response);
     } catch (IOException ioe) {
       throw new RequestUnsuccessfulException(ioe.getMessage(), ioe);
     } finally {
@@ -1545,7 +1545,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
         // Since response object is 99.999999% success rate
         // this is nothing to do with DigitalOcean, its
         // typical handling of HttpClient request/response
-        LOG.error("Error occurred while closing a response.", e);
+        log.error("Error occurred while closing a response.", e);
       }
     }
 
@@ -1566,7 +1566,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
     if (statusCode >= 400 && statusCode < 510) {
       String jsonStr = httpResponseToString(httpResponse);
-      LOG.debug("JSON Response: " + jsonStr);
+      log.debug("JSON Response: {}", jsonStr);
 
       JsonObject jsonObj = null;
       String errorMsg = StringUtils.EMPTY;
@@ -1584,7 +1584,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       String errorMsgFull =
           String.format("\nHTTP Status Code: %s\nError Id: %s\nError Message: %s", statusCode, id,
               errorMsg);
-      LOG.debug(errorMsgFull);
+      log.debug(errorMsgFull);
 
       throw new DigitalOceanException(errorMsg, id, statusCode);
     }
@@ -1598,9 +1598,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       try {
         response = EntityUtils.toString(httpResponse.getEntity(), UTF_8);
       } catch (ParseException pe) {
-        LOG.error(pe.getMessage(), pe);
+        log.error(pe.getMessage(), pe);
       } catch (IOException ioe) {
-        LOG.error(ioe.getMessage(), ioe);
+        log.error(ioe.getMessage(), ioe);
       }
     }
     return response;
@@ -1634,7 +1634,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     try {
       uri = ub.build();
     } catch (URISyntaxException use) {
-      LOG.error(use.getMessage(), use);
+      log.error(use.getMessage(), use);
     }
 
     return uri;
@@ -1653,7 +1653,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       try {
         data = new StringEntity(inputData);
       } catch (UnsupportedEncodingException e) {
-        LOG.error(e.getMessage(), e);
+        log.error(e.getMessage(), e);
       }
     }
 
@@ -1670,7 +1670,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
             getSimpleHeaderValue(HDR_RATE_REMAINING, httpResponse),
             getDateString(getSimpleHeaderValue(HDR_RATE_RESET, httpResponse), DATE_FORMAT));
 
-    LOG.debug("RateLimitData:: " + rateLimitData);
+    log.debug("RateLimitData:: {}", rateLimitData);
 
     return StringUtils.substringBeforeLast(response, "}") + ", " + rateLimitData + "}";
   }
@@ -1681,7 +1681,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
     SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
     String dateString = formatter.format(expiry);
-    LOG.debug(dateString);
+    log.debug(dateString);
 
     return dateString;
   }
@@ -1721,7 +1721,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   private void validateSnapshotId(String snapshotId) {
-    checkEmptyAndThrowError(snapshotId, "Missing required parameter - snapshotId.");
+    checkBlankAndThrowError(snapshotId, "Missing required parameter - snapshotId.");
   }
 
   private void validateDropletId(Integer dropletId) {
@@ -1729,47 +1729,41 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   private void validateLoadBalancerId(String loadBalancerId) {
-    checkNullAndThrowError(loadBalancerId, "Missing required parameter - loadBalancerId.");
+    checkBlankAndThrowError(loadBalancerId, "Missing required parameter - loadBalancerId.");
   }
 
   private void validatePageNo(Integer pageNo) {
     checkNullAndThrowError(pageNo, "Missing required parameter - pageNo.");
   }
 
-  private void checkNullAndThrowError(Integer integer, String msg) {
-    if (null == integer) {
-      LOG.error(msg);
+  private void checkNullAndThrowError(Object obj, String msg) {
+    if (null == obj) {
+      log.error(msg);
       throw new IllegalArgumentException(msg);
     }
   }
 
-  private void checkNullAndThrowError(String string, String msg) {
-    if (null == string) {
-      LOG.error(msg);
-      throw new IllegalArgumentException(msg);
-    }
-  }
-
-  private void checkEmptyAndThrowError(String str, String msg) {
+  // It checks for null, whitespace and length
+  private void checkBlankAndThrowError(String str, String msg) {
     if (StringUtils.isBlank(str)) {
-      LOG.error(msg);
+      log.error(msg);
       throw new IllegalArgumentException(msg);
     }
   }
 
   private void validateForwardingRules(List<ForwardingRules> rules) {
-    if (null == rules
-      || rules.isEmpty()) {
+    if (null == rules || rules.isEmpty()) {
       throw new IllegalArgumentException(
           "Missing required parameters [ForwardingRules]");
     }
 
-    for (ForwardingRules rule:rules)
+    for (ForwardingRules rule : rules)
       validateForwardingRule(rule);
   }
 
   private void validateForwardingRule(ForwardingRules rule) {
-    if (null == rule.getEntryProtocol()
+    if (null == rule
+        || null == rule.getEntryProtocol()
         || null == rule.getEntryPort()
         || null == rule.getTargetProtocol()
         || null == rule.getTargetPort()) {
@@ -1780,14 +1774,11 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
   private void validateHealthCheck(HealthCheck healthCheck) {
     if (null != healthCheck
-        && (null == healthCheck.getProtocol() || null == healthCheck.getPort()))
-
+        && (null == healthCheck.getProtocol() || null == healthCheck.getPort())) {
       throw new IllegalArgumentException(
           "Missing required parameters [Protocol, Port] for health check");
-
+    }
   }
-
-
 
   private void initialize() {
     this.deserialize = new GsonBuilder().setDateFormat(DATE_FORMAT).create();
@@ -1805,7 +1796,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
         {new BasicHeader(HDR_USER_AGENT, USER_AGENT),
             new BasicHeader(HDR_CONTENT_TYPE, JSON_CONTENT_TYPE),
             new BasicHeader(HDR_AUTHORIZATION, "Bearer " + authToken)};
-    LOG.debug("API Request Headers:: " + headers);
+    log.debug("API Request Headers:: " + headers);
 
     this.requestHeaders = headers;
 

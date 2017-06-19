@@ -35,134 +35,140 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  */
 public class HealthCheck extends Base {
 
-    private static final long serialVersionUID = -442836096026412279L;
+  private static final long serialVersionUID = -442836096026412279L;
 
-    @Expose
-    private Protocol protocol;
+  @Expose
+  private Protocol protocol;
 
-    @Expose
-    private Integer port;
+  @Expose
+  private Integer port;
 
-    @Expose
-    private String path;
+  @Expose
+  private String path;
 
-    @Expose
-    @SerializedName("check_interval_seconds")
-    private Integer checkIntervalInSeconds = 10;
+  @Expose
+  @SerializedName("check_interval_seconds")
+  private Integer checkIntervalInSeconds = 10;
 
-    @Expose
-    @SerializedName("response_timeout_seconds")
-    private Integer responseTimeoutInSeconds = 5;
+  @Expose
+  @SerializedName("response_timeout_seconds")
+  private Integer responseTimeoutInSeconds = 5;
 
-    @Expose
-    @SerializedName("unhealthy_threshold")
-    private Integer unhealthyThreshold = 3;
+  @Expose
+  @SerializedName("unhealthy_threshold")
+  private Integer unhealthyThreshold = 3;
 
-    @Expose
-    @SerializedName("healthy_threshold")
-    private Integer healthyThreshold = 5;
+  @Expose
+  @SerializedName("healthy_threshold")
+  private Integer healthyThreshold = 5;
 
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this);
-    }
+  /**
+   * @return the protocol
+   */
+  public Protocol getProtocol() {
+    return protocol;
+  }
 
-    /**
-     * @return the protocol
-     */
-    public Protocol getProtocol() {
-        return protocol;
-    }
+  /**
+   * @param protocol the protocol to set
+   */
+  public void setProtocol(Protocol protocol) {
+    this.protocol = protocol;
+  }
 
-    /**
-     * @param protocol the protocol to set
-     */
-    public void setProtocol(Protocol protocol) {
-        this.protocol = protocol;
-    }
+  /**
+   * @return the port
+   */
+  public Integer getPort() {
+    return port;
+  }
 
-    /**
-     * @return the port
-     */
-    public Integer getPort() {
-        return port;
-    }
+  /**
+   * @param port the entry port to set
+   */
+  public void setPort(Integer port) {
+    this.port = port;
+  }
 
-    /**
-     * @param port the entry port to set
-     */
-    public void setPort(Integer port) {
-        this.port = port;
-    }
+  /**
+   * @return the path
+   */
+  public String getPath() {
+    return path;
+  }
 
-    /**
-     * @return the path
-     */
-    public String getPath() {
-        return path;
-    }
+  /**
+   * @param path the path to set
+   */
+  public void setPath(String path) {
+    this.path = path;
+  }
 
-    /**
-     * @param path the path to set
-     */
-    public void setPath(String path) {
-        this.path = path;
-    }
+  /**
+   * @return the number of times a health check must pass for a backend Droplet to be marked
+   *         "healthy" and be re-added to the pool
+   */
+  public Integer getHealthyThreshold() {
+    return healthyThreshold;
+  }
 
-    /**
-     * @return the number of times a health check must pass for a backend Droplet to be marked "healthy" and be re-added to the pool
-     */
-    public Integer getHealthyThreshold() {
-        return healthyThreshold;
-    }
+  /**
+   * @param healthyThreshold the number of times a health check must pass for a backend Droplet to
+   *        be marked "healthy" and be re-added to the pool
+   */
+  public void setHealthyThreshold(Integer healthyThreshold) {
+    this.healthyThreshold = healthyThreshold;
+  }
 
-    /**
-     * @param healthyThreshold the number of times a health check must pass for a backend Droplet to be marked "healthy" and be re-added to the pool
-     */
-    public void setHealthyThreshold(Integer healthyThreshold) {
-        this.healthyThreshold = healthyThreshold;
-    }
+  /**
+   * @return the number of times a health check must fail for a backend Droplet to be marked
+   *         "unhealthy" and be removed from the pool.
+   */
+  public Integer getUnhealthyThreshold() {
+    return unhealthyThreshold;
+  }
 
-    /**
-     * @return the number of times a health check must fail for a backend Droplet to be marked "unhealthy" and be removed from the pool.
-     */
-    public Integer getUnhealthyThreshold() {
-        return unhealthyThreshold;
-    }
+  /**
+   * @param unhealthyThreshold the number of times a health check must fail for a backend Droplet to
+   *        be marked "unhealthy" and be removed from the pool.
+   */
+  public void setUnhealthyThreshold(Integer unhealthyThreshold) {
+    this.unhealthyThreshold = unhealthyThreshold;
+  }
 
-    /**
-     * @param unhealthyThreshold the number of times a health check must fail for a backend Droplet to be marked "unhealthy" and be removed from the pool.
-     */
-    public void setUnhealthyThreshold(Integer unhealthyThreshold) {
-        this.unhealthyThreshold = unhealthyThreshold;
-    }
+  /**
+   * @return the number of seconds the Load Balancer instance will wait for a response until marking
+   *         a health check as failed.
+   */
+  public Integer getResponseTimeoutInSeconds() {
+    return responseTimeoutInSeconds;
+  }
 
-    /**
-     * @return the number of seconds the Load Balancer instance will wait for a response until marking a health check as failed.
-     */
-    public Integer getResponseTimeoutInSeconds() {
-        return responseTimeoutInSeconds;
-    }
+  /**
+   * @param responseTimeoutInSeconds the number of seconds the Load Balancer instance will wait for
+   *        a response until marking a health check as failed.
+   */
+  public void setResponseTimeoutInSeconds(Integer responseTimeoutInSeconds) {
+    this.responseTimeoutInSeconds = responseTimeoutInSeconds;
+  }
 
-    /**
-     * @param responseTimeoutInSeconds the number of seconds the Load Balancer instance will wait for a response until marking a health check as failed.
-     */
-    public void setResponseTimeoutInSeconds(Integer responseTimeoutInSeconds) {
-        this.responseTimeoutInSeconds = responseTimeoutInSeconds;
-    }
+  /**
+   * @return number of seconds between two consecutive health checks
+   */
+  public Integer getCheckIntervalInSeconds() {
+    return checkIntervalInSeconds;
+  }
 
-    /**
-     * @return number of seconds between two consecutive health checks
-     */
-    public Integer getCheckIntervalInSeconds() {
-        return checkIntervalInSeconds;
-    }
-
-    /**
-     * @param checkIntervalInSeconds the number of seconds between two consecutive health checks to set
-     */
-    public void setCheckIntervalInSeconds(Integer checkIntervalInSeconds) {
-        this.checkIntervalInSeconds = checkIntervalInSeconds;
-    }
+  /**
+   * @param checkIntervalInSeconds the number of seconds between two consecutive health checks to
+   *        set
+   */
+  public void setCheckIntervalInSeconds(Integer checkIntervalInSeconds) {
+    this.checkIntervalInSeconds = checkIntervalInSeconds;
+  }
 }

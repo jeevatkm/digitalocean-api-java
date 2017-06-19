@@ -35,27 +35,27 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  */
 public class LoadBalancers extends Base {
 
-    private static final long serialVersionUID = 5440139918030950627L;
+  private static final long serialVersionUID = 5440139918030950627L;
 
-    @SerializedName("load_balancers")
-    private List<LoadBalancer> loadBalancers;
+  @SerializedName("load_balancers")
+  private List<LoadBalancer> loadBalancers;
 
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this);
-    }
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this);
+  }
 
-    /**
-     * @return the droplets
-     */
-    public List<LoadBalancer> getLoadBalancers() {
-        return loadBalancers;
-    }
+  /**
+   * @return the droplets
+   */
+  public List<LoadBalancer> getLoadBalancers() {
+    return loadBalancers;
+  }
 
-    /**
-     * @param loadBalancers the droplets to set
-     */
-    public void setLoadBalancers(List<LoadBalancer> loadBalancers) {
-        this.loadBalancers = loadBalancers;
-    }
+  /**
+   * @param loadBalancers the droplets to set
+   */
+  public void setLoadBalancers(List<LoadBalancer> loadBalancers) {
+    this.loadBalancers = loadBalancers;
+  }
 }

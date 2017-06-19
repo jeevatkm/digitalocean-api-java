@@ -21,6 +21,8 @@
 
 package com.myjeeva.digitalocean.common;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -48,7 +50,7 @@ public enum LoadBalancerStatus {
     }
 
     public static LoadBalancerStatus fromValue(String value) {
-        if (null == value || "".equals(value)) {
+        if (StringUtils.isBlank(value)) {
             throw new IllegalArgumentException("Value cannot be null or empty!");
         }
 

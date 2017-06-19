@@ -1589,7 +1589,6 @@ public interface DigitalOcean {
   Delete deleteSnapshot(String snapshotId)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
-
   // ===========================================
   // Load balancers manipulation methods
   // ===========================================
@@ -1597,11 +1596,12 @@ public interface DigitalOcean {
   /**
    * Method allows you to add a new load balancer to distribute traffic across multiple Droplets.
    *
-   * The LoadBalancer object passed in param can have a list of dropletIds set as dropletIds attribute.
-   * In this case, given Droplets will be assigned to the Load Balancer.
+   * The LoadBalancer object passed in param can have a list of dropletIds set as dropletIds
+   * attribute. In this case, given Droplets will be assigned to the Load Balancer.
    *
-   * You may also use a Droplet tag to assign a group of Droplets to Load Balancer in place of a list of Droplet IDs.
-   * In this case, set the tag attribute of the LoadBalancer object passed in param.
+   * You may also use a Droplet tag to assign a group of Droplets to Load Balancer in place of a
+   * list of Droplet IDs. In this case, set the tag attribute of the LoadBalancer object passed in
+   * param.
    *
    * @param loadBalancer the instance of the loadBalancer class
    * @return {@link LoadBalancer}
@@ -1613,7 +1613,6 @@ public interface DigitalOcean {
    */
   LoadBalancer createLoadBalancer(LoadBalancer loadBalancer) throws DigitalOceanException,
       RequestUnsuccessfulException;
-
 
   /**
    * Method returns complete information for given load balancer ID.
@@ -1630,8 +1629,8 @@ public interface DigitalOcean {
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
-   * Method returns all active loadbalancers that are currently running in your account. All available
-   * API information is presented for each loadbalancer.
+   * Method returns all active loadbalancers that are currently running in your account. All
+   * available API information is presented for each loadbalancer.
    *
    * @param pageNo for pagination
    * @param perPage no. of items per page
@@ -1646,10 +1645,10 @@ public interface DigitalOcean {
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
-   * Method allows you to update an existign load balancer.
-   * The LoadBalancer object passed in param should contain a full representation of the Load Balancer including existing attributes.
-   * It may contain one of the dropletIds or tag parameter as they are mutually exclusive.
-   * Note that any attribute that is not provided will be reset to its default value.
+   * Method allows you to update an existign load balancer. The LoadBalancer object passed in param
+   * should contain a full representation of the Load Balancer including existing attributes. It may
+   * contain one of the dropletIds or tag parameter as they are mutually exclusive. Note that any
+   * attribute that is not provided will be reset to its default value.
    *
    * @param loadBalancer the instance of the loadBalancer class
    * @return {@link LoadBalancer}
@@ -1666,7 +1665,8 @@ public interface DigitalOcean {
    * Method allows you to assign a Droplet to a Load Balancer instance.
    *
    * @param loadBalancerId the id of the loadBalancer
-   * @param dropletIds an array containing the IDs of the Droplets to be assigned to the Load Balancer instance.
+   * @param dropletIds an array containing the IDs of the Droplets to be assigned to the Load
+   *        Balancer instance.
    * @return {@link Response}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -1674,14 +1674,16 @@ public interface DigitalOcean {
    *
    * @since v2.11
    */
-  Response addDropletsToLoadBalancer(String loadBalancerId, List<Integer> dropletIds) throws DigitalOceanException,
+  Response addDropletsToLoadBalancer(String loadBalancerId, List<Integer> dropletIds)
+      throws DigitalOceanException,
       RequestUnsuccessfulException;
 
   /**
    * Method allows you to remove a Droplet from a Load Balancer instance.
    *
    * @param loadBalancerId the id of the loadBalancer
-   * @param dropletIds an array containing the IDs of the Droplets to be removed from the Load Balancer instance.
+   * @param dropletIds an array containing the IDs of the Droplets to be removed from the Load
+   *        Balancer instance.
    * @return {@link Delete}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -1689,14 +1691,16 @@ public interface DigitalOcean {
    *
    * @since v2.11
    */
-  Delete removeDropletsFromLoadBalancer(String loadBalancerId, List<Integer> dropletIds) throws DigitalOceanException,
+  Delete removeDropletsFromLoadBalancer(String loadBalancerId, List<Integer> dropletIds)
+      throws DigitalOceanException,
       RequestUnsuccessfulException;
 
   /**
    * Method allows you to add an additional forwarding rule to a Load Balancer instance.
    *
    * @param loadBalancerId the id of the loadBalancer
-   * @param forwardingRules an array containing the Forwarding Rules to add to the Load Balancer instance.
+   * @param forwardingRules an array containing the Forwarding Rules to add to the Load Balancer
+   *        instance.
    * @return {@link Response}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -1704,14 +1708,16 @@ public interface DigitalOcean {
    *
    * @since v2.11
    */
-  Response addForwardingRulesToLoadBalancer(String loadBalancerId, List<ForwardingRules> forwardingRules) throws DigitalOceanException,
+  Response addForwardingRulesToLoadBalancer(String loadBalancerId,
+      List<ForwardingRules> forwardingRules) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
   /**
    * Method allows you to remove forwarding rules from a Load Balancer instance.
    *
    * @param loadBalancerId the id of the loadBalancer
-   * @param forwardingRules an array containing the Forwarding Rules to remove from the Load Balancer instance.
+   * @param forwardingRules an array containing the Forwarding Rules to remove from the Load
+   *        Balancer instance.
    * @return {@link Delete}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -1719,11 +1725,13 @@ public interface DigitalOcean {
    *
    * @since v2.11
    */
-  Delete removeForwardingRulesFromLoadBalancer(String loadBalancerId, List<ForwardingRules> forwardingRules) throws DigitalOceanException,
+  Delete removeForwardingRulesFromLoadBalancer(String loadBalancerId,
+      List<ForwardingRules> forwardingRules) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
   /**
-   * Method allows you to delete a Load Balancer instance, disassociating any Droplets assigned to it and removing it from your account.
+   * Method allows you to delete a Load Balancer instance, disassociating any Droplets assigned to
+   * it and removing it from your account.
    *
    * @param loadBalancerId the id of the loadBalancer
    * @return {@link Delete}
