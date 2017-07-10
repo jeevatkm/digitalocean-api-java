@@ -59,7 +59,7 @@ public class Image extends RateLimitBase {
 
   @SerializedName("min_disk_size")
   private Integer minDiskSize;
-  
+
   @SerializedName("size_gigabytes")
   private Double size;
 
@@ -97,8 +97,9 @@ public class Image extends RateLimitBase {
   }
 
   /**
-   * @return true if image is temporary
-   * Deprecated Info: https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-snaphots/
+   * @return true if image is temporary Deprecated Info:
+   *         https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-
+   *         snaphots/
    */
   @Deprecated
   public boolean isTemporary() {
@@ -229,5 +230,19 @@ public class Image extends RateLimitBase {
    */
   public void setMinDiskSize(Integer minDiskSize) {
     this.minDiskSize = minDiskSize;
+  }
+
+  /**
+   * @return the size
+   */
+  public Double getSize() {
+    return size;
+  }
+
+  /**
+   * @param size the size to set
+   */
+  public void setSize(Double size) {
+    this.size = size;
   }
 }
