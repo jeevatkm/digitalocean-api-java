@@ -113,6 +113,11 @@ public class DropletSerializer implements JsonSerializer<Droplet> {
       jsonObject.add("tags", tags);
     }
 
+    // #70
+    if (null != droplet.getInstallMonitoring()) {
+      jsonObject.addProperty("monitoring", droplet.getInstallMonitoring());
+    }
+
     return jsonObject;
   }
 

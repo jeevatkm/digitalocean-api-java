@@ -41,7 +41,7 @@ public class Droplet extends RateLimitBase {
   private Integer id;
 
   private String name;
-  
+
   private List<String> names;
 
   @SerializedName("memory")
@@ -90,11 +90,13 @@ public class Droplet extends RateLimitBase {
 
   @SerializedName("user_data")
   private String userData;
-  
+
   @SerializedName("volume_ids")
   private List<String> volumeIds;
-  
+
   private List<String> tags;
+
+  private Boolean installMonitoring;
 
   @Override
   public String toString() {
@@ -463,6 +465,20 @@ public class Droplet extends RateLimitBase {
    */
   public void setTags(List<String> tags) {
     this.tags = tags;
+  }
+
+  /**
+   * @return the installMonitoring
+   */
+  public Boolean getInstallMonitoring() {
+    return installMonitoring;
+  }
+
+  /**
+   * @param installMonitoring the installMonitoring to set
+   */
+  public void setInstallMonitoring(Boolean installMonitoring) {
+    this.installMonitoring = installMonitoring;
   }
 
 }
