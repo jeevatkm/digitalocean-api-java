@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
 	Title		: Java Bindings for DigitalOcean API's
-	Copyright	: (c) myjeeva.com
+	Copyright	: (c) Jeevanandam (jeeva@myjeeva.com)
 	@filename	: pom.xml 
 	@author		: <a href="jeeva@myjeeva.com">Jeevanandam M.</a>
 	@date		: Jun 28, 2013 11:20:42 PM GMT+05:30
@@ -20,7 +20,7 @@
 	<name>DigitalOcean API Client in Java</name>
 	<version>2.12-SNAPSHOT</version>
 	<description>DigitalOcean API Client in Java</description>
-	<url>http://myjeeva.com</url>
+	<url>https://myjeeva.com</url>
 	<licenses>
 		<license>
 			<name>The MIT License (MIT)</name>
@@ -38,7 +38,7 @@
 			<id>jeevatkm</id>
 			<name>Jeevanandam M.</name>
 			<email>jeeva@myjeeva.com</email>
-			<url>http://myjeeva.com</url>
+			<url>https://myjeeva.com</url>
 		</developer>
 	</developers>
 

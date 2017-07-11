@@ -30,6 +30,8 @@ import com.myjeeva.digitalocean.pojo.Account;
 import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
+import com.myjeeva.digitalocean.pojo.Certificate;
+import com.myjeeva.digitalocean.pojo.Certificates;
 import com.myjeeva.digitalocean.pojo.Delete;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
@@ -39,6 +41,7 @@ import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.FloatingIP;
 import com.myjeeva.digitalocean.pojo.FloatingIPs;
+import com.myjeeva.digitalocean.pojo.ForwardingRules;
 import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernels;
@@ -57,7 +60,6 @@ import com.myjeeva.digitalocean.pojo.Tag;
 import com.myjeeva.digitalocean.pojo.Tags;
 import com.myjeeva.digitalocean.pojo.Volume;
 import com.myjeeva.digitalocean.pojo.Volumes;
-import com.myjeeva.digitalocean.pojo.ForwardingRules;
 
 /**
  * <p>
@@ -112,6 +114,8 @@ import com.myjeeva.digitalocean.pojo.ForwardingRules;
  * </pre>
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
+ * 
+ * @since v1.0
  */
 public interface DigitalOcean {
 
@@ -1743,4 +1747,83 @@ public interface DigitalOcean {
    */
   Delete deleteLoadBalancer(String loadBalancerId) throws DigitalOceanException,
       RequestUnsuccessfulException;
+
+  // ===========================================
+  // Certificates manipulation methods
+  // ===========================================
+
+  /**
+   * Method returns all available Certificates from your account.
+   *
+   * @param pageNo for pagination
+   * @param perPage no. of items per page
+   * @return {@link LoadBalancers}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   *
+   * @since v2.12
+   **/
+  Certificates getAvailableCertificates(Integer pageNo, Integer perPage)
+      throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * <p>
+   * Method allows you to create a new certificate. See the required parameters section below for an
+   * explanation of the variables that are needed to create a new certificate.
+   * </p>
+   * <p>
+   * Create a instance of {@link Certificate} class and populated the certificate object
+   * appropriately. Required values are -
+   * </p>
+   * 
+   * <pre>
+   * {
+   *    "name": "web-cert-01",
+   *    "private_key": "-----BEGIN PRIVATE KEY----- ... -----END PRIVATE KEY-----",
+   *    "leaf_certificate": "-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----",
+   *    "certificate_chain": "-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----"
+   * }
+   * </pre>
+   * 
+   * @param certificate the instance of the Certificate class
+   * @return {@link Certificate}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.12
+   */
+  Certificate createCertificate(Certificate certificate) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method returns the Certificate information for given certificate ID.
+   * 
+   * @param certificateId the id of the certificate
+   * @return {@link Certificate}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.12
+   */
+  Certificate getCertificateInfo(String certificateId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to delete a Certificate by Id from your account.
+   *
+   * @param certificateId the id of the certificate
+   * @return {@link Delete}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   *
+   * @since v2.12
+   */
+  Delete deleteCertificate(String certificateId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+
 }

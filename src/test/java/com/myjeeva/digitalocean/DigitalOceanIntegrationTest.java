@@ -30,7 +30,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.myjeeva.digitalocean.common.ActionType;
+import com.myjeeva.digitalocean.common.LoadBalancingAlgorithm;
+import com.myjeeva.digitalocean.common.Protocol;
 import com.myjeeva.digitalocean.common.ResourceType;
+import com.myjeeva.digitalocean.common.StickySessionType;
 import com.myjeeva.digitalocean.exception.DigitalOceanException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
 import com.myjeeva.digitalocean.impl.DigitalOceanClient;
@@ -39,6 +42,8 @@ import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backup;
 import com.myjeeva.digitalocean.pojo.Backups;
+import com.myjeeva.digitalocean.pojo.Certificate;
+import com.myjeeva.digitalocean.pojo.Certificates;
 import com.myjeeva.digitalocean.pojo.Delete;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
@@ -48,12 +53,16 @@ import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.FloatingIP;
 import com.myjeeva.digitalocean.pojo.FloatingIPs;
+import com.myjeeva.digitalocean.pojo.ForwardingRules;
+import com.myjeeva.digitalocean.pojo.HealthCheck;
 import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.Images;
 import com.myjeeva.digitalocean.pojo.Kernel;
 import com.myjeeva.digitalocean.pojo.Kernels;
 import com.myjeeva.digitalocean.pojo.Key;
 import com.myjeeva.digitalocean.pojo.Keys;
+import com.myjeeva.digitalocean.pojo.LoadBalancer;
+import com.myjeeva.digitalocean.pojo.LoadBalancers;
 import com.myjeeva.digitalocean.pojo.Neighbors;
 import com.myjeeva.digitalocean.pojo.Region;
 import com.myjeeva.digitalocean.pojo.Regions;
@@ -63,18 +72,11 @@ import com.myjeeva.digitalocean.pojo.Size;
 import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshot;
 import com.myjeeva.digitalocean.pojo.Snapshots;
+import com.myjeeva.digitalocean.pojo.StickySessions;
 import com.myjeeva.digitalocean.pojo.Tag;
 import com.myjeeva.digitalocean.pojo.Tags;
 import com.myjeeva.digitalocean.pojo.Volume;
 import com.myjeeva.digitalocean.pojo.Volumes;
-import com.myjeeva.digitalocean.common.LoadBalancingAlgorithm;
-import com.myjeeva.digitalocean.common.Protocol;
-import com.myjeeva.digitalocean.common.StickySessionType;
-import com.myjeeva.digitalocean.pojo.LoadBalancer;
-import com.myjeeva.digitalocean.pojo.LoadBalancers;
-import com.myjeeva.digitalocean.pojo.ForwardingRules;
-import com.myjeeva.digitalocean.pojo.HealthCheck;
-import com.myjeeva.digitalocean.pojo.StickySessions;
 
 import junit.framework.TestCase;
 
@@ -94,7 +96,7 @@ import junit.framework.TestCase;
 // Marked as Ignore since its a Integration Test case with real values
 public class DigitalOceanIntegrationTest extends TestCase {
 
-  private final Logger LOG = LoggerFactory.getLogger(DigitalOceanIntegrationTest.class);
+  private final Logger log = LoggerFactory.getLogger(DigitalOceanIntegrationTest.class);
 
   /**
    * This is testing values of my own respective to DigitalOcean account, to real-time integration
@@ -106,7 +108,8 @@ public class DigitalOceanIntegrationTest extends TestCase {
   private String volumeNameForInfo = "test-volume"; // to be placed before use, should have
                                                     // different ID from volumeIdForInfo and created
                                                     // in nyc1 region
-  private String loadBalancerIdForInfo = "155fa6cd-3e74-406d-90bd-5671488c7157"; // to be placed before use
+  private String loadBalancerIdForInfo = "155fa6cd-3e74-406d-90bd-5671488c7157"; // to be placed
+                                                                                 // before use
   private Integer imageId = 3445812; // Debian 7.0 x64 image id
   private String imageSlug = "ubuntu-12-04-x64";
   private String domainName = "";
@@ -127,7 +130,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     int i = 1;
     for (Droplet droplet : droplets.getDroplets()) {
-      LOG.info(i++ + " -> " + droplet.toString());
+      log.info(i++ + " -> " + droplet.toString());
     }
   }
 
@@ -141,7 +144,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     int i = 1;
     for (Kernel k : kernels.getKernels()) {
-      LOG.info(i++ + " -> " + k.toString());
+      log.info(i++ + " -> " + k.toString());
     }
   }
 
@@ -155,7 +158,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((snapshots.getSnapshots().isEmpty()));
 
     for (Snapshot s : snapshots.getSnapshots()) {
-      LOG.info(s.toString());
+      log.info(s.toString());
     }
   }
 
@@ -168,7 +171,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((backups.getBackups().isEmpty()));
 
     for (Backup b : backups.getBackups()) {
-      LOG.info(b.toString());
+      log.info(b.toString());
     }
   }
 
@@ -179,7 +182,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(droplet);
 
-    LOG.info(droplet.toString());
+    log.info(droplet.toString());
   }
 
   @Test
@@ -213,7 +216,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(d);
     assertNotNull(d.getId());
 
-    LOG.info(d.toString());
+    log.info(d.toString());
   }
 
   @Test
@@ -239,7 +242,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(d);
     assertNotNull(d.getId());
 
-    LOG.info(d.toString());
+    log.info(d.toString());
   }
 
   @Test
@@ -259,7 +262,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((droplets.getDroplets().isEmpty()));
 
     for (Droplet d : droplets.getDroplets()) {
-      LOG.info(d.toString());
+      log.info(d.toString());
     }
   }
 
@@ -269,7 +272,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Delete result = apiClient.deleteDroplet(2258153);
 
     assertNotNull(result);
-    LOG.info("Delete Request Object: " + result);
+    log.info("Delete Request Object: " + result);
   }
 
   @Test
@@ -279,7 +282,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Delete result = apiClient.deleteDropletByTagName("delete-me");
 
     assertNotNull(result);
-    LOG.info("Delete by tag name Request Object: " + result);
+    log.info("Delete by tag name Request Object: " + result);
   }
 
   @Test
@@ -290,7 +293,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(droplets);
 
     for (Droplet d : droplets.getDroplets()) {
-      LOG.info(d.toString());
+      log.info(d.toString());
     }
   }
 
@@ -303,7 +306,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(neighbors);
 
     for (Droplet d : neighbors.getNeighbors()) {
-      LOG.info(d.toString());
+      log.info(d.toString());
     }
   }
 
@@ -313,7 +316,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.rebootDroplet(2258136);
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -322,7 +325,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.rebootDroplet(2258136);
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -331,7 +334,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.shutdownDroplet(4124871); // 2258168
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -340,7 +343,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.powerOffDroplet(2258168);
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -349,7 +352,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.powerOnDroplet(2258136);
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -359,7 +362,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.resetDropletPassword(2258168);
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -368,7 +371,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.resizeDroplet(2258136, "1gb");
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -378,7 +381,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.takeDropletSnapshot(2258136);
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -387,7 +390,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.restoreDroplet(2258168, 5489522); // Snapshot id
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -396,7 +399,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.rebuildDroplet(2258136, 3445812); // Debian 7.0 x64
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -406,7 +409,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.enableDropletBackups(9662284);
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -416,7 +419,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.disableDropletBackups(2258168);
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -425,7 +428,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.renameDroplet(2258168, "renamed-droplet-name-test");
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -434,7 +437,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.changeDropletKernel(2258168, 1649);
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -443,7 +446,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.enableDropletIpv6(2258168);
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -453,7 +456,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.enableDropletPrivateNetworking(2258168);
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   // Account Test cases
@@ -463,7 +466,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Account account = apiClient.getAccountInfo();
 
     assertNotNull(account);
-    LOG.info(account.toString());
+    log.info(account.toString());
   }
 
   // Action Test cases
@@ -476,11 +479,11 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(actions);
     assertFalse((actions.getActions().isEmpty()));
 
-    LOG.info(actions.getLinks().toString());
+    log.info(actions.getLinks().toString());
 
     int i = 1;
     for (Action a : actions.getActions()) {
-      LOG.info(i++ + " -> " + a.toString());
+      log.info(i++ + " -> " + a.toString());
     }
   }
 
@@ -490,7 +493,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.getActionInfo(28336352);
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -507,7 +510,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((actions3.getActions().isEmpty()));
 
     for (Action a : actions.getActions()) {
-      LOG.info(a.toString());
+      log.info(a.toString());
     }
   }
 
@@ -521,7 +524,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((actions.getActions().isEmpty()));
 
     for (Action a : actions.getActions()) {
-      LOG.info(a.toString());
+      log.info(a.toString());
     }
   }
 
@@ -530,13 +533,13 @@ public class DigitalOceanIntegrationTest extends TestCase {
       RequestUnsuccessfulException {
     Actions actions = apiClient.getAvailableFloatingIPActions("159.203.146.100", 1, 10);
 
-    LOG.info(actions.toString());
+    log.info(actions.toString());
 
     assertNotNull(actions);
 
     int i = 1;
     for (Action action : actions.getActions()) {
-      LOG.info(i++ + " -> " + action.toString());
+      log.info(i++ + " -> " + action.toString());
     }
   }
 
@@ -545,7 +548,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
       RequestUnsuccessfulException {
     Action action = apiClient.getFloatingIPActionInfo("159.203.146.100", 76697074);
 
-    LOG.info(action.toString());
+    log.info(action.toString());
 
     assertNotNull(action);
   }
@@ -561,7 +564,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((images.getImages().isEmpty()));
 
     for (Image img : images.getImages()) {
-      LOG.info(img.toString());
+      log.info(img.toString());
     }
   }
 
@@ -575,7 +578,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((images.getImages().isEmpty()));
 
     for (Image img : images.getImages()) {
-      LOG.info(img.toString());
+      log.info(img.toString());
     }
   }
 
@@ -589,7 +592,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((images.getImages().isEmpty()));
 
     for (Image img : images.getImages()) {
-      LOG.info(img.toString());
+      log.info(img.toString());
     }
   }
 
@@ -599,7 +602,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     try {
       apiClient.getAvailableImages(1, 20, ActionType.BACKUP);
     } catch (DigitalOceanException doe) {
-      LOG.info(doe.getMessage());
+      log.info(doe.getMessage());
     }
   }
 
@@ -612,7 +615,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((images.getImages().isEmpty()));
 
     for (Image img : images.getImages()) {
-      LOG.info(img.toString());
+      log.info(img.toString());
     }
   }
 
@@ -623,7 +626,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(image);
 
-    LOG.info(image.toString());
+    log.info(image.toString());
   }
 
   @Test
@@ -633,7 +636,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(image);
 
-    LOG.info(image.toString());
+    log.info(image.toString());
   }
 
   @Test
@@ -646,7 +649,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(image);
 
-    LOG.info(image.toString());
+    log.info(image.toString());
   }
 
   @Test
@@ -654,7 +657,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Delete result = apiClient.deleteImage(3897539);
 
     assertNotNull(result);
-    LOG.info("Delete Request result: " + result);
+    log.info("Delete Request result: " + result);
   }
 
   @Test
@@ -662,7 +665,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.transferImage(5489522, "lon1");
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -670,7 +673,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Action action = apiClient.convertImage(5489522);
 
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   // Regions test cases
@@ -684,7 +687,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((regions.getRegions().isEmpty()));
 
     for (Region region : regions.getRegions()) {
-      LOG.info(region.toString());
+      log.info(region.toString());
     }
   }
 
@@ -699,7 +702,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((sizes.getSizes().isEmpty()));
 
     for (Size size : sizes.getSizes()) {
-      LOG.info(size.toString());
+      log.info(size.toString());
     }
   }
 
@@ -714,7 +717,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((domains.getDomains().isEmpty()));
 
     for (Domain d : domains.getDomains()) {
-      LOG.info(d.toString());
+      log.info(d.toString());
     }
   }
 
@@ -723,7 +726,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Domain domain = apiClient.getDomainInfo("jeeutil.com");
 
     assertNotNull(domain);
-    LOG.info(domain.toString());
+    log.info(domain.toString());
   }
 
   @Test
@@ -735,7 +738,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(domain);
     assertNotNull(domain.getName());
 
-    LOG.info(domain.toString());
+    log.info(domain.toString());
   }
 
   @Test
@@ -743,7 +746,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Delete result = apiClient.deleteDomain(domainName);
 
     assertNotNull(result);
-    LOG.info("Delete Request Object: " + result);
+    log.info("Delete Request Object: " + result);
   }
 
   @Test
@@ -755,7 +758,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((domainRecords.getDomainRecords().isEmpty()));
 
     for (DomainRecord dr : domainRecords.getDomainRecords()) {
-      LOG.info(dr.toString());
+      log.info(dr.toString());
     }
   }
 
@@ -764,7 +767,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     DomainRecord domainRecord = apiClient.getDomainRecordInfo("jeeutil.com", 160448);
 
     assertNotNull(domainRecord);
-    LOG.info(domainRecord.toString());
+    log.info(domainRecord.toString());
   }
 
   @Test
@@ -774,7 +777,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     DomainRecord domainRecord = apiClient.createDomainRecord("jeeutil.com", input);
 
     assertNotNull(domainRecord);
-    LOG.info(domainRecord.toString());
+    log.info(domainRecord.toString());
   }
 
   @Test
@@ -784,7 +787,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     DomainRecord domainRecord = apiClient.updateDomainRecord("example.me", 10989796, record);
 
     assertNotNull(domainRecord);
-    LOG.info(domainRecord.toString());
+    log.info(domainRecord.toString());
   }
 
   @Test
@@ -792,7 +795,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Delete result = apiClient.deleteDomainRecord("jeeutil.com", 3253734);
 
     assertNotNull(result);
-    LOG.info("Delete Request Object: " + result.toString());
+    log.info("Delete Request Object: " + result.toString());
   }
 
   // SSH Key test cases
@@ -806,7 +809,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((keys.getKeys().isEmpty()));
 
     for (Key k : keys.getKeys()) {
-      LOG.info(k.toString());
+      log.info(k.toString());
     }
   }
 
@@ -826,7 +829,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(resultKey);
     assertNotNull(resultKey.getId());
-    LOG.info(resultKey.toString());
+    log.info(resultKey.toString());
   }
 
   @Test
@@ -835,7 +838,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(resultKey);
     assertNotNull(resultKey.getId());
-    LOG.info(resultKey.toString());
+    log.info(resultKey.toString());
   }
 
   @Test
@@ -844,7 +847,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(resultKey);
     assertNotNull(resultKey.getId());
-    LOG.info(resultKey.toString());
+    log.info(resultKey.toString());
   }
 
   @Test
@@ -853,7 +856,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(resultKey);
     assertNotNull(resultKey.getId());
-    LOG.info(resultKey.toString());
+    log.info(resultKey.toString());
   }
 
   @Test
@@ -864,7 +867,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(resultKey);
     assertNotNull(resultKey.getId());
-    LOG.info(resultKey.toString());
+    log.info(resultKey.toString());
   }
 
   @Test
@@ -872,7 +875,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Delete result = apiClient.deleteKey(245798);
 
     assertNotNull(result);
-    LOG.info("Delete Key Request Object: " + result);
+    log.info("Delete Key Request Object: " + result);
   }
 
   @Test
@@ -881,7 +884,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Delete result = apiClient.deleteKey("3b:0b:99:54:ef:75:cb:88:88:66:3c:8d:10:64:74:32");
 
     assertNotNull(result);
-    LOG.info("Delete Key Request Object: " + result);
+    log.info("Delete Key Request Object: " + result);
   }
 
   // Floating IPs test cases
@@ -891,14 +894,14 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     FloatingIPs floatingIPs = apiClient.getAvailableFloatingIPs(1, 10);
 
-    LOG.info(floatingIPs.toString());
+    log.info(floatingIPs.toString());
 
     assertNotNull(floatingIPs);
     // assertFalse((floatingIPs.getFloatingIPs().isEmpty()));
 
     int i = 1;
     for (FloatingIP floatingIP : floatingIPs.getFloatingIPs()) {
-      LOG.info(i++ + " -> " + floatingIP.toString());
+      log.info(i++ + " -> " + floatingIP.toString());
     }
   }
 
@@ -910,7 +913,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(floatingIP);
 
-    LOG.info(floatingIP.toString());
+    log.info(floatingIP.toString());
   }
 
   @Test
@@ -921,7 +924,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(floatingIP);
 
-    LOG.info(floatingIP.toString());
+    log.info(floatingIP.toString());
   }
 
   @Test
@@ -932,7 +935,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(floatingIP);
 
-    LOG.info(floatingIP.toString());
+    log.info(floatingIP.toString());
   }
 
   @Test
@@ -940,14 +943,14 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Delete result = apiClient.deleteFloatingIP("159.203.146.109");
 
     assertNotNull(result);
-    LOG.info("Delete Floating IP Request Object: " + result);
+    log.info("Delete Floating IP Request Object: " + result);
   }
 
   @Test
   public void testAssignFloatingIP() throws DigitalOceanException, RequestUnsuccessfulException {
     Action action = apiClient.assignFloatingIP(9674996, "159.203.146.100");
 
-    LOG.info(action.toString());
+    log.info(action.toString());
 
     assertNotNull(action);
     assertEquals(ActionType.ASSIGN_FLOATING_IP, action.getType());
@@ -958,7 +961,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testUnassignFloatingIP() throws DigitalOceanException, RequestUnsuccessfulException {
     Action action = apiClient.unassignFloatingIP("159.203.146.100");
 
-    LOG.info(action.toString());
+    log.info(action.toString());
 
     assertNotNull(action);
     assertEquals(ActionType.UNASSIGN_FLOATING_IP, action.getType());
@@ -969,7 +972,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testGetAvailableTags() throws DigitalOceanException, RequestUnsuccessfulException {
     Tags tags = apiClient.getAvailableTags(1, 10);
 
-    LOG.info(tags.toString());
+    log.info(tags.toString());
 
     assertNotNull(tags);
   }
@@ -978,7 +981,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testCreateTag() throws DigitalOceanException, RequestUnsuccessfulException {
     Tag tag = apiClient.createTag("blr");
 
-    LOG.info(tag.toString());
+    log.info(tag.toString());
 
     assertNotNull(tag);
     assertEquals("blr", tag.getName());
@@ -988,7 +991,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testGetTag() throws DigitalOceanException, RequestUnsuccessfulException {
     Tag tag = apiClient.getTag("blog");
 
-    LOG.info(tag.toString());
+    log.info(tag.toString());
 
     assertNotNull(tag);
     assertEquals("blog", tag.getName());
@@ -999,7 +1002,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Delete result = apiClient.deleteTag("blr");
 
     assertNotNull(result);
-    LOG.info("Delete Tag Object: " + result);
+    log.info("Delete Tag Object: " + result);
   }
 
   @Test
@@ -1010,7 +1013,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Response result = apiClient.tagResources("lab", resources);
 
     assertNotNull(result);
-    LOG.info("Response of Tag resources: " + result);
+    log.info("Response of Tag resources: " + result);
   }
 
   @Test
@@ -1021,7 +1024,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Response result = apiClient.untagResources("lab", resources);
 
     assertNotNull(result);
-    LOG.info("Response of Tag resources: " + result);
+    log.info("Response of Tag resources: " + result);
   }
 
   @Test
@@ -1033,7 +1036,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     int i = 1;
     for (Volume volume : volumes.getVolumes()) {
-      LOG.info(i++ + " -> " + volume.toString());
+      log.info(i++ + " -> " + volume.toString());
     }
   }
 
@@ -1050,7 +1053,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(v);
     assertNotNull(v.getId());
 
-    LOG.info(v.toString());
+    log.info(v.toString());
   }
 
   @Test
@@ -1059,7 +1062,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(volume);
 
-    LOG.info(volume.toString());
+    log.info(volume.toString());
   }
 
   @Test
@@ -1071,7 +1074,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     int i = 1;
     for (Volume volume : volumes.getVolumes()) {
-      LOG.info(i++ + " -> " + volume.toString());
+      log.info(i++ + " -> " + volume.toString());
     }
   }
 
@@ -1079,35 +1082,35 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testAtachVolume() throws DigitalOceanException, RequestUnsuccessfulException {
     Action action = apiClient.attachVolume(dropletIdForInfo, volumeIdForInfo, "nyc1");
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
   public void testAttachVolumeByName() throws DigitalOceanException, RequestUnsuccessfulException {
     Action action = apiClient.attachVolumeByName(dropletIdForInfo, volumeNameForInfo, "nyc1");
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
   public void testResizeVolume() throws DigitalOceanException, RequestUnsuccessfulException {
     Action action = apiClient.resizeVolume(volumeIdForInfo, "nyc1", 3D);
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
   public void testDeachVolume() throws DigitalOceanException, RequestUnsuccessfulException {
     Action action = apiClient.detachVolume(dropletIdForInfo, volumeIdForInfo, "nyc1");
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
   public void testDetachVolumeByName() throws DigitalOceanException, RequestUnsuccessfulException {
     Action action = apiClient.detachVolumeByName(dropletIdForInfo, volumeNameForInfo, "nyc1");
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -1118,11 +1121,11 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(actions);
     assertFalse((actions.getActions().isEmpty()));
 
-    LOG.info(actions.getLinks().toString());
+    log.info(actions.getLinks().toString());
 
     int i = 1;
     for (Action a : actions.getActions()) {
-      LOG.info(i++ + " -> " + a.toString());
+      log.info(i++ + " -> " + a.toString());
     }
   }
 
@@ -1138,7 +1141,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     apiClient.getVolumeAction(volumeIdForInfo, action.getId());
     assertNotNull(action);
-    LOG.info(action.toString());
+    log.info(action.toString());
   }
 
   @Test
@@ -1146,7 +1149,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Delete result = apiClient.deleteVolume(volumeIdForInfo);
 
     assertNotNull(result);
-    LOG.info("Delete Request Object: " + result);
+    log.info("Delete Request Object: " + result);
   }
 
   @Test
@@ -1154,7 +1157,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Delete result = apiClient.deleteVolume(volumeNameForInfo, "nyc1");
 
     assertNotNull(result);
-    LOG.info("Delete Request Object: " + result);
+    log.info("Delete Request Object: " + result);
   }
 
   @Test
@@ -1168,7 +1171,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((snapshots.getSnapshots().isEmpty()));
 
     for (Snapshot s : snapshots.getSnapshots()) {
-      LOG.info(s.toString());
+      log.info(s.toString());
     }
   }
 
@@ -1179,7 +1182,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(snapshot);
 
-    LOG.info(snapshot.toString());
+    log.info(snapshot.toString());
   }
 
   @Test
@@ -1192,7 +1195,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((snapshots.getSnapshots().isEmpty()));
 
     for (Snapshot s : snapshots.getSnapshots()) {
-      LOG.info(s.toString());
+      log.info(s.toString());
     }
   }
 
@@ -1206,7 +1209,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((snapshots.getSnapshots().isEmpty()));
 
     for (Snapshot s : snapshots.getSnapshots()) {
-      LOG.info(s.toString());
+      log.info(s.toString());
     }
   }
 
@@ -1220,7 +1223,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertFalse((snapshots.getSnapshots().isEmpty()));
 
     for (Snapshot s : snapshots.getSnapshots()) {
-      LOG.info(s.toString());
+      log.info(s.toString());
     }
   }
 
@@ -1230,7 +1233,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     assertNotNull(snapshot);
 
-    LOG.info(snapshot.toString());
+    log.info(snapshot.toString());
   }
 
   @Test
@@ -1238,7 +1241,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     Delete result = apiClient.deleteSnapshot("fbe805e8-866b-11e6-96bf-000f53315a41");
 
     assertNotNull(result);
-    LOG.info("Delete Request Object: " + result);
+    log.info("Delete Request Object: " + result);
   }
 
   @Test
@@ -1272,9 +1275,8 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertNotNull(lb);
     assertNotNull(lb.getId());
 
-    LOG.info(lb.toString());
+    log.info(lb.toString());
   }
-
 
   @Test
   public void testUpdateLoadBalancer() throws DigitalOceanException,
@@ -1290,16 +1292,15 @@ public class DigitalOceanIntegrationTest extends TestCase {
     assertEquals(loadBalancerIdForInfo, loadBalancer.getId());
     assertEquals(LoadBalancingAlgorithm.LEAST_CONNECTIONS, loadBalancer.getAlgorithm());
 
-    LOG.info(lb.toString());
+    log.info(lb.toString());
   }
-
 
   @Test
   public void testGetLoadBalancerInfo() throws DigitalOceanException, RequestUnsuccessfulException {
 
     LoadBalancer lb = apiClient.getLoadBalancerInfo(loadBalancerIdForInfo);
     assertNotNull(lb);
-    LOG.info(lb.toString());
+    log.info(lb.toString());
   }
 
   @Test
@@ -1313,7 +1314,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     int i = 0;
     for (LoadBalancer lb : lbs.getLoadBalancers()) {
-      LOG.info(i++ + " -> " + lb.toString());
+      log.info(i++ + " -> " + lb.toString());
     }
   }
 
@@ -1321,7 +1322,8 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testAddDropletsToLoadBalancer()
       throws DigitalOceanException, RequestUnsuccessfulException {
 
-    Response result = apiClient.addDropletsToLoadBalancer(loadBalancerIdForInfo, Arrays.asList(dropletIdForInfo));
+    Response result =
+        apiClient.addDropletsToLoadBalancer(loadBalancerIdForInfo, Arrays.asList(dropletIdForInfo));
     assertNotNull(result);
   }
 
@@ -1329,7 +1331,8 @@ public class DigitalOceanIntegrationTest extends TestCase {
   public void testRemoveDropletsFromLoadBalancer()
       throws DigitalOceanException, RequestUnsuccessfulException {
 
-    Delete result = apiClient.removeDropletsFromLoadBalancer(loadBalancerIdForInfo, Arrays.asList(dropletIdForInfo));
+    Delete result = apiClient.removeDropletsFromLoadBalancer(loadBalancerIdForInfo,
+        Arrays.asList(dropletIdForInfo));
     assertNotNull(result);
   }
 
@@ -1343,7 +1346,8 @@ public class DigitalOceanIntegrationTest extends TestCase {
     rule.setEntryPort(8080);
     rule.setTargetPort(8080);
 
-    Response result = apiClient.addForwardingRulesToLoadBalancer(loadBalancerIdForInfo, Arrays.asList(rule));
+    Response result =
+        apiClient.addForwardingRulesToLoadBalancer(loadBalancerIdForInfo, Arrays.asList(rule));
     assertNotNull(result);
 
   }
@@ -1358,7 +1362,8 @@ public class DigitalOceanIntegrationTest extends TestCase {
     rule.setEntryPort(8080);
     rule.setTargetPort(8080);
 
-    Response result = apiClient.removeForwardingRulesFromLoadBalancer(loadBalancerIdForInfo, Arrays.asList(rule));
+    Response result =
+        apiClient.removeForwardingRulesFromLoadBalancer(loadBalancerIdForInfo, Arrays.asList(rule));
     assertNotNull(result);
 
   }
@@ -1369,6 +1374,48 @@ public class DigitalOceanIntegrationTest extends TestCase {
 
     Delete result = apiClient.deleteLoadBalancer(loadBalancerIdForInfo);
     assertNotNull(result);
+  }
+
+  @Test
+  public void testGetAvailableCertifiactes()
+      throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Certificates certificates = apiClient.getAvailableCertificates(1, 10);
+
+    assertNotNull(certificates);
+    assertFalse(certificates.getCertificates().isEmpty());
+
+    for (Certificate c : certificates.getCertificates()) {
+      log.info(c.toString());
+    }
+  }
+
+  @Test
+  public void testCreateCertificate() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Certificate certificate =
+        new Certificate("my-cert", "privateKey", "leafCertificate", "certificateChain");
+
+    Certificate result = apiClient.createCertificate(certificate);
+    assertNotNull(result);
+
+    log.info(result.toString());
+  }
+
+  @Test
+  public void testGetCertifacteInfo() throws DigitalOceanException, RequestUnsuccessfulException {
+    Certificate certificate = apiClient.getCertificateInfo("9620c5d3-783c-4096-90f3-a2e363aa10fd");
+
+    assertNotNull(certificate);
+    log.info(certificate.toString());
+  }
+
+  @Test
+  public void testDeleteCertificate() throws DigitalOceanException, RequestUnsuccessfulException {
+    Delete result = apiClient.deleteCertificate("9620c5d3-783c-4096-90f3-a2e363aa10fd");
+
+    assertNotNull(result);
+    log.info("Delete Request Object: " + result);
   }
 
 }

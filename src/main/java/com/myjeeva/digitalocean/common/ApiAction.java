@@ -25,6 +25,8 @@ import com.myjeeva.digitalocean.pojo.Account;
 import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
+import com.myjeeva.digitalocean.pojo.Certificate;
+import com.myjeeva.digitalocean.pojo.Certificates;
 import com.myjeeva.digitalocean.pojo.Delete;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
@@ -185,6 +187,7 @@ public enum ApiAction {
   ALL_VOLUME_SNAPSHOTS("/snapshots", "snapshots", RequestMethod.GET, Snapshots.class),
   GET_SNAPSHOT_INFO("/snapshots/%s", "snapshot", RequestMethod.GET, Snapshot.class),
   DELETE_SNAPSHOT("/snapshots/%s", "response", RequestMethod.DELETE, Delete.class),
+  
 
   // Load Balancers
   CREATE_LOAD_BALANCER("/load_balancers", "load_balancer", RequestMethod.POST, LoadBalancer.class),
@@ -195,7 +198,14 @@ public enum ApiAction {
   REMOVE_DROPLET_FROM_LOAD_BALANCER("/load_balancers/%s/droplets", "response", RequestMethod.DELETE, Delete.class),
   ADD_FORWARDING_RULES_TO_LOAD_BALANCER("/load_balancers/%s/forwarding_rules", "response", RequestMethod.POST, Response.class),
   REMOVE_FORWARDING_RULES_FROM_LOAD_BALANCER("/load_balancers/%s/forwarding_rules", "response", RequestMethod.DELETE, Delete.class),
-  DELETE_LOAD_BALANCER("/load_balancers/%s", "response", RequestMethod.DELETE, Delete.class);
+  DELETE_LOAD_BALANCER("/load_balancers/%s", "response", RequestMethod.DELETE, Delete.class),
+  
+  
+  // Certificates
+  AVAILABLE_CERTIFICATES("/certificates", "certificates", RequestMethod.GET, Certificates.class),
+  GET_CERTIFICATE_INFO("/certificates/%s", "certificate", RequestMethod.GET, Certificate.class),
+  CREATE_CERTIFICATE("/certificates", "certificate", RequestMethod.POST, Certificate.class),
+  DELETE_CERTIFICATE("/certificates/%s", "response", RequestMethod.DELETE, Delete.class);
 
 
   private String path;

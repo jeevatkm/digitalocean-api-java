@@ -96,6 +96,7 @@ public class Droplet extends RateLimitBase {
 
   private List<String> tags;
 
+  @SerializedName("monitoring")
   private Boolean installMonitoring;
 
   @Override

@@ -71,6 +71,8 @@ import com.myjeeva.digitalocean.pojo.Account;
 import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Actions;
 import com.myjeeva.digitalocean.pojo.Backups;
+import com.myjeeva.digitalocean.pojo.Certificate;
+import com.myjeeva.digitalocean.pojo.Certificates;
 import com.myjeeva.digitalocean.pojo.Delete;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
@@ -1435,6 +1437,54 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_LOAD_BALANCER, params)).getData();
   }
 
+  // ===========================================
+  // Certificates manipulation methods
+  // ===========================================
+
+  @Override
+  public Certificates getAvailableCertificates(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    validatePageNo(pageNo);
+
+    return (Certificates) perform(new ApiRequest(ApiAction.AVAILABLE_CERTIFICATES, pageNo, perPage))
+        .getData();
+  }
+
+  @Override
+  public Certificate createCertificate(Certificate certificate)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    if (null == certificate
+        || StringUtils.isBlank(certificate.getName())
+        || StringUtils.isBlank(certificate.getPrivateKey())
+        || StringUtils.isBlank(certificate.getLeafCertificate())
+        || StringUtils.isBlank(certificate.getCertificateChain())) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Name, Private Key, Leaf Certificate, Certificate Chain] for create certificate.");
+    }
+
+    return (Certificate) perform(new ApiRequest(ApiAction.CREATE_CERTIFICATE, certificate))
+        .getData();
+  }
+
+  @Override
+  public Certificate getCertificateInfo(String certificateId)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    checkBlankAndThrowError(certificateId, "Missing required parameter - certificateId.");
+
+    Object[] params = {certificateId};
+    return (Certificate) perform(new ApiRequest(ApiAction.GET_CERTIFICATE_INFO, params))
+        .getData();
+  }
+
+  @Override
+  public Delete deleteCertificate(String certificateId)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    checkBlankAndThrowError(certificateId, "Missing required parameter - certificateId.");
+
+    Object[] params = {certificateId};
+    return (Delete) perform(new ApiRequest(ApiAction.DELETE_CERTIFICATE, params)).getData();
+  }
+
   //
   // Private methods
   //
@@ -1804,4 +1854,5 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       this.httpClient = HttpClients.createDefault();
     }
   }
+
 }
