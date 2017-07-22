@@ -18,7 +18,7 @@
 	<artifactId>digitalocean-api-client</artifactId>
 	<packaging>jar</packaging>
 	<name>DigitalOcean API Client in Java</name>
-	<version>2.12</version>
+	<version>2.13-SNAPSHOT</version>
 	<description>DigitalOcean API Client in Java</description>
 	<url>https://myjeeva.com</url>
 	<licenses>
