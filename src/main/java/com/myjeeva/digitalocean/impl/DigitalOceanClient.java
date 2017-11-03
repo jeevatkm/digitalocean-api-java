@@ -1715,11 +1715,17 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       return StringUtils.EMPTY;
     }
 
-    String rateLimitData =
-        String.format(RATE_LIMIT_JSON_STRUCT, getSimpleHeaderValue(HDR_RATE_LIMIT, httpResponse),
-            getSimpleHeaderValue(HDR_RATE_REMAINING, httpResponse),
-            getDateString(getSimpleHeaderValue(HDR_RATE_RESET, httpResponse), DATE_FORMAT));
+    // Occasionally the DigitalOcean API will fail to send rate limit headers.
+    // Simply omit rate limit data in that case.
+    String rateLimit = getSimpleHeaderValue(HDR_RATE_LIMIT, httpResponse);
+    String rateRemaining = getSimpleHeaderValue(HDR_RATE_REMAINING, httpResponse);
+    String rateReset = getSimpleHeaderValue(HDR_RATE_RESET, httpResponse);
+    if (rateLimit == null || rateRemaining == null || rateReset == null) {
+      return response;
+    }
 
+    String rateLimitData = String.format(RATE_LIMIT_JSON_STRUCT,
+      rateLimit, rateRemaining, getDateString(rateReset, DATE_FORMAT));
     log.debug("RateLimitData:: {}", rateLimitData);
 
     return StringUtils.substringBeforeLast(response, "}") + ", " + rateLimitData + "}";
@@ -1740,18 +1746,20 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
    * Easy method for HTTP header values (first/last)
    */
   private String getSimpleHeaderValue(String header, HttpResponse httpResponse, boolean first) {
-    String value = StringUtils.EMPTY;
     if (StringUtils.isBlank(header)) {
-      return value;
+      return StringUtils.EMPTY;
     }
 
+    Header h;
     if (first) {
-      value = httpResponse.getFirstHeader(header).getValue();
+      h = httpResponse.getFirstHeader(header);
     } else {
-      value = httpResponse.getLastHeader(header).getValue();
+      h = httpResponse.getLastHeader(header);
     }
-
-    return value;
+    if (h == null) {
+      return null;
+    }
+    return h.getValue();
   }
 
   /**
