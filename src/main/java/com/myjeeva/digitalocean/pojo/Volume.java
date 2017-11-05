@@ -46,6 +46,9 @@ public class Volume extends RateLimitBase {
   @SerializedName("created_at")
   private Date createdDate;
 
+  @SerializedName("snapshot_id")
+  private String snapshotId;
+
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
@@ -147,6 +150,20 @@ public class Volume extends RateLimitBase {
    */
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
+  }
+
+  /**
+   * @return the snapshotId
+   */
+  public String getSnapshotId() {
+    return snapshotId;
+  }
+
+  /**
+   * @param snapshotId the snapshotId to set
+   */
+  public void setSnapshotId(String snapshotId) {
+    this.snapshotId = snapshotId;
   }
 
 }
