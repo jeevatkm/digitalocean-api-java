@@ -41,6 +41,10 @@ public class VolumeSerializer implements JsonSerializer<Volume> {
       jsonObject.addProperty("region", volume.getRegion().getSlug());
     }
 
+    if (StringUtils.isNotBlank(volume.getSnapshotId())) {
+      jsonObject.addProperty("snapshot_id", volume.getSnapshotId());
+    }
+
     if (null != volume.getSize()) {
       jsonObject.addProperty("size_gigabytes", volume.getSize());
     }

@@ -108,6 +108,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
   private String volumeNameForInfo = "test-volume"; // to be placed before use, should have
                                                     // different ID from volumeIdForInfo and created
                                                     // in nyc1 region
+  private String volumeSnapshotIdForCreate = "197e26b6-c242-11e7-bd8b-0242ac113802"; // to be placed before use
   private String loadBalancerIdForInfo = "155fa6cd-3e74-406d-90bd-5671488c7157"; // to be placed
                                                                                  // before use
   private Integer imageId = 3445812; // Debian 7.0 x64 image id
@@ -1047,6 +1048,7 @@ public class DigitalOceanIntegrationTest extends TestCase {
     volume.setDescription("Test Volume Description");
     volume.setRegion(new Region("nyc1"));
     volume.setSize(1D);
+    volume.setSnapshotId(volumeSnapshotIdForCreate);
 
     Volume v = apiClient.createVolume(volume);
 
