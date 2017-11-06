@@ -10,3 +10,7 @@ branches:
   only:
     - master
     #- api-v1  # since v1 API becoe absolute
+
+matrix:
+  allow_failures:
+    - jdk: oraclejdk7
