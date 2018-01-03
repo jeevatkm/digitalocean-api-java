@@ -9,3 +9,7 @@ target/
 .classpath
 .project
 .settings
+
+# custom
+/javadoc/**
+/2.*/**
