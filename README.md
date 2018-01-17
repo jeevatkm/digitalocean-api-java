@@ -287,6 +287,7 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 	Action renameDroplet(Integer dropletId, String name)
 	Action resetDropletPassword(Integer dropletId)
 	Action resizeDroplet(Integer dropletId, String size)
+	Action resizeDroplet(Integer dropletId, String size, Boolean disk)
 	Action restoreDroplet(Integer dropletId, Integer imageId)
 	Action shutdownDroplet(Integer dropletId)
 	Action takeDropletSnapshot(Integer dropletId)

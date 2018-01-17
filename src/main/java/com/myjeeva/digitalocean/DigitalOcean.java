@@ -430,6 +430,23 @@ public interface DigitalOcean {
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
+   * Method allows you to resize a specific droplet to a different size. This will affect the number
+   * of processors and memory allocated to the droplet and optionally disk size.
+   *
+   * @param dropletId the id of the droplet
+   * @param size of the droplet
+   * @param disk whether to resize disk of the droplet or or not
+   * @return {@link Action}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   *
+   * @since v1.0
+   */
+  Action resizeDroplet(Integer dropletId, String size, Boolean disk)
+          throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
    * Method allows you to take a snapshot of the running droplet, which can later be restored or
    * used to create a new droplet from the same image. Please be aware this may cause a reboot.
    * 
