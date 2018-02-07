@@ -55,6 +55,9 @@ public class DomainRecord extends RateLimitBase {
   @Expose
   private Integer weight;
 
+  @Expose
+  private Integer ttl;
+
   public DomainRecord() {
     // Default Constructor
   }
@@ -72,13 +75,17 @@ public class DomainRecord extends RateLimitBase {
   }
 
   public DomainRecord(String name, String data, String type, String priority, Integer port,
-      Integer weight) {
+                      Integer weight) { this(name, data, type, null, null, null, null); }
+
+  public DomainRecord(String name, String data, String type, String priority, Integer port,
+                      Integer weight, Integer ttl) {
     this.name = name;
     this.data = data;
     this.type = type;
     this.priority = priority;
     this.port = port;
     this.weight = weight;
+    this.ttl = ttl;
   }
 
   @Override
@@ -182,5 +189,19 @@ public class DomainRecord extends RateLimitBase {
    */
   public void setWeight(Integer weight) {
     this.weight = weight;
+  }
+
+  /**
+   * @return the TTL, in seconds
+   */
+  public Integer getTtl() {
+    return ttl;
+  }
+
+  /**
+   * @param ttl the TTL, in seconds
+   */
+  public void setTtl(Integer ttl) {
+    this.ttl = ttl;
   }
 }

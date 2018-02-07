@@ -1,129 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<!--
 	Title		: Java Bindings for DigitalOcean API's
 	Copyright	: (c) Jeevanandam (jeeva@myjeeva.com)
-	@filename	: pom.xml 
+	@filename	: pom.xml
 	@author		: <a href="jeeva@myjeeva.com">Jeevanandam M.</a>
 	@date		: Jun 28, 2013 11:20:42 PM GMT+05:30
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>9</version>
-	</parent>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>9</version>
+    </parent>
 
-	<groupId>com.myjeeva.digitalocean</groupId>
-	<artifactId>digitalocean-api-client</artifactId>
-	<packaging>jar</packaging>
-	<name>DigitalOcean API Client in Java</name>
-	<version>2.14-SNAPSHOT</version>
-	<description>DigitalOcean API Client in Java</description>
-	<url>https://myjeeva.com</url>
-	<licenses>
-		<license>
-			<name>The MIT License (MIT)</name>
-			<url>http://www.opensource.org/licenses/mit-license.php</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-	<scm>
-		<connection>scm:git:git@github.com:jeevatkm/digitalocean-api-java.git</connection>
-		<developerConnection>scm:git:git@github.com:jeevatkm/digitalocean-api-java.git</developerConnection>
-		<url>git@github.com:jeevatkm/digitalocean-api-java.git</url>
-	</scm>
-	<developers>
-		<developer>
-			<id>jeevatkm</id>
-			<name>Jeevanandam M.</name>
-			<email>jeeva@myjeeva.com</email>
-			<url>https://myjeeva.com</url>
-		</developer>
-	</developers>
+    <groupId>com.myjeeva.digitalocean</groupId>
+    <artifactId>digitalocean-api-client</artifactId>
+    <packaging>jar</packaging>
+    <name>DigitalOcean API Client in Java</name>
+    <version>2.14-PARDINI</version>
+    <description>DigitalOcean API Client in Java</description>
+    <url>https://myjeeva.com</url>
+    <licenses>
+        <license>
+            <name>The MIT License (MIT)</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:git@github.com:jeevatkm/digitalocean-api-java.git</connection>
+        <developerConnection>scm:git:git@github.com:jeevatkm/digitalocean-api-java.git</developerConnection>
+        <url>git@github.com:jeevatkm/digitalocean-api-java.git</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>jeevatkm</id>
+            <name>Jeevanandam M.</name>
+            <email>jeeva@myjeeva.com</email>
+            <url>https://myjeeva.com</url>
+        </developer>
+    </developers>
 
-	<properties>
-		<javadoc.basepath>${project.basedir}/javadoc</javadoc.basepath>
-		<javadoc.output.path>${javadoc.basepath}</javadoc.output.path>
-	</properties>
+    <properties>
+        <javadoc.basepath>${project.basedir}/javadoc</javadoc.basepath>
+        <javadoc.output.path>${javadoc.basepath}</javadoc.output.path>
+        <skipTests>true</skipTests>
+    </properties>
 
-	<!-- Dependencies -->
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.4</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.7</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.12</version>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode.jmockit</groupId>
-			<artifactId>jmockit</artifactId>
-			<version>1.7</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-	<build>
-		<defaultGoal>install</defaultGoal>
+    <!-- Dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.12</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.jmockit</groupId>
+            <artifactId>jmockit</artifactId>
+            <version>1.7</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <distributionManagement>
+        <repository>
+            <id>s3.release</id>
+            <url>s3://ceapmaven-prod-repo/release</url>
+        </repository>
+    </distributionManagement>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <id>create-source-jar</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <defaultGoal>install</defaultGoal>
+        <extensions>
+            <extension>
+                <groupId>org.kuali.maven.wagons</groupId>
+                <artifactId>maven-s3-wagon</artifactId>
+                <version>1.2.1</version>
+            </extension>
+        </extensions>
 
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<configuration>
-						<source>1.7</source>
-						<target>1.7</target>
-						<fork>false</fork>
-						<compilerArguments>
-							<Xmaxerrs>1000</Xmaxerrs>
-						</compilerArguments>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<configuration>
-						<doctitle>${project.name} (${project.version})</doctitle>
-						<validateLinks>true</validateLinks>
-						<detectLinks>true</detectLinks>
-						<charset>UTF-8</charset>
-						<header>${project.name}</header>
-						<bottom><![CDATA[<div style="font-size: 14px;"><br /><br />Copyright &#169; <script>document.write(new Date().getFullYear())</script> <a href="http://myjeeva.com" target="_blank" title="myjeeva blog">myjeeva blog</a>, All rights reserved. <br /><br /><span style="font-size:11px; font-style:italic;">The copyright of the pages and contents on this website is with myjeeva.com and the content is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons – Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)</a>. Libraries and code snippets on myjeeva blog has license information.</span></div>]]></bottom>
-						<footer>${project.name}</footer>
-						<docfilessubdirs>true</docfilessubdirs>
-						<verbose>true</verbose>
-						<reportOutputDirectory>${javadoc.output.path}</reportOutputDirectory>
-						<destDir>${project.version}</destDir>
-					</configuration>
-				</plugin>
-				<plugin>
-					<artifactId>maven-jar-plugin</artifactId>
-					<configuration>
-						<classifier>${jdkclassifier}</classifier>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                        <fork>false</fork>
+                        <compilerArguments>
+                            <Xmaxerrs>1000</Xmaxerrs>
+                        </compilerArguments>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <configuration>
+                        <doctitle>${project.name} (${project.version})</doctitle>
+                        <validateLinks>true</validateLinks>
+                        <detectLinks>true</detectLinks>
+                        <charset>UTF-8</charset>
+                        <header>${project.name}</header>
+                        <bottom>
+                            <![CDATA[<div style="font-size: 14px;"><br /><br />Copyright &#169; <script>document.write(new Date().getFullYear())</script> <a href="http://myjeeva.com" target="_blank" title="myjeeva blog">myjeeva blog</a>, All rights reserved. <br /><br /><span style="font-size:11px; font-style:italic;">The copyright of the pages and contents on this website is with myjeeva.com and the content is licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons – Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)</a>. Libraries and code snippets on myjeeva blog has license information.</span></div>]]></bottom>
+                        <footer>${project.name}</footer>
+                        <docfilessubdirs>true</docfilessubdirs>
+                        <verbose>true</verbose>
+                        <reportOutputDirectory>${javadoc.output.path}</reportOutputDirectory>
+                        <destDir>${project.version}</destDir>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <configuration>
+                        <classifier>${jdkclassifier}</classifier>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
 
