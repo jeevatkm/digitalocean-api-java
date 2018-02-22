@@ -47,7 +47,7 @@ public class DomainRecord extends RateLimitBase {
   private String data;
 
   @Expose
-  private String priority;
+  private Integer priority;
 
   @Expose
   private Integer port;
@@ -74,10 +74,10 @@ public class DomainRecord extends RateLimitBase {
     this(name, data, type, null, null, null);
   }
 
-  public DomainRecord(String name, String data, String type, String priority, Integer port,
-                      Integer weight) { this(name, data, type, null, null, null, null); }
+  public DomainRecord(String name, String data, String type, Integer priority, Integer port,
+                      Integer weight) { this(name, data, type, priority, null, null, null); }
 
-  public DomainRecord(String name, String data, String type, String priority, Integer port,
+  public DomainRecord(String name, String data, String type, Integer priority, Integer port,
                       Integer weight, Integer ttl) {
     this.name = name;
     this.data = data;
@@ -152,14 +152,14 @@ public class DomainRecord extends RateLimitBase {
   /**
    * @return the priority
    */
-  public String getPriority() {
+  public Integer getPriority() {
     return priority;
   }
 
   /**
    * @param priority the priority to set
    */
-  public void setPriority(String priority) {
+  public void setPriority(Integer priority) {
     this.priority = priority;
   }
 
