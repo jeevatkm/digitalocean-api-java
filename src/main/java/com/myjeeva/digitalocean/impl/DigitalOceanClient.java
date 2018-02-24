@@ -448,6 +448,18 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
+  public Action resizeDroplet(Integer dropletId, String size, Boolean disk) throws DigitalOceanException,
+          RequestUnsuccessfulException {
+    validateDropletId(dropletId);
+
+    Object[] params = {dropletId};
+    DropletAction action = new DropletAction(ActionType.RESIZE);
+    action.setSize(size);
+    action.setDisk(disk);
+    return (Action) perform(new ApiRequest(ApiAction.RESIZE_DROPLET, action, params)).getData();
+  }
+
+  @Override
   public Action takeDropletSnapshot(Integer dropletId) throws DigitalOceanException,
       RequestUnsuccessfulException {
     validateDropletId(dropletId);

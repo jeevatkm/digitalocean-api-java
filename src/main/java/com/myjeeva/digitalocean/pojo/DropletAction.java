@@ -50,6 +50,9 @@ public class DropletAction {
   @Expose
   private String size;
 
+  @Expose
+  private Boolean disk;
+
   public DropletAction() {
     // Default Constructor
   }
@@ -131,5 +134,19 @@ public class DropletAction {
    */
   public void setSize(String size) {
     this.size = size;
+  }
+
+  /**
+   * @return the disk
+   */
+  public Boolean getDisk() {
+    return disk;
+  }
+
+  /**
+   * @param disk the size to set
+   */
+  public void setDisk(Boolean disk) {
+    this.disk = disk;
   }
 }
