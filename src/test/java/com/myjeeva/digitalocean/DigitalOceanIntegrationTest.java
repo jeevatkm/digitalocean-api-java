@@ -20,12 +20,19 @@
  */
 package com.myjeeva.digitalocean;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,8 +85,6 @@ import com.myjeeva.digitalocean.pojo.Tags;
 import com.myjeeva.digitalocean.pojo.Volume;
 import com.myjeeva.digitalocean.pojo.Volumes;
 
-import junit.framework.TestCase;
-
 /**
  * <p>
  * Junit Integration Test case for DigitalOcean API client wrapper methods
@@ -94,7 +99,8 @@ import junit.framework.TestCase;
  */
 @Ignore
 // Marked as Ignore since its a Integration Test case with real values
-public class DigitalOceanIntegrationTest extends TestCase {
+@RunWith(JUnit4.class)
+public class DigitalOceanIntegrationTest {
 
   private final Logger log = LoggerFactory.getLogger(DigitalOceanIntegrationTest.class);
 

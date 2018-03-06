@@ -1,12 +1,10 @@
 package com.myjeeva.digitalocean;
 
+import static org.junit.Assert.assertEquals;
+
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-
-import junit.framework.TestCase;
-import mockit.Expectations;
-import mockit.Mocked;
 
 import org.apache.http.HttpVersion;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -15,19 +13,27 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.execchain.PublicHttpResponseProxy;
 import org.apache.http.message.BasicHttpResponse;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import com.myjeeva.digitalocean.impl.DigitalOceanClient;
 
+import mockit.Expectations;
+import mockit.Mocked;
+
 @SuppressWarnings("unused")
-public class DigitalOceanMockTest extends TestCase {
+@RunWith(JUnit4.class)
+public class DigitalOceanMockTest {
 
   private @Mocked CloseableHttpClient defaultHttpClient;
 
+  @Test
   public void testSnapshotWithName() throws Exception {
 
     new Expectations() {
       {
-        defaultHttpClient.execute((HttpUriRequest) with(new Object() {
+        defaultHttpClient.execute((HttpUriRequest)with(new Object() {
 
           void validate(HttpUriRequest httpUriRequest) throws MalformedURLException,
               URISyntaxException {
@@ -35,6 +41,7 @@ public class DigitalOceanMockTest extends TestCase {
                 httpUriRequest.getURI());
           }
         }));
+        
         BasicHttpResponse basicHttpResponse = new BasicHttpResponse(HttpVersion.HTTP_1_1, 200, "");
         basicHttpResponse
             .setEntity(new StringEntity(
@@ -43,7 +50,7 @@ public class DigitalOceanMockTest extends TestCase {
         basicHttpResponse.setHeader("RateLimit-Limit", "1200");
         basicHttpResponse.setHeader("RateLimit-Remaining", "900");
         basicHttpResponse.setHeader("RateLimit-Reset", "1415984218");
-        
+
         result = new PublicHttpResponseProxy(basicHttpResponse);
       }
     };
@@ -52,5 +59,3 @@ public class DigitalOceanMockTest extends TestCase {
     digitalOcean.takeDropletSnapshot(1234, "snapshot-name");
   }
 }
-
-

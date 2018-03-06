@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<!--
 	Title		: Java Bindings for DigitalOcean API's
 	Copyright	: (c) Jeevanandam (jeeva@myjeeva.com)
-	@filename	: pom.xml 
+	@filename	: pom.xml
 	@author		: <a href="jeeva@myjeeva.com">Jeevanandam M.</a>
 	@date		: Jun 28, 2013 11:20:42 PM GMT+05:30
 -->
@@ -24,7 +24,7 @@
 	<licenses>
 		<license>
 			<name>The MIT License (MIT)</name>
-			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<url>https://github.com/jeevatkm/digitalocean-api-java/blob/master/LICENSE</url>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
@@ -70,9 +70,9 @@
 			<version>1.7.12</version>
 		</dependency>
 		<dependency>
-			<groupId>com.googlecode.jmockit</groupId>
+			<groupId>org.jmockit</groupId>
 			<artifactId>jmockit</artifactId>
-			<version>1.7</version>
+			<version>1.8</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -126,4 +126,3 @@
 		</pluginManagement>
 	</build>
 </project>
-
