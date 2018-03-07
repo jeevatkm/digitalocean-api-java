@@ -1,6 +1,6 @@
-# DigitalOcean API Client  [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java) [![Version](https://img.shields.io/badge/version-2.13-blue.svg)](https://github.com/jeevatkm/digitalocean-api-java/releases/latest) [![License](https://img.shields.io/github/license/jeevatkm/digitalocean-api-java.svg)](LICENSE)
+# DigitalOcean API Client  [![Build Status](https://travis-ci.org/jeevatkm/digitalocean-api-java.svg?branch=master)](https://travis-ci.org/jeevatkm/digitalocean-api-java) [![Version](https://img.shields.io/badge/version-2.14-blue.svg)](https://github.com/jeevatkm/digitalocean-api-java/releases/latest) [![License](https://img.shields.io/github/license/jeevatkm/digitalocean-api-java.svg)](LICENSE)
 
-***v2.13 [released](https://github.com/jeevatkm/digitalocean-api-java/releases/latest) and tagged on Nov 18, 2017***
+***v2.14 [released](https://github.com/jeevatkm/digitalocean-api-java/releases/latest) and tagged on Mar 06, 2018***
 
 Simple & Lightweight API client library for Enterprise Application or Utilities Integration around [DigitalOcean RESTful APIs][1]. You can use this library with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.
 
@@ -17,22 +17,22 @@ For handy use, DigitalOcean API Client library project dependency definition pro
 <dependency>
     <groupId>com.myjeeva.digitalocean</groupId>
     <artifactId>digitalocean-api-client</artifactId>
-    <version>2.13</version>
+    <version>2.14</version>
 </dependency>
 ```
 **Gradle/Grails dependency**
 ```shell
-compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.13'
+compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.14'
 ```
 **Groovy Grape**
 ```groovy
 @Grapes(
-@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.13')
+@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.14')
 )
 ```
 **Scala SBT**
 ```shell
-libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.13"
+libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.14"
 ```
 
 **Note:** For Android projects, kindly include the `httpclient-android` library explicitly in your project dependencies.
@@ -136,12 +136,17 @@ DigitalOcean API Client uses [GitHub’s integrated issue tracking system][3] to
 * If you need to paste code, or include a stack trace use Markdown ``` escapes before and after your text.
 
 # Supported API's and Revision Logs
+
+* **Released in v2.14**
+  * Added TTL field to `DomainRecord` PR [#78](https://github.com/jeevatkm/digitalocean-api-java/pull/78) @rpardini
+  * Added disk resize option when resizing a droplet PR [#76](https://github.com/jeevatkm/digitalocean-api-java/pull/76) @majidalfifi
+  * Bug fix: Priority in DomainRecord should be an Integer PR [#79](https://github.com/jeevatkm/digitalocean-api-java/pull/79) @rpardini
 * **Released in v2.13**
   * Added support for creating volumes from a snapshot ID PR [#75](https://github.com/jeevatkm/digitalocean-api-java/issues/75) @benesch
   * DigitalOcean Rate-Limit headers handled gracefully PR [#74](https://github.com/jeevatkm/digitalocean-api-java/issues/74) @benesch
 * **Released in v2.12**
   * Added monitoring attribute to Create droplet [#70](https://github.com/jeevatkm/digitalocean-api-java/issues/70) @jeevatkm
-  * Fixed bug - Not able to get Image (Snapshot) Size [#68](https://github.com/jeevatkm/digitalocean-api-java/issues/68) @jeevatkm
+  * Bug fix: Not able to get Image (Snapshot) Size [#68](https://github.com/jeevatkm/digitalocean-api-java/issues/68) @jeevatkm
   * Added new endpoint support `/v2/certificates/*` [#71](https://github.com/jeevatkm/digitalocean-api-java/issues/71) @jeevatkm
       * Certificates
         <pre>
@@ -360,7 +365,7 @@ DigitalOcean API Client - [MIT License][6].
 
 
 [1]: https://developers.digitalocean.com
-[2]: https://docs.myjeeva.com/javadoc/digitalocean-api-client/2.13/
+[2]: https://docs.myjeeva.com/javadoc/digitalocean-api-client/2.14/
 [3]: https://github.com/jeevatkm/digitalocean-api-java/issues
 [4]: https://oss.sonatype.org/content/repositories/snapshots/com/myjeeva/digitalocean/digitalocean-api-client/
 [5]: https://myjeeva.com
@@ -374,4 +379,4 @@ DigitalOcean API Client - [MIT License][6].
 [13]: https://raw.githubusercontent.com/darcyliu/google-styleguide/master/eclipse-java-google-style.xml
 [14]: https://developers.digitalocean.com/documentation/changelog/api-v2/add-status-to-account/
 [15]: https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-snaphots/
-[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.13/digitalocean-api-client-2.13.jar
+[16]: http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.14/digitalocean-api-client-2.14.jar
