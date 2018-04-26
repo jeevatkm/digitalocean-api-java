@@ -771,7 +771,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Regions getAvailableRegions(Integer pageNo) throws DigitalOceanException,
       RequestUnsuccessfulException {
     validatePageNo(pageNo);
-    return (Regions) perform(new ApiRequest(ApiAction.AVAILABLE_REGIONS, pageNo)).getData();
+    return (Regions) perform(new ApiRequest(ApiAction.AVAILABLE_REGIONS, pageNo, DEFAULT_PAGE_SIZE)).getData();
   }
 
   // =======================================
@@ -782,7 +782,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Sizes getAvailableSizes(Integer pageNo) throws DigitalOceanException,
       RequestUnsuccessfulException {
     validatePageNo(pageNo);
-    return (Sizes) perform(new ApiRequest(ApiAction.AVAILABLE_SIZES, pageNo)).getData();
+    return (Sizes) perform(new ApiRequest(ApiAction.AVAILABLE_SIZES, pageNo, DEFAULT_PAGE_SIZE)).getData();
   }
 
   // =======================================
@@ -792,7 +792,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Domains getAvailableDomains(Integer pageNo) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    return (Domains) perform(new ApiRequest(ApiAction.AVAILABLE_DOMAINS, pageNo)).getData();
+    return (Domains) perform(new ApiRequest(ApiAction.AVAILABLE_DOMAINS, pageNo,DEFAULT_PAGE_SIZE)).getData();
   }
 
   @Override
@@ -879,7 +879,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Keys getAvailableKeys(Integer pageNo) throws DigitalOceanException,
       RequestUnsuccessfulException {
-    return (Keys) perform(new ApiRequest(ApiAction.AVAILABLE_KEYS, pageNo)).getData();
+    return (Keys) perform(new ApiRequest(ApiAction.AVAILABLE_KEYS, pageNo, DEFAULT_PAGE_SIZE)).getData();
   }
 
   @Override
@@ -1680,7 +1680,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
     if (RequestMethod.GET == request.getMethod()) {
       if (null == request.getPerPage()) {
-        ub.setParameter(PARAM_PER_PAGE, "25"); // As per DO documentation
+        ub.setParameter(PARAM_PER_PAGE, String.valueOf(DEFAULT_PAGE_SIZE)); // As per DO documentation
       } else {
         ub.setParameter(PARAM_PER_PAGE, request.getPerPage().toString());
       }

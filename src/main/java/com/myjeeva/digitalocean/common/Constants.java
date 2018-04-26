@@ -51,6 +51,7 @@ public interface Constants {
   // HTTP Param name
   String PARAM_PAGE_NO = "page";
   String PARAM_PER_PAGE = "per_page";
+  int DEFAULT_PAGE_SIZE = 25; // per DO doc
 
   String NO_CONTENT_JSON_STRUCT = "{\"response\": {\"request_status\": true, \"status_code\": %s}}";
 
