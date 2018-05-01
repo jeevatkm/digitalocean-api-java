@@ -24,6 +24,7 @@ package com.myjeeva.digitalocean.pojo;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.google.gson.annotations.Expose;
+import com.myjeeva.digitalocean.common.CaaTagType;
 
 /**
  * Represents DomainRecord (TLD) Record attributes of DigitalOcean DNS. Revised as per v2 API data
@@ -57,6 +58,12 @@ public class DomainRecord extends RateLimitBase {
 
   @Expose
   private Integer ttl;
+  
+  @Expose
+  private Integer flags;
+  
+  @Expose
+  private CaaTagType tag;
 
   public DomainRecord() {
     // Default Constructor
@@ -204,4 +211,33 @@ public class DomainRecord extends RateLimitBase {
   public void setTtl(Integer ttl) {
     this.ttl = ttl;
   }
+
+  /**
+   * @return the flags
+   */
+  public Integer getFlags() {
+    return flags;
+  }
+
+  /**
+   * @param flags the flags to set
+   */
+  public void setFlags(Integer flags) {
+    this.flags = flags;
+  }
+
+  /**
+   * @return the tag
+   */
+  public CaaTagType getTag() {
+    return tag;
+  }
+
+  /**
+   * @param tag the tag to set
+   */
+  public void setTag(CaaTagType tag) {
+    this.tag = tag;
+  }
+  
 }
