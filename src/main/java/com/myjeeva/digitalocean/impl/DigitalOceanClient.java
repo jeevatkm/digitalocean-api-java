@@ -56,6 +56,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
@@ -1501,8 +1502,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   // Private methods
   //
 
-  private ApiResponse perform(ApiRequest request) throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  private ApiResponse perform(ApiRequest request)
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     URI uri = createUri(request);
     String response = null;
@@ -1525,7 +1526,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       } else {
         JsonObject rootObject = jsonParser.parse(response).getAsJsonObject();
         JsonObject elementObject = rootObject.get(request.getElementName()).getAsJsonObject();
-        elementObject.add(RATE_LIMIT_ELEMENT_NAME, rootObject.get(RATE_LIMIT_ELEMENT_NAME));
+        fetchAddElement(Constants.RATE_LIMIT_ELEMENT_NAME, rootObject, elementObject);
+        fetchAddElement(Constants.LINKS_ELEMENT_NAME, rootObject, elementObject);
+        fetchAddElement(Constants.META_ELEMENT_NAME, rootObject, elementObject);
         apiResponse.setData(deserialize.fromJson(elementObject, request.getClazz()));
       }
     } catch (JsonSyntaxException jse) {
@@ -1536,6 +1539,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     log.debug("API Response:: " + apiResponse.toString());
 
     return apiResponse;
+  }
+
+  private void fetchAddElement(String key, JsonObject rootObject, JsonObject elementObject) {
+    JsonElement ele = rootObject.get(key);
+    if (null != ele) {
+      elementObject.add(key, ele);
+    }
   }
 
   private String doGet(URI uri) throws DigitalOceanException, RequestUnsuccessfulException {

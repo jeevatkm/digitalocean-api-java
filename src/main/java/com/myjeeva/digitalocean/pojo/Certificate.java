@@ -35,7 +35,7 @@ import com.google.gson.annotations.SerializedName;
  * 
  * @since v2.12
  */
-public class Certificate extends RateLimitBase {
+public class Certificate extends Base {
 
   private static final long serialVersionUID = -7525532097995479493L;
 
