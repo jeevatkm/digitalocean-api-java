@@ -38,7 +38,7 @@ import com.myjeeva.digitalocean.pojo.OutboundRules;
  * 
  * @author Lucas Andrey B. (andreybleme1@gmail.com)
  * 
- * @since v2.15
+ * @since v2.16
  */
 public class FirewallSerializer implements JsonSerializer<Firewall> {
 
