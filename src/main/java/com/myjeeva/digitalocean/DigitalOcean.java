@@ -39,6 +39,7 @@ import com.myjeeva.digitalocean.pojo.DomainRecords;
 import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
+import com.myjeeva.digitalocean.pojo.Firewall;
 import com.myjeeva.digitalocean.pojo.FloatingIP;
 import com.myjeeva.digitalocean.pojo.FloatingIPs;
 import com.myjeeva.digitalocean.pojo.ForwardingRules;
@@ -1841,6 +1842,77 @@ public interface DigitalOcean {
    * @since v2.12
    */
   Delete deleteCertificate(String certificateId) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+  
+  //===========================================
+  // Firewalls manipulation methods
+  // ===========================================
+  
+  /**
+   * Method allows you to add a new firewall to restrict network access to and from a Droplet.
+   *
+   * The Firewall object passed in param can have a list of dropletIds set as dropletIds
+   * attribute. In this case, given Droplets will use the Firewall rules.
+   *
+   * You may also use a Droplet tag to assign a group of Droplets to use the Firewall in place of a
+   * list of Droplet IDs. In this case, set the tag attribute of the Firewall object passed in
+   * param.
+   *
+   * @param firewall the instance of the firewall class
+   * @return {@link FireWall}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   *
+   * @since v2.17
+   */
+  Firewall createFirewall(Firewall firewall) throws DigitalOceanException, 
+      RequestUnsuccessfulException;
+  
+  /**
+   * Method returns complete information for given firewall ID.
+   *
+   * @param firewallId the id of the firewall
+   * @return {@link Firewall}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   *
+   * @since v2.17
+   */
+  Firewall getFirewallInfo(String firewallId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+  
+  /**
+   * Method allows you to update an existing fireawll. The Firewall object passed in param
+   * should contain a full representation of the Firewall including existing attributes. It may
+   * contain one of the dropletIds or tag parameter as they are mutually exclusive. Note that any
+   * attribute that is not provided will be reset to its default value.
+   *
+   * @param firewall the instance of the firewall class
+   * @return {@link Firewall}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   *
+   * @since v2.17
+   */
+  Firewall updateFirewall(Firewall firewall) throws DigitalOceanException,
+      RequestUnsuccessfulException;
+  
+  /**
+   * Method allows you to delete a Firewall instance, disassociating any Droplets assigned to
+   * it and removing it from your account.
+   *
+   * @param firewallId the id of the firewall
+   * @return {@link Delete}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   *
+   * @since v2.17
+   */
+  Delete deleteFirewall(String firewallId) throws DigitalOceanException,
       RequestUnsuccessfulException;
 
 }
