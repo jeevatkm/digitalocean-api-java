@@ -1864,7 +1864,7 @@ public interface DigitalOcean {
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    *
-   * @since v2.17
+   * @since v2.16
    */
   Firewall createFirewall(Firewall firewall) throws DigitalOceanException, 
       RequestUnsuccessfulException;
@@ -1878,7 +1878,7 @@ public interface DigitalOcean {
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    *
-   * @since v2.17
+   * @since v2.16
    */
   Firewall getFirewallInfo(String firewallId)
       throws DigitalOceanException, RequestUnsuccessfulException;
@@ -1895,7 +1895,7 @@ public interface DigitalOcean {
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    *
-   * @since v2.17
+   * @since v2.16
    */
   Firewall updateFirewall(Firewall firewall) throws DigitalOceanException,
       RequestUnsuccessfulException;
@@ -1910,7 +1910,7 @@ public interface DigitalOcean {
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    *
-   * @since v2.17
+   * @since v2.16
    */
   Delete deleteFirewall(String firewallId) throws DigitalOceanException,
       RequestUnsuccessfulException;
