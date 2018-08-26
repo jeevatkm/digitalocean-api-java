@@ -34,6 +34,7 @@ import com.myjeeva.digitalocean.pojo.DomainRecords;
 import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
+import com.myjeeva.digitalocean.pojo.Firewall;
 import com.myjeeva.digitalocean.pojo.FloatingIP;
 import com.myjeeva.digitalocean.pojo.FloatingIPs;
 import com.myjeeva.digitalocean.pojo.Image;
@@ -205,8 +206,13 @@ public enum ApiAction {
   AVAILABLE_CERTIFICATES("/certificates", "certificates", RequestMethod.GET, Certificates.class),
   GET_CERTIFICATE_INFO("/certificates/%s", "certificate", RequestMethod.GET, Certificate.class),
   CREATE_CERTIFICATE("/certificates", "certificate", RequestMethod.POST, Certificate.class),
-  DELETE_CERTIFICATE("/certificates/%s", "response", RequestMethod.DELETE, Delete.class);
+  DELETE_CERTIFICATE("/certificates/%s", "response", RequestMethod.DELETE, Delete.class),
 
+  // Firewalls
+  CREATE_FIREWALL("/firewalls", "firewall", RequestMethod.POST, Firewall.class),
+  GET_FIREWALL_INFO("/firewalls/%s", "firewall", RequestMethod.GET, Firewall.class),
+  UPDATE_FIREWALL("/firewalls/%s", "firewall", RequestMethod.PUT, Firewall.class),
+  DELETE_FIREWALL("/firewalls/%s", "response", RequestMethod.DELETE, Delete.class);
 
   private String path;
 

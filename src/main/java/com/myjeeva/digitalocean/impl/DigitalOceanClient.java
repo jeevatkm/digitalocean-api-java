@@ -82,6 +82,7 @@ import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.DropletAction;
 import com.myjeeva.digitalocean.pojo.Droplets;
+import com.myjeeva.digitalocean.pojo.Firewall;
 import com.myjeeva.digitalocean.pojo.FloatingIP;
 import com.myjeeva.digitalocean.pojo.FloatingIPAction;
 import com.myjeeva.digitalocean.pojo.FloatingIPs;
@@ -109,6 +110,7 @@ import com.myjeeva.digitalocean.pojo.Volume;
 import com.myjeeva.digitalocean.pojo.VolumeAction;
 import com.myjeeva.digitalocean.pojo.Volumes;
 import com.myjeeva.digitalocean.serializer.DropletSerializer;
+import com.myjeeva.digitalocean.serializer.FirewallSerializer;
 import com.myjeeva.digitalocean.serializer.LoadBalancerSerializer;
 import com.myjeeva.digitalocean.serializer.VolumeSerializer;
 
@@ -1868,6 +1870,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
             .registerTypeAdapter(Droplet.class, new DropletSerializer())
             .registerTypeAdapter(Volume.class, new VolumeSerializer())
             .registerTypeAdapter(LoadBalancer.class, new LoadBalancerSerializer())
+            .registerTypeAdapter(Firewall.class, new FirewallSerializer())
             .excludeFieldsWithoutExposeAnnotation().create();
 
     this.jsonParser = new JsonParser();
@@ -1883,6 +1886,60 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     if (null == this.httpClient) {
       this.httpClient = HttpClients.createDefault();
     }
+  }
+
+  @Override
+  public Firewall createFirewall(Firewall firewall)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    if (null == firewall 
+        || StringUtils.isEmpty(firewall.getName())
+        || firewall.getInboundRules().isEmpty() 
+        || firewall.getOutboundRules().isEmpty()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Name, Inbound rules, Outbound rules] for create firewall.");
+    }
+    return (Firewall) perform(new ApiRequest(ApiAction.CREATE_FIREWALL, firewall)).getData();
+  }
+
+  @Override
+  public Firewall getFirewallInfo(String firewallId)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    if (null == firewallId 
+        || StringUtils.isEmpty(firewallId)) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [FirewallID] for get firewall info.");
+    }
+
+    Object[] params = {firewallId};
+    return (Firewall) perform(new ApiRequest(ApiAction.GET_FIREWALL_INFO, params)).getData();
+  }
+
+  @Override
+  public Firewall updateFirewall(Firewall firewall)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    if (null == firewall
+        || StringUtils.isEmpty(firewall.getName())
+        || firewall.getInboundRules().isEmpty()
+        || firewall.getOutboundRules().isEmpty()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Name, Inbound rules, Outbound rules] for update firewall info.");
+    }
+    
+    Object[] params = {firewall.getId()};
+    return (Firewall) perform(new ApiRequest(ApiAction.UPDATE_FIREWALL, firewall, params)).getData();
+  }
+
+  @Override
+  public Delete deleteFirewall(String firewallId)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    if (null == firewallId
+        || StringUtils.isEmpty(firewallId)) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [ID] for delete firewall info.");
+    }
+    
+    Object[] params = {firewallId};
+    return (Delete) perform(new ApiRequest(ApiAction.DELETE_FIREWALL, params)).getData();
   }
 
 }

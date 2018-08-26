@@ -52,18 +52,21 @@ import com.myjeeva.digitalocean.pojo.Backups;
 import com.myjeeva.digitalocean.pojo.Certificate;
 import com.myjeeva.digitalocean.pojo.Certificates;
 import com.myjeeva.digitalocean.pojo.Delete;
+import com.myjeeva.digitalocean.pojo.Destinations;
 import com.myjeeva.digitalocean.pojo.Domain;
 import com.myjeeva.digitalocean.pojo.DomainRecord;
 import com.myjeeva.digitalocean.pojo.DomainRecords;
 import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
+import com.myjeeva.digitalocean.pojo.Firewall;
 import com.myjeeva.digitalocean.pojo.FloatingIP;
 import com.myjeeva.digitalocean.pojo.FloatingIPs;
 import com.myjeeva.digitalocean.pojo.ForwardingRules;
 import com.myjeeva.digitalocean.pojo.HealthCheck;
 import com.myjeeva.digitalocean.pojo.Image;
 import com.myjeeva.digitalocean.pojo.Images;
+import com.myjeeva.digitalocean.pojo.InboundRules;
 import com.myjeeva.digitalocean.pojo.Kernel;
 import com.myjeeva.digitalocean.pojo.Kernels;
 import com.myjeeva.digitalocean.pojo.Key;
@@ -71,6 +74,7 @@ import com.myjeeva.digitalocean.pojo.Keys;
 import com.myjeeva.digitalocean.pojo.LoadBalancer;
 import com.myjeeva.digitalocean.pojo.LoadBalancers;
 import com.myjeeva.digitalocean.pojo.Neighbors;
+import com.myjeeva.digitalocean.pojo.OutboundRules;
 import com.myjeeva.digitalocean.pojo.Region;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Resource;
@@ -79,6 +83,7 @@ import com.myjeeva.digitalocean.pojo.Size;
 import com.myjeeva.digitalocean.pojo.Sizes;
 import com.myjeeva.digitalocean.pojo.Snapshot;
 import com.myjeeva.digitalocean.pojo.Snapshots;
+import com.myjeeva.digitalocean.pojo.Sources;
 import com.myjeeva.digitalocean.pojo.StickySessions;
 import com.myjeeva.digitalocean.pojo.Tag;
 import com.myjeeva.digitalocean.pojo.Tags;
@@ -117,6 +122,8 @@ public class DigitalOceanIntegrationTest {
   private String volumeSnapshotIdForCreate = "197e26b6-c242-11e7-bd8b-0242ac113802"; // to be placed before use
   private String loadBalancerIdForInfo = "155fa6cd-3e74-406d-90bd-5671488c7157"; // to be placed
                                                                                  // before use
+  private String firewallIdForInfo = "190ceeb7-779a-4b04-9091-4dd175de65ec"; // to be placed before use
+  
   private Integer imageId = 3445812; // Debian 7.0 x64 image id
   private String imageSlug = "ubuntu-12-04-x64";
   private String domainName = "";
@@ -1424,6 +1431,69 @@ public class DigitalOceanIntegrationTest {
 
     assertNotNull(result);
     log.info("Delete Request Object: " + result);
+  }
+  
+  @Test
+  public void testCreateFirewall() throws DigitalOceanException, RequestUnsuccessfulException {
+	List<String> addressesInbound = Arrays.asList("18.0.0.0/8");
+	
+	Sources sources = new Sources();
+	sources.setAddresses(addressesInbound);
+	
+	InboundRules inboundRules = new InboundRules();
+	inboundRules.setProtocol("tcp");
+	inboundRules.setPorts("22");
+	inboundRules.setSources(sources);
+	
+	List<String> addressesOutbound = Arrays.asList("0.0.0.0/0", "::/0");
+	
+	Destinations destinations = new Destinations();
+	destinations.setAddresses(addressesOutbound);
+	
+	OutboundRules outboundRules = new OutboundRules();
+	outboundRules.setProtocol("tcp");
+	outboundRules.setPorts("80");
+	outboundRules.setDestinations(destinations);
+	
+	Firewall firewall = new Firewall();
+	firewall.setName("integration-firewall");
+	firewall.setInboundRules(Arrays.asList(inboundRules));
+	firewall.setOutboundRules(Arrays.asList(outboundRules));
+	
+	Firewall fw = apiClient.createFirewall(firewall);
+	
+	assertNotNull(fw);
+	assertNotNull(fw.getId());
+	
+	log.info(fw.toString());
+  }
+  
+  @Test
+  public void testGetFirewallInfo() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Firewall fw = apiClient.getFirewallInfo(firewallIdForInfo);
+    assertNotNull(fw);
+    log.info(fw.toString());
+  }
+  
+  @Test
+  public void testUpdateFirewallInfo() throws DigitalOceanException, RequestUnsuccessfulException {
+    Firewall firewall = apiClient.getFirewallInfo(firewallIdForInfo);
+    
+    firewall.setName("edited-firewall");
+    Firewall fw = apiClient.updateFirewall(firewall);
+    
+    assertNotNull(fw);
+    assertEquals(fw.getName(), firewall.getName());
+    assertEquals(fw.getId(), firewall.getId());
+    
+    log.info(fw.toString());
+  }
+  
+  @Test
+  public void testDeleteFirewall() throws DigitalOceanException, RequestUnsuccessfulException {
+    Delete result = apiClient.deleteFirewall(firewallIdForInfo);
+    assertNotNull(result);
   }
 
 }
