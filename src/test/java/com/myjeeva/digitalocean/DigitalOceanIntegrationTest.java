@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -60,6 +59,7 @@ import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.Firewall;
+import com.myjeeva.digitalocean.pojo.Firewalls;
 import com.myjeeva.digitalocean.pojo.FloatingIP;
 import com.myjeeva.digitalocean.pojo.FloatingIPs;
 import com.myjeeva.digitalocean.pojo.ForwardingRules;
@@ -102,7 +102,6 @@ import com.myjeeva.digitalocean.pojo.Volumes;
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-@Ignore
 // Marked as Ignore since its a Integration Test case with real values
 @RunWith(JUnit4.class)
 public class DigitalOceanIntegrationTest {
@@ -113,7 +112,7 @@ public class DigitalOceanIntegrationTest {
    * This is testing values of my own respective to DigitalOcean account, to real-time integration
    * with API. So place your's for integration test case before use
    */
-  private String authTokenRW = "";
+  private String authTokenRW = "123b2a38aef636d1e3cf630ea11270fe9dbcdf26f335248e57302eae792c7681";
   private Integer dropletIdForInfo = 10001; // to be placed before use
   private String volumeIdForInfo = "10001"; // to be placed before use
   private String volumeNameForInfo = "test-volume"; // to be placed before use, should have
@@ -1494,6 +1493,19 @@ public class DigitalOceanIntegrationTest {
   public void testDeleteFirewall() throws DigitalOceanException, RequestUnsuccessfulException {
     Delete result = apiClient.deleteFirewall(firewallIdForInfo);
     assertNotNull(result);
+  }
+  
+  @Test
+  public void testGetAvailableFirewalls() throws DigitalOceanException, RequestUnsuccessfulException {
+    Firewalls firewalls = apiClient.getAvailableFirewalls(1, null);
+    
+    assertNotNull(firewalls);
+    assertFalse(firewalls.getFirewalls().isEmpty());
+    
+    int i = 0;
+    for (Firewall firewall : firewalls.getFirewalls()) {
+      log.info(i++ + " -> " + firewall.toString());
+    }
   }
 
 }

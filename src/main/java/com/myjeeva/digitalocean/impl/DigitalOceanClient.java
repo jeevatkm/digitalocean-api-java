@@ -82,6 +82,7 @@ import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.DropletAction;
 import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.Firewall;
+import com.myjeeva.digitalocean.pojo.Firewalls;
 import com.myjeeva.digitalocean.pojo.FloatingIP;
 import com.myjeeva.digitalocean.pojo.FloatingIPAction;
 import com.myjeeva.digitalocean.pojo.FloatingIPs;
@@ -1930,6 +1931,15 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     
     Object[] params = {firewallId};
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_FIREWALL, params)).getData();
+  }
+
+  @Override
+  public Firewalls getAvailableFirewalls(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    validatePageNo(pageNo);
+
+    return (Firewalls) perform(new ApiRequest(ApiAction.AVAILABLE_FIREWALLS, pageNo, perPage))
+        .getData();
   }
 
 }
