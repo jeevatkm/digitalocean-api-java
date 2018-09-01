@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -103,6 +104,7 @@ import com.myjeeva.digitalocean.pojo.Volumes;
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
 // Marked as Ignore since its a Integration Test case with real values
+@Ignore
 @RunWith(JUnit4.class)
 public class DigitalOceanIntegrationTest {
 
@@ -112,7 +114,7 @@ public class DigitalOceanIntegrationTest {
    * This is testing values of my own respective to DigitalOcean account, to real-time integration
    * with API. So place your's for integration test case before use
    */
-  private String authTokenRW = "123b2a38aef636d1e3cf630ea11270fe9dbcdf26f335248e57302eae792c7681";
+  private String authTokenRW = "";
   private Integer dropletIdForInfo = 10001; // to be placed before use
   private String volumeIdForInfo = "10001"; // to be placed before use
   private String volumeNameForInfo = "test-volume"; // to be placed before use, should have
