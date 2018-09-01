@@ -1922,7 +1922,7 @@ public interface DigitalOcean {
    * 
    * @param pageNo for pagination
    * @param perPage no. of items per page
-   * @return {@link Droplets}
+   * @return {@link Firewalls}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
