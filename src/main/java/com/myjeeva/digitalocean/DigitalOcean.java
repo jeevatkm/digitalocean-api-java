@@ -1915,6 +1915,7 @@ public interface DigitalOcean {
    */
   Delete deleteFirewall(String firewallId) throws DigitalOceanException,
       RequestUnsuccessfulException;
+
   
   /**
    * Method returns all available firewalls that are currently running in your account. All available

@@ -31,7 +31,7 @@ import com.google.gson.annotations.SerializedName;
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class Domain extends RateLimitBase {
+public class Domain extends Base {
 
   private static final long serialVersionUID = 5958407274594550472L;
 

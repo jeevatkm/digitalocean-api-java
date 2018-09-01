@@ -25,7 +25,7 @@ import com.google.gson.annotations.SerializedName;
  * 
  * @since v2.7
  */
-public class Volume extends RateLimitBase {
+public class Volume extends Base {
 
   private static final long serialVersionUID = 3274091633535612517L;
 

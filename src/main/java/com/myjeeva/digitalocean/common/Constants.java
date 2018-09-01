@@ -44,6 +44,8 @@ public interface Constants {
   String RATE_LIMIT_JSON_STRUCT =
       "\"rate_limit\": { \"limit\": %s, \"remaining\": %s, \"reset\": \"%s\"}";
   String RATE_LIMIT_ELEMENT_NAME = "rate_limit";
+  String LINKS_ELEMENT_NAME = "links";
+  String META_ELEMENT_NAME = "meta";
 
   // HTTPS Scheme
   String HTTPS_SCHEME = "https";

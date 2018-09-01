@@ -37,7 +37,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  *
  * @since v2.11
  */
-public class LoadBalancer extends RateLimitBase {
+public class LoadBalancer extends Base {
 
   private static final long serialVersionUID = -442836096026412279L;
 

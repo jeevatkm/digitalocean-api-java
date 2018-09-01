@@ -32,7 +32,7 @@ import com.myjeeva.digitalocean.common.CaaTagType;
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class DomainRecord extends RateLimitBase {
+public class DomainRecord extends Base {
 
   private static final long serialVersionUID = 5656335027984698525L;
 

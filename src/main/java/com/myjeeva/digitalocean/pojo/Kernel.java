@@ -30,7 +30,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  * 
  * @since v2.0
  */
-public class Kernel extends RateLimitBase {
+public class Kernel extends Base {
 
   private static final long serialVersionUID = -8323029597946938371L;
 

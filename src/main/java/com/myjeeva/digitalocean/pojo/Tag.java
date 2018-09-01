@@ -32,7 +32,7 @@ import com.google.gson.annotations.Expose;
  * 
  * @since v2.5
  */
-public class Tag extends RateLimitBase {
+public class Tag extends Base {
 
   private static final long serialVersionUID = -5828623466026614221L;
 
