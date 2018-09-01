@@ -32,7 +32,7 @@ import com.google.gson.annotations.SerializedName;
  * 
  * @since v2.0
  */
-public class Network extends RateLimitBase {
+public class Network extends Base {
 
   private static final long serialVersionUID = -3123221302381366269L;
 

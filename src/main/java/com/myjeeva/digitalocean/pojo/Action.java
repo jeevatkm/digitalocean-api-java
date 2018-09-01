@@ -37,7 +37,7 @@ import com.myjeeva.digitalocean.common.ResourceType;
  * 
  * @since v2.0
  */
-public class Action extends RateLimitBase {
+public class Action extends Base {
 
   private static final long serialVersionUID = 5951525501167424430L;
 

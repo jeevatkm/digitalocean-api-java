@@ -36,7 +36,7 @@ import com.myjeeva.digitalocean.common.ImageType;
  *
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-public class Image extends RateLimitBase {
+public class Image extends Base {
 
   private static final long serialVersionUID = 1321111459154107563L;
 

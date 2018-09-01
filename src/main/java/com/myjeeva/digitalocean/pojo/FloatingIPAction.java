@@ -33,7 +33,7 @@ import com.google.gson.annotations.SerializedName;
  * 
  * @since v2.3
  */
-public class FloatingIPAction extends RateLimitBase {
+public class FloatingIPAction extends Base {
 
   private static final long serialVersionUID = -6669790006341807856L;
 
