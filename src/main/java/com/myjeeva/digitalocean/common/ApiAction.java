@@ -35,6 +35,7 @@ import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.Firewall;
+import com.myjeeva.digitalocean.pojo.Firewalls;
 import com.myjeeva.digitalocean.pojo.FloatingIP;
 import com.myjeeva.digitalocean.pojo.FloatingIPs;
 import com.myjeeva.digitalocean.pojo.Image;
@@ -212,7 +213,8 @@ public enum ApiAction {
   CREATE_FIREWALL("/firewalls", "firewall", RequestMethod.POST, Firewall.class),
   GET_FIREWALL_INFO("/firewalls/%s", "firewall", RequestMethod.GET, Firewall.class),
   UPDATE_FIREWALL("/firewalls/%s", "firewall", RequestMethod.PUT, Firewall.class),
-  DELETE_FIREWALL("/firewalls/%s", "response", RequestMethod.DELETE, Delete.class);
+  DELETE_FIREWALL("/firewalls/%s", "response", RequestMethod.DELETE, Delete.class),
+  AVAILABLE_FIREWALLS("/firewalls", "firewalls", RequestMethod.GET, Firewalls.class);
 
   private String path;
 

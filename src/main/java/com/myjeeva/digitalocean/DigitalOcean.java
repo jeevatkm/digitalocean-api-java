@@ -40,6 +40,7 @@ import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.Firewall;
+import com.myjeeva.digitalocean.pojo.Firewalls;
 import com.myjeeva.digitalocean.pojo.FloatingIP;
 import com.myjeeva.digitalocean.pojo.FloatingIPs;
 import com.myjeeva.digitalocean.pojo.ForwardingRules;
@@ -1914,5 +1915,22 @@ public interface DigitalOcean {
    */
   Delete deleteFirewall(String firewallId) throws DigitalOceanException,
       RequestUnsuccessfulException;
+
+  
+  /**
+   * Method returns all available firewalls that are currently running in your account. All available
+   * API information is presented for each firewall.
+   * 
+   * @param pageNo for pagination
+   * @param perPage no. of items per page
+   * @return {@link Firewalls}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.16
+   **/
+  Firewalls getAvailableFirewalls(Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
 }

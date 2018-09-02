@@ -60,6 +60,7 @@ import com.myjeeva.digitalocean.pojo.Domains;
 import com.myjeeva.digitalocean.pojo.Droplet;
 import com.myjeeva.digitalocean.pojo.Droplets;
 import com.myjeeva.digitalocean.pojo.Firewall;
+import com.myjeeva.digitalocean.pojo.Firewalls;
 import com.myjeeva.digitalocean.pojo.FloatingIP;
 import com.myjeeva.digitalocean.pojo.FloatingIPs;
 import com.myjeeva.digitalocean.pojo.ForwardingRules;
@@ -102,8 +103,8 @@ import com.myjeeva.digitalocean.pojo.Volumes;
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
-@Ignore
 // Marked as Ignore since its a Integration Test case with real values
+@Ignore
 @RunWith(JUnit4.class)
 public class DigitalOceanIntegrationTest {
 
@@ -1494,6 +1495,19 @@ public class DigitalOceanIntegrationTest {
   public void testDeleteFirewall() throws DigitalOceanException, RequestUnsuccessfulException {
     Delete result = apiClient.deleteFirewall(firewallIdForInfo);
     assertNotNull(result);
+  }
+  
+  @Test
+  public void testGetAvailableFirewalls() throws DigitalOceanException, RequestUnsuccessfulException {
+    Firewalls firewalls = apiClient.getAvailableFirewalls(1, null);
+    
+    assertNotNull(firewalls);
+    assertFalse(firewalls.getFirewalls().isEmpty());
+    
+    int i = 0;
+    for (Firewall firewall : firewalls.getFirewalls()) {
+      log.info(i++ + " -> " + firewall.toString());
+    }
   }
 
 }
