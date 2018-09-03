@@ -324,6 +324,19 @@ public class DigitalOceanIntegrationTest {
       log.info(d.toString());
     }
   }
+  
+  @Test
+  public void testGetAvailableDropletsByTagName() throws DigitalOceanException,
+      RequestUnsuccessfulException {
+
+    Droplets droplets = apiClient.getAvailableDropletsByTagName("mytagtest1", 1, 25);
+
+    assertNotNull(droplets);
+
+    for (Droplet d : droplets.getDroplets()) {
+      log.info(d.toString());
+    }
+  }
 
   @Test
   public void testRebootDroplet() throws DigitalOceanException, RequestUnsuccessfulException {

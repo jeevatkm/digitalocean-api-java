@@ -309,6 +309,8 @@ public interface DigitalOcean {
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.0
    */
   Droplets getDropletNeighbors(Integer dropletId, Integer pageNo)
       throws DigitalOceanException, RequestUnsuccessfulException;
@@ -322,11 +324,34 @@ public interface DigitalOcean {
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.0
    */
   Neighbors getAllDropletNeighbors(Integer pageNo)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
+  /**
+   * To list Droplets by a tag.
+   * 
+   * The response will match that of regular droplet listing request but will be filtered to only
+   * include the tagged Droplets.
+   * 
+   * @param tagName for tagName
+   * @param pageNo for pagination
+   * @param perPage for pagination
+   * @return {@link Droplets}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.16
+   */
+  Droplets getAvailableDropletsByTagName(String tagName, Integer pageNo, Integer perPage)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  // ===========================================
   // Droplet Action methods
+  // ===========================================
 
   /**
    * Method allows you to reboot a droplet. This is the preferred method to use if a server is not
@@ -446,7 +471,7 @@ public interface DigitalOcean {
    * @since v1.0
    */
   Action resizeDroplet(Integer dropletId, String size, Boolean disk)
-          throws DigitalOceanException, RequestUnsuccessfulException;
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to take a snapshot of the running droplet, which can later be restored or
@@ -709,6 +734,7 @@ public interface DigitalOcean {
   // ==============================================
   // Images manipulation (aka Distribution) methods
   // ==============================================
+
   /**
    * Method returns all the available images that can be accessed by your OAuth Token. You will have
    * access to all public images by default, and any snapshots or backups that you have created in
@@ -840,6 +866,7 @@ public interface DigitalOcean {
   // ===========================================
   // Regions (aka Data Centers) methods
   // ===========================================
+
   /**
    * Method returns all the available regions within the DigitalOcean cloud.
    * 
@@ -857,6 +884,7 @@ public interface DigitalOcean {
   // ===========================================
   // Sizes (aka Available Droplet Plans) methods
   // ===========================================
+
   /**
    * Method returns all the available sizes that can be used to create a droplet.
    * 
@@ -874,6 +902,7 @@ public interface DigitalOcean {
   // ===========================================
   // Domain manipulation methods
   // ===========================================
+
   /**
    * Method returns all of your available domains from DNS control panel
    * 
@@ -1010,6 +1039,7 @@ public interface DigitalOcean {
   // ===========================================
   // SSH Key manipulation methods
   // ===========================================
+
   /**
    * Method lists all the available public SSH keys in your account that can be added to a droplet.
    * 
@@ -1123,6 +1153,7 @@ public interface DigitalOcean {
   // ===========================================
   // Floating IP manipulation methods
   // ===========================================
+
   /**
    * Method will list all of the Floating IPs available from your account.
    * 
@@ -1634,8 +1665,8 @@ public interface DigitalOcean {
    *
    * @since v2.11
    */
-  LoadBalancer createLoadBalancer(LoadBalancer loadBalancer) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  LoadBalancer createLoadBalancer(LoadBalancer loadBalancer)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method returns complete information for given load balancer ID.
@@ -1681,8 +1712,8 @@ public interface DigitalOcean {
    *
    * @since v2.11
    */
-  LoadBalancer updateLoadBalancer(LoadBalancer loadBalancer) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  LoadBalancer updateLoadBalancer(LoadBalancer loadBalancer)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to assign a Droplet to a Load Balancer instance.
@@ -1698,8 +1729,7 @@ public interface DigitalOcean {
    * @since v2.11
    */
   Response addDropletsToLoadBalancer(String loadBalancerId, List<Integer> dropletIds)
-      throws DigitalOceanException,
-      RequestUnsuccessfulException;
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to remove a Droplet from a Load Balancer instance.
@@ -1715,8 +1745,7 @@ public interface DigitalOcean {
    * @since v2.11
    */
   Delete removeDropletsFromLoadBalancer(String loadBalancerId, List<Integer> dropletIds)
-      throws DigitalOceanException,
-      RequestUnsuccessfulException;
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to add an additional forwarding rule to a Load Balancer instance.
@@ -1732,8 +1761,8 @@ public interface DigitalOcean {
    * @since v2.11
    */
   Response addForwardingRulesToLoadBalancer(String loadBalancerId,
-      List<ForwardingRules> forwardingRules) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+      List<ForwardingRules> forwardingRules)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to remove forwarding rules from a Load Balancer instance.
@@ -1749,8 +1778,8 @@ public interface DigitalOcean {
    * @since v2.11
    */
   Delete removeForwardingRulesFromLoadBalancer(String loadBalancerId,
-      List<ForwardingRules> forwardingRules) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+      List<ForwardingRules> forwardingRules)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to delete a Load Balancer instance, disassociating any Droplets assigned to
@@ -1764,8 +1793,8 @@ public interface DigitalOcean {
    *
    * @since v2.11
    */
-  Delete deleteLoadBalancer(String loadBalancerId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Delete deleteLoadBalancer(String loadBalancerId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   // ===========================================
   // Certificates manipulation methods
@@ -1784,8 +1813,7 @@ public interface DigitalOcean {
    * @since v2.12
    **/
   Certificates getAvailableCertificates(Integer pageNo, Integer perPage)
-      throws DigitalOceanException,
-      RequestUnsuccessfulException;
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * <p>
@@ -1814,8 +1842,8 @@ public interface DigitalOcean {
    * 
    * @since v2.12
    */
-  Certificate createCertificate(Certificate certificate) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Certificate createCertificate(Certificate certificate)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method returns the Certificate information for given certificate ID.
@@ -1828,8 +1856,8 @@ public interface DigitalOcean {
    * 
    * @since v2.12
    */
-  Certificate getCertificateInfo(String certificateId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Certificate getCertificateInfo(String certificateId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to delete a Certificate by Id from your account.
@@ -1842,18 +1870,18 @@ public interface DigitalOcean {
    *
    * @since v2.12
    */
-  Delete deleteCertificate(String certificateId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
-  
-  //===========================================
+  Delete deleteCertificate(String certificateId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  // ===========================================
   // Firewalls manipulation methods
   // ===========================================
-  
+
   /**
    * Method allows you to add a new firewall to restrict network access to and from a Droplet.
    *
-   * The Firewall object passed in param can have a list of dropletIds set as dropletIds
-   * attribute. In this case, given Droplets will use the Firewall rules.
+   * The Firewall object passed in param can have a list of dropletIds set as dropletIds attribute.
+   * In this case, given Droplets will use the Firewall rules.
    *
    * You may also use a Droplet tag to assign a group of Droplets to use the Firewall in place of a
    * list of Droplet IDs. In this case, set the tag attribute of the Firewall object passed in
@@ -1867,9 +1895,9 @@ public interface DigitalOcean {
    *
    * @since v2.16
    */
-  Firewall createFirewall(Firewall firewall) throws DigitalOceanException, 
-      RequestUnsuccessfulException;
-  
+  Firewall createFirewall(Firewall firewall)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
   /**
    * Method returns complete information for given firewall ID.
    *
@@ -1883,12 +1911,12 @@ public interface DigitalOcean {
    */
   Firewall getFirewallInfo(String firewallId)
       throws DigitalOceanException, RequestUnsuccessfulException;
-  
+
   /**
-   * Method allows you to update an existing fireawll. The Firewall object passed in param
-   * should contain a full representation of the Firewall including existing attributes. It may
-   * contain one of the dropletIds or tag parameter as they are mutually exclusive. Note that any
-   * attribute that is not provided will be reset to its default value.
+   * Method allows you to update an existing fireawll. The Firewall object passed in param should
+   * contain a full representation of the Firewall including existing attributes. It may contain one
+   * of the dropletIds or tag parameter as they are mutually exclusive. Note that any attribute that
+   * is not provided will be reset to its default value.
    *
    * @param firewall the instance of the firewall class
    * @return {@link Firewall}
@@ -1898,12 +1926,12 @@ public interface DigitalOcean {
    *
    * @since v2.16
    */
-  Firewall updateFirewall(Firewall firewall) throws DigitalOceanException,
-      RequestUnsuccessfulException;
-  
+  Firewall updateFirewall(Firewall firewall)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
   /**
-   * Method allows you to delete a Firewall instance, disassociating any Droplets assigned to
-   * it and removing it from your account.
+   * Method allows you to delete a Firewall instance, disassociating any Droplets assigned to it and
+   * removing it from your account.
    *
    * @param firewallId the id of the firewall
    * @return {@link Delete}
@@ -1913,13 +1941,13 @@ public interface DigitalOcean {
    *
    * @since v2.16
    */
-  Delete deleteFirewall(String firewallId) throws DigitalOceanException,
-      RequestUnsuccessfulException;
+  Delete deleteFirewall(String firewallId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
-  
+
   /**
-   * Method returns all available firewalls that are currently running in your account. All available
-   * API information is presented for each firewall.
+   * Method returns all available firewalls that are currently running in your account. All
+   * available API information is presented for each firewall.
    * 
    * @param pageNo for pagination
    * @param perPage no. of items per page
