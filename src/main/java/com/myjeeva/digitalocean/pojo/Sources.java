@@ -36,6 +36,7 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Sources {
 
+  @Expose
   private List<String> addresses;
 
   @Expose
