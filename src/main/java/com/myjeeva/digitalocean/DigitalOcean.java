@@ -1888,7 +1888,7 @@ public interface DigitalOcean {
    * param.
    *
    * @param firewall the instance of the firewall class
-   * @return {@link FireWall}
+   * @return {@link Firewall}
    * @throws DigitalOceanException if request had interruption [
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
@@ -1944,6 +1944,35 @@ public interface DigitalOcean {
   Delete deleteFirewall(String firewallId)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
+  /**
+   * Method allows you to assign a {@link Droplet} to a {@link Firewall} instance.
+   *
+   * @param firewallId the id of the firewall to add droplets to
+   * @param dropletIds the list of of droplet IDs to add to the firewall
+   * @return {@link Response} A generic HTTP status response
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   *
+   * @since v2.17
+   */
+  Response addDropletsToFirewall(String firewallId, List<Integer> dropletIds)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to remove a Droplet from a Load Balancer instance.
+   *
+   * @param firewallId the id of the firewall
+   * @param dropletIds the list of droplet IDs to be removed from the firewall instance.
+   * @return {@link Delete}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   *
+   * @since v2.17
+   */
+  Delete removeDropletsFromFirewall(String firewallId, List<Integer> dropletIds)
+    throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method returns all available firewalls that are currently running in your account. All

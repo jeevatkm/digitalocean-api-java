@@ -214,7 +214,9 @@ public enum ApiAction {
   GET_FIREWALL_INFO("/firewalls/%s", "firewall", RequestMethod.GET, Firewall.class),
   UPDATE_FIREWALL("/firewalls/%s", "firewall", RequestMethod.PUT, Firewall.class),
   DELETE_FIREWALL("/firewalls/%s", "response", RequestMethod.DELETE, Delete.class),
-  AVAILABLE_FIREWALLS("/firewalls", "firewalls", RequestMethod.GET, Firewalls.class);
+  AVAILABLE_FIREWALLS("/firewalls", "firewalls", RequestMethod.GET, Firewalls.class),
+  ADD_DROPLET_TO_FIREWALL("/firewalls/%s/droplets", "response", RequestMethod.POST, Response.class),
+  REMOVE_DROPLET_FROM_FIREWALL("/firewalls/%s/droplets", "response", RequestMethod.DELETE, Delete.class);
 
   private String path;
 
