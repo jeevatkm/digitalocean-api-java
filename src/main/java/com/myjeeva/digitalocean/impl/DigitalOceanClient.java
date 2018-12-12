@@ -1900,6 +1900,40 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
+  public Response addDropletsToFirewall(String firewallId, List<Integer> dropletIds)
+          throws DigitalOceanException, RequestUnsuccessfulException {
+    if(StringUtils.isBlank(firewallId)) {
+      throw new IllegalArgumentException("Missing required parameter [firewallId].");
+    }
+
+    if (null == dropletIds || dropletIds.isEmpty()) {
+      throw new IllegalArgumentException("Missing required parameters [dropletIds].");
+    }
+
+    Object[] params = {firewallId};
+    Map<String, List<Integer>> data = new HashMap<>();
+    data.put("droplet_ids", dropletIds);
+    return (Response) perform(new ApiRequest(ApiAction.ADD_DROPLET_TO_FIREWALL, data, params)).getData();
+  }
+
+  @Override
+  public Delete removeDropletsFromFirewall(String firewallId, List<Integer> dropletIds)
+    throws DigitalOceanException, RequestUnsuccessfulException {
+    if(StringUtils.isBlank(firewallId)) {
+      throw new IllegalArgumentException("Missing required parameter [firewallId].");
+    }
+
+    if (null == dropletIds || dropletIds.isEmpty()) {
+      throw new IllegalArgumentException("Missing required parameters [dropletIds].");
+    }
+
+    Object[] params = {firewallId};
+    Map<String, List<Integer>> data = new HashMap<>();
+    data.put("droplet_ids", dropletIds);
+    return (Delete) perform(new ApiRequest(ApiAction.REMOVE_DROPLET_FROM_FIREWALL, data, params)).getData();
+  }
+
+  @Override
   public Firewalls getAvailableFirewalls(Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
