@@ -41,7 +41,7 @@ public class Volume extends Base {
   private String description;
 
   @SerializedName("size_gigabytes")
-  private Double size;
+  private Integer size;
 
   @SerializedName("created_at")
   private Date createdDate;
@@ -127,14 +127,14 @@ public class Volume extends Base {
   /**
    * @return the size in Gigabytes
    */
-  public Double getSize() {
+  public Integer getSize() {
     return size;
   }
 
   /**
    * @param size the size to set
    */
-  public void setSize(Double size) {
+  public void setSize(Integer size) {
     this.size = size;
   }
 

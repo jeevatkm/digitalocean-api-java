@@ -1074,7 +1074,7 @@ public class DigitalOceanIntegrationTest {
     volume.setName("api-client-test-host-volume");
     volume.setDescription("Test Volume Description");
     volume.setRegion(new Region("nyc1"));
-    volume.setSize(1D);
+    volume.setSize(1);
     volume.setSnapshotId(volumeSnapshotIdForCreate);
 
     Volume v = apiClient.createVolume(volume);
