@@ -11,6 +11,7 @@ import java.lang.reflect.Type;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
@@ -47,6 +48,25 @@ public class VolumeSerializer implements JsonSerializer<Volume> {
 
     if (null != volume.getSize()) {
       jsonObject.addProperty("size_gigabytes", volume.getSize());
+    }
+
+    // #89
+    if (StringUtils.isNotBlank(volume.getFileSystemType())) {
+      jsonObject.addProperty("filesystem_type", volume.getFileSystemType());
+    }
+
+    // #89
+    if (StringUtils.isNotBlank(volume.getFileSystemLabel())) {
+      jsonObject.addProperty("filesystem_label", volume.getFileSystemLabel());
+    }
+
+    // #89
+    if (null != volume.getTags() && !volume.getTags().isEmpty()) {
+      JsonArray tags = new JsonArray();
+      for (String tag : volume.getTags()) {
+        tags.add(context.serialize(tag));
+      }
+      jsonObject.add("tags", tags);
     }
 
     return jsonObject;

@@ -8,6 +8,7 @@
 package com.myjeeva.digitalocean.pojo;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -48,6 +49,14 @@ public class Volume extends Base {
 
   @SerializedName("snapshot_id")
   private String snapshotId;
+  
+  @SerializedName("filesystem_type")
+  private String fileSystemType;
+  
+  @SerializedName("filesystem_label")
+  private String fileSystemLabel;
+  
+  private List<String> tags;
 
   @Override
   public String toString() {
@@ -164,6 +173,48 @@ public class Volume extends Base {
    */
   public void setSnapshotId(String snapshotId) {
     this.snapshotId = snapshotId;
+  }
+
+  /**
+   * @return the fileSystemType
+   */
+  public String getFileSystemType() {
+    return fileSystemType;
+  }
+
+  /**
+   * @param fileSystemType the fileSystemType to set
+   */
+  public void setFileSystemType(String fileSystemType) {
+    this.fileSystemType = fileSystemType;
+  }
+
+  /**
+   * @return the fileSystemLabel
+   */
+  public String getFileSystemLabel() {
+    return fileSystemLabel;
+  }
+
+  /**
+   * @param fileSystemLabel the fileSystemLabel to set
+   */
+  public void setFileSystemLabel(String fileSystemLabel) {
+    this.fileSystemLabel = fileSystemLabel;
+  }
+
+  /**
+   * @return the tags
+   */
+  public List<String> getTags() {
+    return tags;
+  }
+
+  /**
+   * @param tags the tags to set
+   */
+  public void setTags(List<String> tags) {
+    this.tags = tags;
   }
 
 }
