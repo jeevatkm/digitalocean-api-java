@@ -1450,6 +1450,22 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return (Certificate) perform(new ApiRequest(ApiAction.CREATE_CERTIFICATE, certificate))
         .getData();
   }
+  
+  @Override
+  public Certificate createLetsEncryptCertificate(Certificate certificate)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    if (null == certificate || StringUtils.isBlank(certificate.getName())
+        || StringUtils.isBlank(certificate.getType())
+        || certificate.getType() != "lets_encrypt"
+        || certificate.getDnsNames() == null
+        || certificate.getDnsNames().isEmpty()) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Name, Type(lets_encrypt), List of DNS Names] for create Let's Encrypt certificate.");
+    }
+
+    return (Certificate) perform(new ApiRequest(ApiAction.CREATE_CERTIFICATE, certificate))
+        .getData();
+  }
 
   @Override
   public Certificate getCertificateInfo(String certificateId)

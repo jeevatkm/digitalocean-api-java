@@ -104,7 +104,7 @@ import com.myjeeva.digitalocean.pojo.Volumes;
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
 // Marked as Ignore since its a Integration Test case with real values
-@Ignore
+//@Ignore
 @RunWith(JUnit4.class)
 public class DigitalOceanIntegrationTest {
 
@@ -1426,6 +1426,19 @@ public class DigitalOceanIntegrationTest {
         new Certificate("my-cert", "privateKey", "leafCertificate", "certificateChain");
 
     Certificate result = apiClient.createCertificate(certificate);
+    assertNotNull(result);
+
+    log.info(result.toString());
+  }
+  
+  @Test
+  public void testLetsEncryptCreateCertificate() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    String[] dnsNames = { "example.com", "www.example.com"};
+    Certificate certificate =
+        new Certificate("my-let-encrypt-cert", "lets_encrypt", Arrays.asList(dnsNames));
+
+    Certificate result = apiClient.createLetsEncryptCertificate(certificate);
     assertNotNull(result);
 
     log.info(result.toString());

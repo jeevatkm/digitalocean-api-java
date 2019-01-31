@@ -1844,6 +1844,9 @@ public interface DigitalOcean {
    */
   Certificate createCertificate(Certificate certificate)
       throws DigitalOceanException, RequestUnsuccessfulException;
+  
+  Certificate createLetsEncryptCertificate(Certificate certificate)
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method returns the Certificate information for given certificate ID.

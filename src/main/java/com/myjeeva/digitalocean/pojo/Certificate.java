@@ -22,11 +22,13 @@
 package com.myjeeva.digitalocean.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.myjeeva.digitalocean.common.CertificateState;
 
 /**
  * Represents Certificate attributes
@@ -64,6 +66,16 @@ public class Certificate extends Base {
   @Expose
   @SerializedName("certificate_chain")
   private String certificateChain;
+  
+  @Expose
+  private CertificateState state;
+  
+  @Expose
+  @SerializedName("dns_names")
+  private List<String> dnsNames;
+  
+  @Expose
+  private String type;
 
   /**
    * Default Constructor.
@@ -81,6 +93,15 @@ public class Certificate extends Base {
     this.privateKey = privateKey;
     this.leafCertificate = leafCertificate;
     this.certificateChain = certificateChain;
+  }
+  
+  /**
+   * Constructor for new Let's Encrypt certificate create request.
+   */
+  public Certificate(String name, String type, List<String> dnsNames) {
+    this.name = name;
+    this.type = type;
+    this.dnsNames = dnsNames;
   }
 
   @Override
@@ -198,6 +219,48 @@ public class Certificate extends Base {
    */
   public void setCertificateChain(String certificateChain) {
     this.certificateChain = certificateChain;
+  }
+
+  /**
+   * @return the state
+   */
+  public CertificateState getState() {
+    return state;
+  }
+
+  /**
+   * @param state the state to set
+   */
+  public void setState(CertificateState state) {
+    this.state = state;
+  }
+
+  /**
+   * @return the dnsNames
+   */
+  public List<String> getDnsNames() {
+    return dnsNames;
+  }
+
+  /**
+   * @param dnsNames the dnsNames to set
+   */
+  public void setDnsNames(List<String> dnsNames) {
+    this.dnsNames = dnsNames;
+  }
+
+  /**
+   * @return the type
+   */
+  public String getType() {
+    return type;
+  }
+
+  /**
+   * @param type the type to set
+   */
+  public void setType(String type) {
+    this.type = type;
   }
 
 }
