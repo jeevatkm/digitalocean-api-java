@@ -811,7 +811,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Domain createDomain(Domain domain)
       throws DigitalOceanException, RequestUnsuccessfulException {
     checkBlankAndThrowError(domain.getName(), "Missing required parameter - domainName.");
-    checkBlankAndThrowError(domain.getIpAddress(), "Missing required parameter - ipAddress.");
+    // #89 - removed the validation in-favor of 
+    // https://developers.digitalocean.com/documentation/changelog/api-v2/create-domains-without-providing-an-ip-address/
+    // checkBlankAndThrowError(domain.getIpAddress(), "Missing required parameter - ipAddress.");
 
     return (Domain) perform(new ApiRequest(ApiAction.CREATE_DOMAIN, domain)).getData();
   }
