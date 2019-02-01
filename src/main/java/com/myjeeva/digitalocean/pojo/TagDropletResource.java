@@ -35,7 +35,11 @@ import com.google.gson.annotations.SerializedName;
 public class TagDropletResource {
 
   private int count;
+  
+  @SerializedName("last_tagged_uri")
+  private String lastTaggedUri;
 
+  @Deprecated
   @SerializedName("last_tagged")
   private Droplet lastTagged;
 
@@ -59,15 +63,35 @@ public class TagDropletResource {
   }
 
   /**
-   * @return the lastTagged
+   * @return the lastTaggedUri
    */
+  public String getLastTaggedUri() {
+    return lastTaggedUri;
+  }
+
+  /**
+   * @param lastTaggedUri the lastTaggedUri to set
+   */
+  public void setLastTaggedUri(String lastTaggedUri) {
+    this.lastTaggedUri = lastTaggedUri;
+  }
+
+  /**
+   * @return the lastTagged
+   * 
+   * <p>Deprecated: https://developers.digitalocean.com/documentation/changelog/api-v2/adding-tagged-uri/</p>
+   */
+  @Deprecated 
   public Droplet getLastTagged() {
     return lastTagged;
   }
 
   /**
    * @param lastTagged the lastTagged to set
+   * 
+   * <p>Deprecated: https://developers.digitalocean.com/documentation/changelog/api-v2/adding-tagged-uri/</p>
    */
+  @Deprecated
   public void setLastTagged(Droplet lastTagged) {
     this.lastTagged = lastTagged;
   }
