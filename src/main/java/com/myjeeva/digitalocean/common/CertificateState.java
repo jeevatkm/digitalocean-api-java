@@ -35,13 +35,13 @@ import com.google.gson.annotations.SerializedName;
 public enum CertificateState {
 
   @SerializedName("pending")
-  PENDING("new"),
+  PENDING("pending"),
   
   @SerializedName("verified")
-  VERIFIED("active"),
+  VERIFIED("verified"),
   
   @SerializedName("error")
-  ERROR("off");
+  ERROR("error");
 
   private String value;
 

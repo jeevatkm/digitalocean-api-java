@@ -1845,6 +1845,32 @@ public interface DigitalOcean {
   Certificate createCertificate(Certificate certificate)
       throws DigitalOceanException, RequestUnsuccessfulException;
   
+  /**
+   * <p>
+   * Method allows you to create a new Let's Encrypt certificate. See the required parameters section below for an
+   * explanation of the variables that are needed to create a new Let's Encrypt certificate.
+   * </p>
+   * <p>
+   * Create a instance of {@link Certificate} class and populated the certificate object
+   * appropriately. Required values are -
+   * </p>
+   * 
+   * <pre>
+   * {
+   *    "name": "le-cert-01",
+   *    "type": "lets_encrypt",
+   *    "dns_names": ["www.example.com","example.com"]
+   * }
+   * </pre>
+   * 
+   * @param certificate the instance of the Certificate class
+   * @return {@link Certificate}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.12
+   */
   Certificate createLetsEncryptCertificate(Certificate certificate)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
