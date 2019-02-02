@@ -26,37 +26,29 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Enumeration of DigitalOcean Image Types
+ * Enumeration of DigitalOcean Image Status
  * 
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  * 
- * @since v2.0
+ * @since v2.17
  */
-public enum ImageType {
+public enum ImageStatus {
 
-  @SerializedName("snapshot")
-  SNAPSHOT("snapshot"),
+  @SerializedName("new")
+  NEW("new"),
 
-  @SerializedName("backup")
-  BACKUP("backup"),
+  @SerializedName("available")
+  AVAILABLE("available"),
   
-  /**
-   * #89 - https://developers.digitalocean.com/documentation/changelog/api-v2/support-for-custom-images-and-image-tagging/
-   */
-  @SerializedName("custom")
-  CUSTOM("custom"),
+  @SerializedName("pending")
+  PENDING("pending"),
 
-  /**
-   * More info:
-   * https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-snaphots/
-   */
-  @Deprecated
-  @SerializedName("temporary")
-  TEMPORARY("temporary");
+  @SerializedName("deleted")
+  DELETED("deleted");
 
   private String value;
 
-  private ImageType(String value) {
+  private ImageStatus(String value) {
     this.value = value;
   }
 
@@ -65,14 +57,14 @@ public enum ImageType {
     return this.value;
   }
 
-  public static ImageType fromValue(String value) {
+  public static ImageStatus fromValue(String value) {
     if (StringUtils.isBlank(value)) {
       throw new IllegalArgumentException("Value cannot be null or empty!");
     }
 
-    for (ImageType rt : ImageType.values()) {
-      if (value.equalsIgnoreCase(rt.value)) {
-        return rt;
+    for (ImageStatus s : ImageStatus.values()) {
+      if (value.equalsIgnoreCase(s.value)) {
+        return s;
       }
     }
 

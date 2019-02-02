@@ -666,6 +666,22 @@ public class DigitalOceanIntegrationTest {
 
     log.info(image.toString());
   }
+  
+  @Test
+  public void testCreateCustomImage() throws DigitalOceanException, RequestUnsuccessfulException {
+
+    Image input = new Image("ubuntu-18.04-minimal", "http://cloud-images.ubuntu.com/minimal/releases/bionic/release/ubuntu-18.04-minimal-cloudimg-amd64.img"
+        , "nyc3");
+    input.setDescription("Cloud-optimized image w/ small footprint");
+    input.setDistribution("Ubuntu");
+    input.setTags(Arrays.asList("base-image", "prod"));
+    
+    Image image = apiClient.updateImage(input);
+
+    assertNotNull(image);
+
+    log.info(image.toString());
+  }
 
   @Test
   public void testUpdateImageInfo() throws DigitalOceanException, RequestUnsuccessfulException {

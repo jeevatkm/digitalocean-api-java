@@ -721,6 +721,18 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {slug};
     return (Image) perform(new ApiRequest(ApiAction.GET_IMAGE_INFO, params)).getData();
   }
+  
+  @Override
+  public Image createCustomImage(Image image) throws DigitalOceanException, RequestUnsuccessfulException {
+    if (null == image 
+        || StringUtils.isBlank(image.getName())
+        || StringUtils.isBlank(image.getUrl())
+        || StringUtils.isBlank(image.getRegion())) {
+      throw new IllegalArgumentException("Missing required parameter to create custom image [name, url, or region].");
+    }
+
+    return (Image) perform(new ApiRequest(ApiAction.CREATE_CUSTOM_IMAGE, image)).getData();
+  }
 
   @Override
   public Image updateImage(Image image) throws DigitalOceanException, RequestUnsuccessfulException {

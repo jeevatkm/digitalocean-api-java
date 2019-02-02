@@ -28,6 +28,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.myjeeva.digitalocean.common.ImageStatus;
 import com.myjeeva.digitalocean.common.ImageType;
 
 /**
@@ -45,6 +46,7 @@ public class Image extends Base {
   @Expose
   private String name;
 
+  @Expose
   private String distribution;
 
   private String slug;
@@ -64,6 +66,26 @@ public class Image extends Base {
   private Double size;
 
   private ImageType type;
+  
+  // #89 - start
+  // https://developers.digitalocean.com/documentation/changelog/api-v2/support-for-custom-images-and-image-tagging/
+  @Expose
+  private String url;
+  
+  @Expose
+  private String region;
+  
+  @Expose
+  private String description;
+  
+  @Expose
+  private List<String> tags;
+  
+  private ImageStatus status;
+  
+  @SerializedName("error_message")
+  private String errorMessage;
+  // #89 - end
 
   public Image() {
     // Default constructor
@@ -75,6 +97,12 @@ public class Image extends Base {
 
   public Image(String slug) {
     this.slug = slug;
+  }
+  
+  public Image(String name, String url, String region) {
+    this.name = name;
+    this.url = url;
+    this.region = region;
   }
 
   @Override
@@ -135,6 +163,13 @@ public class Image extends Base {
   }
 
   /**
+   * The name of a custom image's distribution. 
+   * 
+   * <p>Currently, the valid values are "Arch Linux", "CentOS", "CoreOS", "Debian", 
+   * "Fedora", "Fedora Atomic", "FreeBSD", "Gentoo", "openSUSE", "RancherOS", "Ubuntu", 
+   * and "Unknown". Any other value will be accepted but ignored, 
+   * and "Unknown" will be used in its place. </p>
+   * 
    * @return the distribution
    */
   public String getDistribution() {
@@ -142,6 +177,13 @@ public class Image extends Base {
   }
 
   /**
+   * The name of a custom image's distribution. 
+   * 
+   * <p>Currently, the valid values are "Arch Linux", "CentOS", "CoreOS", "Debian", 
+   * "Fedora", "Fedora Atomic", "FreeBSD", "Gentoo", "openSUSE", "RancherOS", "Ubuntu", 
+   * and "Unknown". Any other value will be accepted but ignored, 
+   * and "Unknown" will be used in its place. </p>
+   * 
    * @param distribution the distribution to set
    */
   public void setDistribution(String distribution) {
@@ -245,4 +287,94 @@ public class Image extends Base {
   public void setSize(Double size) {
     this.size = size;
   }
+
+  /**
+   * @return the url
+   */
+  public String getUrl() {
+    return url;
+  }
+
+  /**
+   * A URL from which the custom Linux virtual machine image may be retrieved. 
+   * The image it points to must be in the raw, qcow2, vhdx, vdi, or vmdk format. 
+   * It may be compressed using gzip or bzip2 and must be smaller 
+   * than 100 GB after being decompressed.
+   * 
+   * @param url the url to set
+   */
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
+  /**
+   * @return the region
+   */
+  public String getRegion() {
+    return region;
+  }
+
+  /**
+   * @param region the region to set
+   */
+  public void setRegion(String region) {
+    this.region = region;
+  }
+
+  /**
+   * @return the description
+   */
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * @param description the description to set
+   */
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  /**
+   * @return the status
+   */
+  public ImageStatus getStatus() {
+    return status;
+  }
+
+  /**
+   * @param status the status to set
+   */
+  public void setStatus(ImageStatus status) {
+    this.status = status;
+  }
+
+  /**
+   * @return the tags
+   */
+  public List<String> getTags() {
+    return tags;
+  }
+
+  /**
+   * @param tags the tags to set
+   */
+  public void setTags(List<String> tags) {
+    this.tags = tags;
+  }
+
+  /**
+   * @return the errorMessage
+   */
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
+  /**
+   * @param errorMessage the errorMessage to set
+   */
+  public void setErrorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
+  }
+  
 }

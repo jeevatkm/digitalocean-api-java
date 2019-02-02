@@ -114,7 +114,8 @@ public enum ApiAction {
   
   // Image
   AVAILABLE_IMAGES("/images", "images", RequestMethod.GET, Images.class),  
-  GET_IMAGE_INFO("/images/%s", "image", RequestMethod.GET, Image.class),  
+  GET_IMAGE_INFO("/images/%s", "image", RequestMethod.GET, Image.class),
+  CREATE_CUSTOM_IMAGE("/images", "image", RequestMethod.POST, Image.class),
   UPDATE_IMAGE_INFO("/images/%s", "image", RequestMethod.PUT, Image.class),
   DELETE_IMAGE("/images/%s", "response", RequestMethod.DELETE, Delete.class),
   TRANSFER_IMAGE("/images/%s/actions", "action", RequestMethod.POST, Action.class),

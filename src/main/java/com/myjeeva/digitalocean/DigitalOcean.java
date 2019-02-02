@@ -807,6 +807,38 @@ public interface DigitalOcean {
    * @since v2.0
    */
   Image getImageInfo(String slug) throws DigitalOceanException, RequestUnsuccessfulException;
+  
+  
+  /**
+   * Method creates the custom image.
+   * 
+   * <p>Refer to <a href="https://developers.digitalocean.com/documentation/v2/#create-a-custom-image">
+   * https://developers.digitalocean.com/documentation/v2/#create-a-custom-image</a></p>
+   * 
+   * <p>Sample Payload:</p>
+   * <pre>
+   * {
+   *   "name": "ubuntu-18.04-minimal",
+   *   "url": "http://cloud-images.ubuntu.com/minimal/releases/bionic/release/ubuntu-18.04-minimal-cloudimg-amd64.img",
+   *   "distribution": "Ubuntu",
+   *   "region": "nyc3",
+   *   "description": "Cloud-optimized image w/ small footprint",
+   *   "tags": [
+   *     "base-image",
+   *     "prod"
+   *   ]
+   * }
+   * </pre>
+   * 
+   * @param image instance with custom image attributes 
+   * @return {@link Image}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   * 
+   * @since v2.17
+   */
+  Image createCustomImage(Image image) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method updates the given details for an image.
