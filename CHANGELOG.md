@@ -1,7 +1,15 @@
 # Supported API's and Changelogs
 
-* **Released in v2.16**
-  * TODO ...
+* **Released in v2.17**
+  * Added methods add/remove firewall for droplets [#91](https://github.com/jeevatkm/digitalocean-api-java/pull/91) @mashurex
+  * Adapt new changes or enhancements of DO v2 APIs [#89](https://github.com/jeevatkm/digitalocean-api-java/pull/89) @jeevatkm
+      * Added [Let's Encrypt](https://developers.digitalocean.com/documentation/changelog/api-v2/lets-encrypt-support-for-certificate-resources/) create certificate method and options
+	  * Added `filesystem_type`, `filesystem_label`, `tags` attributes support to volume - [1](https://developers.digitalocean.com/documentation/changelog/api-v2/auto-formatting-support-for-volumes/), [2](https://developers.digitalocean.com/documentation/changelog/api-v2/add-volume-tagging/)
+	  * Removed the [IP address validation](https://developers.digitalocean.com/documentation/changelog/api-v2/create-domains-without-providing-an-ip-address/)
+	  * Added `last_tagged_uri` attribute and deprecated `last_tagged` attribute - [Tags](https://developers.digitalocean.com/documentation/changelog/api-v2/adding-tagged-uri/)
+	  * Added new [create custom image(https://developers.digitalocean.com/documentation/changelog/api-v2/support-for-custom-images-and-image-tagging/)] API support
+  * Bug fix: Add expose annotation to sources [#90](https://github.com/jeevatkm/digitalocean-api-java/pull/90) @mcjp78 
+  * Bug fix: Updated the `size` attribute in the Volume to `integer` [#92](https://github.com/jeevatkm/digitalocean-api-java/pull/92) @bahrinka  
 
 * **Released in v2.16**
   * Added new endpoint support `/v2/firewalls/*` [#83](https://github.com/jeevatkm/digitalocean-api-java/issues/83), PR [#85](https://github.com/jeevatkm/digitalocean-api-java/pull/85), PR [#87](https://github.com/jeevatkm/digitalocean-api-java/pull/87) (@andreybleme)
@@ -137,7 +145,7 @@
 	</pre>
 * **Released in v2.2**
 	* Added compatibility for Android
-	* Applied latest API changes from DO, [Account object][14] & [Snapshot status][15]
+	* Applied latest API changes from DO, [Account object](https://developers.digitalocean.com/documentation/changelog/api-v2/add-status-to-account/) & [Snapshot status](https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-snaphots/)
 * **Released in v2.1**
 	* Enhancements
 		* Libs version upgraded to latest
