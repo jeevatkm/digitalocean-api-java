@@ -1,13 +1,10 @@
 /**
  * Copyright (c) Jeevanandam M. (https://github.com/jeevatkm)
- * 
- * digitalocean-api-client source code and usage is governed by a MIT style license that can be
+ *
+ * <p>digitalocean-api-client source code and usage is governed by a MIT style license that can be
  * found in the LICENSE file
  */
-
 package com.myjeeva.digitalocean.serializer;
-
-import java.lang.reflect.Type;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -16,19 +13,19 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.myjeeva.digitalocean.pojo.ForwardingRules;
 import com.myjeeva.digitalocean.pojo.LoadBalancer;
+import java.lang.reflect.Type;
 
 /**
  * Serialize the load balancer info for POST request.
- * 
+ *
  * @author Thomas Lehoux (https://github.com/tlehoux)
- * 
  * @since v2.11
  */
 public class LoadBalancerSerializer implements JsonSerializer<LoadBalancer> {
 
   @Override
-  public JsonElement serialize(LoadBalancer loadBalancer, Type paramType,
-      JsonSerializationContext context) {
+  public JsonElement serialize(
+      LoadBalancer loadBalancer, Type paramType, JsonSerializationContext context) {
     final JsonObject jsonObject = new JsonObject();
 
     jsonObject.addProperty("name", loadBalancer.getName());
@@ -64,5 +61,4 @@ public class LoadBalancerSerializer implements JsonSerializer<LoadBalancer> {
     }
     return jsonObject;
   }
-
 }

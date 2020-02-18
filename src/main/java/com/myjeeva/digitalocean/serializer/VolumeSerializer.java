@@ -1,15 +1,10 @@
 /**
  * Copyright (c) Jeevanandam M. (https://github.com/jeevatkm)
- * 
- * digitalocean-api-client source code and usage is governed by a MIT style license that can be
+ *
+ * <p>digitalocean-api-client source code and usage is governed by a MIT style license that can be
  * found in the LICENSE file
  */
-
 package com.myjeeva.digitalocean.serializer;
-
-import java.lang.reflect.Type;
-
-import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -17,12 +12,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.myjeeva.digitalocean.pojo.Volume;
+import java.lang.reflect.Type;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Serialize the volume info for POST request.
- * 
+ *
  * @author Eugene Strokin (https://github.com/strokine)
- * 
  * @since v2.7
  */
 public class VolumeSerializer implements JsonSerializer<Volume> {
@@ -71,5 +67,4 @@ public class VolumeSerializer implements JsonSerializer<Volume> {
 
     return jsonObject;
   }
-
 }

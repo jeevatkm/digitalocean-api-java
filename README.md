@@ -163,10 +163,12 @@ Please refer to https://github.com/jeevatkm/digitalocean-api-java/graphs/contrib
 
 1. Fork it
 2. Create your feature branch - `git checkout -b my-new-feature`
-3. Implement your changes and apply [Google Java Code Formatter](https://raw.githubusercontent.com/darcyliu/google-styleguide/master/eclipse-java-google-style.xml)
-4. Commit your changes - `git commit -am 'Added feature'`
-5. Push to the branch - `git push origin my-new-feature`
-6. Create new Pull Request
+3. Implement your changes 
+4. Format your code with `./mvnw com.coveo:fmt-maven-plugin:format`
+5. Check tests passig with `./mvnw verify`
+6. Commit your changes - `git commit -am 'Added feature'`
+7. Push to the branch - `git push origin my-new-feature`
+9. Create new Pull Request
 
 ## License
 

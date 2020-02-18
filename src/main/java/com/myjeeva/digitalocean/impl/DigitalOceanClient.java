@@ -1,58 +1,24 @@
 /**
  * The MIT License
- * 
- * Copyright (c) 2013-2019 Jeevanandam M. (jeeva@myjeeva.com)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
+ *
+ * <p>Copyright (c) 2013-2019 Jeevanandam M. (jeeva@myjeeva.com)
+ *
+ * <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or
+ *
+ * <p>The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ *
+ * <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 package com.myjeeva.digitalocean.impl;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.ParseException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.util.EntityUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -114,59 +80,74 @@ import com.myjeeva.digitalocean.serializer.DropletSerializer;
 import com.myjeeva.digitalocean.serializer.FirewallSerializer;
 import com.myjeeva.digitalocean.serializer.LoadBalancerSerializer;
 import com.myjeeva.digitalocean.serializer.VolumeSerializer;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHeaders;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.ParseException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * DigitalOcean API client wrapper methods Implementation
- * 
+ *
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
 public class DigitalOceanClient implements DigitalOcean, Constants {
 
   private static final Logger log = LoggerFactory.getLogger(DigitalOceanClient.class);
 
-  /**
-   * Http client
-   */
+  /** Http client */
   protected CloseableHttpClient httpClient;
 
-  /**
-   * OAuth Authorization Token for Accessing DigitalOcean API
-   */
+  /** OAuth Authorization Token for Accessing DigitalOcean API */
   protected String authToken;
 
-  /**
-   * DigitalOcean API version. defaults to v2 from constructor
-   */
+  /** DigitalOcean API version. defaults to v2 from constructor */
   protected String apiVersion;
 
-  /**
-   * DigitalOcean API Host is <code>api.digitalocean.com</code>
-   */
+  /** DigitalOcean API Host is <code>api.digitalocean.com</code> */
   protected String apiHost = "api.digitalocean.com";
 
-  /**
-   * Gson Parser instance for deserialize
-   */
+  /** Gson Parser instance for deserialize */
   private Gson deserialize;
 
-  /**
-   * Gson Parser instance for serialize
-   */
+  /** Gson Parser instance for serialize */
   private Gson serialize;
 
-  /**
-   * JSON Parser instance
-   */
+  /** JSON Parser instance */
   private JsonParser jsonParser;
 
-  /**
-   * API Request Header
-   */
+  /** API Request Header */
   private Header[] requestHeaders;
 
   /**
    * DigitalOcean Client Constructor
-   * 
+   *
    * @param authToken a {@link String} object
    */
   public DigitalOceanClient(String authToken) {
@@ -175,7 +156,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
   /**
    * DigitalOcean Client Constructor
-   * 
+   *
    * @param apiVersion a {@link String} object
    * @param authToken a {@link String} object
    */
@@ -185,7 +166,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
   /**
    * DigitalOcean Client Constructor
-   * 
+   *
    * @param apiVersion a {@link String} object
    * @param authToken a {@link String} object
    * @param httpClient a {@link CloseableHttpClient} object
@@ -202,44 +183,32 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     initialize();
   }
 
-  /**
-   * @return the httpClient
-   */
+  /** @return the httpClient */
   public HttpClient getHttpClient() {
     return httpClient;
   }
 
-  /**
-   * @param httpClient the httpClient to set
-   */
+  /** @param httpClient the httpClient to set */
   public void setHttpClient(CloseableHttpClient httpClient) {
     this.httpClient = httpClient;
   }
 
-  /**
-   * @return the authToken
-   */
+  /** @return the authToken */
   public String getAuthToken() {
     return authToken;
   }
 
-  /**
-   * @param authToken the authToken to set
-   */
+  /** @param authToken the authToken to set */
   public void setAuthToken(String authToken) {
     this.authToken = authToken;
   }
 
-  /**
-   * @return the apiVersion
-   */
+  /** @return the apiVersion */
   public String getApiVersion() {
     return apiVersion;
   }
 
-  /**
-   * @param apiVersion the apiVersion to set
-   */
+  /** @param apiVersion the apiVersion to set */
   public void setApiVersion(String apiVersion) {
     this.apiVersion = apiVersion;
   }
@@ -253,8 +222,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       throws DigitalOceanException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
 
-    return (Droplets) perform(new ApiRequest(ApiAction.AVAILABLE_DROPLETS, pageNo, perPage))
-        .getData();
+    return (Droplets)
+        perform(new ApiRequest(ApiAction.AVAILABLE_DROPLETS, pageNo, perPage)).getData();
   }
 
   @Override
@@ -263,8 +232,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
-    return (Kernels) perform(
-        new ApiRequest(ApiAction.GET_DROPLETS_KERNELS, params, pageNo, perPage)).getData();
+    return (Kernels)
+        perform(new ApiRequest(ApiAction.GET_DROPLETS_KERNELS, params, pageNo, perPage)).getData();
   }
 
   @Override
@@ -273,8 +242,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
-    return (Snapshots) perform(
-        new ApiRequest(ApiAction.GET_DROPLET_SNAPSHOTS, params, pageNo, perPage)).getData();
+    return (Snapshots)
+        perform(new ApiRequest(ApiAction.GET_DROPLET_SNAPSHOTS, params, pageNo, perPage)).getData();
   }
 
   @Override
@@ -283,8 +252,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
-    return (Backups) perform(new ApiRequest(ApiAction.GET_DROPLET_BACKUPS, params, pageNo, perPage))
-        .getData();
+    return (Backups)
+        perform(new ApiRequest(ApiAction.GET_DROPLET_BACKUPS, params, pageNo, perPage)).getData();
   }
 
   @Override
@@ -299,8 +268,11 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Droplet createDroplet(Droplet droplet)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    if (null == droplet || StringUtils.isBlank(droplet.getName()) || null == droplet.getRegion()
-        || null == droplet.getSize() || (null == droplet.getImage()
+    if (null == droplet
+        || StringUtils.isBlank(droplet.getName())
+        || null == droplet.getRegion()
+        || null == droplet.getSize()
+        || (null == droplet.getImage()
             || (null == droplet.getImage().getId() && null == droplet.getImage().getSlug()))) {
       throw new IllegalArgumentException(
           "Missing required parameters [Name, Region Slug, Size Slug, Image Id/Slug] for create droplet.");
@@ -312,8 +284,11 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Droplets createDroplets(Droplet droplet)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    if (null == droplet || (null == droplet.getNames() || droplet.getNames().isEmpty())
-        || null == droplet.getRegion() || null == droplet.getSize() || (null == droplet.getImage()
+    if (null == droplet
+        || (null == droplet.getNames() || droplet.getNames().isEmpty())
+        || null == droplet.getRegion()
+        || null == droplet.getSize()
+        || (null == droplet.getImage()
             || (null == droplet.getImage().getId() && null == droplet.getImage().getSlug()))) {
       throw new IllegalArgumentException(
           "Missing required parameters [Names, Region Slug, Size Slug, Image Id/Slug] for creating multiple droplets.");
@@ -343,8 +318,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
     Map<String, String> queryParams = new HashMap<String, String>();
     queryParams.put("tag_name", tagName);
-    return (Delete) perform(
-        new ApiRequest(ApiAction.DELETE_DROPLET_BY_TAG_NAME, null, queryParams, null)).getData();
+    return (Delete)
+        perform(new ApiRequest(ApiAction.DELETE_DROPLET_BY_TAG_NAME, null, queryParams, null))
+            .getData();
   }
 
   @Override
@@ -353,8 +329,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
-    return (Droplets) perform(new ApiRequest(ApiAction.GET_DROPLET_NEIGHBORS, params, pageNo, null))
-        .getData();
+    return (Droplets)
+        perform(new ApiRequest(ApiAction.GET_DROPLET_NEIGHBORS, params, pageNo, null)).getData();
   }
 
   @Override
@@ -374,8 +350,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Map<String, String> queryParams = new HashMap<String, String>();
     queryParams.put("tag_name", tagName);
 
-    return (Droplets) perform(
-        new ApiRequest(ApiAction.AVAILABLE_DROPLETS, pageNo, queryParams, perPage)).getData();
+    return (Droplets)
+        perform(new ApiRequest(ApiAction.AVAILABLE_DROPLETS, pageNo, queryParams, perPage))
+            .getData();
   }
 
   // Droplet action methods
@@ -386,8 +363,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletId(dropletId);
 
     Object[] params = {dropletId};
-    return (Action) perform(
-        new ApiRequest(ApiAction.REBOOT_DROPLET, new DropletAction(ActionType.REBOOT), params))
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.REBOOT_DROPLET, new DropletAction(ActionType.REBOOT), params))
             .getData();
   }
 
@@ -397,8 +376,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletId(dropletId);
 
     Object[] params = {dropletId};
-    return (Action) perform(new ApiRequest(ApiAction.POWER_CYCLE_DROPLET,
-        new DropletAction(ActionType.POWER_CYCLE), params)).getData();
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.POWER_CYCLE_DROPLET,
+                    new DropletAction(ActionType.POWER_CYCLE),
+                    params))
+            .getData();
   }
 
   @Override
@@ -407,8 +391,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletId(dropletId);
 
     Object[] params = {dropletId};
-    return (Action) perform(
-        new ApiRequest(ApiAction.SHUTDOWN_DROPLET, new DropletAction(ActionType.SHUTDOWN), params))
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.SHUTDOWN_DROPLET, new DropletAction(ActionType.SHUTDOWN), params))
             .getData();
   }
 
@@ -418,8 +404,11 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletId(dropletId);
 
     Object[] params = {dropletId};
-    return (Action) perform(new ApiRequest(ApiAction.POWER_OFF_DROPLET,
-        new DropletAction(ActionType.POWER_OFF), params)).getData();
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.POWER_OFF_DROPLET, new DropletAction(ActionType.POWER_OFF), params))
+            .getData();
   }
 
   @Override
@@ -428,8 +417,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletId(dropletId);
 
     Object[] params = {dropletId};
-    return (Action) perform(
-        new ApiRequest(ApiAction.POWER_ON_DROPLET, new DropletAction(ActionType.POWER_ON), params))
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.POWER_ON_DROPLET, new DropletAction(ActionType.POWER_ON), params))
             .getData();
   }
 
@@ -439,8 +430,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletId(dropletId);
 
     Object[] params = {dropletId};
-    return (Action) perform(new ApiRequest(ApiAction.RESET_DROPLET_PASSWORD,
-        new DropletAction(ActionType.PASSWORD_RESET), params)).getData();
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.RESET_DROPLET_PASSWORD,
+                    new DropletAction(ActionType.PASSWORD_RESET),
+                    params))
+            .getData();
   }
 
   @Override
@@ -472,8 +468,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletId(dropletId);
 
     Object[] params = {dropletId};
-    return (Action) perform(
-        new ApiRequest(ApiAction.SNAPSHOT_DROPLET, new DropletAction(ActionType.SNAPSHOT), params))
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.SNAPSHOT_DROPLET, new DropletAction(ActionType.SNAPSHOT), params))
             .getData();
   }
 
@@ -516,8 +514,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletId(dropletId);
 
     Object[] params = {dropletId};
-    return (Action) perform(new ApiRequest(ApiAction.ENABLE_DROPLET_BACKUPS,
-        new DropletAction(ActionType.ENABLE_BACKUPS), params)).getData();
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.ENABLE_DROPLET_BACKUPS,
+                    new DropletAction(ActionType.ENABLE_BACKUPS),
+                    params))
+            .getData();
   }
 
   @Override
@@ -526,8 +529,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletId(dropletId);
 
     Object[] params = {dropletId};
-    return (Action) perform(new ApiRequest(ApiAction.DISABLE_DROPLET_BACKUPS,
-        new DropletAction(ActionType.DISABLE_BACKUPS), params)).getData();
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.DISABLE_DROPLET_BACKUPS,
+                    new DropletAction(ActionType.DISABLE_BACKUPS),
+                    params))
+            .getData();
   }
 
   @Override
@@ -549,8 +557,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {dropletId};
     DropletAction action = new DropletAction(ActionType.CHANGE_KERNEL);
     action.setKernel(kernelId);
-    return (Action) perform(new ApiRequest(ApiAction.CHANGE_DROPLET_KERNEL, action, params))
-        .getData();
+    return (Action)
+        perform(new ApiRequest(ApiAction.CHANGE_DROPLET_KERNEL, action, params)).getData();
   }
 
   @Override
@@ -559,8 +567,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletId(dropletId);
 
     Object[] params = {dropletId};
-    return (Action) perform(new ApiRequest(ApiAction.ENABLE_DROPLET_IPV6,
-        new DropletAction(ActionType.ENABLE_IPV6), params)).getData();
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.ENABLE_DROPLET_IPV6,
+                    new DropletAction(ActionType.ENABLE_IPV6),
+                    params))
+            .getData();
   }
 
   @Override
@@ -569,8 +582,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletId(dropletId);
 
     Object[] params = {dropletId};
-    return (Action) perform(new ApiRequest(ApiAction.ENABLE_DROPLET_PRIVATE_NETWORKING,
-        new DropletAction(ActionType.ENABLE_PRIVATE_NETWORKING), params)).getData();
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.ENABLE_DROPLET_PRIVATE_NETWORKING,
+                    new DropletAction(ActionType.ENABLE_PRIVATE_NETWORKING),
+                    params))
+            .getData();
   }
 
   // ==============================================
@@ -590,8 +608,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Actions getAvailableActions(Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
-    return (Actions) perform(new ApiRequest(ApiAction.AVAILABLE_ACTIONS, pageNo, perPage))
-        .getData();
+    return (Actions)
+        perform(new ApiRequest(ApiAction.AVAILABLE_ACTIONS, pageNo, perPage)).getData();
   }
 
   @Override
@@ -609,8 +627,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateDropletIdAndPageNo(dropletId, pageNo);
 
     Object[] params = {dropletId};
-    return (Actions) perform(new ApiRequest(ApiAction.GET_DROPLET_ACTIONS, params, pageNo, perPage))
-        .getData();
+    return (Actions)
+        perform(new ApiRequest(ApiAction.GET_DROPLET_ACTIONS, params, pageNo, perPage)).getData();
   }
 
   @Override
@@ -620,8 +638,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validatePageNo(pageNo);
 
     Object[] params = {imageId};
-    return (Actions) perform(new ApiRequest(ApiAction.GET_IMAGE_ACTIONS, params, pageNo, perPage))
-        .getData();
+    return (Actions)
+        perform(new ApiRequest(ApiAction.GET_IMAGE_ACTIONS, params, pageNo, perPage)).getData();
   }
 
   @Override
@@ -631,8 +649,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validatePageNo(pageNo);
 
     Object[] params = {ipAddress};
-    return (Actions) perform(
-        new ApiRequest(ApiAction.GET_FLOATING_IP_ACTIONS, params, pageNo, perPage)).getData();
+    return (Actions)
+        perform(new ApiRequest(ApiAction.GET_FLOATING_IP_ACTIONS, params, pageNo, perPage))
+            .getData();
   }
 
   @Override
@@ -642,8 +661,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     checkNullAndThrowError(actionId, "Missing required parameter - actionId.");
 
     Object[] params = {ipAddress, actionId};
-    return (Action) perform(new ApiRequest(ApiAction.GET_FLOATING_IP_ACTION_INFO, params))
-        .getData();
+    return (Action)
+        perform(new ApiRequest(ApiAction.GET_FLOATING_IP_ACTION_INFO, params)).getData();
   }
 
   @Override
@@ -690,8 +709,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
           "Incorrect type value [Allowed: DISTRIBUTION or APPLICATION].");
     }
 
-    return (Images) perform(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo, qp, perPage))
-        .getData();
+    return (Images)
+        perform(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo, qp, perPage)).getData();
   }
 
   @Override
@@ -700,8 +719,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validatePageNo(pageNo);
     Map<String, String> qp = new HashMap<String, String>();
     qp.put("private", "true");
-    return (Images) perform(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo, qp, perPage))
-        .getData();
+    return (Images)
+        perform(new ApiRequest(ApiAction.AVAILABLE_IMAGES, pageNo, qp, perPage)).getData();
   }
 
   @Override
@@ -725,7 +744,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Image createCustomImage(Image image)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    if (null == image || StringUtils.isBlank(image.getName()) || StringUtils.isBlank(image.getUrl())
+    if (null == image
+        || StringUtils.isBlank(image.getName())
+        || StringUtils.isBlank(image.getUrl())
         || StringUtils.isBlank(image.getRegion())) {
       throw new IllegalArgumentException(
           "Missing required parameter to create custom image [name, url, or region].");
@@ -760,8 +781,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     checkBlankAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
 
     Object[] params = {imageId};
-    return (Action) perform(new ApiRequest(ApiAction.TRANSFER_IMAGE,
-        new ImageAction(ActionType.TRANSFER, regionSlug), params)).getData();
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.TRANSFER_IMAGE,
+                    new ImageAction(ActionType.TRANSFER, regionSlug),
+                    params))
+            .getData();
   }
 
   @Override
@@ -770,8 +796,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     checkNullAndThrowError(imageId, "Missing required parameter - imageId.");
 
     Object[] params = {imageId};
-    return (Action) perform(
-        new ApiRequest(ApiAction.CONVERT_IMAGE, new ImageAction(ActionType.CONVERT), params))
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.CONVERT_IMAGE, new ImageAction(ActionType.CONVERT), params))
             .getData();
   }
 
@@ -783,8 +811,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Regions getAvailableRegions(Integer pageNo)
       throws DigitalOceanException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
-    return (Regions) perform(new ApiRequest(ApiAction.AVAILABLE_REGIONS, pageNo, DEFAULT_PAGE_SIZE))
-        .getData();
+    return (Regions)
+        perform(new ApiRequest(ApiAction.AVAILABLE_REGIONS, pageNo, DEFAULT_PAGE_SIZE)).getData();
   }
 
   // =======================================
@@ -795,8 +823,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Sizes getAvailableSizes(Integer pageNo)
       throws DigitalOceanException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
-    return (Sizes) perform(new ApiRequest(ApiAction.AVAILABLE_SIZES, pageNo, DEFAULT_PAGE_SIZE))
-        .getData();
+    return (Sizes)
+        perform(new ApiRequest(ApiAction.AVAILABLE_SIZES, pageNo, DEFAULT_PAGE_SIZE)).getData();
   }
 
   // =======================================
@@ -806,8 +834,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Domains getAvailableDomains(Integer pageNo)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    return (Domains) perform(new ApiRequest(ApiAction.AVAILABLE_DOMAINS, pageNo, DEFAULT_PAGE_SIZE))
-        .getData();
+    return (Domains)
+        perform(new ApiRequest(ApiAction.AVAILABLE_DOMAINS, pageNo, DEFAULT_PAGE_SIZE)).getData();
   }
 
   @Override
@@ -845,8 +873,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     checkBlankAndThrowError(domainName, "Missing required parameter - domainName.");
 
     Object[] params = {domainName};
-    return (DomainRecords) perform(
-        new ApiRequest(ApiAction.GET_DOMAIN_RECORDS, params, pageNo, perPage)).getData();
+    return (DomainRecords)
+        perform(new ApiRequest(ApiAction.GET_DOMAIN_RECORDS, params, pageNo, perPage)).getData();
   }
 
   @Override
@@ -856,8 +884,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     checkNullAndThrowError(recordId, "Missing required parameter - recordId.");
 
     Object[] params = {domainName, recordId};
-    return (DomainRecord) perform(new ApiRequest(ApiAction.GET_DOMAIN_RECORD_INFO, params))
-        .getData();
+    return (DomainRecord)
+        perform(new ApiRequest(ApiAction.GET_DOMAIN_RECORD_INFO, params)).getData();
   }
 
   @Override
@@ -867,20 +895,21 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     checkNullAndThrowError(domainRecord, "Missing required parameter - domainRecord");
 
     Object[] params = {domainName};
-    return (DomainRecord) perform(
-        new ApiRequest(ApiAction.CREATE_DOMAIN_RECORD, domainRecord, params)).getData();
+    return (DomainRecord)
+        perform(new ApiRequest(ApiAction.CREATE_DOMAIN_RECORD, domainRecord, params)).getData();
   }
 
   @Override
-  public DomainRecord updateDomainRecord(String domainName, Integer recordId,
-      DomainRecord domainRecord) throws DigitalOceanException, RequestUnsuccessfulException {
+  public DomainRecord updateDomainRecord(
+      String domainName, Integer recordId, DomainRecord domainRecord)
+      throws DigitalOceanException, RequestUnsuccessfulException {
     checkBlankAndThrowError(domainName, "Missing required parameter - domainName.");
     checkNullAndThrowError(recordId, "Missing required parameter - recordId.");
     checkNullAndThrowError(domainRecord, "Missing required parameter - domainRecord");
 
     Object[] params = {domainName, recordId};
-    return (DomainRecord) perform(
-        new ApiRequest(ApiAction.UPDATE_DOMAIN_RECORD, domainRecord, params)).getData();
+    return (DomainRecord)
+        perform(new ApiRequest(ApiAction.UPDATE_DOMAIN_RECORD, domainRecord, params)).getData();
   }
 
   @Override
@@ -896,8 +925,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Keys getAvailableKeys(Integer pageNo)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    return (Keys) perform(new ApiRequest(ApiAction.AVAILABLE_KEYS, pageNo, DEFAULT_PAGE_SIZE))
-        .getData();
+    return (Keys)
+        perform(new ApiRequest(ApiAction.AVAILABLE_KEYS, pageNo, DEFAULT_PAGE_SIZE)).getData();
   }
 
   @Override
@@ -934,8 +963,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     checkBlankAndThrowError(newSshKeyName, "Missing required parameter - newSshKeyName.");
 
     Object[] params = {sshKeyId};
-    return (Key) perform(new ApiRequest(ApiAction.UPDATE_KEY, new Key(newSshKeyName), params))
-        .getData();
+    return (Key)
+        perform(new ApiRequest(ApiAction.UPDATE_KEY, new Key(newSshKeyName), params)).getData();
   }
 
   @Override
@@ -945,8 +974,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     checkBlankAndThrowError(newSshKeyName, "Missing required parameter - newSshKeyName.");
 
     Object[] params = {fingerprint};
-    return (Key) perform(new ApiRequest(ApiAction.UPDATE_KEY, new Key(newSshKeyName), params))
-        .getData();
+    return (Key)
+        perform(new ApiRequest(ApiAction.UPDATE_KEY, new Key(newSshKeyName), params)).getData();
   }
 
   @Override
@@ -984,8 +1013,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       throws DigitalOceanException, RequestUnsuccessfulException {
     validateDropletId(dropletId);
 
-    return (FloatingIP) perform(
-        new ApiRequest(ApiAction.CREATE_FLOATING_IP, new FloatingIPAction(dropletId))).getData();
+    return (FloatingIP)
+        perform(new ApiRequest(ApiAction.CREATE_FLOATING_IP, new FloatingIPAction(dropletId)))
+            .getData();
   }
 
   @Override
@@ -993,8 +1023,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       throws DigitalOceanException, RequestUnsuccessfulException {
     checkBlankAndThrowError(region, "Missing required parameter - region.");
 
-    return (FloatingIP) perform(
-        new ApiRequest(ApiAction.CREATE_FLOATING_IP, new FloatingIPAction(region))).getData();
+    return (FloatingIP)
+        perform(new ApiRequest(ApiAction.CREATE_FLOATING_IP, new FloatingIPAction(region)))
+            .getData();
   }
 
   @Override
@@ -1022,8 +1053,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     checkBlankAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
 
     Object[] params = {ipAddress};
-    return (Action) perform(new ApiRequest(ApiAction.ASSIGN_FLOATING_IP,
-        new FloatingIPAction(dropletId, "assign"), params)).getData();
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.ASSIGN_FLOATING_IP,
+                    new FloatingIPAction(dropletId, "assign"),
+                    params))
+            .getData();
   }
 
   @Override
@@ -1032,8 +1068,11 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     checkBlankAndThrowError(ipAddress, "Missing required parameter - ipAddress.");
 
     Object[] params = {ipAddress};
-    return (Action) perform(new ApiRequest(ApiAction.UNASSIGN_FLOATING_IP,
-        new FloatingIPAction(null, "unassign"), params)).getData();
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.UNASSIGN_FLOATING_IP, new FloatingIPAction(null, "unassign"), params))
+            .getData();
   }
 
   // =======================================
@@ -1080,8 +1119,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     }
 
     Object[] params = {name};
-    return (Response) perform(
-        new ApiRequest(ApiAction.TAG_RESOURCE, new Resources(resources), params)).getData();
+    return (Response)
+        perform(new ApiRequest(ApiAction.TAG_RESOURCE, new Resources(resources), params)).getData();
   }
 
   @Override
@@ -1094,8 +1133,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     }
 
     Object[] params = {name};
-    return (Response) perform(
-        new ApiRequest(ApiAction.UNTAG_RESOURCE, new Resources(resources), params)).getData();
+    return (Response)
+        perform(new ApiRequest(ApiAction.UNTAG_RESOURCE, new Resources(resources), params))
+            .getData();
   }
 
   // =======================================
@@ -1115,7 +1155,9 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Volume createVolume(Volume volume)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    if (null == volume || StringUtils.isBlank(volume.getName()) || null == volume.getRegion()
+    if (null == volume
+        || StringUtils.isBlank(volume.getName())
+        || null == volume.getRegion()
         || null == volume.getSize()) {
       throw new IllegalArgumentException(
           "Missing required parameters [Name, Region Slug, Size] for create volume.");
@@ -1174,8 +1216,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     checkBlankAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
 
     Object[] params = {volumeId};
-    return (Action) perform(new ApiRequest(ApiAction.ACTIONS_VOLUME,
-        new VolumeAction(ActionType.ATTACH, dropletId, regionSlug), params)).getData();
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.ACTIONS_VOLUME,
+                    new VolumeAction(ActionType.ATTACH, dropletId, regionSlug),
+                    params))
+            .getData();
   }
 
   @Override
@@ -1185,8 +1232,12 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     checkBlankAndThrowError(volumeName, "Missing required parameter - volumeName.");
     checkBlankAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
 
-    return (Action) perform(new ApiRequest(ApiAction.ACTIONS_VOLUME_BY_NAME,
-        new VolumeAction(ActionType.ATTACH, dropletId, regionSlug, volumeName, null))).getData();
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.ACTIONS_VOLUME_BY_NAME,
+                    new VolumeAction(ActionType.ATTACH, dropletId, regionSlug, volumeName, null)))
+            .getData();
   }
 
   @Override
@@ -1197,8 +1248,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     checkBlankAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
 
     Object[] params = {volumeId};
-    return (Action) perform(new ApiRequest(ApiAction.ACTIONS_VOLUME,
-        new VolumeAction(ActionType.DETACH, dropletId, regionSlug), params)).getData();
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.ACTIONS_VOLUME,
+                    new VolumeAction(ActionType.DETACH, dropletId, regionSlug),
+                    params))
+            .getData();
   }
 
   @Override
@@ -1208,8 +1264,12 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     checkBlankAndThrowError(volumeName, "Missing required parameter - volumeName.");
     checkBlankAndThrowError(regionSlug, "Missing required parameter - regionSlug.");
 
-    return (Action) perform(new ApiRequest(ApiAction.ACTIONS_VOLUME_BY_NAME,
-        new VolumeAction(ActionType.DETACH, dropletId, regionSlug, volumeName, null))).getData();
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.ACTIONS_VOLUME_BY_NAME,
+                    new VolumeAction(ActionType.DETACH, dropletId, regionSlug, volumeName, null)))
+            .getData();
   }
 
   @Override
@@ -1223,8 +1283,13 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     }
 
     Object[] params = {volumeId};
-    return (Action) perform(new ApiRequest(ApiAction.ACTIONS_VOLUME,
-        new VolumeAction(ActionType.RESIZE, regionSlug, sizeGigabytes), params)).getData();
+    return (Action)
+        perform(
+                new ApiRequest(
+                    ApiAction.ACTIONS_VOLUME,
+                    new VolumeAction(ActionType.RESIZE, regionSlug, sizeGigabytes),
+                    params))
+            .getData();
   }
 
   @Override
@@ -1234,8 +1299,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     checkBlankAndThrowError(volumeId, "Missing required parameter - volumeId.");
 
     Object[] params = {volumeId};
-    return (Snapshots) perform(
-        new ApiRequest(ApiAction.GET_VOLUME_SNAPSHOTS, params, pageNo, perPage)).getData();
+    return (Snapshots)
+        perform(new ApiRequest(ApiAction.GET_VOLUME_SNAPSHOTS, params, pageNo, perPage)).getData();
   }
 
   @Override
@@ -1260,8 +1325,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       throws DigitalOceanException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
 
-    return (Snapshots) perform(new ApiRequest(ApiAction.AVAILABLE_SNAPSHOTS, pageNo, perPage))
-        .getData();
+    return (Snapshots)
+        perform(new ApiRequest(ApiAction.AVAILABLE_SNAPSHOTS, pageNo, perPage)).getData();
   }
 
   @Override
@@ -1272,8 +1337,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Map<String, String> qp = new HashMap<String, String>();
     qp.put("resource_type", "droplet");
 
-    return (Snapshots) perform(new ApiRequest(ApiAction.ALL_DROPLET_SNAPSHOTS, pageNo, qp, perPage))
-        .getData();
+    return (Snapshots)
+        perform(new ApiRequest(ApiAction.ALL_DROPLET_SNAPSHOTS, pageNo, qp, perPage)).getData();
   }
 
   @Override
@@ -1284,8 +1349,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Map<String, String> qp = new HashMap<String, String>();
     qp.put("resource_type", "volume");
 
-    return (Snapshots) perform(new ApiRequest(ApiAction.ALL_VOLUME_SNAPSHOTS, pageNo, qp, perPage))
-        .getData();
+    return (Snapshots)
+        perform(new ApiRequest(ApiAction.ALL_VOLUME_SNAPSHOTS, pageNo, qp, perPage)).getData();
   }
 
   @Override
@@ -1313,7 +1378,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public LoadBalancer createLoadBalancer(LoadBalancer loadBalancer)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    if (null == loadBalancer || StringUtils.isBlank(loadBalancer.getName())
+    if (null == loadBalancer
+        || StringUtils.isBlank(loadBalancer.getName())
         || null == loadBalancer.getRegion()) {
       throw new IllegalArgumentException(
           "Missing required parameters [Name, Region Slug] for create loadBalancer.");
@@ -1321,8 +1387,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateForwardingRules(loadBalancer.getForwardingRules());
     validateHealthCheck(loadBalancer.getHealthCheck());
 
-    return (LoadBalancer) perform(new ApiRequest(ApiAction.CREATE_LOAD_BALANCER, loadBalancer))
-        .getData();
+    return (LoadBalancer)
+        perform(new ApiRequest(ApiAction.CREATE_LOAD_BALANCER, loadBalancer)).getData();
   }
 
   @Override
@@ -1331,8 +1397,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     validateLoadBalancerId(loadBalancerId);
 
     Object[] params = {loadBalancerId};
-    return (LoadBalancer) perform(new ApiRequest(ApiAction.GET_LOAD_BALANCER_INFO, params))
-        .getData();
+    return (LoadBalancer)
+        perform(new ApiRequest(ApiAction.GET_LOAD_BALANCER_INFO, params)).getData();
   }
 
   @Override
@@ -1340,15 +1406,17 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       throws DigitalOceanException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
 
-    return (LoadBalancers) perform(
-        new ApiRequest(ApiAction.AVAILABLE_LOAD_BALANCERS, pageNo, perPage)).getData();
+    return (LoadBalancers)
+        perform(new ApiRequest(ApiAction.AVAILABLE_LOAD_BALANCERS, pageNo, perPage)).getData();
   }
 
   @Override
   public LoadBalancer updateLoadBalancer(LoadBalancer loadBalancer)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    if (null == loadBalancer || StringUtils.isBlank(loadBalancer.getId())
-        || StringUtils.isBlank(loadBalancer.getName()) || null == loadBalancer.getRegion()) {
+    if (null == loadBalancer
+        || StringUtils.isBlank(loadBalancer.getId())
+        || StringUtils.isBlank(loadBalancer.getName())
+        || null == loadBalancer.getRegion()) {
       throw new IllegalArgumentException(
           "Missing required parameters [Id, Name, Region Slug] for update loadBalancer.");
     }
@@ -1357,8 +1425,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
     Object[] params = {loadBalancer.getId()};
 
-    return (LoadBalancer) perform(
-        new ApiRequest(ApiAction.UPDATE_LOAD_BALANCER, loadBalancer, params)).getData();
+    return (LoadBalancer)
+        perform(new ApiRequest(ApiAction.UPDATE_LOAD_BALANCER, loadBalancer, params)).getData();
   }
 
   @Override
@@ -1373,8 +1441,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {loadBalancerId};
     Map<String, List<Integer>> data = new HashMap<>();
     data.put("droplet_ids", dropletIds);
-    return (Response) perform(new ApiRequest(ApiAction.ADD_DROPLET_TO_LOAD_BALANCER, data, params))
-        .getData();
+    return (Response)
+        perform(new ApiRequest(ApiAction.ADD_DROPLET_TO_LOAD_BALANCER, data, params)).getData();
   }
 
   @Override
@@ -1389,13 +1457,14 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {loadBalancerId};
     Map<String, List<Integer>> data = new HashMap<>();
     data.put("droplet_ids", dropletIds);
-    return (Delete) perform(
-        new ApiRequest(ApiAction.REMOVE_DROPLET_FROM_LOAD_BALANCER, data, params)).getData();
+    return (Delete)
+        perform(new ApiRequest(ApiAction.REMOVE_DROPLET_FROM_LOAD_BALANCER, data, params))
+            .getData();
   }
 
   @Override
-  public Response addForwardingRulesToLoadBalancer(String loadBalancerId,
-      List<ForwardingRules> forwardingRules)
+  public Response addForwardingRulesToLoadBalancer(
+      String loadBalancerId, List<ForwardingRules> forwardingRules)
       throws DigitalOceanException, RequestUnsuccessfulException {
     validateLoadBalancerId(loadBalancerId);
 
@@ -1406,13 +1475,14 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {loadBalancerId};
     Map<String, List<ForwardingRules>> data = new HashMap<>();
     data.put("forwarding_rules", forwardingRules);
-    return (Response) perform(
-        new ApiRequest(ApiAction.ADD_FORWARDING_RULES_TO_LOAD_BALANCER, data, params)).getData();
+    return (Response)
+        perform(new ApiRequest(ApiAction.ADD_FORWARDING_RULES_TO_LOAD_BALANCER, data, params))
+            .getData();
   }
 
   @Override
-  public Delete removeForwardingRulesFromLoadBalancer(String loadBalancerId,
-      List<ForwardingRules> forwardingRules)
+  public Delete removeForwardingRulesFromLoadBalancer(
+      String loadBalancerId, List<ForwardingRules> forwardingRules)
       throws DigitalOceanException, RequestUnsuccessfulException {
     validateLoadBalancerId(loadBalancerId);
 
@@ -1423,8 +1493,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {loadBalancerId};
     Map<String, List<ForwardingRules>> data = new HashMap<>();
     data.put("forwarding_rules", forwardingRules);
-    return (Delete) perform(
-        new ApiRequest(ApiAction.REMOVE_FORWARDING_RULES_FROM_LOAD_BALANCER, data, params))
+    return (Delete)
+        perform(new ApiRequest(ApiAction.REMOVE_FORWARDING_RULES_FROM_LOAD_BALANCER, data, params))
             .getData();
   }
 
@@ -1446,14 +1516,15 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       throws DigitalOceanException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
 
-    return (Certificates) perform(new ApiRequest(ApiAction.AVAILABLE_CERTIFICATES, pageNo, perPage))
-        .getData();
+    return (Certificates)
+        perform(new ApiRequest(ApiAction.AVAILABLE_CERTIFICATES, pageNo, perPage)).getData();
   }
 
   @Override
   public Certificate createCertificate(Certificate certificate)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    if (null == certificate || StringUtils.isBlank(certificate.getName())
+    if (null == certificate
+        || StringUtils.isBlank(certificate.getName())
         || StringUtils.isBlank(certificate.getPrivateKey())
         || StringUtils.isBlank(certificate.getLeafCertificate())
         || StringUtils.isBlank(certificate.getCertificateChain())) {
@@ -1461,22 +1532,25 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
           "Missing required parameters [Name, Private Key, Leaf Certificate, Certificate Chain] for create certificate.");
     }
 
-    return (Certificate) perform(new ApiRequest(ApiAction.CREATE_CERTIFICATE, certificate))
-        .getData();
+    return (Certificate)
+        perform(new ApiRequest(ApiAction.CREATE_CERTIFICATE, certificate)).getData();
   }
 
   @Override
   public Certificate createLetsEncryptCertificate(Certificate certificate)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    if (null == certificate || StringUtils.isBlank(certificate.getName())
-        || StringUtils.isBlank(certificate.getType()) || certificate.getType() != "lets_encrypt"
-        || certificate.getDnsNames() == null || certificate.getDnsNames().isEmpty()) {
+    if (null == certificate
+        || StringUtils.isBlank(certificate.getName())
+        || StringUtils.isBlank(certificate.getType())
+        || certificate.getType() != "lets_encrypt"
+        || certificate.getDnsNames() == null
+        || certificate.getDnsNames().isEmpty()) {
       throw new IllegalArgumentException(
           "Missing required parameters [Name, Type(lets_encrypt), List of DNS Names] for create Let's Encrypt certificate.");
     }
 
-    return (Certificate) perform(new ApiRequest(ApiAction.CREATE_CERTIFICATE, certificate))
-        .getData();
+    return (Certificate)
+        perform(new ApiRequest(ApiAction.CREATE_CERTIFICATE, certificate)).getData();
   }
 
   @Override
@@ -1496,7 +1570,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {certificateId};
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_CERTIFICATE, params)).getData();
   }
-  
+
   // ===========================================
   // Firewall manipulation methods
   // ===========================================
@@ -1504,8 +1578,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Firewall createFirewall(Firewall firewall)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    if (null == firewall || StringUtils.isBlank(firewall.getName())
-        || firewall.getInboundRules().isEmpty() || firewall.getOutboundRules().isEmpty()) {
+    if (null == firewall
+        || StringUtils.isBlank(firewall.getName())
+        || firewall.getInboundRules().isEmpty()
+        || firewall.getOutboundRules().isEmpty()) {
       throw new IllegalArgumentException(
           "Missing required parameters [Name, Inbound rules, Outbound rules] for create firewall.");
     }
@@ -1515,8 +1591,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Firewall getFirewallInfo(String firewallId)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkBlankAndThrowError(firewallId,
-        "Missing required parameters [FirewallID] for get firewall info.");
+    checkBlankAndThrowError(
+        firewallId, "Missing required parameters [FirewallID] for get firewall info.");
 
     Object[] params = {firewallId};
     return (Firewall) perform(new ApiRequest(ApiAction.GET_FIREWALL_INFO, params)).getData();
@@ -1525,22 +1601,24 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   @Override
   public Firewall updateFirewall(Firewall firewall)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    if (null == firewall || StringUtils.isBlank(firewall.getName())
-        || firewall.getInboundRules().isEmpty() || firewall.getOutboundRules().isEmpty()) {
+    if (null == firewall
+        || StringUtils.isBlank(firewall.getName())
+        || firewall.getInboundRules().isEmpty()
+        || firewall.getOutboundRules().isEmpty()) {
       throw new IllegalArgumentException(
           "Missing required parameters [Name, Inbound rules, Outbound rules] for update firewall info.");
     }
 
     Object[] params = {firewall.getId()};
-    return (Firewall) perform(new ApiRequest(ApiAction.UPDATE_FIREWALL, firewall, params))
-        .getData();
+    return (Firewall)
+        perform(new ApiRequest(ApiAction.UPDATE_FIREWALL, firewall, params)).getData();
   }
 
   @Override
   public Delete deleteFirewall(String firewallId)
       throws DigitalOceanException, RequestUnsuccessfulException {
-    checkBlankAndThrowError(firewallId,
-        "Missing required parameters [ID] for delete firewall info.");
+    checkBlankAndThrowError(
+        firewallId, "Missing required parameters [ID] for delete firewall info.");
 
     Object[] params = {firewallId};
     return (Delete) perform(new ApiRequest(ApiAction.DELETE_FIREWALL, params)).getData();
@@ -1558,8 +1636,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {firewallId};
     Map<String, List<Integer>> data = new HashMap<>();
     data.put("droplet_ids", dropletIds);
-    return (Response) perform(new ApiRequest(ApiAction.ADD_DROPLET_TO_FIREWALL, data, params))
-        .getData();
+    return (Response)
+        perform(new ApiRequest(ApiAction.ADD_DROPLET_TO_FIREWALL, data, params)).getData();
   }
 
   @Override
@@ -1574,8 +1652,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     Object[] params = {firewallId};
     Map<String, List<Integer>> data = new HashMap<>();
     data.put("droplet_ids", dropletIds);
-    return (Delete) perform(new ApiRequest(ApiAction.REMOVE_DROPLET_FROM_FIREWALL, data, params))
-        .getData();
+    return (Delete)
+        perform(new ApiRequest(ApiAction.REMOVE_DROPLET_FROM_FIREWALL, data, params)).getData();
   }
 
   @Override
@@ -1583,8 +1661,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       throws DigitalOceanException, RequestUnsuccessfulException {
     validatePageNo(pageNo);
 
-    return (Firewalls) perform(new ApiRequest(ApiAction.AVAILABLE_FIREWALLS, pageNo, perPage))
-        .getData();
+    return (Firewalls)
+        perform(new ApiRequest(ApiAction.AVAILABLE_FIREWALLS, pageNo, perPage)).getData();
   }
 
   //
@@ -1717,7 +1795,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     int statusCode = httpResponse.getStatusLine().getStatusCode();
     String response = "";
 
-    if (HttpStatus.SC_OK == statusCode || HttpStatus.SC_CREATED == statusCode
+    if (HttpStatus.SC_OK == statusCode
+        || HttpStatus.SC_CREATED == statusCode
         || HttpStatus.SC_ACCEPTED == statusCode) {
       response = httpResponseToString(httpResponse);
     } else if (HttpStatus.SC_NO_CONTENT == statusCode) {
@@ -1737,12 +1816,14 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
         id = jsonObj.get("id").getAsString();
         errorMsg = jsonObj.get("message").getAsString();
       } catch (JsonSyntaxException e) {
-        errorMsg = "Digital Oceans server are on maintenance. Wait for official messages "
-            + "from digital ocean itself. Such as 'Cloud Control Panel, API & Support Ticket System Unavailable'";
+        errorMsg =
+            "Digital Oceans server are on maintenance. Wait for official messages "
+                + "from digital ocean itself. Such as 'Cloud Control Panel, API & Support Ticket System Unavailable'";
       }
 
-      String errorMsgFull = String.format("\nHTTP Status Code: %s\nError Id: %s\nError Message: %s",
-          statusCode, id, errorMsg);
+      String errorMsgFull =
+          String.format(
+              "\nHTTP Status Code: %s\nError Id: %s\nError Message: %s", statusCode, id, errorMsg);
       log.debug(errorMsgFull);
 
       throw new DigitalOceanException(errorMsg, id, statusCode);
@@ -1778,7 +1859,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     if (RequestMethod.GET == request.getMethod()) {
       if (null == request.getPerPage()) {
         ub.setParameter(PARAM_PER_PAGE, String.valueOf(DEFAULT_PAGE_SIZE)); // As per DO
-                                                                            // documentation
+        // documentation
       } else {
         ub.setParameter(PARAM_PER_PAGE, request.getPerPage().toString());
       }
@@ -1834,8 +1915,12 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       return response;
     }
 
-    String rateLimitData = String.format(RATE_LIMIT_JSON_STRUCT, rateLimit, rateRemaining,
-        getDateString(rateReset, DATE_FORMAT));
+    String rateLimitData =
+        String.format(
+            RATE_LIMIT_JSON_STRUCT,
+            rateLimit,
+            rateRemaining,
+            getDateString(rateReset, DATE_FORMAT));
     log.debug("RateLimitData:: {}", rateLimitData);
 
     return StringUtils.substringBeforeLast(response, "}") + ", " + rateLimitData + "}";
@@ -1852,9 +1937,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return dateString;
   }
 
-  /**
-   * Easy method for HTTP header values (first/last)
-   */
+  /** Easy method for HTTP header values (first/last) */
   private String getSimpleHeaderValue(String header, HttpResponse httpResponse, boolean first) {
     if (StringUtils.isBlank(header)) {
       return StringUtils.EMPTY;
@@ -1872,9 +1955,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     return h.getValue();
   }
 
-  /**
-   * Easy method for HTTP header values. defaults to first one.
-   */
+  /** Easy method for HTTP header values. defaults to first one. */
   private String getSimpleHeaderValue(String header, HttpResponse httpResponse) {
     return getSimpleHeaderValue(header, httpResponse, true);
   }
@@ -1924,13 +2005,15 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       throw new IllegalArgumentException("Missing required parameters [ForwardingRules]");
     }
 
-    for (ForwardingRules rule : rules)
-      validateForwardingRule(rule);
+    for (ForwardingRules rule : rules) validateForwardingRule(rule);
   }
 
   private void validateForwardingRule(ForwardingRules rule) {
-    if (null == rule || null == rule.getEntryProtocol() || null == rule.getEntryPort()
-        || null == rule.getTargetProtocol() || null == rule.getTargetPort()) {
+    if (null == rule
+        || null == rule.getEntryProtocol()
+        || null == rule.getEntryPort()
+        || null == rule.getTargetProtocol()
+        || null == rule.getTargetPort()) {
       throw new IllegalArgumentException(
           "Missing required parameters [Entry Protocol, Entry Port, Target Protocol, Target Port] for forwarding rules.");
     }
@@ -1947,18 +2030,23 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   private void initialize() {
     this.deserialize = new GsonBuilder().setDateFormat(DATE_FORMAT).create();
 
-    this.serialize = new GsonBuilder().setDateFormat(DATE_FORMAT)
-        .registerTypeAdapter(Droplet.class, new DropletSerializer())
-        .registerTypeAdapter(Volume.class, new VolumeSerializer())
-        .registerTypeAdapter(LoadBalancer.class, new LoadBalancerSerializer())
-        .registerTypeAdapter(Firewall.class, new FirewallSerializer())
-        .excludeFieldsWithoutExposeAnnotation().create();
+    this.serialize =
+        new GsonBuilder()
+            .setDateFormat(DATE_FORMAT)
+            .registerTypeAdapter(Droplet.class, new DropletSerializer())
+            .registerTypeAdapter(Volume.class, new VolumeSerializer())
+            .registerTypeAdapter(LoadBalancer.class, new LoadBalancerSerializer())
+            .registerTypeAdapter(Firewall.class, new FirewallSerializer())
+            .excludeFieldsWithoutExposeAnnotation()
+            .create();
 
     this.jsonParser = new JsonParser();
 
-    Header[] headers = {new BasicHeader(HDR_USER_AGENT, USER_AGENT),
-        new BasicHeader(HDR_CONTENT_TYPE, JSON_CONTENT_TYPE),
-        new BasicHeader(HDR_AUTHORIZATION, "Bearer " + authToken)};
+    Header[] headers = {
+      new BasicHeader(HDR_USER_AGENT, USER_AGENT),
+      new BasicHeader(HDR_CONTENT_TYPE, JSON_CONTENT_TYPE),
+      new BasicHeader(HDR_AUTHORIZATION, "Bearer " + authToken)
+    };
     log.debug("API Request Headers:: " + headers);
 
     this.requestHeaders = headers;
@@ -1967,5 +2055,4 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       this.httpClient = HttpClients.createDefault();
     }
   }
-
 }

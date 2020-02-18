@@ -1,27 +1,24 @@
 /**
  * The MIT License
- * 
- * Copyright (c) 2013-2019 Jeevanandam M. (jeeva@myjeeva.com)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
+ *
+ * <p>Copyright (c) 2013-2019 Jeevanandam M. (jeeva@myjeeva.com)
+ *
+ * <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or
+ *
+ * <p>The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ *
+ * <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 package com.myjeeva.digitalocean;
-
-import java.util.List;
 
 import com.myjeeva.digitalocean.common.ActionType;
 import com.myjeeva.digitalocean.exception.DigitalOceanException;
@@ -62,36 +59,31 @@ import com.myjeeva.digitalocean.pojo.Tag;
 import com.myjeeva.digitalocean.pojo.Tags;
 import com.myjeeva.digitalocean.pojo.Volume;
 import com.myjeeva.digitalocean.pojo.Volumes;
+import java.util.List;
 
 /**
- * <p>
  * <strong>DigitalOcean API client in Java</strong>
- * </p>
- * 
- * <p>
- * A simple and meaningful java methods for <a href="https://api.digitalocean.com/">DigitalOcean's
- * API</a>. All of the RESTful that you find in DigitalOcean API's Version 2 is available via simple
- * java methods.
- * </p>
- * 
- * <p>
- * <strong>Sample Code:</strong>
- * </p>
- * 
+ *
+ * <p>A simple and meaningful java methods for <a
+ * href="https://api.digitalocean.com/">DigitalOcean's API</a>. All of the RESTful that you find in
+ * DigitalOcean API's Version 2 is available via simple java methods.
+ *
+ * <p><strong>Sample Code:</strong>
+ *
  * <pre>
  * // Create a DigitalOcean client
- * DigitalOcean apiClient = new DigitalOceanClient(authToken); 
+ * DigitalOcean apiClient = new DigitalOceanClient(authToken);
  * <code>or</code>
  * DigitalOcean apiClient = new DigitalOceanClient("v2", authToken);
- * 
+ *
  * <strong>Let's invoke the appropriate method as per need</strong>
- * 
- * // Fetching all the available droplets from control panel 
+ *
+ * // Fetching all the available droplets from control panel
  * Droplets droplets = apiClient.getAvailableDroplets(pageNo);
- * 
+ *
  * // Fetching all the available kernels for droplet
- * Kernels kernels = apiClient.getAvailableKernels(dropletId, pageNo); 
- * 
+ * Kernels kernels = apiClient.getAvailableKernels(dropletId, pageNo);
+ *
  * // Create a new droplet
  * Droplet newDroplet = new Droplet();
  * newDroplet.setName("api-client-test-host");
@@ -101,22 +93,21 @@ import com.myjeeva.digitalocean.pojo.Volumes;
  * newDroplet.setEnableBackup(Boolean.TRUE);
  * newDroplet.setEnableIpv6(Boolean.TRUE);
  * newDroplet.setEnablePrivateNetworking(Boolean.TRUE);
- * Droplet droplet = apiClient.createDroplet(newDroplet); 
- * 
- * // Fetch droplet information 
+ * Droplet droplet = apiClient.createDroplet(newDroplet);
+ *
+ * // Fetch droplet information
  * Droplet droplet = apiClient.getDropletInfo(dropletId);
- * 
+ *
  * // Fetch Available Plans/Sizes supported by DigitalOcean
  * Sizes sizes = apiClient.getAvailableSizes(pageNo);
- * 
+ *
  * // Fetch Available Regions supported by DigitalOcean
  * Sizes sizes = apiClient.getAvailableRegions(pageNo);
- * 
+ *
  * and so on... simple to use and effective!
  * </pre>
- * 
+ *
  * @author Jeevanandam M. (jeeva@myjeeva.com)
- * 
  * @since v1.0
  */
 public interface DigitalOcean {
@@ -128,30 +119,28 @@ public interface DigitalOcean {
   /**
    * Method returns all active droplets that are currently running in your account. All available
    * API information is presented for each droplet.
-   * 
+   *
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link Droplets}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
-   **/
+   */
   Droplets getAvailableDroplets(Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method returns all available kernels for given droplet ID
-   * 
+   *
    * @param dropletId for kernel info
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link Kernels}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Kernels getDropletKernels(Integer dropletId, Integer pageNo, Integer perPage)
@@ -159,15 +148,14 @@ public interface DigitalOcean {
 
   /**
    * Method returns all available snapshots for given droplet ID
-   * 
+   *
    * @param dropletId for snapshot info
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link Snapshots}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Snapshots getDropletSnapshots(Integer dropletId, Integer pageNo, Integer perPage)
@@ -175,14 +163,13 @@ public interface DigitalOcean {
 
   /**
    * Method returns all available snapshots for given droplet ID
-   * 
+   *
    * @param dropletId for backup info
    * @param pageNo for pagination
    * @return {@link Backups}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Backups getDropletBackups(Integer dropletId, Integer pageNo, Integer perPage)
@@ -190,32 +177,27 @@ public interface DigitalOcean {
 
   /**
    * Method returns complete information for given droplet ID
-   * 
+   *
    * @param dropletId the id of the droplet
    * @return {@link Droplet}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Droplet getDropletInfo(Integer dropletId)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
-   * <p>
    * Method allows you to create a new droplet. See the required parameters section below for an
    * explanation of the variables that are needed to create a new droplet.
-   * </p>
-   * <p>
-   * <strong>Note:</strong> Currently return object doesn't include 'action' information of create
-   * droplet.
-   * </p>
-   * <p>
-   * Create a instance of {@link Droplet} class and populated the droplet object appropriately.
+   *
+   * <p><strong>Note:</strong> Currently return object doesn't include 'action' information of
+   * create droplet.
+   *
+   * <p>Create a instance of {@link Droplet} class and populated the droplet object appropriately.
    * Minimum required values are -
-   * </p>
-   * 
+   *
    * <pre>
    * {
    *   "name": "example-droplet-name",
@@ -225,28 +207,24 @@ public interface DigitalOcean {
    *   "backups": false
    * }
    * </pre>
-   * 
+   *
    * @param droplet the instance of the droplet class
    * @return {@link Droplet}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Droplet createDroplet(Droplet droplet) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
-   * <p>
    * Method allows you to create multiple droplets simultaneously. See the required parameters
    * section below for an explanation of the variables that are needed to create multiple droplets.
-   * </p>
-   * <p>
-   * Create a instance of {@link Droplet} class and populated the droplet object appropriately.
+   *
+   * <p>Create a instance of {@link Droplet} class and populated the droplet object appropriately.
    * Particularly <strong>names</strong> attribute in the Droplet class. Minimum required values are
    * -
-   * </p>
-   * 
+   *
    * <pre>
    * {
    *   "names": [
@@ -259,13 +237,12 @@ public interface DigitalOcean {
    *   "backups": false
    * }
    * </pre>
-   * 
+   *
    * @param droplet the instance of the droplet class
    * @return {@link Droplet}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.3
    */
   Droplets createDroplets(Droplet droplet)
@@ -273,13 +250,12 @@ public interface DigitalOcean {
 
   /**
    * Method destroys one of your droplet; this is irreversible.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Delete deleteDroplet(Integer dropletId)
@@ -287,13 +263,12 @@ public interface DigitalOcean {
 
   /**
    * Method destroys one or more of your droplet by given tag name; this is irreversible.
-   * 
+   *
    * @param tagName the associated tag name with droplet
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.9
    */
   Delete deleteDropletByTagName(String tagName)
@@ -302,14 +277,13 @@ public interface DigitalOcean {
   /**
    * For an individual droplet; Method retrieves a list of droplets that are running on the same
    * physical server (any other droplets that share the same physical hardware).
-   * 
+   *
    * @param dropletId the id of the droplet
    * @param pageNo for pagination
    * @return {@link Droplets}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Droplets getDropletNeighbors(Integer dropletId, Integer pageNo)
@@ -318,13 +292,12 @@ public interface DigitalOcean {
   /**
    * For an entire account; Method retrieves a list of <strong>any</strong> droplets that are
    * running on the same physical server (any other droplets that share the same physical hardware).
-   * 
+   *
    * @param pageNo for pagination
    * @return {@link Neighbors}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Neighbors getAllDropletNeighbors(Integer pageNo)
@@ -332,18 +305,17 @@ public interface DigitalOcean {
 
   /**
    * To list Droplets by a tag.
-   * 
-   * The response will match that of regular droplet listing request but will be filtered to only
+   *
+   * <p>The response will match that of regular droplet listing request but will be filtered to only
    * include the tagged Droplets.
-   * 
+   *
    * @param tagName for tagName
    * @param pageNo for pagination
    * @param perPage for pagination
    * @return {@link Droplets}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.16
    */
   Droplets getAvailableDropletsByTagName(String tagName, Integer pageNo, Integer perPage)
@@ -356,13 +328,12 @@ public interface DigitalOcean {
   /**
    * Method allows you to reboot a droplet. This is the preferred method to use if a server is not
    * responding.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Action rebootDroplet(Integer dropletId)
@@ -371,13 +342,12 @@ public interface DigitalOcean {
   /**
    * Method allows you to power cycle a droplet. This will turn off the droplet and then turn it
    * back on.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Action powerCycleDroplet(Integer dropletId)
@@ -385,13 +355,12 @@ public interface DigitalOcean {
 
   /**
    * Method allows you to shutdown a running droplet.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Action shutdownDroplet(Integer dropletId)
@@ -399,13 +368,12 @@ public interface DigitalOcean {
 
   /**
    * Method allows you to poweroff a running droplet.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Action powerOffDroplet(Integer dropletId)
@@ -413,13 +381,12 @@ public interface DigitalOcean {
 
   /**
    * Method allows you to poweron a powered off droplet.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Action powerOnDroplet(Integer dropletId)
@@ -428,13 +395,12 @@ public interface DigitalOcean {
   /**
    * Method will reset the root password for a droplet. Please be aware that this will reboot the
    * droplet to allow resetting the password.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Action resetDropletPassword(Integer dropletId)
@@ -443,14 +409,13 @@ public interface DigitalOcean {
   /**
    * Method allows you to resize a specific droplet to a different size. This will affect the number
    * of processors and memory allocated to the droplet.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @param size of the droplet
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Action resizeDroplet(Integer dropletId, String size)
@@ -464,10 +429,9 @@ public interface DigitalOcean {
    * @param size of the droplet
    * @param disk whether to resize disk of the droplet or or not
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v1.0
    */
   Action resizeDroplet(Integer dropletId, String size, Boolean disk)
@@ -476,13 +440,12 @@ public interface DigitalOcean {
   /**
    * Method allows you to take a snapshot of the running droplet, which can later be restored or
    * used to create a new droplet from the same image. Please be aware this may cause a reboot.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Action takeDropletSnapshot(Integer dropletId)
@@ -491,14 +454,13 @@ public interface DigitalOcean {
   /**
    * Method allows you to take a snapshot of the running droplet, which can later be restored or
    * used to create a new droplet from the same image. Please be aware this may cause a reboot.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @param snapshotName the name the snapshot to be created
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Action takeDropletSnapshot(Integer dropletId, String snapshotName)
@@ -508,14 +470,13 @@ public interface DigitalOcean {
    * Method allows you to restore a droplet with a previous image or snapshot. This will be a mirror
    * copy of the image or snapshot to your droplet. Be sure you have backed up any necessary
    * information prior to restore.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @param imageId the id of the DigitalOcean public image or your private image
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Action restoreDroplet(Integer dropletId, Integer imageId)
@@ -524,14 +485,13 @@ public interface DigitalOcean {
   /**
    * Method allows you to reinstall a droplet with a default image. This is useful if you want to
    * start again but retain the same IP address for your droplet.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @param imageId the id of the DigitalOcean public image or your private image
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Action rebuildDroplet(Integer dropletId, Integer imageId)
@@ -539,13 +499,12 @@ public interface DigitalOcean {
 
   /**
    * Method enables automatic backups for your droplet's data.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.3
    */
   Action enableDropletBackups(Integer dropletId)
@@ -553,13 +512,12 @@ public interface DigitalOcean {
 
   /**
    * Method disables automatic backups from running to backup your droplet's data.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Action disableDropletBackups(Integer dropletId)
@@ -567,14 +525,13 @@ public interface DigitalOcean {
 
   /**
    * Method renames the droplet to the specified name.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @param name the new name of droplet to be called
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Action renameDroplet(Integer dropletId, String name)
@@ -582,14 +539,13 @@ public interface DigitalOcean {
 
   /**
    * Method changes a OS kernel for given droplet
-   * 
+   *
    * @param dropletId the id of the droplet
    * @param kernelId the kernel id to be changed for droplet
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Action changeDropletKernel(Integer dropletId, Integer kernelId)
@@ -597,11 +553,11 @@ public interface DigitalOcean {
 
   /**
    * Enabling IP v6 networking capability for droplet. It may be dependent on Data Center Features.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    */
   Action enableDropletIpv6(Integer dropletId)
@@ -610,13 +566,12 @@ public interface DigitalOcean {
   /**
    * Enabling private networking capability for droplet. It may be dependent on Data Center
    * Features.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Action enableDropletPrivateNetworking(Integer dropletId)
@@ -628,10 +583,10 @@ public interface DigitalOcean {
 
   /**
    * Method returns account information for provided credentials
-   * 
+   *
    * @return ${@link Account}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    */
   Account getAccountInfo() throws DigitalOceanException, RequestUnsuccessfulException;
@@ -642,14 +597,13 @@ public interface DigitalOcean {
 
   /**
    * Method return all the action informations, regardless of categories.
-   * 
+   *
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link Actions}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Actions getAvailableActions(Integer pageNo, Integer perPage)
@@ -657,28 +611,26 @@ public interface DigitalOcean {
 
   /**
    * To retrieve a specific action information by action ID
-   * 
+   *
    * @param actionId the id of action
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Action getActionInfo(Integer actionId) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method return all the action informations; specific to given Droplet Id
-   * 
+   *
    * @param dropletId the id of the droplet
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link Actions}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Actions getAvailableDropletActions(Integer dropletId, Integer pageNo, Integer perPage)
@@ -686,15 +638,14 @@ public interface DigitalOcean {
 
   /**
    * Method return all the action informations; specific to given Image Id
-   * 
+   *
    * @param imageId the id of the Image
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link Actions}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Actions getAvailableImageActions(Integer imageId, Integer pageNo, Integer perPage)
@@ -702,15 +653,14 @@ public interface DigitalOcean {
 
   /**
    * Method retrives all actions that have been executed on a Floating IP address.
-   * 
+   *
    * @param ipAddress Floating IP address
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link Actions}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.3
    */
   Actions getAvailableFloatingIPActions(String ipAddress, Integer pageNo, Integer perPage)
@@ -718,14 +668,13 @@ public interface DigitalOcean {
 
   /**
    * Method to retrieve the status of a Floating IP action.
-   * 
+   *
    * @param ipAddress Floating IP address
    * @param actionId the id of action
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.3
    */
   Action getFloatingIPActionInfo(String ipAddress, Integer actionId)
@@ -739,31 +688,29 @@ public interface DigitalOcean {
    * Method returns all the available images that can be accessed by your OAuth Token. You will have
    * access to all public images by default, and any snapshots or backups that you have created in
    * your own account.
-   * 
+   *
    * @param pageNo of request pagination
    * @param perPage no. of items per page
    * @return {@link Images}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Images getAvailableImages(Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
-   * Method returns all the available images based on
-   * <code>type={distribution or application}</code> that can be accessed by your OAuth Token.
-   * 
+   * Method returns all the available images based on <code>type={distribution or application}
+   * </code> that can be accessed by your OAuth Token.
+   *
    * @param pageNo of request pagination
    * @param perPage no. of items per page
    * @param type of action
    * @return {@link Images}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Images getAvailableImages(Integer pageNo, Integer perPage, ActionType type)
@@ -771,12 +718,12 @@ public interface DigitalOcean {
 
   /**
    * Method retrieves only the private images of a user
-   * 
+   *
    * @param pageNo of request pagination
    * @param perPage no. of items per page
    * @return {@link Images}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    */
   Images getUserImages(Integer pageNo, Integer perPage)
@@ -784,38 +731,37 @@ public interface DigitalOcean {
 
   /**
    * Method retrieves the attributes of an image.
-   * 
+   *
    * @param imageId the image Id of the droplet/snapshot/backup images
    * @return {@link Image}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Image getImageInfo(Integer imageId) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method retrieves the attributes of an image.
-   * 
+   *
    * @param slug of the public image
    * @return {@link Image}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Image getImageInfo(String slug) throws DigitalOceanException, RequestUnsuccessfulException;
-  
-  
+
   /**
    * Method creates the custom image.
-   * 
-   * <p>Refer to <a href="https://developers.digitalocean.com/documentation/v2/#create-a-custom-image">
-   * https://developers.digitalocean.com/documentation/v2/#create-a-custom-image</a></p>
-   * 
-   * <p>Sample Payload:</p>
+   *
+   * <p>Refer to <a
+   * href="https://developers.digitalocean.com/documentation/v2/#create-a-custom-image">
+   * https://developers.digitalocean.com/documentation/v2/#create-a-custom-image</a>
+   *
+   * <p>Sample Payload:
+   *
    * <pre>
    * {
    *   "name": "ubuntu-18.04-minimal",
@@ -829,26 +775,24 @@ public interface DigitalOcean {
    *   ]
    * }
    * </pre>
-   * 
-   * @param image instance with custom image attributes 
+   *
+   * @param image instance with custom image attributes
    * @return {@link Image}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.17
    */
   Image createCustomImage(Image image) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method updates the given details for an image.
-   * 
+   *
    * @param image object for update
    * @return {@link Image}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Image updateImage(Image image) throws DigitalOceanException, RequestUnsuccessfulException;
@@ -856,27 +800,25 @@ public interface DigitalOcean {
   /**
    * Method allows you to deletes an image. There is no way to restore a deleted image so be careful
    * and ensure your data is properly backed up.
-   * 
+   *
    * @param imageId of the droplet/snapshot/backup images
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Delete deleteImage(Integer imageId) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to transfer an image to a specified region.
-   * 
+   *
    * @param imageId the Id of the droplet/snapshot/backup images
    * @param regionSlug is code name of the region aka DigitalOcean data centers
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Action transferImage(Integer imageId, String regionSlug)
@@ -884,13 +826,12 @@ public interface DigitalOcean {
 
   /**
    * Method allows you to convert image into snapshot
-   * 
+   *
    * @param imageId the Id of the droplet/snapshot/backup images
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Action convertImage(Integer imageId) throws DigitalOceanException, RequestUnsuccessfulException;
@@ -901,13 +842,12 @@ public interface DigitalOcean {
 
   /**
    * Method returns all the available regions within the DigitalOcean cloud.
-   * 
+   *
    * @param pageNo for pagination
    * @return {@link Regions}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Regions getAvailableRegions(Integer pageNo)
@@ -919,13 +859,12 @@ public interface DigitalOcean {
 
   /**
    * Method returns all the available sizes that can be used to create a droplet.
-   * 
+   *
    * @param pageNo for pagination
    * @return {@link Sizes}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Sizes getAvailableSizes(Integer pageNo)
@@ -937,13 +876,12 @@ public interface DigitalOcean {
 
   /**
    * Method returns all of your available domains from DNS control panel
-   * 
+   *
    * @param pageNo for pagination
    * @return {@link Domains}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Domains getAvailableDomains(Integer pageNo)
@@ -951,13 +889,12 @@ public interface DigitalOcean {
 
   /**
    * Method returns the specified domain attributes and zone file info.
-   * 
+   *
    * @param domainName the name of the domain
    * @return {@link Domain}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Domain getDomainInfo(String domainName)
@@ -965,41 +902,38 @@ public interface DigitalOcean {
 
   /**
    * Method creates a new domain name with an A record for the specified [ip_address].
-   * 
+   *
    * @param domain object with name and IP address for creation
    * @return {@link Domain}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Domain createDomain(Domain domain) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method deletes the specified domain from DNS control panel
-   * 
+   *
    * @param domainName the name of the domain
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.0
    */
   Delete deleteDomain(String domainName) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method returns all of your current domain records from DNS control panel for given domain.
-   * 
+   *
    * @param domainName of the domain
    * @param pageNo of request pagination
    * @param perPage no. of items per page
    * @return {@link DomainRecords}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.1
    */
   DomainRecords getDomainRecords(String domainName, Integer pageNo, Integer perPage)
@@ -1007,15 +941,14 @@ public interface DigitalOcean {
 
   /**
    * Method creates a new domain record name with an given domain record values
-   * 
+   *
    * @param domainName of the domain
    * @param domainRecord the domain record values domain Id, record type, data, name, priority,
-   *        port, weight
+   *     port, weight
    * @return {@link DomainRecord}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.1
    */
   DomainRecord createDomainRecord(String domainName, DomainRecord domainRecord)
@@ -1023,14 +956,13 @@ public interface DigitalOcean {
 
   /**
    * Method returns the specified domain record.
-   * 
+   *
    * @param domainName of the domain
    * @param recordId of the domain
    * @return {@link DomainRecord}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.1
    */
   DomainRecord getDomainRecordInfo(String domainName, Integer recordId)
@@ -1038,16 +970,15 @@ public interface DigitalOcean {
 
   /**
    * method edits an existing domain record of the given domain.
-   * 
+   *
    * @param domainName of the domain
    * @param recordId of the domain
    * @param domainRecord the domain record values domain Id, record type, data, name, priority,
-   *        port, weight
+   *     port, weight
    * @return {@link DomainRecord}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   DomainRecord updateDomainRecord(String domainName, Integer recordId, DomainRecord domainRecord)
@@ -1055,14 +986,13 @@ public interface DigitalOcean {
 
   /**
    * Method deletes the specified domain record from domain.
-   * 
+   *
    * @param domainName of the domain
    * @param recordId of the domain
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.1
    */
   Delete deleteDomainRecord(String domainName, Integer recordId)
@@ -1074,13 +1004,12 @@ public interface DigitalOcean {
 
   /**
    * Method lists all the available public SSH keys in your account that can be added to a droplet.
-   * 
+   *
    * @param pageNo for pagination
    * @return {@link Keys}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.2
    */
   Keys getAvailableKeys(Integer pageNo) throws DigitalOceanException, RequestUnsuccessfulException;
@@ -1088,13 +1017,12 @@ public interface DigitalOcean {
   /**
    * Method shows a specific public SSH key information from your account that can be added to a
    * droplet.
-   * 
+   *
    * @param sshKeyId the SSH key Id
    * @return {@link Key}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.2
    */
   Key getKeyInfo(Integer sshKeyId) throws DigitalOceanException, RequestUnsuccessfulException;
@@ -1102,40 +1030,37 @@ public interface DigitalOcean {
   /**
    * Method shows a specific public SSH key information from your account that can be added to a
    * droplet.
-   * 
+   *
    * @param fingerprint the SSH key fingerprint
    * @return {@link Key}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Key getKeyInfo(String fingerprint) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to add a new public SSH key to your account
-   * 
+   *
    * @param newKey the {@link Key} object with sshKeyName and sshPublicKey
    * @return {@link Key}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.2
    */
   Key createKey(Key newKey) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to modify an existing SSH key in your account.
-   * 
+   *
    * @param sshKeyId the SSH key Id
    * @param newSshKeyName the new name to give the SSH key
    * @return {@link Key}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.2
    */
   Key updateKey(Integer sshKeyId, String newSshKeyName)
@@ -1143,14 +1068,13 @@ public interface DigitalOcean {
 
   /**
    * Method allows you to modify an existing SSH key in your account.
-   * 
+   *
    * @param fingerprint the SSH fingerprint
    * @param newSshKeyName the new name to give the SSH key
    * @return {@link Key}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Key updateKey(String fingerprint, String newSshKeyName)
@@ -1158,26 +1082,24 @@ public interface DigitalOcean {
 
   /**
    * Method will delete the SSH key from your account.
-   * 
+   *
    * @param sshKeyId the SSH key Id, you would like to delete
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v1.2
    */
   Delete deleteKey(Integer sshKeyId) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method will delete the SSH key from your account.
-   * 
+   *
    * @param fingerprint the SSH fingerprint
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.0
    */
   Delete deleteKey(String fingerprint) throws DigitalOceanException, RequestUnsuccessfulException;
@@ -1188,14 +1110,13 @@ public interface DigitalOcean {
 
   /**
    * Method will list all of the Floating IPs available from your account.
-   * 
+   *
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link FloatingIPs}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.3
    */
   FloatingIPs getAvailableFloatingIPs(Integer pageNo, Integer perPage)
@@ -1203,13 +1124,12 @@ public interface DigitalOcean {
 
   /**
    * Method creates a new Floating IP and assigns to the Droplet.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @return {@link FloatingIP}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.3
    */
   FloatingIP createFloatingIP(Integer dropletId)
@@ -1217,13 +1137,12 @@ public interface DigitalOcean {
 
   /**
    * Method creates a new Floating IP and its reserved to a Region
-   * 
+   *
    * @param region name of the DigitalOcean region
    * @return {@link FloatingIP}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.3
    */
   FloatingIP createFloatingIP(String region)
@@ -1231,13 +1150,12 @@ public interface DigitalOcean {
 
   /**
    * Method retrieves the information about given Floating IP
-   * 
+   *
    * @param ipAddress Floating IP address
    * @return {@link FloatingIP}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.3
    */
   FloatingIP getFloatingIPInfo(String ipAddress)
@@ -1245,13 +1163,12 @@ public interface DigitalOcean {
 
   /**
    * Method deletes the Floating IP and removes it from your account.
-   * 
+   *
    * @param ipAddress Floating IP address
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.3
    */
   Delete deleteFloatingIP(String ipAddress)
@@ -1259,14 +1176,13 @@ public interface DigitalOcean {
 
   /**
    * Method will assign Floating IP to a Droplet.
-   * 
+   *
    * @param dropletId the id of the droplet
    * @param ipAddress Floating IP address
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.3
    */
   Action assignFloatingIP(Integer dropletId, String ipAddress)
@@ -1275,13 +1191,12 @@ public interface DigitalOcean {
   /**
    * Method will unassign Floating IP from a Droplet. The Floating IP will be reserved in the region
    * but not assigned to a Droplet.
-   * 
+   *
    * @param ipAddress Floating IP address
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.3
    */
   Action unassignFloatingIP(String ipAddress)
@@ -1292,14 +1207,13 @@ public interface DigitalOcean {
   // ===========================================
   /**
    * Method will list all of the Tags available from your account.
-   * 
+   *
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link Tags}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.5
    */
   Tags getAvailableTags(Integer pageNo, Integer perPage)
@@ -1307,53 +1221,49 @@ public interface DigitalOcean {
 
   /**
    * Method will create a Tag on DigitalOcean aacount.
-   * 
+   *
    * @param name Tag Name
    * @return {@link Tag}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.5
    */
   Tag createTag(String name) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method retrieves the Tag from DigitalOcean account.
-   * 
+   *
    * @param name Tag Name
    * @return {@link Tag}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.5
    */
   Tag getTag(String name) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method deletes the existing Tag from DigitalOcean account.
-   * 
+   *
    * @param name Tag Name
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.5
    */
   Delete deleteTag(String name) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method tags a tag to given list of resources on DigitalOcean account.
-   * 
+   *
    * @param name Tag Name
    * @param resources list of resource by {@link Resource} objects
    * @return {@link Response}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.5
    */
   Response tagResources(String name, List<Resource> resources)
@@ -1361,14 +1271,13 @@ public interface DigitalOcean {
 
   /**
    * Method untags a tag from given list of resources on DigitalOcean account.
-   * 
+   *
    * @param name Tag Name
    * @param resources list of resource by {@link Resource} objects
    * @return {@link Response}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.5
    */
   Response untagResources(String name, List<Resource> resources)
@@ -1380,13 +1289,12 @@ public interface DigitalOcean {
 
   /**
    * Method will list all of the Volumes available from your account.
-   * 
+   *
    * @param regionSlug is code name of the region aka DigitalOcean data centers
    * @return {@link Volumes}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.7
    */
   Volumes getAvailableVolumes(String regionSlug)
@@ -1394,40 +1302,37 @@ public interface DigitalOcean {
 
   /**
    * Method creates new volume with given details
-   * 
+   *
    * @param volume details to create new volume
    * @return {@link Volume}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.7
    */
   Volume createVolume(Volume volume) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method shows specific volume information by identifier
-   * 
+   *
    * @param volumeId volume identifier
    * @return {@link Volume}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.7
    */
   Volume getVolumeInfo(String volumeId) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method shows volume information by name and region slug
-   * 
+   *
    * @param volumeName name of the volume
    * @param regionSlug is code name of the region aka DigitalOcean data centers
    * @return {@link Volumes}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.7
    */
   Volumes getVolumeInfo(String volumeName, String regionSlug)
@@ -1435,27 +1340,25 @@ public interface DigitalOcean {
 
   /**
    * Method deletes volume by identifier
-   * 
+   *
    * @param volumeId volume identifier
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.7
    */
   Delete deleteVolume(String volumeId) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method deletes volume by name and region slug
-   * 
+   *
    * @param volumeName
    * @param regionSlug is code name of the region aka DigitalOcean data centers
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.7
    */
   Delete deleteVolume(String volumeName, String regionSlug)
@@ -1463,7 +1366,7 @@ public interface DigitalOcean {
 
   /**
    * Method attaches the given volume into droplet by identifier
-   * 
+   *
    * @param dropletId droplet identifier
    * @param volumeId volume identifier
    * @param regionSlug is code name of the region aka DigitalOcean data centers
@@ -1476,15 +1379,14 @@ public interface DigitalOcean {
 
   /**
    * Method attaches the given volume into droplet by name
-   * 
+   *
    * @param dropletId droplet identifier
    * @param volumeName
    * @param regionSlug is code name of the region aka DigitalOcean data centers
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.7
    */
   Action attachVolumeByName(Integer dropletId, String volumeName, String regionSlug)
@@ -1492,15 +1394,14 @@ public interface DigitalOcean {
 
   /**
    * Method detaches volume from the droplet by identifier
-   * 
+   *
    * @param dropletId droplet identifier
    * @param volumeId volume identifier
    * @param regionSlug is code name of the region aka DigitalOcean data centers
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.7
    */
   Action detachVolume(Integer dropletId, String volumeId, String regionSlug)
@@ -1508,15 +1409,14 @@ public interface DigitalOcean {
 
   /**
    * Method detaches volume from the droplet by volume name
-   * 
+   *
    * @param dropletId droplet identifier
    * @param volumeName
    * @param regionSlug is code name of the region aka DigitalOcean data centers
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.7
    */
   Action detachVolumeByName(Integer dropletId, String volumeName, String regionSlug)
@@ -1524,15 +1424,14 @@ public interface DigitalOcean {
 
   /**
    * Method resizes volume by identifier
-   * 
+   *
    * @param volumeId volume identifier
    * @param regionSlug is code name of the region aka DigitalOcean data centers
    * @param sizeGigabytes size value in GB
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.7
    */
   Action resizeVolume(String volumeId, String regionSlug, Double sizeGigabytes)
@@ -1540,13 +1439,12 @@ public interface DigitalOcean {
 
   /**
    * Method will get all the available volume action by volume identifier
-   * 
+   *
    * @param volumeId volume identifier
    * @return {@link Actions}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.7
    */
   Actions getAvailableVolumeActions(String volumeId)
@@ -1554,14 +1452,13 @@ public interface DigitalOcean {
 
   /**
    * Method returns specific volume action by action & volume identifier
-   * 
+   *
    * @param volumeId
    * @param actionId
    * @return {@link Action}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.7
    */
   Action getVolumeAction(String volumeId, Integer actionId)
@@ -1569,15 +1466,14 @@ public interface DigitalOcean {
 
   /**
    * Method return all of the snapshots for given volume Id
-   * 
+   *
    * @param volumeId
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link Snapshots}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.8
    */
   Snapshots getVolumeSnapshots(String volumeId, Integer pageNo, Integer perPage)
@@ -1585,14 +1481,13 @@ public interface DigitalOcean {
 
   /**
    * Method take snapshot of given volume Id
-   * 
+   *
    * @param volumeId
    * @param snapshotName
    * @return {@link Snapshot}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.8
    */
   Snapshot takeVolumeSnapshot(String volumeId, String snapshotName)
@@ -1604,14 +1499,13 @@ public interface DigitalOcean {
 
   /**
    * Method return all of the snapshots available on your account
-   * 
+   *
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link Snapshots}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.8
    */
   Snapshots getAvailableSnapshots(Integer pageNo, Integer perPage)
@@ -1619,14 +1513,13 @@ public interface DigitalOcean {
 
   /**
    * Method return all of the droplet snapshots available on your account
-   * 
+   *
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link Snapshots}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.8
    */
   Snapshots getAllDropletSnapshots(Integer pageNo, Integer perPage)
@@ -1634,14 +1527,13 @@ public interface DigitalOcean {
 
   /**
    * Method return all of the volume snapshots available on your account
-   * 
+   *
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link Snapshots}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.8
    */
   Snapshots getAllVolumeSnapshots(Integer pageNo, Integer perPage)
@@ -1649,13 +1541,12 @@ public interface DigitalOcean {
 
   /**
    * Method returns specific snapshot info by id
-   * 
+   *
    * @param snapshotId
    * @return {@link Snapshot}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.8
    */
   Snapshot getSnaphotInfo(String snapshotId)
@@ -1663,13 +1554,12 @@ public interface DigitalOcean {
 
   /**
    * Method deletes snapshot by id
-   * 
+   *
    * @param snapshotId for snapshot
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.8
    */
   Delete deleteSnapshot(String snapshotId)
@@ -1682,19 +1572,18 @@ public interface DigitalOcean {
   /**
    * Method allows you to add a new load balancer to distribute traffic across multiple Droplets.
    *
-   * The LoadBalancer object passed in param can have a list of dropletIds set as dropletIds
+   * <p>The LoadBalancer object passed in param can have a list of dropletIds set as dropletIds
    * attribute. In this case, given Droplets will be assigned to the Load Balancer.
    *
-   * You may also use a Droplet tag to assign a group of Droplets to Load Balancer in place of a
+   * <p>You may also use a Droplet tag to assign a group of Droplets to Load Balancer in place of a
    * list of Droplet IDs. In this case, set the tag attribute of the LoadBalancer object passed in
    * param.
    *
    * @param loadBalancer the instance of the loadBalancer class
    * @return {@link LoadBalancer}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.11
    */
   LoadBalancer createLoadBalancer(LoadBalancer loadBalancer)
@@ -1705,10 +1594,9 @@ public interface DigitalOcean {
    *
    * @param loadBalancerId the id of the droplet
    * @return {@link LoadBalancer}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.11
    */
   LoadBalancer getLoadBalancerInfo(String loadBalancerId)
@@ -1721,12 +1609,11 @@ public interface DigitalOcean {
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link LoadBalancers}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.11
-   **/
+   */
   LoadBalancers getAvailableLoadBalancers(Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
@@ -1738,10 +1625,9 @@ public interface DigitalOcean {
    *
    * @param loadBalancer the instance of the loadBalancer class
    * @return {@link LoadBalancer}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.11
    */
   LoadBalancer updateLoadBalancer(LoadBalancer loadBalancer)
@@ -1752,12 +1638,11 @@ public interface DigitalOcean {
    *
    * @param loadBalancerId the id of the loadBalancer
    * @param dropletIds an array containing the IDs of the Droplets to be assigned to the Load
-   *        Balancer instance.
+   *     Balancer instance.
    * @return {@link Response}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.11
    */
   Response addDropletsToLoadBalancer(String loadBalancerId, List<Integer> dropletIds)
@@ -1768,12 +1653,11 @@ public interface DigitalOcean {
    *
    * @param loadBalancerId the id of the loadBalancer
    * @param dropletIds an array containing the IDs of the Droplets to be removed from the Load
-   *        Balancer instance.
+   *     Balancer instance.
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.11
    */
   Delete removeDropletsFromLoadBalancer(String loadBalancerId, List<Integer> dropletIds)
@@ -1784,16 +1668,15 @@ public interface DigitalOcean {
    *
    * @param loadBalancerId the id of the loadBalancer
    * @param forwardingRules an array containing the Forwarding Rules to add to the Load Balancer
-   *        instance.
+   *     instance.
    * @return {@link Response}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.11
    */
-  Response addForwardingRulesToLoadBalancer(String loadBalancerId,
-      List<ForwardingRules> forwardingRules)
+  Response addForwardingRulesToLoadBalancer(
+      String loadBalancerId, List<ForwardingRules> forwardingRules)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
@@ -1801,16 +1684,15 @@ public interface DigitalOcean {
    *
    * @param loadBalancerId the id of the loadBalancer
    * @param forwardingRules an array containing the Forwarding Rules to remove from the Load
-   *        Balancer instance.
+   *     Balancer instance.
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.11
    */
-  Delete removeForwardingRulesFromLoadBalancer(String loadBalancerId,
-      List<ForwardingRules> forwardingRules)
+  Delete removeForwardingRulesFromLoadBalancer(
+      String loadBalancerId, List<ForwardingRules> forwardingRules)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
@@ -1819,10 +1701,9 @@ public interface DigitalOcean {
    *
    * @param loadBalancerId the id of the loadBalancer
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.11
    */
   Delete deleteLoadBalancer(String loadBalancerId)
@@ -1838,25 +1719,21 @@ public interface DigitalOcean {
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link LoadBalancers}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.12
-   **/
+   */
   Certificates getAvailableCertificates(Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
-   * <p>
    * Method allows you to create a new certificate. See the required parameters section below for an
    * explanation of the variables that are needed to create a new certificate.
-   * </p>
-   * <p>
-   * Create a instance of {@link Certificate} class and populated the certificate object
+   *
+   * <p>Create a instance of {@link Certificate} class and populated the certificate object
    * appropriately. Required values are -
-   * </p>
-   * 
+   *
    * <pre>
    * {
    *    "name": "web-cert-01",
@@ -1865,28 +1742,25 @@ public interface DigitalOcean {
    *    "certificate_chain": "-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----"
    * }
    * </pre>
-   * 
+   *
    * @param certificate the instance of the Certificate class
    * @return {@link Certificate}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.12
    */
   Certificate createCertificate(Certificate certificate)
       throws DigitalOceanException, RequestUnsuccessfulException;
-  
+
   /**
-   * <p>
-   * Method allows you to create a new Let's Encrypt certificate. See the required parameters section below for an
-   * explanation of the variables that are needed to create a new Let's Encrypt certificate.
-   * </p>
-   * <p>
-   * Create a instance of {@link Certificate} class and populated the certificate object
+   * Method allows you to create a new Let's Encrypt certificate. See the required parameters
+   * section below for an explanation of the variables that are needed to create a new Let's Encrypt
+   * certificate.
+   *
+   * <p>Create a instance of {@link Certificate} class and populated the certificate object
    * appropriately. Required values are -
-   * </p>
-   * 
+   *
    * <pre>
    * {
    *    "name": "le-cert-01",
@@ -1894,13 +1768,12 @@ public interface DigitalOcean {
    *    "dns_names": ["www.example.com","example.com"]
    * }
    * </pre>
-   * 
+   *
    * @param certificate the instance of the Certificate class
    * @return {@link Certificate}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.12
    */
   Certificate createLetsEncryptCertificate(Certificate certificate)
@@ -1908,13 +1781,12 @@ public interface DigitalOcean {
 
   /**
    * Method returns the Certificate information for given certificate ID.
-   * 
+   *
    * @param certificateId the id of the certificate
    * @return {@link Certificate}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.12
    */
   Certificate getCertificateInfo(String certificateId)
@@ -1925,10 +1797,9 @@ public interface DigitalOcean {
    *
    * @param certificateId the id of the certificate
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.12
    */
   Delete deleteCertificate(String certificateId)
@@ -1941,19 +1812,18 @@ public interface DigitalOcean {
   /**
    * Method allows you to add a new firewall to restrict network access to and from a Droplet.
    *
-   * The Firewall object passed in param can have a list of dropletIds set as dropletIds attribute.
-   * In this case, given Droplets will use the Firewall rules.
+   * <p>The Firewall object passed in param can have a list of dropletIds set as dropletIds
+   * attribute. In this case, given Droplets will use the Firewall rules.
    *
-   * You may also use a Droplet tag to assign a group of Droplets to use the Firewall in place of a
-   * list of Droplet IDs. In this case, set the tag attribute of the Firewall object passed in
+   * <p>You may also use a Droplet tag to assign a group of Droplets to use the Firewall in place of
+   * a list of Droplet IDs. In this case, set the tag attribute of the Firewall object passed in
    * param.
    *
    * @param firewall the instance of the firewall class
    * @return {@link Firewall}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.16
    */
   Firewall createFirewall(Firewall firewall)
@@ -1964,10 +1834,9 @@ public interface DigitalOcean {
    *
    * @param firewallId the id of the firewall
    * @return {@link Firewall}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.16
    */
   Firewall getFirewallInfo(String firewallId)
@@ -1981,10 +1850,9 @@ public interface DigitalOcean {
    *
    * @param firewall the instance of the firewall class
    * @return {@link Firewall}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.16
    */
   Firewall updateFirewall(Firewall firewall)
@@ -1996,10 +1864,9 @@ public interface DigitalOcean {
    *
    * @param firewallId the id of the firewall
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.16
    */
   Delete deleteFirewall(String firewallId)
@@ -2011,10 +1878,9 @@ public interface DigitalOcean {
    * @param firewallId the id of the firewall to add droplets to
    * @param dropletIds the list of of droplet IDs to add to the firewall
    * @return {@link Response} A generic HTTP status response
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.17
    */
   Response addDropletsToFirewall(String firewallId, List<Integer> dropletIds)
@@ -2026,29 +1892,26 @@ public interface DigitalOcean {
    * @param firewallId the id of the firewall
    * @param dropletIds the list of droplet IDs to be removed from the firewall instance.
    * @return {@link Delete}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   *
    * @since v2.17
    */
   Delete removeDropletsFromFirewall(String firewallId, List<Integer> dropletIds)
-    throws DigitalOceanException, RequestUnsuccessfulException;
+      throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method returns all available firewalls that are currently running in your account. All
    * available API information is presented for each firewall.
-   * 
+   *
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link Firewalls}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
-   * 
    * @since v2.16
-   **/
+   */
   Firewalls getAvailableFirewalls(Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException;
-
 }

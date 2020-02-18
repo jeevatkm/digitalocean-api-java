@@ -1,24 +1,23 @@
 /**
  * The MIT License
  *
- * Copyright (c) 2013-2019 Jeevanandam M. (jeeva@myjeeva.com)
+ * <p>Copyright (c) 2013-2019 Jeevanandam M. (jeeva@myjeeva.com)
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all copies or
+ * <p>The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 package com.myjeeva.digitalocean.pojo;
 
 import com.google.gson.annotations.Expose;
@@ -30,7 +29,6 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  * Represents DigitalOcean Load Balancer forwarding rule object
  *
  * @author Thomas Lehoux (https://github.com/tlehoux)
- *
  * @since v2.11
  */
 public class ForwardingRules extends Base {
@@ -66,9 +64,7 @@ public class ForwardingRules extends Base {
     return ReflectionToStringBuilder.toString(this);
   }
 
-  /**
-   * @return the entry protocol
-   */
+  /** @return the entry protocol */
   public Protocol getEntryProtocol() {
     return entryProtocol;
   }
@@ -77,74 +73,53 @@ public class ForwardingRules extends Base {
     this.entryProtocol = entryProtocol;
   }
 
-  /**
-   * @return the entry port
-   */
+  /** @return the entry port */
   public Integer getEntryPort() {
     return entryPort;
   }
 
-  /**
-   * @param entryPort the entry port to set
-   */
+  /** @param entryPort the entry port to set */
   public void setEntryPort(Integer entryPort) {
     this.entryPort = entryPort;
   }
 
-  /**
-   * @return the target protocol
-   */
+  /** @return the target protocol */
   public Protocol getTargetProtocol() {
     return targetProtocol;
   }
 
-  /**
-   * @param targetProtocol the target protocol to set
-   */
+  /** @param targetProtocol the target protocol to set */
   public void setTargetProtocol(Protocol targetProtocol) {
     this.targetProtocol = targetProtocol;
   }
 
-  /**
-   * @return the target port
-   */
+  /** @return the target port */
   public Integer getTargetPort() {
     return targetPort;
   }
 
-  /**
-   * @param targetPort the target port to set
-   */
+  /** @param targetPort the target port to set */
   public void setTargetPort(Integer targetPort) {
     this.targetPort = targetPort;
   }
 
-  /**
-   * @return the certificateId
-   */
+  /** @return the certificateId */
   public String getCertificateId() {
     return certificateId;
   }
 
-  /**
-   * @param certificateId the certificateId to set
-   */
+  /** @param certificateId the certificateId to set */
   public void setCertificateId(String certificateId) {
     this.certificateId = certificateId;
   }
 
-  /**
-   * @return true if SSL encrypted traffic will be passed through to the backend Droplets
-   */
+  /** @return true if SSL encrypted traffic will be passed through to the backend Droplets */
   public boolean isTlsPassthrough() {
     return tlsPassthrough;
   }
 
-  /**
-   * @param tlsPassthrough the tlsPassthrough to set
-   */
+  /** @param tlsPassthrough the tlsPassthrough to set */
   public void setTlsPassthrough(boolean tlsPassthrough) {
     this.tlsPassthrough = tlsPassthrough;
   }
-
 }

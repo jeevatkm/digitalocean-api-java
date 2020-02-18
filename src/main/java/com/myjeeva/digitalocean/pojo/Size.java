@@ -1,37 +1,34 @@
 /**
  * The MIT License
- * 
- * Copyright (c) 2013-2019 Jeevanandam M. (jeeva@myjeeva.com)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
+ *
+ * <p>Copyright (c) 2013-2019 Jeevanandam M. (jeeva@myjeeva.com)
+ *
+ * <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or
+ *
+ * <p>The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ *
+ * <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 package com.myjeeva.digitalocean.pojo;
 
+import com.google.gson.annotations.SerializedName;
 import java.math.BigDecimal;
 import java.util.List;
-
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-
-import com.google.gson.annotations.SerializedName;
 
 /**
  * Represents Droplet Size (aka Droplet Plan) attributes of DigitalOcean. Revised as per v2 API data
  * structure.
- * 
+ *
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
 public class Size extends Base {
@@ -58,7 +55,7 @@ public class Size extends Base {
   private BigDecimal priceHourly;
 
   private List<String> regions;
-  
+
   private boolean available;
 
   public Size() {
@@ -74,129 +71,93 @@ public class Size extends Base {
     return ReflectionToStringBuilder.toString(this);
   }
 
-  /**
-   * @return the slug
-   */
+  /** @return the slug */
   public String getSlug() {
     return slug;
   }
 
-  /**
-   * @param slug the slug to set
-   */
+  /** @param slug the slug to set */
   public void setSlug(String slug) {
     this.slug = slug;
   }
 
-  /**
-   * @return the memorySizeInMb
-   */
+  /** @return the memorySizeInMb */
   public Integer getMemorySizeInMb() {
     return memorySizeInMb;
   }
 
-  /**
-   * @param memorySizeInMb the memorySizeInMb to set
-   */
+  /** @param memorySizeInMb the memorySizeInMb to set */
   public void setMemorySizeInMb(Integer memorySizeInMb) {
     this.memorySizeInMb = memorySizeInMb;
   }
 
-  /**
-   * @return the virutalCpuCount
-   */
+  /** @return the virutalCpuCount */
   public Integer getVirutalCpuCount() {
     return virutalCpuCount;
   }
 
-  /**
-   * @param virutalCpuCount the virutalCpuCount to set
-   */
+  /** @param virutalCpuCount the virutalCpuCount to set */
   public void setVirutalCpuCount(Integer virutalCpuCount) {
     this.virutalCpuCount = virutalCpuCount;
   }
 
-  /**
-   * @return the diskSize
-   */
+  /** @return the diskSize */
   public Integer getDiskSize() {
     return diskSize;
   }
 
-  /**
-   * @param diskSize the diskSize to set
-   */
+  /** @param diskSize the diskSize to set */
   public void setDiskSize(Integer diskSize) {
     this.diskSize = diskSize;
   }
 
-  /**
-   * @return the transfer
-   */
+  /** @return the transfer */
   public Long getTransfer() {
     return transfer;
   }
 
-  /**
-   * @param transfer the transfer to set
-   */
+  /** @param transfer the transfer to set */
   public void setTransfer(Long transfer) {
     this.transfer = transfer;
   }
 
-  /**
-   * @return the priceMonthly
-   */
+  /** @return the priceMonthly */
   public BigDecimal getPriceMonthly() {
     return priceMonthly;
   }
 
-  /**
-   * @param priceMonthly the priceMonthly to set
-   */
+  /** @param priceMonthly the priceMonthly to set */
   public void setPriceMonthly(BigDecimal priceMonthly) {
     this.priceMonthly = priceMonthly;
   }
 
-  /**
-   * @return the priceHourly
-   */
+  /** @return the priceHourly */
   public BigDecimal getPriceHourly() {
     return priceHourly;
   }
 
-  /**
-   * @param priceHourly the priceHourly to set
-   */
+  /** @param priceHourly the priceHourly to set */
   public void setPriceHourly(BigDecimal priceHourly) {
     this.priceHourly = priceHourly;
   }
 
-  /**
-   * @return the regions
-   */
+  /** @return the regions */
   public List<String> getRegions() {
     return regions;
   }
 
-  /**
-   * @param regions the regions to set
-   */
+  /** @param regions the regions to set */
   public void setRegions(List<String> regions) {
     this.regions = regions;
   }
 
-  /**
-   * @return the available
-   */
+  /** @return the available */
   public boolean isAvailable() {
     return available;
   }
 
-  /**
-   * @param available the available to set
-   */
+  /** @param available the available to set */
   public void setAvailable(boolean available) {
     this.available = available;
-  }  
+  }
 }
