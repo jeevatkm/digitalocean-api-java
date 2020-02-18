@@ -1,16 +1,12 @@
 language: java
-
 jdk:
-  - oraclejdk8
-  - oraclejdk7
-  #- openjdk6
+  - openjdk8
+  - openjdk11
+  - openjdk12
+  - openjdk13
 
 # whitelist
 branches:
   only:
     - master
     #- api-v1  # since v1 API becoe absolute
-
-matrix:
-  allow_failures:
-    - jdk: oraclejdk7
