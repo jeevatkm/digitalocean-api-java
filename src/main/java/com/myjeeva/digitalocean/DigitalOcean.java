@@ -20,6 +20,8 @@
  */
 package com.myjeeva.digitalocean;
 
+import com.myjeeva.digitalocean.pojo.Project;
+import com.myjeeva.digitalocean.pojo.Projects;
 import com.myjeeva.digitalocean.common.ActionType;
 import com.myjeeva.digitalocean.exception.DigitalOceanException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
@@ -1916,4 +1918,50 @@ public interface DigitalOcean {
    */
   Firewalls getAvailableFirewalls(Integer pageNo, Integer perPage)
       throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to create a new project.
+   *
+   * @param project the project
+   * @return {@link Project}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   */
+  Project createProject(Project project)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  /**
+   * Method allows you to get all the projects.
+   *
+   * @return {@link Projects}
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
+   */
+  Projects getAllProjects()
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  Project updateProject(Project project)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  Project patchProject(Project project)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  Project getProject(String projectId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  Project getDefaultProject()
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  Project updateDefaultProject(Project project)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  Project patchDefaultProject(Project project)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+  Delete deleteProject(String projectId)
+      throws DigitalOceanException, RequestUnsuccessfulException;
+
+
 }
