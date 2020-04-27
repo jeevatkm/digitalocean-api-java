@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * <p>Copyright (c) 2013-2019 Jeevanandam M. (jeeva@myjeeva.com)
+ * <p>Copyright (c) 2013-2020 Jeevanandam M. (jeeva@myjeeva.com)
  *
  * <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  * and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -77,21 +77,23 @@ public class Certificate extends Base {
 
   /**
    * Constructor for new certificate create request.
+   *
    * @param name the name for the certificate
    * @param privateKey the private key
    * @param leafCertificate the leaf certificate
    * @param certificateChain the certificate chain
    */
-  public Certificate(String name, String privateKey, String leafCertificate,
-      String certificateChain) {
+  public Certificate(
+      String name, String privateKey, String leafCertificate, String certificateChain) {
     this.name = name;
     this.privateKey = privateKey;
     this.leafCertificate = leafCertificate;
     this.certificateChain = certificateChain;
   }
-  
+
   /**
    * Constructor for new Let's Encrypt certificate create request.
+   *
    * @param name the name for the certificate
    * @param type the type of the certificate
    * @param dnsNames list of dns names
