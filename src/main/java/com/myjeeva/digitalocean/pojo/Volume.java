@@ -1,29 +1,23 @@
 /**
  * Copyright (c) Jeevanandam M. (https://github.com/jeevatkm)
- * 
- * digitalocean-api-client source code and usage is governed by a MIT style license that can be
+ *
+ * <p>digitalocean-api-client source code and usage is governed by a MIT style license that can be
  * found in the LICENSE file
  */
-
 package com.myjeeva.digitalocean.pojo;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-
-import com.google.gson.annotations.SerializedName;
 
 /**
  * Represents Block Storage attributes of DigitalOcean.
- * 
- * <p>
- * Block Storage volumes provide expanded storage capacity for your Droplets.
- * </p>
- * 
+ *
+ * <p>Block Storage volumes provide expanded storage capacity for your Droplets.
+ *
  * @author Eugene Strokin (https://github.com/strokine)
- * 
  * @since v2.7
  */
 public class Volume extends Base {
@@ -49,13 +43,13 @@ public class Volume extends Base {
 
   @SerializedName("snapshot_id")
   private String snapshotId;
-  
+
   @SerializedName("filesystem_type")
   private String fileSystemType;
-  
+
   @SerializedName("filesystem_label")
   private String fileSystemLabel;
-  
+
   private List<String> tags;
 
   @Override
@@ -63,158 +57,113 @@ public class Volume extends Base {
     return ReflectionToStringBuilder.toString(this);
   }
 
-  /**
-   * @return the id
-   */
+  /** @return the id */
   public String getId() {
     return id;
   }
 
-  /**
-   * @param id the id to set
-   */
+  /** @param id the id to set */
   public void setId(String id) {
     this.id = id;
   }
 
-  /**
-   * @return the region
-   */
+  /** @return the region */
   public Region getRegion() {
     return region;
   }
 
-  /**
-   * @param region the region to set
-   */
+  /** @param region the region to set */
   public void setRegion(Region region) {
     this.region = region;
   }
 
-  /**
-   * @return the dropletIds
-   */
+  /** @return the dropletIds */
   public Set<Integer> getDropletIds() {
     return dropletIds;
   }
 
-  /**
-   * @param dropletIds the dropletIds to set
-   */
+  /** @param dropletIds the dropletIds to set */
   public void setDropletIds(Set<Integer> dropletIds) {
     this.dropletIds = dropletIds;
   }
 
-  /**
-   * @return the name
-   */
+  /** @return the name */
   public String getName() {
     return name;
   }
 
-  /**
-   * @param name the name to set
-   */
+  /** @param name the name to set */
   public void setName(String name) {
     this.name = name;
   }
 
-  /**
-   * @return the description
-   */
+  /** @return the description */
   public String getDescription() {
     return description;
   }
 
-  /**
-   * @param description the description to set
-   */
+  /** @param description the description to set */
   public void setDescription(String description) {
     this.description = description;
   }
 
-  /**
-   * @return the size in Gigabytes
-   */
+  /** @return the size in Gigabytes */
   public Integer getSize() {
     return size;
   }
 
-  /**
-   * @param size the size to set
-   */
+  /** @param size the size to set */
   public void setSize(Integer size) {
     this.size = size;
   }
 
-  /**
-   * @return the createdDate
-   */
+  /** @return the createdDate */
   public Date getCreatedDate() {
     return createdDate;
   }
 
-  /**
-   * @param createdDate the createdDate to set
-   */
+  /** @param createdDate the createdDate to set */
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
   }
 
-  /**
-   * @return the snapshotId
-   */
+  /** @return the snapshotId */
   public String getSnapshotId() {
     return snapshotId;
   }
 
-  /**
-   * @param snapshotId the snapshotId to set
-   */
+  /** @param snapshotId the snapshotId to set */
   public void setSnapshotId(String snapshotId) {
     this.snapshotId = snapshotId;
   }
 
-  /**
-   * @return the fileSystemType
-   */
+  /** @return the fileSystemType */
   public String getFileSystemType() {
     return fileSystemType;
   }
 
-  /**
-   * @param fileSystemType the fileSystemType to set
-   */
+  /** @param fileSystemType the fileSystemType to set */
   public void setFileSystemType(String fileSystemType) {
     this.fileSystemType = fileSystemType;
   }
 
-  /**
-   * @return the fileSystemLabel
-   */
+  /** @return the fileSystemLabel */
   public String getFileSystemLabel() {
     return fileSystemLabel;
   }
 
-  /**
-   * @param fileSystemLabel the fileSystemLabel to set
-   */
+  /** @param fileSystemLabel the fileSystemLabel to set */
   public void setFileSystemLabel(String fileSystemLabel) {
     this.fileSystemLabel = fileSystemLabel;
   }
 
-  /**
-   * @return the tags
-   */
+  /** @return the tags */
   public List<String> getTags() {
     return tags;
   }
 
-  /**
-   * @param tags the tags to set
-   */
+  /** @param tags the tags to set */
   public void setTags(List<String> tags) {
     this.tags = tags;
   }
-
 }

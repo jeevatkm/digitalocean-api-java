@@ -1,19 +1,19 @@
 /**
  * The MIT License
- * 
- * Copyright (c) 2013-2019 Jeevanandam M. (jeeva@myjeeva.com)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
+ *
+ * <p>Copyright (c) 2013-2019 Jeevanandam M. (jeeva@myjeeva.com)
+ *
+ * <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or
+ *
+ * <p>The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ *
+ * <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
@@ -24,17 +24,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.myjeeva.digitalocean.common.ActionType;
 import com.myjeeva.digitalocean.common.LoadBalancingAlgorithm;
@@ -90,17 +79,22 @@ import com.myjeeva.digitalocean.pojo.Tag;
 import com.myjeeva.digitalocean.pojo.Tags;
 import com.myjeeva.digitalocean.pojo.Volume;
 import com.myjeeva.digitalocean.pojo.Volumes;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * <p>
  * Junit Integration Test case for DigitalOcean API client wrapper methods
- * </p>
- * 
- * <p>
- * <strong>Please Note:</strong> <i>Kindly through and update private variable value before using
+ *
+ * <p><strong>Please Note:</strong> <i>Kindly through and update private variable value before using
  * executing this test case(s).</i>
- * </p>
- * 
+ *
  * @author Jeevanandam M. (jeeva@myjeeva.com)
  */
 // Marked as Ignore since its a Integration Test case with real values
@@ -115,16 +109,19 @@ public class DigitalOceanIntegrationTest {
    * with API. So place your's for integration test case before use
    */
   private String authTokenRW = "";
+
   private Integer dropletIdForInfo = 10001; // to be placed before use
   private String volumeIdForInfo = "10001"; // to be placed before use
   private String volumeNameForInfo = "test-volume"; // to be placed before use, should have
-                                                    // different ID from volumeIdForInfo and created
-                                                    // in nyc1 region
-  private String volumeSnapshotIdForCreate = "197e26b6-c242-11e7-bd8b-0242ac113802"; // to be placed before use
+  // different ID from volumeIdForInfo and created
+  // in nyc1 region
+  private String volumeSnapshotIdForCreate =
+      "197e26b6-c242-11e7-bd8b-0242ac113802"; // to be placed before use
   private String loadBalancerIdForInfo = "155fa6cd-3e74-406d-90bd-5671488c7157"; // to be placed
-                                                                                 // before use
-  private String firewallIdForInfo = "190ceeb7-779a-4b04-9091-4dd175de65ec"; // to be placed before use
-  
+  // before use
+  private String firewallIdForInfo =
+      "190ceeb7-779a-4b04-9091-4dd175de65ec"; // to be placed before use
+
   private Integer imageId = 3445812; // Debian 7.0 x64 image id
   private String imageSlug = "ubuntu-12-04-x64";
   private String domainName = "";
@@ -164,8 +161,7 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testGetDropletSnapshots() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testGetDropletSnapshots() throws DigitalOceanException, RequestUnsuccessfulException {
 
     Snapshots snapshots = apiClient.getDropletSnapshots(dropletIdForInfo, 1, 20);
 
@@ -201,8 +197,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testCreateDropletByImageId() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testCreateDropletByImageId()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     Droplet droplet = new Droplet();
     droplet.setName("api-client-test-host-byid");
@@ -235,8 +231,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testCreateDropletByImageSlug() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testCreateDropletByImageSlug()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     Droplet droplet = new Droplet();
     droplet.setName("api-client-test-host-byslug1");
@@ -261,8 +257,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testCreateDropletsByImageSlug() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testCreateDropletsByImageSlug()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     Droplet droplet = new Droplet();
     droplet.setNames(Arrays.asList("sub-01.example.com", "sub-02.example.com"));
@@ -313,8 +309,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testGetAllDropletNeighbors() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testGetAllDropletNeighbors()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     Neighbors neighbors = apiClient.getAllDropletNeighbors(1);
 
@@ -324,10 +320,10 @@ public class DigitalOceanIntegrationTest {
       log.info(d.toString());
     }
   }
-  
+
   @Test
-  public void testGetAvailableDropletsByTagName() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testGetAvailableDropletsByTagName()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     Droplets droplets = apiClient.getAvailableDropletsByTagName("mytagtest1", 1, 25);
 
@@ -441,8 +437,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testDisableDropletBackups() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testDisableDropletBackups()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     Action action = apiClient.disableDropletBackups(2258168);
 
@@ -478,8 +474,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testEnableDropletPrivateNetworking() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testEnableDropletPrivateNetworking()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     Action action = apiClient.enableDropletPrivateNetworking(2258168);
 
@@ -525,8 +521,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testGetAvailableDropletActions() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testGetAvailableDropletActions()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     Actions actions = apiClient.getAvailableDropletActions(dropletIdForInfo, 1, 20);
     Actions actions3 = apiClient.getAvailableDropletActions(dropletIdForInfo, 3, 20);
@@ -543,8 +539,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testGetAvailableImageActions() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testGetAvailableImageActions()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     Actions actions = apiClient.getAvailableImageActions(3794738, 1, 20);
 
@@ -557,8 +553,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testGetAvailableFloatingIPActions() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testGetAvailableFloatingIPActions()
+      throws DigitalOceanException, RequestUnsuccessfulException {
     Actions actions = apiClient.getAvailableFloatingIPActions("159.203.146.100", 1, 10);
 
     log.info(actions.toString());
@@ -572,8 +568,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testGetFloatingIPActionInfo() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testGetFloatingIPActionInfo()
+      throws DigitalOceanException, RequestUnsuccessfulException {
     Action action = apiClient.getFloatingIPActionInfo("159.203.146.100", 76697074);
 
     log.info(action.toString());
@@ -597,8 +593,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testGetAvailableImagesByDistribution() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testGetAvailableImagesByDistribution()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     Images images = apiClient.getAvailableImages(1, 20, ActionType.DISTRIBUTION);
 
@@ -611,8 +607,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testGetAvailableImagesByApplication() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testGetAvailableImagesByApplication()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     Images images = apiClient.getAvailableImages(1, 20, ActionType.APPLICATION);
 
@@ -625,8 +621,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testGetAvailableImagesByIncorrrect() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testGetAvailableImagesByIncorrrect()
+      throws DigitalOceanException, RequestUnsuccessfulException {
     try {
       apiClient.getAvailableImages(1, 20, ActionType.BACKUP);
     } catch (DigitalOceanException doe) {
@@ -666,16 +662,19 @@ public class DigitalOceanIntegrationTest {
 
     log.info(image.toString());
   }
-  
+
   @Test
   public void testCreateCustomImage() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    Image input = new Image("ubuntu-18.04-minimal", "http://cloud-images.ubuntu.com/minimal/releases/bionic/release/ubuntu-18.04-minimal-cloudimg-amd64.img"
-        , "nyc3");
+    Image input =
+        new Image(
+            "ubuntu-18.04-minimal",
+            "http://cloud-images.ubuntu.com/minimal/releases/bionic/release/ubuntu-18.04-minimal-cloudimg-amd64.img",
+            "nyc3");
     input.setDescription("Cloud-optimized image w/ small footprint");
     input.setDistribution("Ubuntu");
     input.setTags(Arrays.asList("base-image", "prod"));
-    
+
     Image image = apiClient.updateImage(input);
 
     assertNotNull(image);
@@ -904,8 +903,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testUpdateKeyByFingerprint() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testUpdateKeyByFingerprint()
+      throws DigitalOceanException, RequestUnsuccessfulException {
     Key resultKey =
         apiClient.updateKey("3b:0b:99:54:ef:75:cb:88:88:66:3c:8d:10:64:74:32", "TestKey4");
 
@@ -923,8 +922,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testDeleteKeyByFingerprint() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testDeleteKeyByFingerprint()
+      throws DigitalOceanException, RequestUnsuccessfulException {
     Delete result = apiClient.deleteKey("3b:0b:99:54:ef:75:cb:88:88:66:3c:8d:10:64:74:32");
 
     assertNotNull(result);
@@ -933,8 +932,8 @@ public class DigitalOceanIntegrationTest {
 
   // Floating IPs test cases
   @Test
-  public void testGetAvailableFloatingIPs() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testGetAvailableFloatingIPs()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     FloatingIPs floatingIPs = apiClient.getAvailableFloatingIPs(1, 10);
 
@@ -950,8 +949,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testCreateFloatingIPForDroplet() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testCreateFloatingIPForDroplet()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     FloatingIP floatingIP = apiClient.createFloatingIP(9674996);
 
@@ -961,8 +960,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testCreateFloatingIPForRegion() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testCreateFloatingIPForRegion()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     FloatingIP floatingIP = apiClient.createFloatingIP("nyc3");
 
@@ -972,8 +971,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testGetFloatingIPInfo(String ipAddress) throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testGetFloatingIPInfo(String ipAddress)
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     FloatingIP floatingIP = apiClient.getFloatingIPInfo("159.203.146.100");
 
@@ -1206,8 +1205,7 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testGetVolumeSnapshots() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testGetVolumeSnapshots() throws DigitalOceanException, RequestUnsuccessfulException {
 
     Snapshots snapshots =
         apiClient.getVolumeSnapshots("82a48a18-873f-11e6-96bf-000f53315a41", 1, 10);
@@ -1222,8 +1220,9 @@ public class DigitalOceanIntegrationTest {
 
   @Test
   public void testTakeVolumeSnapshot() throws DigitalOceanException, RequestUnsuccessfulException {
-    Snapshot snapshot = apiClient.takeVolumeSnapshot("fbe805e8-866b-11e6-96bf-000f53315a41",
-        "api-test-volume-snapshot");
+    Snapshot snapshot =
+        apiClient.takeVolumeSnapshot(
+            "fbe805e8-866b-11e6-96bf-000f53315a41", "api-test-volume-snapshot");
 
     assertNotNull(snapshot);
 
@@ -1231,8 +1230,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testGetAvailableSnapshots() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testGetAvailableSnapshots()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     Snapshots snapshots = apiClient.getAvailableSnapshots(1, 10);
 
@@ -1245,8 +1244,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testGetAllDropletSnapshots() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testGetAllDropletSnapshots()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     Snapshots snapshots = apiClient.getAllDropletSnapshots(1, 10);
 
@@ -1259,8 +1258,8 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testGetAllVolumeSnapshots() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testGetAllVolumeSnapshots()
+      throws DigitalOceanException, RequestUnsuccessfulException {
 
     Snapshots snapshots = apiClient.getAllVolumeSnapshots(1, 10);
 
@@ -1290,8 +1289,7 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testCreateLoadBalancer() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testCreateLoadBalancer() throws DigitalOceanException, RequestUnsuccessfulException {
 
     LoadBalancer loadBalancer = new LoadBalancer();
     loadBalancer.setName("api-client-test-loadbalancer");
@@ -1324,8 +1322,7 @@ public class DigitalOceanIntegrationTest {
   }
 
   @Test
-  public void testUpdateLoadBalancer() throws DigitalOceanException,
-      RequestUnsuccessfulException {
+  public void testUpdateLoadBalancer() throws DigitalOceanException, RequestUnsuccessfulException {
 
     LoadBalancer lb = apiClient.getLoadBalancerInfo(loadBalancerIdForInfo);
     lb.setAlgorithm(LoadBalancingAlgorithm.LEAST_CONNECTIONS);
@@ -1376,8 +1373,9 @@ public class DigitalOceanIntegrationTest {
   public void testRemoveDropletsFromLoadBalancer()
       throws DigitalOceanException, RequestUnsuccessfulException {
 
-    Delete result = apiClient.removeDropletsFromLoadBalancer(loadBalancerIdForInfo,
-        Arrays.asList(dropletIdForInfo));
+    Delete result =
+        apiClient.removeDropletsFromLoadBalancer(
+            loadBalancerIdForInfo, Arrays.asList(dropletIdForInfo));
     assertNotNull(result);
   }
 
@@ -1394,7 +1392,6 @@ public class DigitalOceanIntegrationTest {
     Response result =
         apiClient.addForwardingRulesToLoadBalancer(loadBalancerIdForInfo, Arrays.asList(rule));
     assertNotNull(result);
-
   }
 
   @Test
@@ -1410,12 +1407,10 @@ public class DigitalOceanIntegrationTest {
     Response result =
         apiClient.removeForwardingRulesFromLoadBalancer(loadBalancerIdForInfo, Arrays.asList(rule));
     assertNotNull(result);
-
   }
 
   @Test
-  public void testDeleteLoadBalancer()
-      throws DigitalOceanException, RequestUnsuccessfulException {
+  public void testDeleteLoadBalancer() throws DigitalOceanException, RequestUnsuccessfulException {
 
     Delete result = apiClient.deleteLoadBalancer(loadBalancerIdForInfo);
     assertNotNull(result);
@@ -1446,11 +1441,12 @@ public class DigitalOceanIntegrationTest {
 
     log.info(result.toString());
   }
-  
-  @Test
-  public void testLetsEncryptCreateCertificate() throws DigitalOceanException, RequestUnsuccessfulException {
 
-    String[] dnsNames = { "example.com", "www.example.com"};
+  @Test
+  public void testLetsEncryptCreateCertificate()
+      throws DigitalOceanException, RequestUnsuccessfulException {
+
+    String[] dnsNames = {"example.com", "www.example.com"};
     Certificate certificate =
         new Certificate("my-let-encrypt-cert", "lets_encrypt", Arrays.asList(dnsNames));
 
@@ -1475,42 +1471,42 @@ public class DigitalOceanIntegrationTest {
     assertNotNull(result);
     log.info("Delete Request Object: " + result);
   }
-  
+
   @Test
   public void testCreateFirewall() throws DigitalOceanException, RequestUnsuccessfulException {
-	List<String> addressesInbound = Arrays.asList("18.0.0.0/8");
-	
-	Sources sources = new Sources();
-	sources.setAddresses(addressesInbound);
-	
-	InboundRules inboundRules = new InboundRules();
-	inboundRules.setProtocol("tcp");
-	inboundRules.setPorts("22");
-	inboundRules.setSources(sources);
-	
-	List<String> addressesOutbound = Arrays.asList("0.0.0.0/0", "::/0");
-	
-	Destinations destinations = new Destinations();
-	destinations.setAddresses(addressesOutbound);
-	
-	OutboundRules outboundRules = new OutboundRules();
-	outboundRules.setProtocol("tcp");
-	outboundRules.setPorts("80");
-	outboundRules.setDestinations(destinations);
-	
-	Firewall firewall = new Firewall();
-	firewall.setName("integration-firewall");
-	firewall.setInboundRules(Arrays.asList(inboundRules));
-	firewall.setOutboundRules(Arrays.asList(outboundRules));
-	
-	Firewall fw = apiClient.createFirewall(firewall);
-	
-	assertNotNull(fw);
-	assertNotNull(fw.getId());
-	
-	log.info(fw.toString());
+    List<String> addressesInbound = Arrays.asList("18.0.0.0/8");
+
+    Sources sources = new Sources();
+    sources.setAddresses(addressesInbound);
+
+    InboundRules inboundRules = new InboundRules();
+    inboundRules.setProtocol("tcp");
+    inboundRules.setPorts("22");
+    inboundRules.setSources(sources);
+
+    List<String> addressesOutbound = Arrays.asList("0.0.0.0/0", "::/0");
+
+    Destinations destinations = new Destinations();
+    destinations.setAddresses(addressesOutbound);
+
+    OutboundRules outboundRules = new OutboundRules();
+    outboundRules.setProtocol("tcp");
+    outboundRules.setPorts("80");
+    outboundRules.setDestinations(destinations);
+
+    Firewall firewall = new Firewall();
+    firewall.setName("integration-firewall");
+    firewall.setInboundRules(Arrays.asList(inboundRules));
+    firewall.setOutboundRules(Arrays.asList(outboundRules));
+
+    Firewall fw = apiClient.createFirewall(firewall);
+
+    assertNotNull(fw);
+    assertNotNull(fw.getId());
+
+    log.info(fw.toString());
   }
-  
+
   @Test
   public void testGetFirewallInfo() throws DigitalOceanException, RequestUnsuccessfulException {
 
@@ -1518,38 +1514,38 @@ public class DigitalOceanIntegrationTest {
     assertNotNull(fw);
     log.info(fw.toString());
   }
-  
+
   @Test
   public void testUpdateFirewallInfo() throws DigitalOceanException, RequestUnsuccessfulException {
     Firewall firewall = apiClient.getFirewallInfo(firewallIdForInfo);
-    
+
     firewall.setName("edited-firewall");
     Firewall fw = apiClient.updateFirewall(firewall);
-    
+
     assertNotNull(fw);
     assertEquals(fw.getName(), firewall.getName());
     assertEquals(fw.getId(), firewall.getId());
-    
+
     log.info(fw.toString());
   }
-  
+
   @Test
   public void testDeleteFirewall() throws DigitalOceanException, RequestUnsuccessfulException {
     Delete result = apiClient.deleteFirewall(firewallIdForInfo);
     assertNotNull(result);
   }
-  
+
   @Test
-  public void testGetAvailableFirewalls() throws DigitalOceanException, RequestUnsuccessfulException {
+  public void testGetAvailableFirewalls()
+      throws DigitalOceanException, RequestUnsuccessfulException {
     Firewalls firewalls = apiClient.getAvailableFirewalls(1, null);
-    
+
     assertNotNull(firewalls);
     assertFalse(firewalls.getFirewalls().isEmpty());
-    
+
     int i = 0;
     for (Firewall firewall : firewalls.getFirewalls()) {
       log.info(i++ + " -> " + firewall.toString());
     }
   }
-
 }

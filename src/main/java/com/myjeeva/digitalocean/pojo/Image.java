@@ -1,35 +1,32 @@
 /**
  * The MIT License
- * 
- * Copyright (c) 2013-2019 Jeevanandam M. (jeeva@myjeeva.com)
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
+ *
+ * <p>Copyright (c) 2013-2019 Jeevanandam M. (jeeva@myjeeva.com)
+ *
+ * <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all copies or
+ *
+ * <p>The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ *
+ * <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 package com.myjeeva.digitalocean.pojo;
-
-import java.util.Date;
-import java.util.List;
-
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.myjeeva.digitalocean.common.ImageStatus;
 import com.myjeeva.digitalocean.common.ImageType;
+import java.util.Date;
+import java.util.List;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
  * Represents Droplet Image (also public images aka Distribution) attributes of DigitalOcean
@@ -43,11 +40,9 @@ public class Image extends Base {
 
   private Integer id;
 
-  @Expose
-  private String name;
+  @Expose private String name;
 
-  @Expose
-  private String distribution;
+  @Expose private String distribution;
 
   private String slug;
 
@@ -66,23 +61,19 @@ public class Image extends Base {
   private Double size;
 
   private ImageType type;
-  
+
   // #89 - start
   // https://developers.digitalocean.com/documentation/changelog/api-v2/support-for-custom-images-and-image-tagging/
-  @Expose
-  private String url;
-  
-  @Expose
-  private String region;
-  
-  @Expose
-  private String description;
-  
-  @Expose
-  private List<String> tags;
-  
+  @Expose private String url;
+
+  @Expose private String region;
+
+  @Expose private String description;
+
+  @Expose private List<String> tags;
+
   private ImageStatus status;
-  
+
   @SerializedName("error_message")
   private String errorMessage;
   // #89 - end
@@ -98,7 +89,7 @@ public class Image extends Base {
   public Image(String slug) {
     this.slug = slug;
   }
-  
+
   public Image(String name, String url, String region) {
     this.name = name;
     this.url = url;
@@ -110,66 +101,53 @@ public class Image extends Base {
     return ReflectionToStringBuilder.toString(this);
   }
 
-  /**
-   * @return true if image is snapshot
-   */
+  /** @return true if image is snapshot */
   public boolean isSnapshot() {
     return ImageType.SNAPSHOT == type;
   }
 
-  /**
-   * @return true if image is backup
-   */
+  /** @return true if image is backup */
   public boolean isBackup() {
     return ImageType.BACKUP == type;
   }
 
   /**
    * @return true if image is temporary Deprecated Info:
-   *         https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-
-   *         snaphots/
+   *     https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-
+   *     snaphots/
    */
   @Deprecated
   public boolean isTemporary() {
     return ImageType.TEMPORARY == type;
   }
 
-  /**
-   * @return the id
-   */
+  /** @return the id */
   public Integer getId() {
     return id;
   }
 
-  /**
-   * @param id the id to set
-   */
+  /** @param id the id to set */
   public void setId(Integer id) {
     this.id = id;
   }
 
-  /**
-   * @return the name
-   */
+  /** @return the name */
   public String getName() {
     return name;
   }
 
-  /**
-   * @param name the name to set
-   */
+  /** @param name the name to set */
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * The name of a custom image's distribution. 
-   * 
-   * <p>Currently, the valid values are "Arch Linux", "CentOS", "CoreOS", "Debian", 
-   * "Fedora", "Fedora Atomic", "FreeBSD", "Gentoo", "openSUSE", "RancherOS", "Ubuntu", 
-   * and "Unknown". Any other value will be accepted but ignored, 
-   * and "Unknown" will be used in its place. </p>
-   * 
+   * The name of a custom image's distribution.
+   *
+   * <p>Currently, the valid values are "Arch Linux", "CentOS", "CoreOS", "Debian", "Fedora",
+   * "Fedora Atomic", "FreeBSD", "Gentoo", "openSUSE", "RancherOS", "Ubuntu", and "Unknown". Any
+   * other value will be accepted but ignored, and "Unknown" will be used in its place.
+   *
    * @return the distribution
    */
   public String getDistribution() {
@@ -177,204 +155,151 @@ public class Image extends Base {
   }
 
   /**
-   * The name of a custom image's distribution. 
-   * 
-   * <p>Currently, the valid values are "Arch Linux", "CentOS", "CoreOS", "Debian", 
-   * "Fedora", "Fedora Atomic", "FreeBSD", "Gentoo", "openSUSE", "RancherOS", "Ubuntu", 
-   * and "Unknown". Any other value will be accepted but ignored, 
-   * and "Unknown" will be used in its place. </p>
-   * 
+   * The name of a custom image's distribution.
+   *
+   * <p>Currently, the valid values are "Arch Linux", "CentOS", "CoreOS", "Debian", "Fedora",
+   * "Fedora Atomic", "FreeBSD", "Gentoo", "openSUSE", "RancherOS", "Ubuntu", and "Unknown". Any
+   * other value will be accepted but ignored, and "Unknown" will be used in its place.
+   *
    * @param distribution the distribution to set
    */
   public void setDistribution(String distribution) {
     this.distribution = distribution;
   }
 
-  /**
-   * @return the slug
-   */
+  /** @return the slug */
   public String getSlug() {
     return slug;
   }
 
-  /**
-   * @param slug the slug to set
-   */
+  /** @param slug the slug to set */
   public void setSlug(String slug) {
     this.slug = slug;
   }
 
-  /**
-   * @return the availablePublic
-   */
+  /** @return the availablePublic */
   public boolean isAvailablePublic() {
     return availablePublic;
   }
 
-  /**
-   * @param availablePublic the availablePublic to set
-   */
+  /** @param availablePublic the availablePublic to set */
   public void setAvailablePublic(boolean availablePublic) {
     this.availablePublic = availablePublic;
   }
 
-  /**
-   * @return the regions
-   */
+  /** @return the regions */
   public List<String> getRegions() {
     return regions;
   }
 
-  /**
-   * @param regions the regions to set
-   */
+  /** @param regions the regions to set */
   public void setRegions(List<String> regions) {
     this.regions = regions;
   }
 
-  /**
-   * @return the createdDate
-   */
+  /** @return the createdDate */
   public Date getCreatedDate() {
     return createdDate;
   }
 
-  /**
-   * @param createdDate the createdDate to set
-   */
+  /** @param createdDate the createdDate to set */
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
   }
 
-  /**
-   * @return the type
-   */
+  /** @return the type */
   public ImageType getType() {
     return type;
   }
 
-  /**
-   * @param type the type to set
-   */
+  /** @param type the type to set */
   public void setType(ImageType type) {
     this.type = type;
   }
 
-  /**
-   * @return the min Disk Size
-   */
+  /** @return the min Disk Size */
   public Integer getMinDiskSize() {
     return minDiskSize;
   }
 
-  /**
-   * @param minDiskSize the minDiskSize to set
-   */
+  /** @param minDiskSize the minDiskSize to set */
   public void setMinDiskSize(Integer minDiskSize) {
     this.minDiskSize = minDiskSize;
   }
 
-  /**
-   * @return the size
-   */
+  /** @return the size */
   public Double getSize() {
     return size;
   }
 
-  /**
-   * @param size the size to set
-   */
+  /** @param size the size to set */
   public void setSize(Double size) {
     this.size = size;
   }
 
-  /**
-   * @return the url
-   */
+  /** @return the url */
   public String getUrl() {
     return url;
   }
 
   /**
-   * A URL from which the custom Linux virtual machine image may be retrieved. 
-   * The image it points to must be in the raw, qcow2, vhdx, vdi, or vmdk format. 
-   * It may be compressed using gzip or bzip2 and must be smaller 
-   * than 100 GB after being decompressed.
-   * 
+   * A URL from which the custom Linux virtual machine image may be retrieved. The image it points
+   * to must be in the raw, qcow2, vhdx, vdi, or vmdk format. It may be compressed using gzip or
+   * bzip2 and must be smaller than 100 GB after being decompressed.
+   *
    * @param url the url to set
    */
   public void setUrl(String url) {
     this.url = url;
   }
 
-  /**
-   * @return the region
-   */
+  /** @return the region */
   public String getRegion() {
     return region;
   }
 
-  /**
-   * @param region the region to set
-   */
+  /** @param region the region to set */
   public void setRegion(String region) {
     this.region = region;
   }
 
-  /**
-   * @return the description
-   */
+  /** @return the description */
   public String getDescription() {
     return description;
   }
 
-  /**
-   * @param description the description to set
-   */
+  /** @param description the description to set */
   public void setDescription(String description) {
     this.description = description;
   }
 
-  /**
-   * @return the status
-   */
+  /** @return the status */
   public ImageStatus getStatus() {
     return status;
   }
 
-  /**
-   * @param status the status to set
-   */
+  /** @param status the status to set */
   public void setStatus(ImageStatus status) {
     this.status = status;
   }
 
-  /**
-   * @return the tags
-   */
+  /** @return the tags */
   public List<String> getTags() {
     return tags;
   }
 
-  /**
-   * @param tags the tags to set
-   */
+  /** @param tags the tags to set */
   public void setTags(List<String> tags) {
     this.tags = tags;
   }
 
-  /**
-   * @return the errorMessage
-   */
+  /** @return the errorMessage */
   public String getErrorMessage() {
     return errorMessage;
   }
 
-  /**
-   * @param errorMessage the errorMessage to set
-   */
+  /** @param errorMessage the errorMessage to set */
   public void setErrorMessage(String errorMessage) {
     this.errorMessage = errorMessage;
   }
-  
 }
