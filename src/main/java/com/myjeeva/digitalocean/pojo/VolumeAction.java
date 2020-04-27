@@ -70,7 +70,7 @@ public class VolumeAction {
    * @param type action type of the volume
    * @param dropletId is to attach/detach volume from droplet
    * @param regionSlug short name of region
-   * @param volumeName
+   * @param volumeName name of the volume
    * @param size volume size in GB
    */
   public VolumeAction(

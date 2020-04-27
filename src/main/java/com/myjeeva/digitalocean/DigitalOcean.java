@@ -166,6 +166,7 @@ public interface DigitalOcean {
    *
    * @param dropletId for backup info
    * @param pageNo for pagination
+   * @param perPage no. of items per page
    * @return {@link Backups}
    * @throws DigitalOceanException if request had interruption [ <code>
    *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -1352,8 +1353,8 @@ public interface DigitalOcean {
 
   /**
    * Method deletes volume by name and region slug
-   *
-   * @param volumeName
+   * 
+   * @param volumeName name of the volume
    * @param regionSlug is code name of the region aka DigitalOcean data centers
    * @return {@link Delete}
    * @throws DigitalOceanException if request had interruption [ <code>
@@ -1371,8 +1372,9 @@ public interface DigitalOcean {
    * @param volumeId volume identifier
    * @param regionSlug is code name of the region aka DigitalOcean data centers
    * @return {@link Action}
-   * @throws DigitalOceanException
-   * @throws RequestUnsuccessfulException
+   * @throws DigitalOceanException if request had interruption [
+   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    */
   Action attachVolume(Integer dropletId, String volumeId, String regionSlug)
       throws DigitalOceanException, RequestUnsuccessfulException;
@@ -1381,7 +1383,7 @@ public interface DigitalOcean {
    * Method attaches the given volume into droplet by name
    *
    * @param dropletId droplet identifier
-   * @param volumeName
+   * @param volumeName name of the volume
    * @param regionSlug is code name of the region aka DigitalOcean data centers
    * @return {@link Action}
    * @throws DigitalOceanException if request had interruption [ <code>
@@ -1411,7 +1413,7 @@ public interface DigitalOcean {
    * Method detaches volume from the droplet by volume name
    *
    * @param dropletId droplet identifier
-   * @param volumeName
+   * @param volumeName name of the volume
    * @param regionSlug is code name of the region aka DigitalOcean data centers
    * @return {@link Action}
    * @throws DigitalOceanException if request had interruption [ <code>
@@ -1451,10 +1453,10 @@ public interface DigitalOcean {
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
-   * Method returns specific volume action by action & volume identifier
-   *
-   * @param volumeId
-   * @param actionId
+   * Method returns specific volume action by action and volume identifier
+   * 
+   * @param volumeId volume identifier
+   * @param actionId the id of action
    * @return {@link Action}
    * @throws DigitalOceanException if request had interruption [ <code>
    *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -1466,8 +1468,8 @@ public interface DigitalOcean {
 
   /**
    * Method return all of the snapshots for given volume Id
-   *
-   * @param volumeId
+   * 
+   * @param volumeId volume identifier
    * @param pageNo for pagination
    * @param perPage no. of items per page
    * @return {@link Snapshots}
@@ -1481,9 +1483,9 @@ public interface DigitalOcean {
 
   /**
    * Method take snapshot of given volume Id
-   *
-   * @param volumeId
-   * @param snapshotName
+   * 
+   * @param volumeId volume identifier
+   * @param snapshotName the name the snapshot to be created
    * @return {@link Snapshot}
    * @throws DigitalOceanException if request had interruption [ <code>
    *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -1541,8 +1543,8 @@ public interface DigitalOcean {
 
   /**
    * Method returns specific snapshot info by id
-   *
-   * @param snapshotId
+   * 
+   * @param snapshotId for snapshot
    * @return {@link Snapshot}
    * @throws DigitalOceanException if request had interruption [ <code>
    *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
@@ -1555,7 +1557,7 @@ public interface DigitalOcean {
   /**
    * Method deletes snapshot by id
    *
-   * @param snapshotId for snapshot
+   * @param snapshotId for snapsho
    * @return {@link Delete}
    * @throws DigitalOceanException if request had interruption [ <code>
    *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]

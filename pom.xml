@@ -129,6 +129,7 @@
 						<verbose>true</verbose>
 						<reportOutputDirectory>${javadoc.output.path}</reportOutputDirectory>
 						<destDir>${project.version}</destDir>
+						<additionalOptions>--allow-script-in-comments</additionalOptions>
 					</configuration>
 				</plugin>
 				<plugin>
