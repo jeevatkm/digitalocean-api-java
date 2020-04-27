@@ -86,6 +86,10 @@ public class Certificate extends Base {
 
   /**
    * Constructor for new certificate create request.
+   * @param name the name for the certificate
+   * @param privateKey the private key
+   * @param leafCertificate the leaf certificate
+   * @param certificateChain the certificate chain
    */
   public Certificate(String name, String privateKey, String leafCertificate,
       String certificateChain) {
@@ -97,6 +101,9 @@ public class Certificate extends Base {
   
   /**
    * Constructor for new Let's Encrypt certificate create request.
+   * @param name the name for the certificate
+   * @param type the type of the certificate
+   * @param dnsNames list of dns names
    */
   public Certificate(String name, String type, List<String> dnsNames) {
     this.name = name;
