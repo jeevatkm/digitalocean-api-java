@@ -36,10 +36,6 @@ public class TagDropletResource {
   @SerializedName("last_tagged_uri")
   private String lastTaggedUri;
 
-  @Deprecated
-  @SerializedName("last_tagged")
-  private Droplet lastTagged;
-
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this);
@@ -63,25 +59,5 @@ public class TagDropletResource {
   /** @param lastTaggedUri the lastTaggedUri to set */
   public void setLastTaggedUri(String lastTaggedUri) {
     this.lastTaggedUri = lastTaggedUri;
-  }
-
-  /**
-   * @return the lastTagged
-   *     <p>Deprecated:
-   *     https://developers.digitalocean.com/documentation/changelog/api-v2/adding-tagged-uri/
-   */
-  @Deprecated
-  public Droplet getLastTagged() {
-    return lastTagged;
-  }
-
-  /**
-   * @param lastTagged the lastTagged to set
-   *     <p>Deprecated:
-   *     https://developers.digitalocean.com/documentation/changelog/api-v2/adding-tagged-uri/
-   */
-  @Deprecated
-  public void setLastTagged(Droplet lastTagged) {
-    this.lastTagged = lastTagged;
   }
 }

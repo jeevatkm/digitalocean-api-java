@@ -111,16 +111,6 @@ public class Image extends Base {
     return ImageType.BACKUP == type;
   }
 
-  /**
-   * @return true if image is temporary Deprecated Info:
-   *     https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-
-   *     snaphots/
-   */
-  @Deprecated
-  public boolean isTemporary() {
-    return ImageType.TEMPORARY == type;
-  }
-
   /** @return the id */
   public Integer getId() {
     return id;

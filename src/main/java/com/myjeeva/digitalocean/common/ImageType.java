@@ -41,15 +41,7 @@ public enum ImageType {
    * https://developers.digitalocean.com/documentation/changelog/api-v2/support-for-custom-images-and-image-tagging/
    */
   @SerializedName("custom")
-  CUSTOM("custom"),
-
-  /**
-   * More info:
-   * https://developers.digitalocean.com/documentation/changelog/api-v2/deprecate-final-snaphots/
-   */
-  @Deprecated
-  @SerializedName("temporary")
-  TEMPORARY("temporary");
+  CUSTOM("custom");
 
   private String value;
 

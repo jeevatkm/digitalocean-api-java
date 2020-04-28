@@ -139,9 +139,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   /** Gson Parser instance for serialize */
   private Gson serialize;
 
-  /** JSON Parser instance */
-  private JsonParser jsonParser;
-
   /** API Request Header */
   private Header[] requestHeaders;
 
@@ -1691,7 +1688,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       if (request.isCollectionElement()) {
         apiResponse.setData(deserialize.fromJson(response, request.getClazz()));
       } else {
-        JsonObject rootObject = jsonParser.parse(response).getAsJsonObject();
+        JsonObject rootObject = JsonParser.parseString(response).getAsJsonObject();
         JsonObject elementObject = rootObject.get(request.getElementName()).getAsJsonObject();
         fetchAddElement(Constants.RATE_LIMIT_ELEMENT_NAME, rootObject, elementObject);
         fetchAddElement(Constants.LINKS_ELEMENT_NAME, rootObject, elementObject);
@@ -1812,7 +1809,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       String errorMsg = StringUtils.EMPTY;
       String id = StringUtils.EMPTY;
       try {
-        jsonObj = jsonParser.parse(jsonStr).getAsJsonObject();
+        jsonObj = JsonParser.parseString(jsonStr).getAsJsonObject();
         id = jsonObj.get("id").getAsString();
         errorMsg = jsonObj.get("message").getAsString();
       } catch (JsonSyntaxException e) {
@@ -2039,8 +2036,6 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
             .registerTypeAdapter(Firewall.class, new FirewallSerializer())
             .excludeFieldsWithoutExposeAnnotation()
             .create();
-
-    this.jsonParser = new JsonParser();
 
     Header[] headers = {
       new BasicHeader(HDR_USER_AGENT, USER_AGENT),

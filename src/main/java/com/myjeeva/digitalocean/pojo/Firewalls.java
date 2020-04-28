@@ -1,8 +1,9 @@
 /**
  * The MIT License
  *
- * <p>Copyright (c) 2013-2020 Jeevanandam M. (jeeva@myjeeva.com) 2018 Lucas Andrey B.
- * (andreybleme1@gmail.com)
+ * <p>Copyright (c) 2013-2020 Jeevanandam M. (jeeva@myjeeva.com)
+ *
+ * <p>2018 Lucas Andrey B. (andreybleme1@gmail.com)
  *
  * <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software
  * and associated documentation files (the "Software"), to deal in the Software without restriction,
