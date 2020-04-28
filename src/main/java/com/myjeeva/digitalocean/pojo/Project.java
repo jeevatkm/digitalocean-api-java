@@ -22,17 +22,13 @@ public class Project extends Base {
   @SerializedName("owner_id")
   private String ownerId;
 
-  @Expose
-  private String name;
+  @Expose private String name;
 
-  @Expose
-  private String description;
+  @Expose private String description;
 
-  @Expose
-  private String purpose;
+  @Expose private String purpose;
 
-  @Expose
-  private Environment environment;
+  @Expose private Environment environment;
 
   @Expose
   @SerializedName("is_default")

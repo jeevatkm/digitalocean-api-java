@@ -20,8 +20,6 @@
  */
 package com.myjeeva.digitalocean;
 
-import com.myjeeva.digitalocean.pojo.Project;
-import com.myjeeva.digitalocean.pojo.Projects;
 import com.myjeeva.digitalocean.common.ActionType;
 import com.myjeeva.digitalocean.exception.DigitalOceanException;
 import com.myjeeva.digitalocean.exception.RequestUnsuccessfulException;
@@ -51,6 +49,8 @@ import com.myjeeva.digitalocean.pojo.Keys;
 import com.myjeeva.digitalocean.pojo.LoadBalancer;
 import com.myjeeva.digitalocean.pojo.LoadBalancers;
 import com.myjeeva.digitalocean.pojo.Neighbors;
+import com.myjeeva.digitalocean.pojo.Project;
+import com.myjeeva.digitalocean.pojo.Projects;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Resource;
 import com.myjeeva.digitalocean.pojo.Response;
@@ -1924,35 +1924,29 @@ public interface DigitalOcean {
    *
    * @param project the project
    * @return {@link Project}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    */
-  Project createProject(Project project)
-      throws DigitalOceanException, RequestUnsuccessfulException;
+  Project createProject(Project project) throws DigitalOceanException, RequestUnsuccessfulException;
 
   /**
    * Method allows you to get all the projects.
    *
    * @return {@link Projects}
-   * @throws DigitalOceanException if request had interruption [
-   *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
+   * @throws DigitalOceanException if request had interruption [ <code>
+   *     HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    */
-  Projects getAvailableProjects()
-      throws DigitalOceanException, RequestUnsuccessfulException;
+  Projects getAvailableProjects() throws DigitalOceanException, RequestUnsuccessfulException;
 
-  Project updateProject(Project project)
-      throws DigitalOceanException, RequestUnsuccessfulException;
+  Project updateProject(Project project) throws DigitalOceanException, RequestUnsuccessfulException;
 
-  Project patchProject(Project project)
-      throws DigitalOceanException, RequestUnsuccessfulException;
+  Project patchProject(Project project) throws DigitalOceanException, RequestUnsuccessfulException;
 
-  Project getProject(String projectId)
-      throws DigitalOceanException, RequestUnsuccessfulException;
+  Project getProject(String projectId) throws DigitalOceanException, RequestUnsuccessfulException;
 
-  Project getDefaultProject()
-      throws DigitalOceanException, RequestUnsuccessfulException;
+  Project getDefaultProject() throws DigitalOceanException, RequestUnsuccessfulException;
 
   Project updateDefaultProject(Project project)
       throws DigitalOceanException, RequestUnsuccessfulException;
@@ -1960,8 +1954,5 @@ public interface DigitalOcean {
   Project patchDefaultProject(Project project)
       throws DigitalOceanException, RequestUnsuccessfulException;
 
-  Delete deleteProject(String projectId)
-      throws DigitalOceanException, RequestUnsuccessfulException;
-
-
+  Delete deleteProject(String projectId) throws DigitalOceanException, RequestUnsuccessfulException;
 }

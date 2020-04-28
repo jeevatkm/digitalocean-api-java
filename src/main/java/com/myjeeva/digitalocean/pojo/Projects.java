@@ -7,7 +7,6 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  * Represents list of projects.
  *
  * @author Thomas Crombez (thomasc@trikthom.com)
- *
  */
 public class Projects extends Base {
 
@@ -20,18 +19,13 @@ public class Projects extends Base {
     return ReflectionToStringBuilder.toString(this);
   }
 
-  /**
-   * @return the projects
-   */
+  /** @return the projects */
   public List<Project> getProjects() {
     return projects;
   }
 
-  /**
-   * @param projects the projects to set
-   */
+  /** @param projects the projects to set */
   public void setProjects(List<Project> projects) {
     this.projects = projects;
   }
-
 }

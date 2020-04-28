@@ -186,7 +186,6 @@ public enum ApiAction {
   GET_SNAPSHOT_INFO("/snapshots/%s", "snapshot", RequestMethod.GET, Snapshot.class),
   DELETE_SNAPSHOT("/snapshots/%s", "response", RequestMethod.DELETE, Delete.class),
 
-
   // Projects
   CREATE_PROJECT("/projects", "project", RequestMethod.POST, Project.class),
   GET_ALL_PROJECTS("/projects", "projects", RequestMethod.GET, Projects.class),
@@ -197,7 +196,6 @@ public enum ApiAction {
   UPDATE_DEFAULT_PROJECT("/projects/default", "project", RequestMethod.PUT, Project.class),
   PATCH_DEFAULT_PROJECT("/projects/default", "project", RequestMethod.PATCH, Project.class),
   DELETE_PROJECT("/projects/%s", "response", RequestMethod.DELETE, Delete.class),
-
 
   // Load Balancers
   CREATE_LOAD_BALANCER("/load_balancers", "load_balancer", RequestMethod.POST, LoadBalancer.class),

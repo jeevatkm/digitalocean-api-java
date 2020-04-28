@@ -20,42 +20,6 @@
  */
 package com.myjeeva.digitalocean.impl;
 
-import com.myjeeva.digitalocean.pojo.Project;
-import com.myjeeva.digitalocean.pojo.Projects;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.ParseException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPatch;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.util.EntityUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -100,6 +64,8 @@ import com.myjeeva.digitalocean.pojo.Keys;
 import com.myjeeva.digitalocean.pojo.LoadBalancer;
 import com.myjeeva.digitalocean.pojo.LoadBalancers;
 import com.myjeeva.digitalocean.pojo.Neighbors;
+import com.myjeeva.digitalocean.pojo.Project;
+import com.myjeeva.digitalocean.pojo.Projects;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Resource;
 import com.myjeeva.digitalocean.pojo.Resources;
@@ -136,6 +102,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -1703,26 +1670,26 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       throws DigitalOceanException, RequestUnsuccessfulException {
 
     if (null == project || StringUtils.isBlank(project.getName()) || null == project.getPurpose()) {
-      throw new IllegalArgumentException(
-          "Missing required parameters [Name, Purpose].");
+      throw new IllegalArgumentException("Missing required parameters [Name, Purpose].");
     }
 
-    return (Project) perform(new ApiRequest(ApiAction.CREATE_PROJECT, project))
-        .getData();
+    return (Project) perform(new ApiRequest(ApiAction.CREATE_PROJECT, project)).getData();
   }
 
   @Override
-  public Projects getAvailableProjects() throws DigitalOceanException, RequestUnsuccessfulException {
-    return (Projects) perform(new ApiRequest(ApiAction.GET_ALL_PROJECTS))
-        .getData();
+  public Projects getAvailableProjects()
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    return (Projects) perform(new ApiRequest(ApiAction.GET_ALL_PROJECTS)).getData();
   }
 
   @Override
   public Project updateProject(Project project)
       throws DigitalOceanException, RequestUnsuccessfulException {
 
-    if (null == project || StringUtils.isBlank(project.getName())
-        || StringUtils.isBlank(project.getDescription()) || StringUtils.isBlank(project.getPurpose())) {
+    if (null == project
+        || StringUtils.isBlank(project.getName())
+        || StringUtils.isBlank(project.getDescription())
+        || StringUtils.isBlank(project.getPurpose())) {
       throw new IllegalArgumentException(
           "Missing required parameters [Name, Description, Purpose].");
     }
@@ -1736,8 +1703,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Project patchProject(Project project)
       throws DigitalOceanException, RequestUnsuccessfulException {
 
-    if (null == project || StringUtils.isBlank(project.getName())
-        || StringUtils.isBlank(project.getDescription()) || StringUtils.isBlank(project.getPurpose())) {
+    if (null == project
+        || StringUtils.isBlank(project.getName())
+        || StringUtils.isBlank(project.getDescription())
+        || StringUtils.isBlank(project.getPurpose())) {
       throw new IllegalArgumentException(
           "Missing required parameters [Name, Description, Purpose].");
     }
@@ -1766,8 +1735,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Project updateDefaultProject(Project project)
       throws DigitalOceanException, RequestUnsuccessfulException {
 
-    if (null == project || StringUtils.isBlank(project.getName())
-        || StringUtils.isBlank(project.getDescription()) || StringUtils.isBlank(project.getPurpose())) {
+    if (null == project
+        || StringUtils.isBlank(project.getName())
+        || StringUtils.isBlank(project.getDescription())
+        || StringUtils.isBlank(project.getPurpose())) {
       throw new IllegalArgumentException(
           "Missing required parameters [Name, Description, Purpose].");
     }
@@ -1779,8 +1750,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   public Project patchDefaultProject(Project project)
       throws DigitalOceanException, RequestUnsuccessfulException {
 
-    if (null == project || StringUtils.isBlank(project.getName())
-        || StringUtils.isBlank(project.getDescription()) || StringUtils.isBlank(project.getPurpose())) {
+    if (null == project
+        || StringUtils.isBlank(project.getName())
+        || StringUtils.isBlank(project.getDescription())
+        || StringUtils.isBlank(project.getPurpose())) {
       throw new IllegalArgumentException(
           "Missing required parameters [Name, Description, Purpose].");
     }

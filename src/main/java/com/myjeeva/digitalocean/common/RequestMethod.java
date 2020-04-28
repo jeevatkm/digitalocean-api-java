@@ -27,5 +27,9 @@ package com.myjeeva.digitalocean.common;
  * @since v2.0
  */
 public enum RequestMethod {
-  GET, POST, PUT, DELETE, PATCH;
+  GET,
+  POST,
+  PUT,
+  DELETE,
+  PATCH;
 }

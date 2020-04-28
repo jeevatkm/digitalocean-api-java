@@ -7,10 +7,8 @@ import org.apache.commons.lang3.StringUtils;
  * Enumeration of DigitalOcean Environments
  *
  * @author Thomas Crombez (thomasc@trikthom.com)
- *
  */
 public enum Environment {
-
   @SerializedName("Development")
   DEVELOPMENT("development"),
 
