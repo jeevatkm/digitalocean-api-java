@@ -1,9 +1,8 @@
 language: java
 jdk:
+  # only widely used one's also mindful about travis-ci resources
   - openjdk8
-  #- openjdk11
-  #- openjdk12
-  #- openjdk13
+  - openjdk11
 
 # whitelist
 branches:
