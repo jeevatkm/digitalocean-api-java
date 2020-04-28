@@ -11,7 +11,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  */
 public class Projects extends Base {
 
-//  private static final long serialVersionUID = ??;
+  private static final long serialVersionUID = -7659167641617957056L;
 
   private List<Project> projects;
 

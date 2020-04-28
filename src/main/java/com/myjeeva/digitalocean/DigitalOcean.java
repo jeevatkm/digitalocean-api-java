@@ -1939,7 +1939,7 @@ public interface DigitalOcean {
    *         <code>HTTP status code &gt;= 400 &amp;&amp; &lt; 510</code>]
    * @throws RequestUnsuccessfulException if any RESTful request unsuccessful from wrapper method
    */
-  Projects getAllProjects()
+  Projects getAvailableProjects()
       throws DigitalOceanException, RequestUnsuccessfulException;
 
   Project updateProject(Project project)

@@ -1,6 +1,7 @@
 package com.myjeeva.digitalocean.pojo;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.myjeeva.digitalocean.common.Environment;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
@@ -11,13 +12,15 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  */
 public class Project extends Base {
 
-//  private static final long serialVersionUID = ??;
+  private static final long serialVersionUID = -594801578631188284L;
 
   private String id;
 
-  private String owner_uuid;
+  @SerializedName("owner_uuid")
+  private String ownerUuid;
 
-  private String owner_id;
+  @SerializedName("owner_id")
+  private String ownerId;
 
   @Expose
   private String name;
@@ -32,11 +35,14 @@ public class Project extends Base {
   private Environment environment;
 
   @Expose
-  private boolean is_default;
+  @SerializedName("is_default")
+  private boolean isDefault;
 
-  private String created_at;
+  @SerializedName("created_at")
+  private String createdAt;
 
-  private String updated_at;
+  @SerializedName("updated_at")
+  private String updatedAt;
 
   @Override
   public String toString() {
@@ -51,20 +57,20 @@ public class Project extends Base {
     this.id = id;
   }
 
-  public String getOwner_uuid() {
-    return owner_uuid;
+  public String getOwnerUuid() {
+    return ownerUuid;
   }
 
-  public void setOwner_uuid(String owner_uuid) {
-    this.owner_uuid = owner_uuid;
+  public void setOwnerUuid(String ownerUuid) {
+    this.ownerUuid = ownerUuid;
   }
 
-  public String getOwner_id() {
-    return owner_id;
+  public String getOwnerId() {
+    return ownerId;
   }
 
-  public void setOwner_id(String owner_id) {
-    this.owner_id = owner_id;
+  public void setOwnerId(String ownerId) {
+    this.ownerId = ownerId;
   }
 
   public String getName() {
@@ -99,27 +105,27 @@ public class Project extends Base {
     this.environment = environment;
   }
 
-  public boolean getIs_default() {
-    return is_default;
+  public boolean isDefault() {
+    return isDefault;
   }
 
-  public void setIs_default(boolean is_default) {
-    this.is_default = is_default;
+  public void setDefault(boolean aDefault) {
+    isDefault = aDefault;
   }
 
-  public String getCreated_at() {
-    return created_at;
+  public String getCreatedAt() {
+    return createdAt;
   }
 
-  public void setCreated_at(String created_at) {
-    this.created_at = created_at;
+  public void setCreatedAt(String createdAt) {
+    this.createdAt = createdAt;
   }
 
-  public String getUpdated_at() {
-    return updated_at;
+  public String getUpdatedAt() {
+    return updatedAt;
   }
 
-  public void setUpdated_at(String updated_at) {
-    this.updated_at = updated_at;
+  public void setUpdatedAt(String updatedAt) {
+    this.updatedAt = updatedAt;
   }
 }

@@ -1712,7 +1712,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
   }
 
   @Override
-  public Projects getAllProjects() throws DigitalOceanException, RequestUnsuccessfulException {
+  public Projects getAvailableProjects() throws DigitalOceanException, RequestUnsuccessfulException {
     return (Projects) perform(new ApiRequest(ApiAction.GET_ALL_PROJECTS))
         .getData();
   }
