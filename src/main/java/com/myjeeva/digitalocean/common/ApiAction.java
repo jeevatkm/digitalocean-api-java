@@ -45,6 +45,8 @@ import com.myjeeva.digitalocean.pojo.Keys;
 import com.myjeeva.digitalocean.pojo.LoadBalancer;
 import com.myjeeva.digitalocean.pojo.LoadBalancers;
 import com.myjeeva.digitalocean.pojo.Neighbors;
+import com.myjeeva.digitalocean.pojo.Project;
+import com.myjeeva.digitalocean.pojo.Projects;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Response;
 import com.myjeeva.digitalocean.pojo.Sizes;
@@ -183,6 +185,17 @@ public enum ApiAction {
   ALL_VOLUME_SNAPSHOTS("/snapshots", "snapshots", RequestMethod.GET, Snapshots.class),
   GET_SNAPSHOT_INFO("/snapshots/%s", "snapshot", RequestMethod.GET, Snapshot.class),
   DELETE_SNAPSHOT("/snapshots/%s", "response", RequestMethod.DELETE, Delete.class),
+
+  // Projects
+  CREATE_PROJECT("/projects", "project", RequestMethod.POST, Project.class),
+  GET_ALL_PROJECTS("/projects", "projects", RequestMethod.GET, Projects.class),
+  UPDATE_PROJECT("/projects/%s", "project", RequestMethod.PUT, Project.class),
+  PATCH_PROJECT("/projects/%s", "project", RequestMethod.PATCH, Project.class),
+  GET_PROJECT("/projects/%s", "project", RequestMethod.GET, Project.class),
+  GET_DEFAULT_PROJECT("/projects/default", "project", RequestMethod.GET, Project.class),
+  UPDATE_DEFAULT_PROJECT("/projects/default", "project", RequestMethod.PUT, Project.class),
+  PATCH_DEFAULT_PROJECT("/projects/default", "project", RequestMethod.PATCH, Project.class),
+  DELETE_PROJECT("/projects/%s", "response", RequestMethod.DELETE, Delete.class),
 
   // Load Balancers
   CREATE_LOAD_BALANCER("/load_balancers", "load_balancer", RequestMethod.POST, LoadBalancer.class),

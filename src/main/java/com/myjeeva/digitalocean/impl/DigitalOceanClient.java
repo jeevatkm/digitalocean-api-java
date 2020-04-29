@@ -64,6 +64,8 @@ import com.myjeeva.digitalocean.pojo.Keys;
 import com.myjeeva.digitalocean.pojo.LoadBalancer;
 import com.myjeeva.digitalocean.pojo.LoadBalancers;
 import com.myjeeva.digitalocean.pojo.Neighbors;
+import com.myjeeva.digitalocean.pojo.Project;
+import com.myjeeva.digitalocean.pojo.Projects;
 import com.myjeeva.digitalocean.pojo.Regions;
 import com.myjeeva.digitalocean.pojo.Resource;
 import com.myjeeva.digitalocean.pojo.Resources;
@@ -100,6 +102,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPatch;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -1662,6 +1665,112 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
         perform(new ApiRequest(ApiAction.AVAILABLE_FIREWALLS, pageNo, perPage)).getData();
   }
 
+  @Override
+  public Project createProject(Project project)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+
+    if (null == project || StringUtils.isBlank(project.getName()) || null == project.getPurpose()) {
+      throw new IllegalArgumentException("Missing required parameters [Name, Purpose].");
+    }
+
+    return (Project) perform(new ApiRequest(ApiAction.CREATE_PROJECT, project)).getData();
+  }
+
+  @Override
+  public Projects getAvailableProjects()
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    return (Projects) perform(new ApiRequest(ApiAction.GET_ALL_PROJECTS)).getData();
+  }
+
+  @Override
+  public Project updateProject(Project project)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+
+    if (null == project
+        || StringUtils.isBlank(project.getName())
+        || StringUtils.isBlank(project.getDescription())
+        || StringUtils.isBlank(project.getPurpose())) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Name, Description, Purpose].");
+    }
+
+    Object[] params = {project.getId()};
+
+    return (Project) perform(new ApiRequest(ApiAction.UPDATE_PROJECT, project, params)).getData();
+  }
+
+  @Override
+  public Project patchProject(Project project)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+
+    if (null == project
+        || StringUtils.isBlank(project.getName())
+        || StringUtils.isBlank(project.getDescription())
+        || StringUtils.isBlank(project.getPurpose())) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Name, Description, Purpose].");
+    }
+
+    Object[] params = {project.getId()};
+
+    return (Project) perform(new ApiRequest(ApiAction.PATCH_PROJECT, project, params)).getData();
+  }
+
+  @Override
+  public Project getProject(String projectId)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+
+    validateProjectId(projectId);
+
+    Object[] params = {projectId};
+    return (Project) perform(new ApiRequest(ApiAction.GET_PROJECT, params)).getData();
+  }
+
+  @Override
+  public Project getDefaultProject() throws DigitalOceanException, RequestUnsuccessfulException {
+    return (Project) perform(new ApiRequest(ApiAction.GET_DEFAULT_PROJECT)).getData();
+  }
+
+  @Override
+  public Project updateDefaultProject(Project project)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+
+    if (null == project
+        || StringUtils.isBlank(project.getName())
+        || StringUtils.isBlank(project.getDescription())
+        || StringUtils.isBlank(project.getPurpose())) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Name, Description, Purpose].");
+    }
+
+    return (Project) perform(new ApiRequest(ApiAction.UPDATE_DEFAULT_PROJECT, project)).getData();
+  }
+
+  @Override
+  public Project patchDefaultProject(Project project)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+
+    if (null == project
+        || StringUtils.isBlank(project.getName())
+        || StringUtils.isBlank(project.getDescription())
+        || StringUtils.isBlank(project.getPurpose())) {
+      throw new IllegalArgumentException(
+          "Missing required parameters [Name, Description, Purpose].");
+    }
+
+    return (Project) perform(new ApiRequest(ApiAction.PATCH_DEFAULT_PROJECT, project)).getData();
+  }
+
+  @Override
+  public Delete deleteProject(String projectId)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+
+    checkBlankAndThrowError(projectId, "Missing required parameter - projectId.");
+
+    Object[] params = {projectId};
+    return (Delete) perform(new ApiRequest(ApiAction.DELETE_PROJECT, params)).getData();
+  }
+
   //
   // Private methods
   //
@@ -1680,6 +1789,8 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
       response = doPut(uri, createRequestData(request));
     } else if (RequestMethod.DELETE == request.getMethod()) {
       response = doDelete(uri, createRequestData(request));
+    } else if (RequestMethod.PATCH == request.getMethod()) {
+      response = doPatch(uri, createRequestData(request));
     }
 
     ApiResponse apiResponse = new ApiResponse(request.getApiAction(), true);
@@ -1747,7 +1858,7 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     if (null == entity) {
       HttpDelete delete = new HttpDelete(uri);
       delete.setHeaders(requestHeaders);
-      delete.setHeader(HttpHeaders.CONTENT_TYPE, FORM_URLENCODED_CONTENT_TYPE);
+      delete.setHeader(HttpHeaders.CONTENT_TYPE, JSON_CONTENT_TYPE);
       return executeHttpRequest(delete);
     }
 
@@ -1755,6 +1866,18 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
     delete.setHeaders(requestHeaders);
     delete.setEntity(entity);
     return executeHttpRequest(delete);
+  }
+
+  private String doPatch(URI uri, HttpEntity entity)
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    HttpPatch patch = new HttpPatch(uri);
+    patch.setHeaders(requestHeaders);
+
+    if (null != entity) {
+      patch.setEntity(entity);
+    }
+
+    return executeHttpRequest(patch);
   }
 
   private String executeHttpRequest(HttpUriRequest request)
@@ -1980,6 +2103,10 @@ public class DigitalOceanClient implements DigitalOcean, Constants {
 
   private void validatePageNo(Integer pageNo) {
     checkNullAndThrowError(pageNo, "Missing required parameter - pageNo.");
+  }
+
+  private void validateProjectId(String projectId) {
+    checkNullAndThrowError(projectId, "Missing required parameter - projectId.");
   }
 
   private void checkNullAndThrowError(Object obj, String msg) {

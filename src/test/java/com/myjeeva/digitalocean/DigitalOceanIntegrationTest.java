@@ -25,6 +25,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import com.myjeeva.digitalocean.common.ActionType;
+import com.myjeeva.digitalocean.common.Environment;
 import com.myjeeva.digitalocean.common.LoadBalancingAlgorithm;
 import com.myjeeva.digitalocean.common.Protocol;
 import com.myjeeva.digitalocean.common.ResourceType;
@@ -57,6 +58,8 @@ import com.myjeeva.digitalocean.pojo.Key;
 import com.myjeeva.digitalocean.pojo.LoadBalancer;
 import com.myjeeva.digitalocean.pojo.Neighbors;
 import com.myjeeva.digitalocean.pojo.OutboundRules;
+import com.myjeeva.digitalocean.pojo.Project;
+import com.myjeeva.digitalocean.pojo.Projects;
 import com.myjeeva.digitalocean.pojo.Region;
 import com.myjeeva.digitalocean.pojo.Resource;
 import com.myjeeva.digitalocean.pojo.Response;
@@ -108,6 +111,8 @@ public class DigitalOceanIntegrationTest {
       "190ceeb7-779a-4b04-9091-4dd175de65ec"; // to be placed before use
 
   private final String domainName = "";
+
+  private String projectId;
 
   private final DigitalOcean apiClient = new DigitalOceanClient(authTokenRW);
 
@@ -1246,6 +1251,106 @@ public class DigitalOceanIntegrationTest {
   @Test
   public void testDeleteFirewall() throws DigitalOceanException, RequestUnsuccessfulException {
     Delete result = apiClient.deleteFirewall(firewallIdForInfo);
+    assertNotNull(result);
+  }
+
+  @Test
+  public void createProject() throws DigitalOceanException, RequestUnsuccessfulException {
+    Project project = new Project();
+    project.setDescription("test description");
+    project.setName("test name");
+    project.setPurpose("custom project purpose");
+    project.setEnvironment(Environment.DEVELOPMENT);
+
+    Project p = apiClient.createProject(project);
+    projectId = p.getId();
+
+    assertNotNull(p);
+    assertNotNull(p.getId());
+
+    log.info(p.toString());
+  }
+
+  @Test
+  public void testGetAvailableProjects()
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    Projects projects = apiClient.getAvailableProjects();
+
+    assertNotNull(projects);
+    assertFalse(projects.getProjects().isEmpty());
+
+    for (Project project : projects.getProjects()) {
+      log.info(project.toString());
+    }
+  }
+
+  @Test
+  public void testUpdateProject() throws DigitalOceanException, RequestUnsuccessfulException {
+    Project project = apiClient.getProject(projectId);
+    project.setName("updated project name");
+
+    Project p = apiClient.updateProject(project);
+
+    assertNotNull(p);
+    assertNotNull(p.getId());
+
+    log.info(p.toString());
+  }
+
+  @Test
+  public void testPatchProject() throws DigitalOceanException, RequestUnsuccessfulException {
+    Project project = apiClient.getProject(projectId);
+    project.setName("updated project name");
+
+    Project p = apiClient.patchProject(project);
+
+    assertNotNull(p);
+    assertNotNull(p.getId());
+
+    log.info(p.toString());
+  }
+
+  @Test
+  public void testGetDefaultProject() throws DigitalOceanException, RequestUnsuccessfulException {
+    Project project = apiClient.getDefaultProject();
+
+    assertNotNull(project);
+    assertNotNull(project.getId());
+
+    log.info(project.toString());
+  }
+
+  @Test
+  public void testPatchDefaultProject() throws DigitalOceanException, RequestUnsuccessfulException {
+    Project project = apiClient.getDefaultProject();
+    project.setName("Updated default project name");
+
+    Project p = apiClient.patchDefaultProject(project);
+
+    assertNotNull(p);
+    assertNotNull(p.getId());
+
+    log.info(p.toString());
+  }
+
+  @Test
+  public void testUpdateDefaultProject()
+      throws DigitalOceanException, RequestUnsuccessfulException {
+    Project project = apiClient.getDefaultProject();
+    project.setDescription("Updated default project description");
+    project.setName("Updated default project name");
+
+    Project p = apiClient.updateDefaultProject(project);
+
+    assertNotNull(p);
+    assertNotNull(p.getId());
+
+    log.info(p.toString());
+  }
+
+  @Test
+  public void testDeleteProject() throws DigitalOceanException, RequestUnsuccessfulException {
+    Delete result = apiClient.deleteProject(projectId);
     assertNotNull(result);
   }
 }
