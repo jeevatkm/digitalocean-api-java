@@ -20,13 +20,15 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.myjeeva.digitalocean.common.ImageStatus;
 import com.myjeeva.digitalocean.common.ImageType;
-import java.util.Date;
-import java.util.List;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
  * Represents Droplet Image (also public images aka Distribution) attributes of DigitalOcean
@@ -38,7 +40,7 @@ public class Image extends Base {
 
   private static final long serialVersionUID = 1321111459154107563L;
 
-  private Integer id;
+  private String id;
 
   @Expose private String name;
 
@@ -82,12 +84,8 @@ public class Image extends Base {
     // Default constructor
   }
 
-  public Image(Integer id) {
+  public Image(String id) {
     this.id = id;
-  }
-
-  public Image(String slug) {
-    this.slug = slug;
   }
 
   public Image(String name, String url, String region) {
@@ -112,12 +110,12 @@ public class Image extends Base {
   }
 
   /** @return the id */
-  public Integer getId() {
+  public String getId() {
     return id;
   }
 
   /** @param id the id to set */
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 

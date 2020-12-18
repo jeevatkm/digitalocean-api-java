@@ -24,6 +24,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.myjeeva.digitalocean.common.ActionType;
 import com.myjeeva.digitalocean.common.Environment;
 import com.myjeeva.digitalocean.common.LoadBalancingAlgorithm;
@@ -70,15 +81,6 @@ import com.myjeeva.digitalocean.pojo.StickySessions;
 import com.myjeeva.digitalocean.pojo.Tag;
 import com.myjeeva.digitalocean.pojo.Volume;
 import com.myjeeva.digitalocean.pojo.Volumes;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Junit Integration Test case for DigitalOcean API client wrapper methods
@@ -109,6 +111,9 @@ public class DigitalOceanIntegrationTest {
   // before use
   private final String firewallIdForInfo =
       "190ceeb7-779a-4b04-9091-4dd175de65ec"; // to be placed before use
+
+  private final String imageIdForDropletCreation = "1601"; // to be placed before use. Same is used for updating the
+                                                           // image info
 
   private final String domainName = "";
 
@@ -175,7 +180,7 @@ public class DigitalOceanIntegrationTest {
     Droplet droplet = new Droplet();
     droplet.setName("api-client-test-host-byid");
     droplet.setSize("512mb");
-    droplet.setImage(new Image(1601));
+    droplet.setImage(new Image(imageIdForDropletCreation));
     droplet.setRegion(new Region("sgp1"));
     droplet.setEnableBackup(Boolean.TRUE);
     droplet.setEnableIpv6(Boolean.TRUE);
@@ -574,7 +579,7 @@ public class DigitalOceanIntegrationTest {
   public void testUpdateImageInfo() throws DigitalOceanException, RequestUnsuccessfulException {
 
     Image input = new Image();
-    input.setId(3897539);
+    input.setId(imageIdForDropletCreation);
     input.setName("test-myjeeva.com-before-wp-upgrade");
     Image image = apiClient.updateImage(input);
 
