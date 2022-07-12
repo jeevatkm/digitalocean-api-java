@@ -46,7 +46,7 @@ public class Size extends Base {
   @SerializedName("disk")
   private Integer diskSize;
 
-  private Long transfer;
+  private Double transfer;
 
   @SerializedName("price_monthly")
   private BigDecimal priceMonthly;
@@ -112,12 +112,12 @@ public class Size extends Base {
   }
 
   /** @return the transfer */
-  public Long getTransfer() {
+  public Double getTransfer() {
     return transfer;
   }
 
   /** @param transfer the transfer to set */
-  public void setTransfer(Long transfer) {
+  public void setTransfer(Double transfer) {
     this.transfer = transfer;
   }
 
