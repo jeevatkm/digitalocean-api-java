@@ -12,7 +12,7 @@
 	<artifactId>digitalocean-api-client</artifactId>
 	<packaging>jar</packaging>
 	<name>DigitalOcean API Client in Java</name>
-	<version>2.18-SNAPSHOT</version>
+	<version>2.18</version>
 	<description>DigitalOcean API Client in Java</description>
 	<url>https://myjeeva.com</url>
 	<licenses>
@@ -26,7 +26,8 @@
 		<connection>scm:git:git@github.com:halkeye/digitalocean-api-java.git</connection>
 		<developerConnection>scm:git:git@github.com:halkeye/digitalocean-api-java.git</developerConnection>
 		<url>git@github.com:halkeye/digitalocean-api-java.git</url>
-	</scm>
+	  <tag>digitalocean-api-client-2.18</tag>
+  </scm>
 	<developers>
 		<developer>
 			<id>halkeye</id>
