@@ -17,7 +17,7 @@
 	<url>https://myjeeva.com</url>
 	<licenses>
 		<license>
-			<name>The MIT License (MIT)</name>
+			<name>MIT License</name>
 			<url>https://github.com/halkeye/digitalocean-api-java/blob/master/LICENSE</url>
 			<distribution>repo</distribution>
 		</license>
@@ -26,7 +26,8 @@
 		<connection>scm:git:git@github.com:halkeye/digitalocean-api-java.git</connection>
 		<developerConnection>scm:git:git@github.com:halkeye/digitalocean-api-java.git</developerConnection>
 		<url>git@github.com:halkeye/digitalocean-api-java.git</url>
-	</scm>
+	  <tag>HEAD</tag>
+  </scm>
 	<developers>
 		<developer>
 			<id>halkeye</id>
@@ -46,6 +47,33 @@
 		<javadoc.basepath>${project.basedir}/javadoc</javadoc.basepath>
 		<javadoc.output.path>${javadoc.basepath}</javadoc.output.path>
 	</properties>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<name>Nexus Release Repository</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<name>Nexus Release Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>sonatype-releases</id>
+			<name>Sonatype releases</name>
+			<url>https://oss.sonatype.org/content/repositories/releases/</url>
+		</repository>
+		<repository>
+			<id>sonatype-snapshots</id>
+			<name>Sonatype snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
+
 
 	<!-- Dependencies -->
 	<dependencies>
@@ -97,6 +125,20 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -110,6 +152,17 @@
 						<compilerArguments>
 							<Xmaxerrs>1000</Xmaxerrs>
 						</compilerArguments>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.sonatype.plugins</groupId>
+					<artifactId>nexus-staging-maven-plugin</artifactId>
+					<version>1.6.8</version>
+					<extensions>true</extensions>
+					<configuration>
+						<serverId>ossrh</serverId>
+						<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+						<autoReleaseAfterClose>true</autoReleaseAfterClose>
 					</configuration>
 				</plugin>
 				<plugin>
