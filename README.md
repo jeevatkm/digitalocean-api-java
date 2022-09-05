@@ -1,23 +1,35 @@
-<p align="center">
-  <h1 align="center">DigitalOcean API Client for Java</h1>
-  <p align="center"><a href="https://travis-ci.org/jeevatkm/digitalocean-api-java"><img src="https://img.shields.io/travis/jeevatkm/digitalocean-api-java/master.svg?style=flat-square" alt="Build Status" /></a> <a href="https://github.com/jeevatkm/digitalocean-api-java/releases/latest"><img src="https://img.shields.io/badge/version-2.17-blue.svg?style=flat-square" alt="Version" /></a> <a href="https://docs.myjeeva.com/javadoc/digitalocean-api-client/2.17/" target="_blank"><img src="https://img.shields.io/badge/javadoc-reference-00bcd4.svg?style=flat-square" alt="Javadoc" /></a> <a href="LICENSE"><img src="https://img.shields.io/github/license/jeevatkm/digitalocean-api-java.svg?style=flat-square" alt="License" /></a> </p>
-  <p align="center">Simple & Lightweight API client library for Enterprise Application or Utilities Integration around <a href="https://developers.digitalocean.com" target="_blank">DigitalOcean RESTful APIs</a>. You can use this library with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.</p>
-</p>
-<p align="center">
-Give your support by clicking Hearts on <a href="https://www.digitalocean.com/community/projects/api-client-in-java" target="_blank">DigitalOcean Developers Community</a>.
-</p>
+# DigitalOcean API Client for Java
+
+This is a fork of the original [jeevatkm](https://github.com/jeevatkm/digitalocean-api-java) digitalocean-api-java library.
+
+Changes:
+
+* pom changed to com.gavinmogan.digitalocean:digitalocean-api-client
+* merged in:
+  * https://github.com/jeevatkm/digitalocean-api-java/pull/123
+  * https://github.com/jeevatkm/digitalocean-api-java/pull/121
+  * https://github.com/jeevatkm/digitalocean-api-java/pull/119
+  * https://github.com/jeevatkm/digitalocean-api-java/pull/116
+  * https://github.com/jeevatkm/digitalocean-api-java/pull/115
+
+## Synopsys
+
+Simple & Lightweight API client library for Enterprise Application or Utilities Integration around <a href="https://developers.digitalocean.com" target="_blank">DigitalOcean RESTful APIs</a>. You can use this library with project based (JVM hosted languages) on Java, Groovy, Scala, Clojure, etc.</p>
+
+Give your support by clicking Hearts on [DigitalOcean Developers Community](https://www.digitalocean.com/community/projects/api-client-in-java).
 
 ## News
 
-  * [v2.17](https://github.com/jeevatkm/digitalocean-api-java/releases/tag/v2.17) released and tagged on Feb 03, 2019
-  * [v2.16](https://github.com/jeevatkm/digitalocean-api-java/releases/tag/v2.16) released and tagged on Sep 03, 2018
-  * [v2.15](https://github.com/jeevatkm/digitalocean-api-java/releases/tag/v2.15) released and tagged on May 5, 2018
-  * [v2.14](https://github.com/jeevatkm/digitalocean-api-java/releases/tag/v2.14) released and tagged on Mar 6, 2018
-  * [v2.13](https://github.com/jeevatkm/digitalocean-api-java/releases/tag/v2.13) eleased and tagged on Nov 18, 2017
+* [v2.17](https://github.com/halkeye/digitalocean-api-java/releases/tag/v2.187) released and tagged on Sep 05, 2022
+* [v2.17](https://github.com/jeevatkm/digitalocean-api-java/releases/tag/v2.17) released and tagged on Feb 03, 2019
+* [v2.16](https://github.com/jeevatkm/digitalocean-api-java/releases/tag/v2.16) released and tagged on Sep 03, 2018
+* [v2.15](https://github.com/jeevatkm/digitalocean-api-java/releases/tag/v2.15) released and tagged on May 5, 2018
+* [v2.14](https://github.com/jeevatkm/digitalocean-api-java/releases/tag/v2.14) released and tagged on Mar 6, 2018
+* [v2.13](https://github.com/jeevatkm/digitalocean-api-java/releases/tag/v2.13) eleased and tagged on Nov 18, 2017
 
 ## Getting Started
 
-For handy use, DigitalOcean API Client library project dependency definition provided below or you wanna jar [Download it](http://search.maven.org/remotecontent?filepath=com/myjeeva/digitalocean/digitalocean-api-client/2.17/digitalocean-api-client-2.17.jar) from Maven central repo.
+For handy use, DigitalOcean API Client library project dependency definition provided below or you wanna jar [Download it](http://search.maven.org/remotecontent?filepath=com/gavinmogan/digitalocean/digitalocean-api-client/2.17/digitalocean-api-client-2.18.jar) from Maven central repo.
 
 *Note: [master](https://github.com/jeevatkm/digitalocean-api-java) branch maps to v2 APIs and digitalocean turned off [v1 APIs](https://developers.digitalocean.com/documentation/changelog/api-v1/sunsetting-api-v1/) as on Nov 9, 2015 .*
 
@@ -26,28 +38,28 @@ For handy use, DigitalOcean API Client library project dependency definition pro
 <dependency>
     <groupId>com.myjeeva.digitalocean</groupId>
     <artifactId>digitalocean-api-client</artifactId>
-    <version>2.17</version>
+    <version>2.18</version>
 </dependency>
 ```
 **Gradle/Grails dependency**
 ```shell
-compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.17'
+compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.18'
 ```
 **Groovy Grape**
 ```groovy
 @Grapes(
-@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.17')
+@Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='2.18')
 )
 ```
 **Scala SBT**
 ```shell
-libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.17"
+libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "2.18"
 ```
 
-**Note:** 
+**Note:**
 
-  * For Android projects, kindly include the `httpclient-android` library explicitly in your project dependencies.
-  * Library `vx.x-SNAPSHOT` is [available](https://oss.sonatype.org/content/repositories/snapshots/com/myjeeva/digitalocean/digitalocean-api-client/) between the release version. Snapshot is update to with `master` branch.
+* For Android projects, kindly include the `httpclient-android` library explicitly in your project dependencies.
+* Library `vx.x-SNAPSHOT` is [available](https://oss.sonatype.org/content/repositories/snapshots/com/myjeeva/digitalocean/digitalocean-api-client/) between the release version. Snapshot is update to with `master` branch.
 
 * * *
 
@@ -55,11 +67,11 @@ libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % 
 
 For API documentation see:
 
-* [DigitalOcean API Client in Java](https://docs.myjeeva.com/javadoc/digitalocean-api-client/2.17/)
+* ~[DigitalOcean API Client in Java](https://docs.myjeeva.com/javadoc/digitalocean-api-client/2.17/)~
 
 For Example usage see:
 
-* Have a look at [DigitalOceanIntegrationTest](https://github.com/jeevatkm/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanIntegrationTest.java)
+* Have a look at [DigitalOceanIntegrationTest](https://github.com/halkeye/digitalocean-api-java/blob/master/src/test/java/com/myjeeva/digitalocean/DigitalOceanIntegrationTest.java)
 
 ## Samples
 
@@ -157,7 +169,7 @@ Jeevanandam M. - jeeva@myjeeva.com
 
 ## Contributors
 
-Please refer to https://github.com/jeevatkm/digitalocean-api-java/graphs/contributors
+Please refer to https://github.com/halkeye/digitalocean-api-java/graphs/contributors
 
 ## Contributing
 
