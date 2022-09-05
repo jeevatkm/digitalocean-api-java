@@ -1,4 +1,41 @@
+tag-template:  digitalocean-api-client-$NEXT_MINOR_VERSION
+name-template: $NEXT_MINOR_VERSION
+version-template: $MAJOR.$MINOR
+categories:
+  # Default label used by Dependabot
+  - title: 📦 Dependency updates
+    labels:
+      - dependencies
+    collapse-after: 15
 template: |
+  # DigitalOcean API Client for Java
+
+  This is a fork of the original [jeevatkm](https://github.com/jeevatkm/digitalocean-api-java) digitalocean-api-java library.
+
+  ## Usage
+
+  ```xml
+  <dependency>
+      <groupId>com.myjeeva.digitalocean</groupId>
+      <artifactId>digitalocean-api-client</artifactId>
+      <version>$NEXT_MINOR_VERSION</version>
+  </dependency>
+  ```
+  **Gradle/Grails dependency**
+  ```shell
+  compile 'com.myjeeva.digitalocean:digitalocean-api-client:$NEXT_MINOR_VERSION'
+  ```
+  **Groovy Grape**
+  ```groovy
+  @Grapes(
+  @Grab(group='com.myjeeva.digitalocean', module='digitalocean-api-client', version='$NEXT_MINOR_VERSION')
+  )
+  ```
+  **Scala SBT**
+  ```shell
+  libraryDependencies += "com.myjeeva.digitalocean" % "digitalocean-api-client" % "$NEXT_MINOR_VERSION"
+  ```
+
   ## What’s Changed
 
   $CHANGES
