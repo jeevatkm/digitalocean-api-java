@@ -20,15 +20,13 @@
  */
 package com.myjeeva.digitalocean.pojo;
 
-import java.util.Date;
-import java.util.List;
-
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.myjeeva.digitalocean.common.ImageStatus;
 import com.myjeeva.digitalocean.common.ImageType;
+import java.util.Date;
+import java.util.List;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
  * Represents Droplet Image (also public images aka Distribution) attributes of DigitalOcean
